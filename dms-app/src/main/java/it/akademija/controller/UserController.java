@@ -2,9 +2,9 @@ package it.akademija.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import it.akademija.model.NewUser;
-import it.akademija.model.User;
+import it.akademija.model.user.NewUser;
+import it.akademija.model.user.User;
+import it.akademija.model.user.UserForClient;
 import it.akademija.service.UserService;
 
 @RestController
@@ -48,14 +49,14 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(value = "Get Users", notes = "Returns list of all users")
-	public List<User> getUsers() {
-		return userService.getUsers(); 
+	public List<UserForClient> getUsersForClient() {
+		return userService.getUsersForClient(); 
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User", notes = "Returns user by username")
-	public User getUser(@PathVariable String username) {
-		return userService.getUser(username);
+	public UserForClient getUserForClient(@PathVariable String username) {
+		return userService.getUserForClient(username);
 	}
 	
 
@@ -66,12 +67,20 @@ public class UserController {
 		userService.saveUser(newUser);
 	}
 	
+	@RequestMapping(path = "/admin", method = RequestMethod.POST)
+	//@PreAuthorize("hasRole('ROLE_ADMIN')") // kurti nauja admin leidzia tik ROLE_ADMIN
+	@ApiOperation(value = "Create admin user", notes = "Creates admin user with data")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveAdmin(@ApiParam(value = "Admin user data", required = true) @Valid @RequestBody final NewUser newUser) {
+		userService.saveAdmin(newUser);
+	}
+	
 	@RequestMapping(path = "/{username}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update user", notes = "Update user info")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')") // kurti nauja admin leidzia tik ROLE_ADMIN
+	@ApiOperation(value = "Update user", notes = "Update user password")
 	public User updatePassword(@ApiParam(value = "User Data", required = true) @Valid @PathVariable String username,
 			@RequestBody final NewUser newUser) {
 		return userService.updatePassword(username, newUser);
-
 	}
 
 	

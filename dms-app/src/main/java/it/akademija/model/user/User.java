@@ -1,14 +1,18 @@
-package it.akademija.model;
+package it.akademija.model.user;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.Table;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
-
+import it.akademija.model.role.Role;
 
 @Entity
 public class User {
@@ -18,9 +22,16 @@ public class User {
 	private Long id;
 	@NotBlank
 	private String password;
+	@NotBlank
+    @Column(unique=true, nullable=false) 
 	private String username;
+	@NotBlank
 	private String firstName;
+	@NotBlank
 	private String lastName;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Collection<Role> roles;
 
 
 	
@@ -91,7 +102,13 @@ public class User {
 		this.id = id;
 	}
 
+	public Collection<Role> getRoles() {
+		return roles;
+	}
 
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
 
 	
 

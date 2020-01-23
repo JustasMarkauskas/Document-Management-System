@@ -1,4 +1,4 @@
-package it.akademija.model;
+package it.akademija.model.user;
 
 
 
