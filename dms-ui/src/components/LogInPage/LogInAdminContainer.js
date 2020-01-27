@@ -3,66 +3,49 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInAdminComponent from "./LogInAdminComponent";
 
-
+axios.defaults.withCredentials = true; // leidzia dalintis cookies
 class LogInAdminContainer extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        Admin: {
-        adminName:"",
-        adminPassword:""
-        }
-      };
+    this.state = {
+      adminName: "",
+      adminPassword: ""
+    };
   }
 
-  handleAdminNameChange = event =>{
-      var adminNameValue = event.target.value;
-      this.setState(prevState =>{
-          let Admin = Object.assign({}, prevState.Admin);
-          Admin.adminName = adminNameValue;
-          return{Admin};
-      });
-  }
-
-  handleAdminPasswordChange = event =>{
-    var adminPasswordValue = event.target.value;
-    this.setState(prevState =>{
-        let Admin = Object.assign({}, prevState.Admin);
-        Admin.adminPassword = adminPasswordValue;
-        return{Admin};
-    });
-  }
-
-        //   handleUserButton = event => {
-        //     event.preventDefault();
-        //     this.props.history.push("/");
-        //   };
-
-  handleAdminLogIn = event => {
-    event.preventDefault();
-        // axios     
-        //   .post("http://localhost:8081/api/institutions/", {
-        //     adminName: this.state.Admin.adminName,
-        //     adminPassword: this.state.Admin.adminPassword        
-        //   })
-        //   .then(response => {
-        //     console.log(response);
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
-
-
-    this.setState({
-      Admin: {
-        adminName:"",
-        adminPassword:""
-      }
-    });
+  handleAdminNameChange = event => {
+    this.setState({ adminName: event.target.value });
   };
 
-  render (){
-    return(
+  handleAdminPasswordChange = event => {
+    this.setState({ adminPassword: event.target.value });
+  };
+
+  //   handleUserButton = event => {
+  //     event.preventDefault();
+  //     this.props.history.push("/");
+  //   };
+
+  handleAdminLogIn = event => {
+    let userData = new URLSearchParams();
+    userData.append("username", this.state.adminName);
+    userData.append("password", this.state.adminPassword);
+    axios
+      .post("http://localhost:8081/login", userData, {
+        headers: { "Content-type": "application/x-www-form-urlencoded" }
+      })
+      .then(resp => {
+        console.log("user " + resp.data.username + " logged in"); //veliau istrinti
+        this.props.history.push("/adminPage");
+      })
+      .catch(e => {
+        console.log(e.resp);
+      });
+    event.preventDefault();
+  };
+
+  render() {
+    return (
       <LogInAdminComponent
         handleAdminNameChange={this.handleAdminNameChange}
         handleAdminPasswordChange={this.handleAdminPasswordChange}
@@ -71,4 +54,4 @@ class LogInAdminContainer extends React.Component {
     );
   }
 }
-export default withRouter (LogInAdminContainer);
+export default withRouter(LogInAdminContainer);
