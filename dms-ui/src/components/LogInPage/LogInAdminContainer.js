@@ -8,8 +8,10 @@ class LogInAdminContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      adminName: "",
-      adminPassword: ""
+      Admin: {
+        adminName: "",
+        adminPassword: ""
+      }
     };
   }
 
