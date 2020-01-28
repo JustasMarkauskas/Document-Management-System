@@ -7,6 +7,7 @@ import it.akademija.model.user.User;
 public interface UserRepository extends JpaRepository<User, Long>  {
 	
 	User findByUsername (String username);
+	void deleteByComment (String comment);
 	
 
 }

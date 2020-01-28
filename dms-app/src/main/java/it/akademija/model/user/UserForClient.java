@@ -5,15 +5,17 @@ public class UserForClient {
 	private String firstName;
 	private String lastName;
 	private String username;
+	private String comment;
 
 	public UserForClient() {
 	}
 
-	public UserForClient(String firstName, String lastName,  String username) {
+	public UserForClient(String firstName, String lastName,  String username, String comment) {
 
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
+		this.comment = comment;
 	}
 
 	public String getFirstName() {
@@ -38,6 +40,14 @@ public class UserForClient {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 

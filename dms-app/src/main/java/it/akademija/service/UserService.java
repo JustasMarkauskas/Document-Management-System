@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public List<UserForClient> getUsersForClient() {
 		return userRepository.findAll().stream().map(
-				(user) -> new UserForClient(user.getFirstName(), user.getLastName(), user.getUsername()))
+				(user) -> new UserForClient(user.getFirstName(), user.getLastName(), user.getUsername(), user.getComment()))
 				.collect(Collectors.toList());
 	}
 	
@@ -79,6 +79,7 @@ public class UserService implements UserDetailsService {
 		user.setUsername(newUser.getUsername());
 		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
+		user.setComment(newUser.getComment());
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		user.setPassword(encoder.encode(newUser.getPassword()));
 		Role role = roleRepository.findByName("ROLE_USER");
@@ -93,6 +94,7 @@ public class UserService implements UserDetailsService {
 		user.setUsername(newUser.getUsername());
 		user.setFirstName(newUser.getFirstName());
 		user.setLastName(newUser.getLastName());
+		user.setComment(newUser.getComment());
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		user.setPassword(encoder.encode(newUser.getPassword()));
 		Role role = roleRepository.findByName("ROLE_ADMIN");
@@ -109,4 +111,11 @@ public class UserService implements UserDetailsService {
 		return existingUser;
 	}
 
+	
+	@Transactional
+	public void deleteUsersByComment(String comment) {
+		userRepository.deleteByComment(comment);
+
+	}
+	
 }

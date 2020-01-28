@@ -29,17 +29,19 @@ public class User {
 	private String firstName;
 	@NotBlank
 	private String lastName;
+	private String comment;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 
 
 	
-	public User(String password, String username, String firstName, String lastName, Long id) {
+	public User(String password, String username, String firstName, String lastName, String comment, Long id) {
 		this.password = password;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.setComment(comment);
 		this.id = id;
 	}
 
@@ -108,6 +110,14 @@ public class User {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	

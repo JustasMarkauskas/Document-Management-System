@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -78,11 +79,17 @@ public class UserController {
 	@RequestMapping(path = "/{username}", method = RequestMethod.PUT)
 	//@PreAuthorize("hasRole('ROLE_ADMIN')") // kurti nauja admin leidzia tik ROLE_ADMIN
 	@ApiOperation(value = "Update user", notes = "Update user password")
-	public User updatePassword(@ApiParam(value = "User Data", required = true) @Valid @PathVariable String username,
-			@RequestBody final NewUser newUser) {
+	public User updatePassword(@ApiParam(value = "User Data", required = true) @PathVariable String username,
+			@Valid @RequestBody final NewUser newUser) {
 		return userService.updatePassword(username, newUser);
 	}
 
+	@RequestMapping(method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public List<User> deleteUsersByComment(@RequestParam final String comment) {
+		userService.deleteUsersByComment(comment);
+		return userService.getUsers();
+	}
 	
 
 
