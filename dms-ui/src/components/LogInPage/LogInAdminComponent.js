@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 const LogInAdminComponent = ({
   handleAdminNameChange,
   handleAdminPasswordChange,
-  // handleAdminButton,
-  // handleUserButton,
   handleAdminLogIn,
   adminName,
   adminPassword
@@ -18,8 +16,7 @@ const LogInAdminComponent = ({
             <ul className="logNav mr-auto mt-2 mt-lg-0 d-flex justify-content-center align-items-center">
               <li className="nav-item">
                 <Link className="col-2" to="/">
-                  <button
-                    // onClick={handleUserButton}
+                  <button                    
                     type="button"
                     className="btn btn-secondary"
                   >
@@ -29,8 +26,7 @@ const LogInAdminComponent = ({
               </li>
               <li className="nav-item">
                 <Link className="col-2" to="/admin">
-                  <button
-                    // onClick={handleAdminButton}
+                  <button                    
                     type="button"
                     className="btn btn-secondary"
                   >
@@ -65,13 +61,15 @@ const LogInAdminComponent = ({
               ></input>
             </div>
             <div className="d-flex justify-content-center">
-              <button
-                onClick={handleAdminLogIn}
-                type="submit"
-                className="btn btn-danger"
-              >
-                Log In As Administrator
-              </button>
+            <Link className="" to="/adminhomepage-users">
+                <button
+                  onClick={handleAdminLogIn}
+                  type="submit"
+                  className="btn btn-danger"
+                >
+                  Log In As Administrator
+                </button>
+              </Link>
             </div>
           </form>
         </div>
@@ -80,3 +78,6 @@ const LogInAdminComponent = ({
   );
 };
 export default LogInAdminComponent;
+
+
+// Login as administrator mygtukas padarytas su Linku, kad butu patogiau dirbti kuriant admin interface
