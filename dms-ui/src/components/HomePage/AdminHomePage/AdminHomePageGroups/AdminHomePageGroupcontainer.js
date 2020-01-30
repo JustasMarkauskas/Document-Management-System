@@ -1,44 +1,43 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
+import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
 
-class AdminHomePageUsersContainer extends React.Component {
+class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      groups: []
     };
   }
 
-  getUsers = () => {
+  getGroups = () => {
     axios
-      .get("http://localhost:8081/api/user")
+      .get("http://localhost:8081/api/group")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState({ groups: response.data });
       })
       .catch(error => {
         console.log(error);
       });
   };
   componentDidMount() {
-    this.getUsers();
+    this.getGroups();
   }
 
   handleActionClick = event => {
     event.preventDefault();
-    this.props.history.push("/user-info"); //navigacija teisinga padaryti
+    this.props.history.push("/group-info"); //navigacija teisinga padaryti
   };
 
   render() {
-    const userInfo = this.state.users.map((user, index) => (
-      <AdminHomePageUsersComponent
+    const groupInfo = this.state.groups.map((group, index) => (
+      <AdminHomePageGroupComponent
         key={index}
         rowNr={index + 1}
-        firstName={user.firstName}
-        lastName={user.lastName}
-        username={user.username}
-        comment={user.comment}
+        groupName={group.groupName}
+        groupSize={group.groupSize}        
+        comment={group.comment}
         handleActionClick={this.handleActionClick}
       />
     ));
@@ -49,18 +48,17 @@ class AdminHomePageUsersContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Surname</th>
-              <th scope="col">Username</th>
+              <th scope="col">Group Name</th>
+              <th scope="col">Group Size</th>              
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>{userInfo}</tbody>
+          <tbody>{groupInfo}</tbody>
         </table>
       </div>
     );
   }
 }
 
-export default withRouter(AdminHomePageUsersContainer);
+export default withRouter(AdminHomePageGroupContainer);

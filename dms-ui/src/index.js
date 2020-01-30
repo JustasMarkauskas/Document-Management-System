@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import LogInAdminContainer from "./components/LogInPage/LogInAdminContainer";
 import LogInUserContainer from "./components/LogInPage/LogInUserContainer";
 import AdminHomePageContainer from "./components/HomePage/AdminHomePage/AdminHomePageContainer";
-import AdminHomePageDocumentContainer from "./components/HomePage/AdminHomePage/AdminHomePageDocuments/AdminHomePageDocumentContainer";
+import AdminHomePageDocumentsContainer from "./components/HomePage/AdminHomePage/AdminHomePageDocuments/AdminHomePageDocumentsContainer";
 import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/AdminHomePageGroupsContainer";
 import AdminHomePageUsersContainer from "./components/HomePage/AdminHomePage/AdminHomePageUsers/AdminHomePageUsersContainer";
 
@@ -21,7 +21,7 @@ ReactDOM.render(
       <Route path="/adminhomepage-users" component={AdminHomePageContainer} />
       <Route
         path="/adminhomepage-documents"
-        component={AdminHomePageDocumentContainer}
+        component={AdminHomePageDocumentsContainer}
       />
       <Route
         path="/adminhomepage-groups"
