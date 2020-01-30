@@ -18,7 +18,7 @@ public class NewUser {
 	@Length(min = 8, max = 20)
 	private String password;
 	@NotNull
-	@Length(min = 5, max = 15)
+	@Length(min = 5, max = 20)
 	private String username;
 
 	public NewUser() {

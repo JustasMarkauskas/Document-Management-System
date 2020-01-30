@@ -1,49 +1,58 @@
 package it.akademija.model.role;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import it.akademija.model.operation.Operation;
 import it.akademija.model.user.User;
 
 @Entity
-public class Role {
+public class Role implements GrantedAuthority {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private String name;
+	private String id;
 
-	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "roles", cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private Collection<User> users;
+
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@JoinTable(name = "role_operations", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "operation_id", referencedColumnName = "id"))
+	private Collection<Operation> operations;
 
 	public Role() {
 	}
 
-	public Role(Long id, String name) {
+	public Role(String id, Collection<User> users, Collection<Operation> operations) {
 		this.id = id;
-		this.name = name;
+		this.users = users;
+		this.operations = operations;
 	}
 
-	public Long getId() {
+	public Role(String id) {
+
+		this.id = id;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Collection<User> getUsers() {
@@ -54,6 +63,28 @@ public class Role {
 		this.users = users;
 	}
 
-	
+	public Collection<Operation> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(Collection<Operation> operations) {
+		this.operations = operations;
+	}
+
+	@Override
+	public String getAuthority() {
+		return id;
+	}
+
+	public List<GrantedAuthority> getGrantedAutoritiesFromOperations() {
+
+		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+		for (Operation operation : operations) {
+			grantedAuthorities.add(new SimpleGrantedAuthority(operation.getId()));
+		}
+		List<GrantedAuthority> grantedAuthoritiesList = grantedAuthorities.stream().collect(Collectors.toList());
+		return grantedAuthoritiesList;
+
+	}
 
 }

@@ -30,7 +30,9 @@ public class User {
 	@NotBlank
 	private String lastName;
 	private String comment;
-	@ManyToMany(cascade = CascadeType.ALL)
+	
+
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 
