@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_specChars</testDataGroup>
+		<identificator>name_dot</identificator>
+		<groupName>sales.East</groupName>
+	</Group>
+	<Group>
+		<testDataGroup>group_specChars</testDataGroup>
+		<identificator>name_asterix</identificator>
+		<groupName>*group*</groupName>
+	</Group>
+	<Group>
+		<testDataGroup>group_specChars</testDataGroup>
+		<identificator>name_questionMark</identificator>
+		<groupName>Group?</groupName>
+	</Group>
+	<Group>
+		<testDataGroup>group_specChars</testDataGroup>
+		<identificator>name_startSpace</identificator>
+		<groupName> accounts1</groupName>
+	</Group>
+	<Group>
+		<testDataGroup>group_specChars</testDataGroup>
+		<identificator>name_endSpace</identificator>
+		<groupName>Warehouse0 </groupName>
+	</Group>
+</resources.models.GroupData>
