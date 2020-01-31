@@ -11,6 +11,7 @@ public class RoleForClient {
 
 	
 	private String id;
+	private String comment;
 	private Collection<User> users;
 	private Collection<Operation> operations;
 	
@@ -18,15 +19,17 @@ public class RoleForClient {
 	public RoleForClient() {
 	}
 
-	public RoleForClient(String id, Collection<User> users, Collection<Operation> operations) {
+	public RoleForClient(String id, String comment, Collection<User> users, Collection<Operation> operations) {
 		this.id = id;
+		this.comment = comment;
 		this.users = users;
 		this.operations = operations;
 	}
 
 	
-	public RoleForClient(String id) {
+	public RoleForClient(String id, String comment) {
 		this.id = id;
+		this.setComment(comment);
 	}
 	
 	
@@ -52,6 +55,14 @@ public class RoleForClient {
 
 	public void setOperations(Collection<Operation> operations) {
 		this.operations = operations;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	
