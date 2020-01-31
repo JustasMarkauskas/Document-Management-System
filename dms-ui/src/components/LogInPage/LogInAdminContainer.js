@@ -29,7 +29,9 @@ class LogInAdminContainer extends React.Component {
     userData.append("password", this.state.adminPassword);
     axios
       .post("http://localhost:8081/login", userData, {
-        headers: { "Content-type": "application/x-www-form-urlencoded" }
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded"
+        }
       })
       .then(resp => {
         console.log("user " + resp.data.username + " logged in"); //veliau istrinti
