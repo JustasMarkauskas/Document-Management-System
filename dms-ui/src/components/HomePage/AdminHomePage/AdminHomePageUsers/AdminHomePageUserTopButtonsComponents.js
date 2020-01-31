@@ -10,7 +10,8 @@ const AdminHomePageTopButtonsComponent = ({
                 <button
                 onClick={handleAddUserButton} 
                 type="button" 
-                className="btn btn-primary col-lg-2 mb-2">
+                className="btn btn-primary col-lg-2 mb-2"
+                id="adminAddNewUserButton">
                     Add new user
                 </button>
                 <div className="input-group mb-3 col-lg-5">
@@ -21,13 +22,14 @@ const AdminHomePageTopButtonsComponent = ({
                     className="form-control" 
                     placeholder="Username" 
                     aria-label="username" 
-                    aria-describedby="button-addon2">
+                    aria-describedby="button-addon2"
+                    id="adminUserSearchInput">
                     </input>
                     <div className="input-group-append">
                     <button 
                         className="btn btn-primary" 
                         type="button" 
-                        id="button-addon2"
+                        id="adminUserSearchButton"
                         onClick={handleSearchButton}
                         >
                         Search

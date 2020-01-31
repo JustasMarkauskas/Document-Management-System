@@ -19,6 +19,7 @@ const LogInAdminComponent = ({
                   <button                    
                     type="button"
                     className="btn btn-secondary"
+                    id="userLoginSelection"
                   >
                     User
                   </button>
@@ -29,6 +30,7 @@ const LogInAdminComponent = ({
                   <button                    
                     type="button"
                     className="btn btn-secondary"
+                    id="adminLoginSelection"
                   >
                     Admin
                   </button>
@@ -42,7 +44,7 @@ const LogInAdminComponent = ({
               <input
                 type="text"
                 className="form-control"
-                id="adminName"
+                id="inputAdminNameLogin"
                 aria-describedby="emailHelp"
                 onChange={handleAdminNameChange}
                 value={adminName}
@@ -55,7 +57,7 @@ const LogInAdminComponent = ({
               <input
                 type="password"
                 className="form-control"
-                id="adminPassword"
+                id="inputAdminPasswordLogin"
                 onChange={handleAdminPasswordChange}
                 value={adminPassword}
               ></input>
@@ -66,6 +68,7 @@ const LogInAdminComponent = ({
                   onClick={handleAdminLogIn}
                   type="submit"
                   className="btn btn-danger"
+                  id="adminLoginButton"
                 >
                   Log In As Administrator
                 </button>

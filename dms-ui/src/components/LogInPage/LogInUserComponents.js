@@ -16,14 +16,20 @@ const LogInUserComponent = ({
             <ul className="logNav mr-auto mt-2 mt-lg-0 d-flex justify-content-center align-items-center">
               <li className="nav-item">
                 <Link className="col-2" to="/">
-                  <button type="button" className="btn btn-secondary">
+                  <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  id="userLoginSelection">
                     User
                   </button>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="col-2" to="/admin">
-                  <button type="button" className="btn btn-secondary">
+                  <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  id="adminLoginSelection">
                     Admin
                   </button>
                 </Link>
@@ -36,7 +42,7 @@ const LogInUserComponent = ({
               <input
                 type="text"
                 className="form-control"
-                id="exampleInputEmail1"
+                id="inputUserNameLogin"
                 aria-describedby="emailHelp"
                 onChange={handleUserNameChange}
                 value={userName}
@@ -47,7 +53,7 @@ const LogInUserComponent = ({
               <input
                 type="password"
                 className="form-control"
-                id="exampleInputPassword1"
+                id="inputUserPasswordLogin"
                 onChange={handleUserPasswordChange}
                 value={userPassword}
               ></input>
@@ -57,6 +63,7 @@ const LogInUserComponent = ({
                 onClick={handleUserLogIn}
                 type="submit"
                 className="btn btn-secondary"
+                id="userLoginButton"
               >
                 Log In
               </button>

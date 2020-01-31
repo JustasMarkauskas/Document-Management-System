@@ -12,7 +12,8 @@ handleLogoutButton})=>{
         <button                               
             type="button" 
             className="btn btn-primary" 
-            aria-pressed="true">
+            aria-pressed="true"
+            id="adminUserNav">
             Users
         </button>
         </Link>
@@ -21,7 +22,8 @@ handleLogoutButton})=>{
         <Link className="col-2" to="/adminhomepage-documents">
         <button                               
             type="button" 
-            className="btn btn-outline-primary">
+            className="btn btn-outline-primary"
+            id="adminDocumentNav">
             Documents
         </button>
         </Link>
@@ -30,7 +32,8 @@ handleLogoutButton})=>{
         <Link className="col-2" to="/adminhomepage-groups">
         <button                               
             type="button" 
-            className="btn btn-outline-primary">
+            className="btn btn-outline-primary"
+            id="adminGroupNav">
             Groups
         </button>
         </Link>
@@ -40,7 +43,8 @@ handleLogoutButton})=>{
         <button
             onClick={handleLogoutButton}                               
             type="button" 
-            className="btn btn-outline-dark">
+            className="btn btn-outline-dark"
+            id="adminLogoutNav">
             Log Out
         </button>
         </Link>
