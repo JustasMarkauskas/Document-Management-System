@@ -13,7 +13,7 @@ class AdminHomePageGroupContainer extends React.Component {
 
   getGroups = () => {
     axios
-      .get("http://localhost:8081/api/group")
+      .get("http://localhost:8081/api/role")
       .then(response => {
         this.setState({ groups: response.data });
       })
@@ -35,8 +35,8 @@ class AdminHomePageGroupContainer extends React.Component {
       <AdminHomePageGroupComponent
         key={index}
         rowNr={index + 1}
-        groupName={group.groupName}
-        groupSize={group.groupSize}        
+        groupName={group.id}
+        groupSize={group.groupSize} ///padaryti
         comment={group.comment}
         handleActionClick={this.handleActionClick}
       />
@@ -49,7 +49,7 @@ class AdminHomePageGroupContainer extends React.Component {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Group Name</th>
-              <th scope="col">Group Size</th>              
+              <th scope="col">Group Size</th>
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
             </tr>
