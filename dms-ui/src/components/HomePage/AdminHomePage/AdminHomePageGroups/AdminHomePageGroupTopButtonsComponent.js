@@ -10,7 +10,8 @@ const AdminHomePageGroupTopButtonsComponent = ({
               <button 
                 onClick={handleAddGroupButton}
                 type="button" 
-                className="btn btn-primary col-lg-3 mb-2">
+                className="btn btn-primary col-lg-3 mb-2"
+                id="adminAddNewGroupButton">
                   Add new Group
               </button>
               <div className="input-group mb-3 col-lg-5">
@@ -21,14 +22,15 @@ const AdminHomePageGroupTopButtonsComponent = ({
                   className="form-control" 
                   placeholder="Document" 
                   aria-label="Document" 
-                  aria-describedby="button-addon2">
+                  aria-describedby="button-addon2"
+                  id="adminGroupSearchInput">
                 </input>
                 <div className="input-group-append">
                   <button
                     onClick={handleSearchButton} 
                     className="btn btn-primary" 
                     type="button" 
-                    id="button-addon2">
+                    id="adminGroupSearchButton">
                     Search
                   </button>
                 </div>

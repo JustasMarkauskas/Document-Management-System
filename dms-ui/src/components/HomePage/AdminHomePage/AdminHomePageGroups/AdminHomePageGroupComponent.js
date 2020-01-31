@@ -11,7 +11,8 @@ class AdminHomePageGroupComponent extends React.Component {
         <td>
           <button
             className="btn btn-primary"
-            onClick={this.props.handleActionClick}>
+            onClick={this.props.handleActionClick}
+            id={"groupNr"+this.props.rowNr}>
               <i className="fas fa-cog"></i>
           </button>
         </td>
