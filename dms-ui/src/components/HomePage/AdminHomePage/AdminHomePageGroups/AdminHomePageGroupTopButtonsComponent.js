@@ -34,7 +34,7 @@ const AdminHomePageGroupTopButtonsComponent = ({
             type="button"
             id="adminGroupSearchButton"
           >
-            > Search
+            Search
           </button>
         </div>
       </div>

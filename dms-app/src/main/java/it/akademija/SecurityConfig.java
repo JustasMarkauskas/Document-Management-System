@@ -48,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				// be saugumo UI dalis ir swaggeris
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
-				// visi /test/ keliai yra saugus, pasiekiami tik prisijungus 
-				.antMatchers("/test/**").authenticated().and().formLogin().loginPage("/login").permitAll() 
+				// visi /apitest/ keliai yra saugus, pasiekiami tik prisijungus 
+				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll() 
 
 				// prisijungus
 				.successHandler(new AuthenticationSuccessHandler() {
