@@ -9,7 +9,7 @@ const AdminHomePageComponent = (
   ) => {
     return (
         <div className="container">
-            <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center"><h1>You logged in as administrator</h1></div>
+            <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center"><h1>You logged in as: administrator</h1></div>
             <div className="row">
                 <div className="col-lg-2 shadow-sm p-3 mb-5 bg-light rounded mr-4">
                   <AdminHomePageUserNavContainer/>                    

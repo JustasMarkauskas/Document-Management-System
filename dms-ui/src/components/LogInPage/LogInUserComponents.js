@@ -58,15 +58,17 @@ const LogInUserComponent = ({
                 value={userPassword}
               ></input>
             </div>
-            <div className="d-flex justify-content-center">
-              <button
-                onClick={handleUserLogIn}
-                type="submit"
-                className="btn btn-secondary"
-                id="userLoginButton"
-              >
-                Log In
-              </button>
+            <div className="d-flex justify-content-center">            
+              <Link className="" to="/userhomepage-documents">
+                <button
+                  onClick={handleUserLogIn}
+                  type="submit"
+                  className="btn btn-secondary"
+                  id="userLoginButton"
+                >
+                  Log In
+                </button>
+              </Link>
             </div>
           </form>
         </div>

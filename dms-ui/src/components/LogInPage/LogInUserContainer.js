@@ -23,23 +23,23 @@ class LoginUserContainer extends React.Component {
     this.setState({ userPassword: event.target.value });
   };
 
-  handleUserLogIn = event => {
-    let userData = new URLSearchParams();
-    userData.append("username", this.state.userName);
-    userData.append("password", this.state.userPassword);
-    axios
-      .post("http://localhost:8081/login", userData, {
-        headers: { "Content-type": "application/x-www-form-urlencoded" }
-      })
-      .then(resp => {
-        console.log("user " + resp.data.username + " logged in"); //veliau istrinti
-        this.props.history.push("/userPage");
-      })
-      .catch(e => {
-        console.log(e.resp);
-      });
-    event.preventDefault();
-  };
+  // handleUserLogIn = event => {
+  //   let userData = new URLSearchParams();
+  //   userData.append("username", this.state.userName);
+  //   userData.append("password", this.state.userPassword);
+  //   axios
+  //     .post("http://localhost:8081/login", userData, {
+  //       headers: { "Content-type": "application/x-www-form-urlencoded" }
+  //     })
+  //     .then(resp => {
+  //       console.log("user " + resp.data.username + " logged in"); //veliau istrinti
+  //       this.props.history.push("/userPage");
+  //     })
+  //     .catch(e => {
+  //       console.log(e.resp);
+  //     });
+  //   event.preventDefault();
+  // };
 
   render() {
     return (
