@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AdminHomePageGroupNavContainer from "./AdminHomePageGroupNavContainer";
-import AdminHomePageGroupTopButtonsContainer from "./AdminHomePageGroupTopButtonsContainer";
 import AdminHomePageGroupContainer from "./AdminHomePageGroupcontainer";
 
 const AdminHomePageGroupsComponent = ({ username }) => {
@@ -15,7 +14,6 @@ const AdminHomePageGroupsComponent = ({ username }) => {
           <AdminHomePageGroupNavContainer />
         </div>
         <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
-          <AdminHomePageGroupTopButtonsContainer />
           <div className="col-12">
             <AdminHomePageGroupContainer />
           </div>

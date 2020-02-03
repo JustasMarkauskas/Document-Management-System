@@ -7,7 +7,8 @@ class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: []
+      groups: [],
+      groupName: ""
     };
   }
 
@@ -30,6 +31,23 @@ class AdminHomePageGroupContainer extends React.Component {
     this.props.history.push("/group-info"); //navigacija teisinga padaryti
   };
 
+  handleSearchChange = event => {
+    this.setState({ groupName: event.target.value });
+  };
+
+  handleSearchButton = event => {
+    event.preventDefault();
+    axios
+      .get("http://localhost:8081/api/role/" + this.state.groupName)
+      .then(response => {
+        this.setState({ groups: [response.data] });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    //document.getElementById("adminGroupSearchInput").;
+  };
+
   render() {
     const groupInfo = this.state.groups.map((group, index) => (
       <AdminHomePageGroupComponent
@@ -44,6 +62,39 @@ class AdminHomePageGroupContainer extends React.Component {
 
     return (
       <div className="container">
+        <div className="row col-lg-12">
+          <button
+            //   onClick={handleAddGroupButton}
+            type="button"
+            className="btn btn-primary col-lg-3 mb-2"
+            id="adminAddNewGroupButton"
+          >
+            Add new Group
+          </button>
+          <div className="input-group mb-3 col-lg-5">
+            <input
+              onChange={this.handleSearchChange}
+              value={this.searchValue}
+              type="text"
+              className="form-control"
+              placeholder="Group"
+              aria-label="Group"
+              aria-describedby="button-addon2"
+              id="adminGroupSearchInput"
+            ></input>
+            <div className="input-group-append">
+              <button
+                onClick={this.handleSearchButton}
+                className="btn btn-primary"
+                type="button"
+                id="adminGroupSearchButton"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+
         <table className="table">
           <thead>
             <tr>
