@@ -31,6 +31,11 @@ class AdminHomePageGroupContainer extends React.Component {
     this.props.history.push("/group-info"); //navigacija teisinga padaryti
   };
 
+  handleAddGroupButton = event => {
+    event.preventDefault();
+    this.props.history.push("/new-group"); //navigacija teisinga padaryti
+  };
+
   handleSearchChange = event => {
     this.setState({ groupName: event.target.value });
   };
@@ -45,7 +50,7 @@ class AdminHomePageGroupContainer extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    //document.getElementById("adminGroupSearchInput").;
+    document.getElementById("adminGroupSearchInput").value = "";
   };
 
   render() {
@@ -64,7 +69,7 @@ class AdminHomePageGroupContainer extends React.Component {
       <div className="container">
         <div className="row col-lg-12">
           <button
-            //   onClick={handleAddGroupButton}
+            onClick={this.handleAddGroupButton}
             type="button"
             className="btn btn-primary col-lg-3 mb-2"
             id="adminAddNewGroupButton"
@@ -74,7 +79,6 @@ class AdminHomePageGroupContainer extends React.Component {
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
-              value={this.searchValue}
               type="text"
               className="form-control"
               placeholder="Group"

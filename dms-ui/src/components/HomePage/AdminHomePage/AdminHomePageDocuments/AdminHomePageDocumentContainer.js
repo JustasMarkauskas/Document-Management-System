@@ -7,7 +7,8 @@ class AdminHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      documents: []
+      documents: [],
+      documentName: ""
     };
   }
 
@@ -30,6 +31,28 @@ class AdminHomePageDocumentContainer extends React.Component {
     this.props.history.push("/document-info"); //navigacija teisinga padaryti
   };
 
+  handleAddDocumentButton = event => {
+    event.preventDefault();
+    this.props.history.push("/new-document"); //navigacija teisinga padaryti
+  };
+
+  handleSearchChange = event => {
+    this.setState({ documentName: event.target.value });
+  };
+
+  handleSearchButton = event => {
+    event.preventDefault();
+    axios
+      .get("http://localhost:8081/api/document/" + this.state.documentName)
+      .then(response => {
+        this.setState({ documents: [response.data] });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    document.getElementById("adminDocumentSearchInput").value = "";
+  };
+
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
       <AdminHomePageDocumentComponent
@@ -43,6 +66,37 @@ class AdminHomePageDocumentContainer extends React.Component {
 
     return (
       <div className="container">
+        <div className="row col-lg-12">
+          <button
+            onClick={this.handleAddDocumentButton}
+            type="button"
+            className="btn btn-primary col-lg-3 mb-2"
+            id="adminAddNewDocumentButton"
+          >
+            Add new Document
+          </button>
+          <div className="input-group mb-3 col-lg-5">
+            <input
+              onChange={this.handleSearchChange}
+              type="text"
+              className="form-control"
+              placeholder="Document"
+              aria-label="Document"
+              aria-describedby="button-addon2"
+              id="adminDocumentSearchInput"
+            ></input>
+            <div className="input-group-append">
+              <button
+                onClick={this.handleSearchButton}
+                className="btn btn-primary"
+                type="button"
+                id="adminDocumentSearchButton"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
         <table className="table">
           <thead>
             <tr>

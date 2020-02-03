@@ -1,6 +1,5 @@
 import React from "react";
 import AdminHomePageUserContainer from "./AdminHomePageUsers/AdminHomePageUsersContainer";
-import AdminHomePageUserTopButtonsContainer from "./AdminHomePageUsers/AdminHomePageUserTopButtonsContainer";
 import AdminHomePageUserNavContainer from "./AdminHomePageUsers/AdminHomePageUserNavContainer";
 
 const AdminHomePageComponent = ({ username }) => {
@@ -14,7 +13,6 @@ const AdminHomePageComponent = ({ username }) => {
           <AdminHomePageUserNavContainer />
         </div>
         <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
-          <AdminHomePageUserTopButtonsContainer />
           <div className="col-12">
             <AdminHomePageUserContainer />
           </div>
