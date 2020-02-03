@@ -19,6 +19,7 @@ import com.thoughtworks.xstream.XStream;
 import resources.models.Group;
 import resources.models.GroupData;
 import resources.test.AbstractTest;
+import resources.utils.ScreenshotUtils;
 
 public class AdminCreateGroupTest extends AbstractTest {
 
@@ -54,7 +55,10 @@ public class AdminCreateGroupTest extends AbstractTest {
 
 
 	@Test (priority = 2, groups = { "groupCreation" } , dataProvider = "validGroups")
-	public void testToFindProductInProductListByName(String productName) {
+	public void testToCreateNewGroup(Group usergroup) throws Exception {
+		
+		//Call take screenshot function
+		ScreenshotUtils.takeScreenshot(driver, "resources/screenshots/test1.png");
 
 
 

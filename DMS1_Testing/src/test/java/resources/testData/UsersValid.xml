@@ -8,15 +8,17 @@
 		<surname>A</surname>
 		<password>Strpaeg9</password>
 		<confirmPassword>Strpaeg9</confirmPassword>
+		<comments>test data</comments>
 	</User>
 	<User>
 		<testDataGroup>user_valid</testDataGroup>
 		<identificator>allFields_maxLength</identificator>
 		<userName>usidMarksonAcc19West</userName>
-		<name>RandomLongerNameUsed1900-Peter</name>
-		<surname>RandomLongerSurnameUsed0_Smith</surname>
+		<name>RandomLongerNameUsed Jim-Peter</name>
+		<surname>RandomLongerSurnameUsed-Smiths</surname>
 		<password>K3CUzY2V9brEhAYEzvFK</password>
 		<confirmPassword>K3CUzY2V9brEhAYEzvFK</confirmPassword>
+		<comments>test data test data test data test data test datat</comments>
 	</User>
 	<User>
 		<testDataGroup>user_valid</testDataGroup>
@@ -26,6 +28,7 @@
 		<surname>bonilla</surname>
 		<password>gumkYZ0sl</password>
 		<confirmPassword>gumkYZ0sl</confirmPassword>
+		<comments>test data</comments>
 	</User>
 	<User>
 		<testDataGroup>user_valid</testDataGroup>
@@ -35,14 +38,26 @@
 		<surname>JOHNSON</surname>
 		<password>prekey82drut</password>
 		<confirmPassword>prekey82drut</confirmPassword>
+		<comments>test data</comments>
 	</User>
 	<User>
 		<testDataGroup>user_valid</testDataGroup>
-		<identificator>names_allDigits</identificator>
+		<identificator>username_allDigits</identificator>
 		<userName>111971431</userName>
-		<name>15683652</name>
-		<surname>10</surname>
+		<name>Timothy</name>
+		<surname>B</surname>
 		<password>weakPass2000</password>
 		<confirmPassword>weakPass2000</confirmPassword>
-	</User>	
+		<comments>test data</comments>
+	</User>
+	<User>
+		<testDataGroup>user_valid</testDataGroup>
+		<identificator>names_specChars</identificator>
+		<userName>Accounts0145</userName>
+		<name>-Elle Rachel-</name>
+		<surname> Pemberton-Spear </surname>
+		<password>kgr5s40d</password>
+		<confirmPassword>kgr5s40d</confirmPassword>
+		<comments>test data</comments>
+	</User>		
 </resources.models.UserData>
