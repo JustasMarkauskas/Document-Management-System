@@ -17,10 +17,9 @@ import io.swagger.annotations.ApiParam;
 import it.akademija.model.role.NewRole;
 import it.akademija.model.role.Role;
 import it.akademija.model.role.RoleForClient;
-import it.akademija.model.user.NewUser;
-import it.akademija.model.user.User;
-import it.akademija.model.user.UserForClient;
+
 import it.akademija.service.RoleService;
+
 
 @RestController
 @RequestMapping(value = "/api/role")
