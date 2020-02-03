@@ -55,7 +55,7 @@ const schema = yup.object({
 //   passwordConfirm
 // }) => {
 
-    const NewUserFormComponent = props => {
+    const NewUserFormComponent = () => {
         return (
           <Formik
           validationSchema={schema}
@@ -70,99 +70,130 @@ const schema = yup.object({
           }}
         >
         {({
+          handleUsernameChange,
+          handleFirstNameChange,
+          handleLastNameChange,
+          handleCommentChange,
+          handlePasswordChange,  
           handleSubmit,
+          handleCancel,
           handleChange,
-          handleBlur,
-          values,
-          touched,
+          values,         
           isValid,
           errors,
         }) => (
-            <div className="SignUpForm">      
-      <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicUserName">
-          <Form.Control
-            size="lg"
-            className="SignUpFormControls"
-            type="text"
-            name="username"
-            value={values.username}
-            onChange={handleChange}
-            placeholder="Username"
-            isInvalid={!!errors.username}
-          />
-          <Form.Control.Feedback className="FeedBack" type="invalid">
-          {errors.username}
-        </Form.Control.Feedback>
-        </Form.Group>
+          <div className="NewUserForm">      
+          <Form noValidate onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Control
+                size="lg"
+                className="NewUserForm"
+                type="text"
+                id="username"
+                name="username"
+                value={values.username}
+                onChange={handleChange}
+                onPress={handleUsernameChange }
+                placeholder="Username"
+                isInvalid={!!errors.username}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+              {errors.username}
+            </Form.Control.Feedback>
+            </Form.Group>
+    
+            <Form.Group>
+              <Form.Control
+                type="firstname"
+                placeholder="First Name"
+                value={values.firstName}
+                onChange={handleChange}
+                onPress={handleFirstNameChange}
+                name="firstName"
+                id="firstName"
+                className="NewUserForm"
+                size="lg"
+                isInvalid={!!errors.firstName}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+              {errors.firstName}
+            </Form.Control.Feedback>
+            </Form.Group>
+    
+            <Form.Group>
+              <Form.Control
+                type="lastname"
+                placeholder="Last Name"
+                value={values.lastName}
+                onChange={handleChange}
+                onPress={handleLastNameChange}
+                name="lastName"
+                id="lastName"
+                className="NewUserForm"
+                size="lg"
+                isInvalid={!!errors.lastName}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+              {errors.lastName}
+            </Form.Control.Feedback>
+            </Form.Group>
+    
+            <Form.Group>
+              <Form.Control
+                className="NewUserForm"
+                size="lg"
+                type="password"
+                name="password"
+                id="password"
+                value={values.password}
+                onChange={handleChange}
+                onPress={handlePasswordChange}
+                placeholder="Password"
+                isInvalid={!!errors.password}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+              {errors.password}
+            </Form.Control.Feedback>
+            </Form.Group>
+    
+            <Form.Group>
+              <Form.Control
+                className="NewUserForm"
+                size="lg"
+                name="confirmPassword"            
+                type="password"
+                id="confirmPassword" 
+                value={values.confirmPassword}
+                onChange={handleChange}          
+                placeholder="Confirm Password"
+                isInvalid={!!errors.confirmPassword}
+              /><Form.Control.Feedback className="FeedBack" type="invalid">
+              {errors.confirmPassword}
+            </Form.Control.Feedback>
+            </Form.Group>
+    
+            <Form.Group>
+              <Form.Label></Form.Label>
+                 <Form.Control as="textarea" rows="2" 
+                 className="NewUserForm"
+                 size="lg"
+                 name="comment"
+                 onChange={handleChange}
+                 onPress={handleCommentChange}
+                 type="comment"
+                 id="comment"
+                 value={values.comment}
+                 placeholder="Comment"
+                 isInvalid={!!errors.comment}
+               /><Form.Control.Feedback className="FeedBack" type="invalid">
+               {errors.comment}
+             </Form.Control.Feedback>
+           </Form.Group>
 
-        <Form.Group controlId="formBasicFirstName">
-          <Form.Control
-            type="firstname"
-            placeholder="First Name"
-            value={values.firstName}
-            onChange={handleChange}
-            name="firstName"
-            className="SignUpFormControls"
-            size="lg"
-            isInvalid={!!errors.firstName}
-          />
-          <Form.Control.Feedback className="FeedBack" type="invalid">
-          {errors.firstName}
-        </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicLastName">
-          <Form.Control
-            type="lastname"
-            placeholder="Last Name"
-            value={values.lastName}
-            onChange={handleChange}
-            name="lastName"
-            className="SignUpFormControls"
-            size="lg"
-            isInvalid={!!errors.lastName}
-          />
-          <Form.Control.Feedback className="FeedBack" type="invalid">
-          {errors.firstName}
-        </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Control
-            className="SignUpFormControls"
-            size="lg"
-            type="password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
-            placeholder="Password"
-            isInvalid={!!errors.password}
-          />
-          <Form.Control.Feedback className="FeedBack" type="invalid">
-          {errors.password}
-        </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Control
-            className="SignUpFormControls"
-            size="lg"
-            name="confirmPassword"
-            onChange={handleChange}
-            type="password"
-            value={values.confirmPassword}
-            placeholder="Confirm Password"
-            isInvalid={!!errors.confirmPassword}
-          /><Form.Control.Feedback className="FeedBack" type="invalid">
-          {errors.confirmPassword}
-        </Form.Control.Feedback>
-        </Form.Group>
-
-        <Button disabled={!isValid} variant="primary" className="SubmitButton mr-2" type="submit">
+        <Button disabled={!isValid} onClick={handleSubmit} variant="primary" className="SubmitButton mr-2" type="submit">
           Submit
         </Button>
-        <Button variant="primary" className="CancelButton" type="cancel">
+        <Button onClick={handleCancel} variant="primary" className="CancelButton" type="cancel">
           Cancel
         </Button>
         

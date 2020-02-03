@@ -62,15 +62,6 @@ class NewUserFormContainer extends React.Component {
     });
   };
 
-  handlePasswordConfirmChange = event => {
-    var passwordConfirmValue = event.target.value;
-    this.setState(prevState => {
-      let user = Object.assign({}, prevState.user);
-      user.passwordConfirm = passwordConfirmValue;
-      return { user };
-    });
-  };
-
   handleCancel = event => {
     event.preventDefault();
     this.props.history.push("/user");
@@ -84,8 +75,7 @@ class NewUserFormContainer extends React.Component {
         fiestName: this.state.user.firstName,
         lastName: this.state.user.lastName,
         comment: this.state.user.comment,
-        password: this.state.user.password,
-        passwordConfirm: this.state.user.passwordConfirm,
+        password: this.state.user.password,   
 
       })
       .then(response => {
@@ -114,16 +104,14 @@ class NewUserFormContainer extends React.Component {
         handleFirstNameChange={this.handleFirstNameChange}
         handleLastNameChange={this.handleLastNameChange}
         handleCommentChange={this.handleCommentChange}
-        handlePasswordChange={this.handlePasswordChange}
-        handlePasswordConfirmChange={this.handlePasswordConfirmChange}
+        handlePasswordChange={this.handlePasswordChange}       
         handleSubmit={this.handleSubmit}
         handleCancel={this.handleCancel}
         username={this.state.user.username}
         firstName={this.state.user.firstName}
         lastName={this.state.user.lastName}
         comment={this.state.user.comment}
-        password={this.state.user.password}
-        passwordConfirm={this.state.user.passwordConfirm}
+        password={this.state.user.password}        
       />
     );
   }
