@@ -14,6 +14,7 @@ public class RoleForClient {
 	private String comment;
 	private Collection<User> users;
 	private Collection<Operation> operations;
+	private int groupSize;
 	
 
 	public RoleForClient() {
@@ -24,12 +25,14 @@ public class RoleForClient {
 		this.comment = comment;
 		this.users = users;
 		this.operations = operations;
+	
 	}
 
 	
-	public RoleForClient(String id, String comment) {
+	public RoleForClient(String id, String comment, int groupSize) {
 		this.id = id;
-		this.setComment(comment);
+		this.comment = comment;
+		this.groupSize = groupSize;
 	}
 	
 	
@@ -63,6 +66,14 @@ public class RoleForClient {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public int getGroupSize() {
+		return groupSize;
+	}
+
+	public void setGroupSize(int groupSize) {
+		this.groupSize = groupSize;
 	}
 
 	

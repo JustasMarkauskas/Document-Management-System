@@ -36,7 +36,7 @@ public class RoleService {
 
 	@Transactional(readOnly = true)
 	public List<RoleForClient> getRolesForClient() {
-		return roleRepository.findAll().stream().map((role) -> new RoleForClient(role.getId(), role.getComment()))
+		return roleRepository.findAll().stream().map((role) -> new RoleForClient(role.getId(), role.getComment(), role.getUsers().size()))
 				.collect(Collectors.toList());
 	}
 

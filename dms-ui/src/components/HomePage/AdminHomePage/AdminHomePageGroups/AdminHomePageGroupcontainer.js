@@ -36,7 +36,7 @@ class AdminHomePageGroupContainer extends React.Component {
         key={index}
         rowNr={index + 1}
         groupName={group.id}
-        groupSize={group.groupSize} ///padaryti
+        groupSize={group.groupSize}
         comment={group.comment}
         handleActionClick={this.handleActionClick}
       />
