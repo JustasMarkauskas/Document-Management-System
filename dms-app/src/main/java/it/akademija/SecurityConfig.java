@@ -22,9 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
-import it.akademija.model.role.Role;
-import it.akademija.service.RoleService;
 import it.akademija.service.UserService;
 
 @Configuration
@@ -39,8 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private RoleService roleService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -89,10 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 						response.setHeader("Content-Type", "application/json;charset=UTF-8");
 					}
-				}).and().csrf().disable() // nenaudojam tokenu
-				// forbidden klaidai
+				}).and().csrf().disable() 
 				.exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers().frameOptions()
-				.disable(); // H2 konsolei
+				.disable(); 
 
 	}
 }

@@ -16,20 +16,22 @@ const LogInUserComponent = ({
             <ul className="logNav mr-auto mt-2 mt-lg-0 d-flex justify-content-center align-items-center">
               <li className="nav-item">
                 <Link className="col-2" to="/">
-                  <button 
-                  type="button" 
-                  className="btn btn-secondary" 
-                  id="userLoginSelection">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    id="userLoginSelection"
+                  >
                     User
                   </button>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="col-2" to="/admin">
-                  <button 
-                  type="button" 
-                  className="btn btn-secondary" 
-                  id="adminLoginSelection">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    id="adminLoginSelection"
+                  >
                     Admin
                   </button>
                 </Link>

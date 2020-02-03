@@ -25,8 +25,8 @@ class LoginUserContainer extends React.Component {
 
   handleUserLogIn = event => {
     let userData = new URLSearchParams();
-    userData.append("username", this.state.adminName);
-    userData.append("password", this.state.adminPassword);
+    userData.append("username", this.state.userName);
+    userData.append("password", this.state.userPassword);
     axios
       .post("http://localhost:8081/login", userData, {
         headers: {
