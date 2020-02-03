@@ -114,10 +114,16 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public void updateRolesForOneUser(String username, List<String> roles) {
 		User existingUser = findByUsername(username);
+		Role adminRole = roleRepository.findById("ADMIN");
 
 		List<Role> roleList = new ArrayList<Role>();
 		for (String roleName : roles) {
 			roleList.add(roleRepository.findById(roleName));
+			if (roleRepository.findById(roleName).equals(adminRole)) {
+				existingUser.setAdmin(true);
+			} else {
+				existingUser.setAdmin(false);
+			}
 		}
 
 		existingUser.setRoles(roleList);
@@ -127,10 +133,19 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public void assignListOfUsersToOneRole(String roleName, List<String> usernames) {
 		Role role = roleRepository.findById(roleName);
-		for (String username : usernames) {
-			User user = userRepository.findByUsername(username);
-			Collection<Role> userRoles = user.getRoles();
-			userRoles.add(role);
+		if (roleName.equals("ADMIN")) {
+			for (String username : usernames) {
+				User user = userRepository.findByUsername(username);
+				user.setAdmin(true);
+				Collection<Role> userRoles = user.getRoles();
+				userRoles.add(role);
+			}
+		} else {
+			for (String username : usernames) {
+				User user = userRepository.findByUsername(username);
+				Collection<Role> userRoles = user.getRoles();
+				userRoles.add(role);
+			}
 		}
 	}
 

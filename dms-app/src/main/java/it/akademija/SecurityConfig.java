@@ -23,6 +23,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import it.akademija.model.role.Role;
+import it.akademija.service.RoleService;
+import it.akademija.service.UserService;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
@@ -30,11 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SecurityEntryPoint securityEntryPoint;
 	@Autowired
-	private UserDetailsService userService;
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private RoleService roleService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		;
 	}
 
@@ -45,11 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		
 		http.authorizeRequests()
 				// be saugumo UI dalis ir swaggeris
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
-				// visi /apitest/ keliai yra saugus, pasiekiami tik prisijungus 
-				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll() 
+				// visi /apitest/ keliai yra saugus, pasiekiami tik prisijungus
+				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll()
 
 				// prisijungus
 				.successHandler(new AuthenticationSuccessHandler() {
@@ -59,14 +71,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						response.setHeader("Access-Control-Allow-Credentials", "true");
 						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 						response.setHeader("Content-Type", "application/json;charset=UTF-8");
-						response.getWriter().print("{\"username\": \""
-								+ SecurityContextHolder.getContext().getAuthentication().getName() + "\"}");
+						response.getWriter().print("{\"isAdmin\": \"" + userService
+								.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).isAdmin()
+								 + "\"}");
 					}
 				})
 				// esant blogiems user/pass
-				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll()
-				.and().logout().permitAll()
-				// G pridetas testavimui. veikia. tik nzn, ka reikia paduoti i response. idejau ta pati ka i login
+				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll().and()
+				.logout().permitAll()
+				// G pridetas testavimui. veikia. tik nzn, ka reikia paduoti i response. idejau
+				// ta pati ka i login
 				.logoutSuccessHandler(new LogoutSuccessHandler() {
 					@Override
 					public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -75,8 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 						response.setHeader("Content-Type", "application/json;charset=UTF-8");
 					}
-				})
-				.and().csrf().disable() // nenaudojam tokenu
+				}).and().csrf().disable() // nenaudojam tokenu
 				// forbidden klaidai
 				.exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers().frameOptions()
 				.disable(); // H2 konsolei
