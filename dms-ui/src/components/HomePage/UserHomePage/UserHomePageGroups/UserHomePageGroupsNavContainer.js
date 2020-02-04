@@ -1,15 +1,15 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import UserHomePageDocNavComponent from './UserHomePageDocNavComponents';
+import UserHomePageGroupsNavComponent from './UserHomePageGroupsNavComponents';
 
-class UserHomePageDocNavContainer extends React.Component {
+class UserHomePageGroupsNavContainer extends React.Component {
     
     
     
     render(){
       return(
-        <UserHomePageDocNavComponent/>    
+        <UserHomePageGroupsNavComponent/>    
       );
     }
   }
-  export default withRouter(UserHomePageDocNavContainer);
+  export default withRouter(UserHomePageGroupsNavContainer);

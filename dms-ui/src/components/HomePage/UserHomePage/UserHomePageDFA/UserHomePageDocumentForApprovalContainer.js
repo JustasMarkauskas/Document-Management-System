@@ -68,15 +68,7 @@ class UserHomePageDocumentForApprovalContainer extends React.Component {
 
     return (
       <div className="container">
-        <div className="row ">
-          {/* <button
-            onClick={this.handleAddNewDocumentButton}
-            type="button"
-            className="btn btn-primary col-lg-2 mb-2"
-            id="userAddNewDocumentButton"
-          >
-            Add New Document
-          </button> */}
+        <div className="row ">          
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
@@ -91,7 +83,7 @@ class UserHomePageDocumentForApprovalContainer extends React.Component {
               <button
                 className="btn btn-primary"
                 type="button"
-                id="userDocumentSearchButton"
+                id="userDFASearchButton"
                 onClick={this.handleSearchButton}
               >
                 Search

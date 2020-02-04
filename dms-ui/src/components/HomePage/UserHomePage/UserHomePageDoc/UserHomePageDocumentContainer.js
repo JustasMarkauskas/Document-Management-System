@@ -98,6 +98,14 @@ class UserHomePageDocumentContainer extends React.Component {
               </button>
             </div>
           </div>
+          <button
+            onClick={this.handleDownloadDocumentButton}
+            type="button"
+            className="btn btn-primary col-lg-2 mb-2"
+            id="downloadDocumentsButton"
+          >
+            Download
+          </button>
         </div>
 
         <table className="table">

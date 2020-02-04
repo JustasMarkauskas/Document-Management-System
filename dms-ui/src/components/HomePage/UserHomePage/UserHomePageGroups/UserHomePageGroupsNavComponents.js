@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
-const UserHomePageDocNavComponent =({
+const UserHomePageGroupsNavComponent =({
 handleLogoutButton})=>{
   return(
     <ul className="nav flex-column">
@@ -11,19 +11,19 @@ handleLogoutButton})=>{
         <Link className="col-2" to="/userhomepage-documents">
         <button                               
             type="button" 
-            className="btn btn-primary" 
+            className="btn btn-outline-primary" 
             aria-pressed="true"
-            id="adminUserNav">
+            id="userDocumentNav">
             Documents
         </button>
         </Link>
       </li>                        
       <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-doa">
+        <Link className="col-2" to="/userhomepage-dfa">
         <button                               
             type="button" 
             className="btn btn-outline-primary"
-            id="adminDocumentNav">
+            id="userDFANav">
             Documents For Approval
         </button>
         </Link>
@@ -32,8 +32,8 @@ handleLogoutButton})=>{
         <Link className="col-2" to="/userhomepage-groups">
         <button                               
             type="button" 
-            className="btn btn-outline-primary"
-            id="adminGroupNav">
+            className="btn btn-primary"
+            id="userGroupsNav">
             Groups
         </button>
         </Link>
@@ -44,7 +44,7 @@ handleLogoutButton})=>{
             onClick={handleLogoutButton}                               
             type="button" 
             className="btn btn-outline-dark"
-            id="adminLogoutNav">
+            id="userLogoutNav">
             Log Out
         </button>
         </Link>
@@ -53,4 +53,4 @@ handleLogoutButton})=>{
   );
 }
 
-export default UserHomePageDocNavComponent;
+export default UserHomePageGroupsNavComponent;

@@ -14,7 +14,7 @@ import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/Adm
 
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
-// import UserHomePageGroupsContainer from './components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer';
+import UserHomePageGroupsContainer from './components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -26,7 +26,7 @@ ReactDOM.render(
       <Route path="/adminhomepage-groups" component={AdminHomePageGroupContainer}/>
       <Route path="/userhomepage-documents" component={UserHomePageContainer}/>
       <Route path="/userhomepage-dfa" component={UserHomePageDFAContainer}/>
-      {/* <Route path="/userhomepage-groups" component={UserHomePageGroupsContainer}/> */}
+      <Route path="/userhomepage-groups" component={UserHomePageGroupsContainer}/>
     </Switch>
   </BrowserRouter>,
 

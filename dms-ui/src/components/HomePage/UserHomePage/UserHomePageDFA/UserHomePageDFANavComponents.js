@@ -13,7 +13,7 @@ handleLogoutButton})=>{
             type="button" 
             className="btn btn-outline-primary" 
             aria-pressed="true"
-            id="adminUserNav">
+            id="userDocumentNav">
             Documents
         </button>
         </Link>
@@ -23,7 +23,7 @@ handleLogoutButton})=>{
         <button                               
             type="button" 
             className="btn btn-primary"
-            id="adminDocumentNav">
+            id="userDFANav">
             Documents For Approval
         </button>
         </Link>
@@ -33,7 +33,7 @@ handleLogoutButton})=>{
         <button                               
             type="button" 
             className="btn btn-outline-primary"
-            id="adminGroupNav">
+            id="userGroupsNav">
             Groups
         </button>
         </Link>
@@ -44,7 +44,7 @@ handleLogoutButton})=>{
             onClick={handleLogoutButton}                               
             type="button" 
             className="btn btn-outline-dark"
-            id="adminLogoutNav">
+            id="userLogoutNav">
             Log Out
         </button>
         </Link>
