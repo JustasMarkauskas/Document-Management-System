@@ -6,12 +6,12 @@ class UserHomePageGroupComponent extends React.Component {
       <tr>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.groupName}</td>
-        <td>{this.props.size}</td>        
+        {/* <td>{this.props.size}</td>         */}
         <td>
           <button
             className="btn btn-primary"
             onClick={this.props.handleActionClick}
-            id={"userGroupNr"+this.props.rowNr}
+            id={"userGroupNr" + this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>

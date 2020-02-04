@@ -53,6 +53,7 @@ public class UserController {
 	public List<UserForClient> getUsersForClient() {
 		return userService.getUsersForClient(); 
 	}
+	
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User", notes = "Returns user by username")
@@ -60,6 +61,11 @@ public class UserController {
 		return userService.getUserForClient(username);
 	}
 	
+	@RequestMapping(path = "/user-roles/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get User roles", notes = "Return names of all user roles")
+	public List<String> getUserRoles(@PathVariable String username) {
+		return userService.getUserRoles(username); 
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Role")

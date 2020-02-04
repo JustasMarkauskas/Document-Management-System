@@ -4,54 +4,54 @@ import { withRouter } from "react-router-dom";
 import UserHomePageDocumentForApprovalComponent from "./UserHomePageDocumentForApprovalComponent";
 
 class UserHomePageDocumentForApprovalContainer extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       users: [],
-//       inputUsername: ""
-//     };
-//   }
+  //   constructor(props) {
+  //     super(props);
+  //     this.state = {
+  //       users: [],
+  //       inputUsername: ""
+  //     };
+  //   }
 
-//   getUsers = () => {
-//     axios
-//       .get("http://localhost:8081/api/user")
-//       .then(response => {
-//         this.setState({ users: response.data });
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-//   componentDidMount() {
-//     this.getUsers();
-//   }
+  //   getUsers = () => {
+  //     axios
+  //       .get("http://localhost:8081/api/user")
+  //       .then(response => {
+  //         this.setState({ users: response.data });
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //   };
+  //   componentDidMount() {
+  //     this.getUsers();
+  //   }
 
-//   handleActionClick = event => {
-//     event.preventDefault();
-//     this.props.history.push("/user-info"); //navigacija teisinga padaryti
-//   };
+  //   handleActionClick = event => {
+  //     event.preventDefault();
+  //     this.props.history.push("/user-info"); //navigacija teisinga padaryti
+  //   };
 
-//   handleAddUserButton = event => {
-//     event.preventDefault();
-//     this.props.history.push("/new-user"); //navigacija teisinga padaryti
-//   };
+  //   handleAddUserButton = event => {
+  //     event.preventDefault();
+  //     this.props.history.push("/new-user"); //navigacija teisinga padaryti
+  //   };
 
-//   handleSearchChange = event => {
-//     this.setState({ inputUsername: event.target.value });
-//   };
+  //   handleSearchChange = event => {
+  //     this.setState({ inputUsername: event.target.value });
+  //   };
 
-//   handleSearchButton = event => {
-//     event.preventDefault();
-//     axios
-//       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
-//       .then(response => {
-//         this.setState({ users: [response.data] });
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//     document.getElementById("adminUserSearchInput").value = "";
-//   };
+  //   handleSearchButton = event => {
+  //     event.preventDefault();
+  //     axios
+  //       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
+  //       .then(response => {
+  //         this.setState({ users: [response.data] });
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //     document.getElementById("adminUserSearchInput").value = "";
+  //   };
 
   render() {
     // const userInfo = this.state.users.map((user, index) => (
@@ -68,14 +68,14 @@ class UserHomePageDocumentForApprovalContainer extends React.Component {
 
     return (
       <div className="container">
-        <div className="row ">          
+        <div className="row ">
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
               type="text"
               className="form-control"
-              placeholder="Username"
-              aria-label="username"
+              placeholder="Document name"
+              aria-label="documentName"
               aria-describedby="button-addon2"
               id="userSearchDFAInput"
             ></input>

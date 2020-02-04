@@ -14,7 +14,7 @@ import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/Adm
 
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
-import UserHomePageGroupsContainer from './components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer';
+import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,11 +22,26 @@ ReactDOM.render(
       <Route exact path="/" component={LogInUserContainer} />
       <Route path="/admin" component={LogInAdminContainer} />
       <Route path="/adminhomepage-users" component={AdminHomePageContainer} />
-      <Route path="/adminhomepage-documents" component={AdminHomePageDocumentsContainer}/>
-      <Route path="/adminhomepage-groups" component={AdminHomePageGroupContainer}/>
-      <Route path="/userhomepage-documents" component={UserHomePageContainer}/>
-      <Route path="/userhomepage-dfa" component={UserHomePageDFAContainer}/>
-      <Route path="/userhomepage-groups" component={UserHomePageGroupsContainer}/>
+      <Route
+        path="/adminhomepage-documents"
+        component={AdminHomePageDocumentsContainer}
+      />
+      <Route
+        path="/adminhomepage-groups"
+        component={AdminHomePageGroupContainer}
+      />
+      <Route
+        path="/:username/userhomepage-documents"
+        component={UserHomePageContainer}
+      />
+      <Route
+        path="/:username/userhomepage-dfa"
+        component={UserHomePageDFAContainer}
+      />
+      <Route
+        path="/:username/userhomepage-groups"
+        component={UserHomePageGroupsContainer}
+      />
     </Switch>
   </BrowserRouter>,
 

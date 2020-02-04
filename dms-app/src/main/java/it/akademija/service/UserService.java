@@ -61,6 +61,12 @@ public class UserService implements UserDetailsService {
 		List<GrantedAuthority> grantedAuthoritiesList = grantedAuthorities.stream().collect(Collectors.toList());
 		return grantedAuthoritiesList;
 	}
+	
+	@Transactional(readOnly = true)
+	public List<String> getUserRoles(String username) {
+		User user = findByUsername(username);
+		return user.getRoles().stream().map((role) -> role.getId()).collect(Collectors.toList());
+	}
 
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
