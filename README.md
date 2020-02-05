@@ -1,5 +1,5 @@
 # Document-Management-System
-First projent in VTMC
+First project in VTMC
 
  
 ## Getting Started

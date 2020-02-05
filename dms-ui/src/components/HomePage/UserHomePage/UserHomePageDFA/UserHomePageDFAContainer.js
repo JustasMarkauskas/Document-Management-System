@@ -1,15 +1,15 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-
+import user from "../../../User/User";
 import UserHomePageDFAComponents from "./UserHomePageDFAComponents";
-
+import LogInUserContainer from "../../../LogInPage/LogInUserContainer";
 
 class UserHomePageDFAContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
-      username:""
+    this.state = {
+      username: ""
     };
   }
 
@@ -27,15 +27,13 @@ class UserHomePageDFAContainer extends React.Component {
     this.getUsername();
   }
 
-
-  render (){
-    return(
-      <UserHomePageDFAComponents username={this.state.username}/>
-    );
+  render() {
+    if (user.loggedIn) {
+      return <UserHomePageDFAComponents username={this.state.username} />;
+    } else {
+      return <LogInUserContainer />;
+    }
   }
-
-
 }
 
-
-export default withRouter (UserHomePageDFAContainer);
+export default withRouter(UserHomePageDFAContainer);

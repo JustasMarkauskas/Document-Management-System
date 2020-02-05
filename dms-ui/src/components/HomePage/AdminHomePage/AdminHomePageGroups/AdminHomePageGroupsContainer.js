@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
-
+import user from "../../../User/User";
 import AdminHomePageGroupsComponent from "./AdminHomePageGroupsComponent";
+import LogInAdminContainer from "../../../LogInPage/LogInAdminContainer";
 
 class AdminHomePageGroupsContainer extends React.Component {
   constructor(props) {
@@ -27,8 +27,12 @@ class AdminHomePageGroupsContainer extends React.Component {
   }
 
   render() {
-    return <AdminHomePageGroupsComponent username={this.state.username} />;
+    if (user.loggedIn) {
+      return <AdminHomePageGroupsComponent username={this.state.username} />;
+    } else {
+      return <LogInAdminContainer />;
+    }
   }
 }
 
-export default withRouter(AdminHomePageGroupsContainer);
+export default AdminHomePageGroupsContainer;

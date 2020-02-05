@@ -1,15 +1,15 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-
+import user from "../../../User/User";
 import UserHomePageGroupsComponents from "./UserHomePageGroupsComponents";
-
+import LogInUserContainer from "../../../LogInPage/LogInUserContainer";
 
 class UserHomePageGroupsContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
-      username:""
+    this.state = {
+      username: ""
     };
   }
 
@@ -27,15 +27,13 @@ class UserHomePageGroupsContainer extends React.Component {
     this.getUsername();
   }
 
-
-  render (){
-    return(
-      <UserHomePageGroupsComponents username={this.state.username}/>
-    );
+  render() {
+    if (user.loggedIn) {
+      return <UserHomePageGroupsComponents username={this.state.username} />;
+    } else {
+      return <LogInUserContainer />;
+    }
   }
-
-
 }
 
-
-export default withRouter (UserHomePageGroupsContainer);
+export default withRouter(UserHomePageGroupsContainer);
