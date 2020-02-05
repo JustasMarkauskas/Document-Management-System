@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInUserComponent from "./LogInUserComponents";
+import user from "../User/User";
 
 axios.defaults.withCredentials = true; // leidzia dalintis cookies
 class LoginUserContainer extends React.Component {
@@ -34,12 +35,12 @@ class LoginUserContainer extends React.Component {
         }
       })
       .then(resp => {
+        user.loggedIn = true;
+        user.username = this.state.userName;
         if (resp.data.isAdmin === "true") {
           this.props.history.push("/adminhomepage-users");
         } else {
-          this.props.history.push(
-            "/" + this.state.userName + "/userhomepage-documents"
-          );
+          this.props.history.push("/userhomepage-documents");
         }
       })
       .catch(e => {

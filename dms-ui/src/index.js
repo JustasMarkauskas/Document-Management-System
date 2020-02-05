@@ -30,16 +30,10 @@ ReactDOM.render(
         path="/adminhomepage-groups"
         component={AdminHomePageGroupContainer}
       />
+      <Route path="/userhomepage-documents" component={UserHomePageContainer} />
+      <Route path="/userhomepage-dfa" component={UserHomePageDFAContainer} />
       <Route
-        path="/:username/userhomepage-documents"
-        component={UserHomePageContainer}
-      />
-      <Route
-        path="/:username/userhomepage-dfa"
-        component={UserHomePageDFAContainer}
-      />
-      <Route
-        path="/:username/userhomepage-groups"
+        path="/userhomepage-groups"
         component={UserHomePageGroupsContainer}
       />
     </Switch>

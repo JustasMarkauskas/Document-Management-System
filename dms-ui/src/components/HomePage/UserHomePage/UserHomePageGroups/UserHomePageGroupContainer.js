@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageGroupComponent from "./UserHomePageGroupComponent";
+import user from "./../../../User/User";
 
 class UserHomePageGroupContainer extends React.Component {
   constructor(props) {
@@ -14,10 +15,7 @@ class UserHomePageGroupContainer extends React.Component {
 
   getGroupNames = () => {
     axios
-      .get(
-        "http://localhost:8081/api/user/user-roles/" +
-          this.props.match.params.username
-      )
+      .get("http://localhost:8081/api/user/user-roles/" + user.username)
       .then(response => {
         this.setState({ groupNames: response.data });
       })

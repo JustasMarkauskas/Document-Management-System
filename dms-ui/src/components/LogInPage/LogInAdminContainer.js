@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInAdminComponent from "./LogInAdminComponent";
+import user from "../User/User";
 
 axios.defaults.withCredentials = true; // leidzia dalintis cookies
 class LogInAdminContainer extends React.Component {
@@ -34,6 +35,8 @@ class LogInAdminContainer extends React.Component {
         }
       })
       .then(resp => {
+        user.loggedIn = true;
+        user.username = this.state.adminName;
         if (resp.data.isAdmin === "true") {
           this.props.history.push("/adminhomepage-users");
         } else {
