@@ -50,6 +50,8 @@ class LogInAdminContainer extends React.Component {
         console.log(e.resp);
       });
     event.preventDefault();
+    document.getElementById("inputAdminNameLogin").value = "";
+    document.getElementById("inputAdminPasswordLogin").value = "";
   };
 
   render() {

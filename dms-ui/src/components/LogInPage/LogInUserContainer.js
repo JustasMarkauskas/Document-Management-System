@@ -49,6 +49,8 @@ class LoginUserContainer extends React.Component {
         console.log(e.resp);
       });
     event.preventDefault();
+    document.getElementById("inputUserNameLogin").value = "";
+    document.getElementById("inputUserPasswordLogin").value = "";
   };
 
   render() {
