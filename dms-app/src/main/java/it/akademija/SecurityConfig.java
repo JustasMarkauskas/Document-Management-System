@@ -53,12 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		
 		http.authorizeRequests()
-				// be saugumo UI dalis ir swaggeris
+				// UI without security
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
-				// visi /apitest/ keliai yra saugus, pasiekiami tik prisijungus
+				// all /apitest/ are safe, accessed only when user is logged in
 				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll()
-
-				// prisijungus
 				.successHandler(new AuthenticationSuccessHandler() {
 					@Override
 					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -71,11 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 								 + "\"}");
 					}
 				})
-				// esant blogiems user/pass
 				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll().and()
 				.logout().permitAll()
-				// G pridetas testavimui. veikia. tik nzn, ka reikia paduoti i response. idejau
-				// ta pati ka i login
+				// works, but need to change this part in next sprint
 				.logoutSuccessHandler(new LogoutSuccessHandler() {
 					@Override
 					public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
