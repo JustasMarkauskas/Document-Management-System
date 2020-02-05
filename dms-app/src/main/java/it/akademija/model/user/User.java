@@ -30,20 +30,26 @@ public class User {
 	@NotBlank
 	private String lastName;
 	private String comment;
-	@ManyToMany(cascade = CascadeType.ALL)
+	private boolean isAdmin = false;
+	
+
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
 
 
 	
-	public User(String password, String username, String firstName, String lastName, String comment, Long id) {
+	public User(String password, String username, String firstName, String lastName, String comment, Long id, boolean isAdmin) {
 		this.password = password;
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.setComment(comment);
+		this.comment = comment;
 		this.id = id;
+		this.isAdmin = isAdmin;
+
 	}
+
 
 	public User() {
 	}
@@ -118,6 +124,14 @@ public class User {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	

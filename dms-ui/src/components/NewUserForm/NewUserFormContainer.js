@@ -13,7 +13,7 @@ class NewUserFormContainer extends React.Component {
         lastName: "",
         comment: "",
         password: "",
-        passwordConfirm: ""        
+        confirmPassword: ""        
       }
     };
   }
@@ -64,7 +64,7 @@ class NewUserFormContainer extends React.Component {
 
   handleCancel = event => {
     event.preventDefault();
-    this.props.history.push("/user");
+    this.props.history.push("/adminhomepage-users");
   };
 
   handleSubmit = event => {
@@ -95,6 +95,8 @@ class NewUserFormContainer extends React.Component {
         passwordConfirm: ""
       }
     });
+
+    this.props.history.push("/adminhomepage-users");
   };
 
   render() {

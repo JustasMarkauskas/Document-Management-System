@@ -53,6 +53,7 @@ public class UserController {
 	public List<UserForClient> getUsersForClient() {
 		return userService.getUsersForClient(); 
 	}
+	
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User", notes = "Returns user by username")
@@ -60,31 +61,47 @@ public class UserController {
 		return userService.getUserForClient(username);
 	}
 	
+	@RequestMapping(path = "/user-roles/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get User roles", notes = "Return names of all user roles")
+	public List<String> getUserRoles(@PathVariable String username) {
+		return userService.getUserRoles(username); 
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Create user", notes = "Creates user with data")
+	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Role")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveUser(@ApiParam(value = "User Data", required = true) @Valid @RequestBody final NewUser newUser) {
+	public void saveUser(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
 		userService.saveUser(newUser);
 	}
 	
-	@RequestMapping(path = "/admin", method = RequestMethod.POST)
-	//@PreAuthorize("hasRole('ROLE_ADMIN')") // kurti nauja admin leidzia tik ROLE_ADMIN
-	@ApiOperation(value = "Create admin user", notes = "Creates admin user with data")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveAdmin(@ApiParam(value = "Admin user data", required = true) @Valid @RequestBody final NewUser newUser) {
-		userService.saveAdmin(newUser);
-	}
 	
-	@RequestMapping(path = "/{username}", method = RequestMethod.PUT)
-	//@PreAuthorize("hasRole('ROLE_ADMIN')") // kurti nauja admin leidzia tik ROLE_ADMIN
-	@ApiOperation(value = "Update user", notes = "Update user password")
-	public User updatePassword(@ApiParam(value = "User Data", required = true) @PathVariable String username,
+	
+	@RequestMapping(path = "/update-password/{username}", method = RequestMethod.PUT)
+//	@PreAuthorize("hasRole('ROLE_ADMIN')") // leidžiama tik su ROLE_ADMIN
+//	@PreAuthorize("hasAuthority('OP1')") // leidžiama tik su tam tikru authority(veikia)
+//	@PreAuthorize("hasAuthority('ADMIN')") //Roles nebutina saugoti  su ROLE_ prefiksu
+	@ApiOperation(value = "Update user password", notes = "Update user password")
+	public User updatePassword(@ApiParam(required = true) @PathVariable String username,
 			@Valid @RequestBody final NewUser newUser) {
 		return userService.updatePassword(username, newUser);
 	}
+	
+	@RequestMapping(path = "/update-user-groups/{username}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update user Roles/Groups", notes = "After update user has only those Roles which are passed in the list")
+	public void updateRoles(@ApiParam(required = true) @PathVariable String username,
+			 @RequestParam final List<String> roles) {
+		 userService.updateRolesForOneUser(username, roles);
+	}
+	
+	@RequestMapping(path = "/add-users-to-group/{roleName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Add list of users to one Role/Group", notes = "Usernames must be passed in the list of users")
+	public void assignListOfUsersToOneRole(@ApiParam(required = true) @PathVariable String roleName,
+			 @RequestParam final List<String> usernames) {
+		 userService.assignListOfUsersToOneRole(roleName, usernames);
+	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
+	@ApiOperation(value = "Deletes user by comment", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public List<User> deleteUsersByComment(@RequestParam final String comment) {
 		userService.deleteUsersByComment(comment);

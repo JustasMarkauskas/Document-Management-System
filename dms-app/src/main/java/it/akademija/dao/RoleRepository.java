@@ -6,6 +6,9 @@ import it.akademija.model.role.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Long>  {
 	
-	Role findByName(String roleName);
+	Role findById(String roleName);
+	void deleteById(String roleName);
+	void deleteByComment (String comment);
+
 	
 }
