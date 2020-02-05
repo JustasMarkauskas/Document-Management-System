@@ -4,6 +4,7 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this._loggedIn = false;
+    this._isAdmin = false;
     this._name = "";
   }
 
@@ -12,6 +13,13 @@ class User extends React.Component {
   }
   set loggedIn(loggedInValue) {
     this._loggedIn = loggedInValue;
+  }
+
+  get isAdmin() {
+    return this._isAdmin;
+  }
+  set isAdmin(isAdmin) {
+    this._isAdmin = isAdmin;
   }
 
   get username() {
