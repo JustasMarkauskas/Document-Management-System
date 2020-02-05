@@ -12,7 +12,8 @@ class LoginUserContainer extends React.Component {
       User: {
         userName: "",
         userPassword: ""
-      }
+      },
+      incorrectLogin: false
     };
   }
 
@@ -44,6 +45,7 @@ class LoginUserContainer extends React.Component {
         }
       })
       .catch(e => {
+        this.setState({ incorrectLogin: true });
         console.log(e.resp);
       });
     event.preventDefault();
@@ -55,6 +57,7 @@ class LoginUserContainer extends React.Component {
         handleUserNameChange={this.handleUserNameChange}
         handleUserPasswordChange={this.handleUserPasswordChange}
         handleUserLogIn={this.handleUserLogIn}
+        incorrectLogin={this.state.incorrectLogin}
       />
     );
   }

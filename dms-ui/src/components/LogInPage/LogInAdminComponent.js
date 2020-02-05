@@ -6,7 +6,8 @@ const LogInAdminComponent = ({
   handleAdminPasswordChange,
   handleAdminLogIn,
   adminName,
-  adminPassword
+  adminPassword,
+  incorrectLogin
 }) => {
   return (
     <div className="row">
@@ -16,7 +17,7 @@ const LogInAdminComponent = ({
             <ul className="logNav mr-auto mt-2 mt-lg-0 d-flex justify-content-center align-items-center">
               <li className="nav-item">
                 <Link className="col-2" to="/">
-                  <button                    
+                  <button
                     type="button"
                     className="btn btn-secondary"
                     id="userLoginSelection"
@@ -27,7 +28,7 @@ const LogInAdminComponent = ({
               </li>
               <li className="nav-item">
                 <Link className="col-2" to="/admin">
-                  <button                    
+                  <button
                     type="button"
                     className="btn btn-secondary"
                     id="adminLoginSelection"
@@ -42,6 +43,7 @@ const LogInAdminComponent = ({
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Administrator name:</label>
               <input
+                autoFocus
                 type="text"
                 className="form-control"
                 id="inputAdminNameLogin"
@@ -63,17 +65,22 @@ const LogInAdminComponent = ({
               ></input>
             </div>
             <div className="d-flex justify-content-center">
-            <Link className="" to="/adminhomepage-users">
-                <button
-                  onClick={handleAdminLogIn}
-                  type="submit"
-                  className="btn btn-danger"
-                  id="adminLoginButton"
-                >
-                  Log In As Administrator
-                </button>
-              </Link>
+              <button
+                onClick={handleAdminLogIn}
+                type="submit"
+                className="btn btn-danger"
+                id="adminLoginButton"
+              >
+                Log In As Administrator
+              </button>
             </div>
+            {incorrectLogin ? (
+              <div className="alert alert-danger my-3" role="alert">
+                <h5>Login failed. Check username or password</h5>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </form>
         </div>
       </div>
@@ -81,6 +88,5 @@ const LogInAdminComponent = ({
   );
 };
 export default LogInAdminComponent;
-
 
 // Login as administrator mygtukas padarytas su Linku, kad butu patogiau dirbti kuriant admin interface

@@ -12,7 +12,8 @@ class LogInAdminContainer extends React.Component {
       Admin: {
         adminName: "",
         adminPassword: ""
-      }
+      },
+      incorrectLogin: false
     };
   }
 
@@ -44,6 +45,7 @@ class LogInAdminContainer extends React.Component {
         }
       })
       .catch(e => {
+        this.setState({ incorrectLogin: true });
         console.log(e.resp);
       });
     event.preventDefault();
@@ -55,6 +57,7 @@ class LogInAdminContainer extends React.Component {
         handleAdminNameChange={this.handleAdminNameChange}
         handleAdminPasswordChange={this.handleAdminPasswordChange}
         handleAdminLogIn={this.handleAdminLogIn}
+        incorrectLogin={this.state.incorrectLogin}
       />
     );
   }

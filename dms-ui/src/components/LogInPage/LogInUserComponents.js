@@ -6,7 +6,8 @@ const LogInUserComponent = ({
   handleUserPasswordChange,
   handleUserLogIn,
   userName,
-  userPassword
+  userPassword,
+  incorrectLogin
 }) => {
   return (
     <div className="row">
@@ -42,6 +43,7 @@ const LogInUserComponent = ({
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">User name:</label>
               <input
+                autoFocus
                 type="text"
                 className="form-control"
                 id="inputUserNameLogin"
@@ -60,18 +62,23 @@ const LogInUserComponent = ({
                 value={userPassword}
               ></input>
             </div>
-            <div className="d-flex justify-content-center">            
-              <Link className="" to="/userhomepage-documents">
-                <button
-                  onClick={handleUserLogIn}
-                  type="submit"
-                  className="btn btn-secondary"
-                  id="userLoginButton"
-                >
-                  Log In
-                </button>
-              </Link>
+            <div className="d-flex justify-content-center">
+              <button
+                onClick={handleUserLogIn}
+                type="submit"
+                className="btn btn-secondary"
+                id="userLoginButton"
+              >
+                Log In
+              </button>
             </div>
+            {incorrectLogin ? (
+              <div className="alert alert-danger my-3" role="alert">
+                <h5>Login failed. Check username or password</h5>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </form>
         </div>
       </div>
