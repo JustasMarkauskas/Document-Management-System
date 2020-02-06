@@ -2,9 +2,8 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import user from "../../../User/User";
-import LogInAdminContainer from "../../../LogInPage/LogInAdminContainer";
-
 import AdminHomePageDocumentsComponent from "./AdminHomePageDocumentsComponent";
+import LogInUserContainer from "../../../LogInPage/LogInUserContainer";
 
 class AdminHomePageDocumentsContainer extends React.Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class AdminHomePageDocumentsContainer extends React.Component {
     if (user.loggedIn) {
       return <AdminHomePageDocumentsComponent username={this.state.username} />;
     } else {
-      return <LogInAdminContainer />;
+      return <LogInUserContainer />;
     }
   }
 }

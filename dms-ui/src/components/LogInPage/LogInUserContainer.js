@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import LogInUserComponent from "./LogInUserComponents";
 import user from "../User/User";
 
-axios.defaults.withCredentials = true; // leidzia dalintis cookies
+axios.defaults.withCredentials = true;
 class LoginUserContainer extends React.Component {
   constructor(props) {
     super(props);
