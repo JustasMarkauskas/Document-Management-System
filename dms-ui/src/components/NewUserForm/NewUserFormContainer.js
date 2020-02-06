@@ -27,7 +27,7 @@ class NewUserFormContainer extends React.Component {
     });
   };
 
-  handleNameChange = event => {
+  handleFirstNameChange = event => {
     var firstNameValue = event.target.value;
     this.setState(prevState => {
       let user = Object.assign({}, prevState.user);
@@ -35,7 +35,7 @@ class NewUserFormContainer extends React.Component {
       return { user };
     });
   };
-  handleSurnameChange = event => {
+  handleLastNameChange = event => {
     var lastNameValue = event.target.value;
     this.setState(prevState => {
       let user = Object.assign({}, prevState.user);

@@ -17,6 +17,7 @@ import React, { useState } from "react";
 const NewGroupFormComponent = ({  
   handleSubmit,
   handleCancel,
+  handleChange,
   groupName,  
 }) => {
   return (
@@ -36,6 +37,7 @@ const NewGroupFormComponent = ({
           id="groupName"
           placeholder="Enter Group name"          
           value={groupName}
+          onChange={handleChange}
         />
       </div>      
       <button
