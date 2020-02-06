@@ -13,7 +13,7 @@ class NewUserFormContainer extends React.Component {
         lastName: "",
         comment: "",
         password: "",
-        confirmPassword: ""        
+        confirmPassword: ""
       }
     };
   }
@@ -69,17 +69,16 @@ class NewUserFormContainer extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    axios      
+    axios
       .post("http://localhost:8081/api/user/", {
         username: this.state.user.username,
-        fiestName: this.state.user.firstName,
+        firstName: this.state.user.firstName,
         lastName: this.state.user.lastName,
         comment: this.state.user.comment,
-        password: this.state.user.password,   
-
+        password: this.state.user.password
       })
-      .then(response => {
-        console.log(response);
+      .then(() => {
+        this.props.history.push("/adminhomepage-users");
       })
       .catch(error => {
         console.log(error);
@@ -95,8 +94,6 @@ class NewUserFormContainer extends React.Component {
         passwordConfirm: ""
       }
     });
-
-    this.props.history.push("/adminhomepage-users");
   };
 
   render() {
@@ -106,14 +103,14 @@ class NewUserFormContainer extends React.Component {
         handleFirstNameChange={this.handleFirstNameChange}
         handleLastNameChange={this.handleLastNameChange}
         handleCommentChange={this.handleCommentChange}
-        handlePasswordChange={this.handlePasswordChange}       
+        handlePasswordChange={this.handlePasswordChange}
         handleSubmit={this.handleSubmit}
         handleCancel={this.handleCancel}
         username={this.state.user.username}
         firstName={this.state.user.firstName}
         lastName={this.state.user.lastName}
         comment={this.state.user.comment}
-        password={this.state.user.password}        
+        password={this.state.user.password}
       />
     );
   }

@@ -4,10 +4,7 @@ class User extends React.Component {
   constructor(props) {
     super(props);
     this._loggedIn = false;
-<<<<<<< HEAD
     this._isAdmin = false;
-=======
->>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
     this._name = "";
   }
 
@@ -18,7 +15,6 @@ class User extends React.Component {
     this._loggedIn = loggedInValue;
   }
 
-<<<<<<< HEAD
   get isAdmin() {
     return this._isAdmin;
   }
@@ -26,8 +22,6 @@ class User extends React.Component {
     this._isAdmin = isAdmin;
   }
 
-=======
->>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
   get username() {
     return this._name;
   }

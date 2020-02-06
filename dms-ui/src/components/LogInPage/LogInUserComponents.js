@@ -62,7 +62,6 @@ const LogInUserComponent = ({
                 value={userPassword}
               ></input>
             </div>
-<<<<<<< HEAD
             <div className="d-flex justify-content-center">
               <button
                 onClick={handleUserLogIn}
@@ -72,19 +71,6 @@ const LogInUserComponent = ({
               >
                 Log In
               </button>
-=======
-            <div className="d-flex justify-content-center">            
-              <Link className="" to="/userhomepage-documents">
-                <button
-                  onClick={handleUserLogIn}
-                  type="submit"
-                  className="btn btn-secondary"
-                  id="userLoginButton"
-                >
-                  Log In
-                </button>
-              </Link>
->>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
             </div>
             {incorrectLogin ? (
               <div className="alert alert-danger my-3" role="alert">

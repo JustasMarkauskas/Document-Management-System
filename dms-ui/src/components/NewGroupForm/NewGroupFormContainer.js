@@ -6,7 +6,7 @@ import NewGroupFormComponent from "./NewGroupFormComponent";
 class NewGroupFormContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { groupName: "" };
+    this.state = { groupName: "", comment: "" };
   }
 
   handleCancel = event => {
@@ -14,33 +14,40 @@ class NewGroupFormContainer extends React.Component {
     this.props.history.push("/adminhomepage-groups");
   };
 
+  handleGroupNameChange = event => {
+    this.setState({ groupName: event.target.value });
+  };
+
+  handleCommentChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-    axios      
-      .post("http://localhost:8081/api/role/", { // pagal springa ne iki galo supratau kur tos grupes bus
-        groupName: this.state.groupName,
-
+    axios
+      .post("http://localhost:8081/api/role/", {
+        id: this.state.groupName,
+        comment: this.state.comment
       })
-      .then(response => {
-        console.log(response);
+      .then(() => {
+        this.props.history.push("/adminhomepage-groups");
       })
       .catch(error => {
         console.log(error);
       });
 
     this.setState({
-        groupName: "",        
+      groupName: ""
     });
-
-    this.props.history.push("/adminhomepage-groups");
   };
 
   render() {
     return (
-      <NewGroupFormComponent        
+      <NewGroupFormComponent
         handleSubmit={this.handleSubmit}
         handleCancel={this.handleCancel}
-        groupName={this.state.groupName}
+        handleCommentChange={this.handleCommentChange}
+        handleGroupNameChange={this.handleGroupNameChange}
       />
     );
   }
