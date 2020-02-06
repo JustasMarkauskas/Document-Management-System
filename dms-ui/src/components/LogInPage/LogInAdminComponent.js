@@ -17,7 +17,11 @@ const LogInAdminComponent = ({
             <ul className="logNav mr-auto mt-2 mt-lg-0 d-flex justify-content-center align-items-center">
               <li className="nav-item">
                 <Link className="col-2" to="/">
+<<<<<<< HEAD
                   <button
+=======
+                  <button                    
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
                     type="button"
                     className="btn btn-secondary"
                     id="userLoginSelection"
@@ -28,7 +32,11 @@ const LogInAdminComponent = ({
               </li>
               <li className="nav-item">
                 <Link className="col-2" to="/admin">
+<<<<<<< HEAD
                   <button
+=======
+                  <button                    
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
                     type="button"
                     className="btn btn-secondary"
                     id="adminLoginSelection"
@@ -65,6 +73,7 @@ const LogInAdminComponent = ({
               ></input>
             </div>
             <div className="d-flex justify-content-center">
+<<<<<<< HEAD
               <button
                 onClick={handleAdminLogIn}
                 type="submit"
@@ -73,6 +82,18 @@ const LogInAdminComponent = ({
               >
                 Log In As Administrator
               </button>
+=======
+            <Link className="" to="/adminhomepage-users">
+                <button
+                  onClick={handleAdminLogIn}
+                  type="submit"
+                  className="btn btn-danger"
+                  id="adminLoginButton"
+                >
+                  Log In As Administrator
+                </button>
+              </Link>
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
             </div>
             {incorrectLogin ? (
               <div className="alert alert-danger my-3" role="alert">
@@ -89,4 +110,8 @@ const LogInAdminComponent = ({
 };
 export default LogInAdminComponent;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
 // Login as administrator mygtukas padarytas su Linku, kad butu patogiau dirbti kuriant admin interface

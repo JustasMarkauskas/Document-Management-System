@@ -1,8 +1,14 @@
 import React from "react";
 import axios from "axios";
+<<<<<<< HEAD
 import user from "../../../User/User";
 import AdminHomePageGroupsComponent from "./AdminHomePageGroupsComponent";
 import LogInAdminContainer from "../../../LogInPage/LogInAdminContainer";
+=======
+import { withRouter } from "react-router-dom";
+
+import AdminHomePageGroupsComponent from "./AdminHomePageGroupsComponent";
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
 
 class AdminHomePageGroupsContainer extends React.Component {
   constructor(props) {
@@ -27,6 +33,7 @@ class AdminHomePageGroupsContainer extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     if (user.loggedIn) {
       return <AdminHomePageGroupsComponent username={this.state.username} />;
     } else {
@@ -36,3 +43,10 @@ class AdminHomePageGroupsContainer extends React.Component {
 }
 
 export default AdminHomePageGroupsContainer;
+=======
+    return <AdminHomePageGroupsComponent username={this.state.username} />;
+  }
+}
+
+export default withRouter(AdminHomePageGroupsContainer);
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e

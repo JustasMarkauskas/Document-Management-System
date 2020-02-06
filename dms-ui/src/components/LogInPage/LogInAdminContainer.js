@@ -39,7 +39,10 @@ class LogInAdminContainer extends React.Component {
         user.loggedIn = true;
         user.username = this.state.adminName;
         if (resp.data.isAdmin === "true") {
+<<<<<<< HEAD
           user.isAdmin = true;
+=======
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
           this.props.history.push("/adminhomepage-users");
         } else {
           this.props.history.push("/userhomepage-documents");

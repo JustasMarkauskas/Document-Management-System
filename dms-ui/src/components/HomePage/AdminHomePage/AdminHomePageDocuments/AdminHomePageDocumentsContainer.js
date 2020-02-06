@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import user from "../../../User/User";
@@ -38,3 +39,28 @@ class AdminHomePageDocumentsContainer extends React.Component {
 }
 
 export default withRouter(AdminHomePageDocumentsContainer);
+=======
+// import axios from "axios";
+import { withRouter } from "react-router-dom";
+
+import AdminHomePageDocumentsComponent from "./AdminHomePageDocumentsComponent";
+
+
+class AdminHomePageDocumentsContainer extends React.Component {
+
+
+
+  render (){
+    return(
+      <AdminHomePageDocumentsComponent
+        
+      />
+    );
+  }
+
+
+}
+
+
+export default withRouter (AdminHomePageDocumentsContainer);
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e

@@ -1,12 +1,24 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+<<<<<<< HEAD
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
+=======
+import { Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
+import NewUserFormContainer from '../../../NewUserForm/NewUserFormContainer'
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this.state = {
+=======
+
+    this.state = {      
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
       users: [],
       inputUsername: ""
     };
@@ -76,7 +88,11 @@ class AdminHomePageUsersContainer extends React.Component {
             id="adminAddNewUserButton"
           >
             Add new user
+<<<<<<< HEAD
           </button>
+=======
+          </button>          
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}

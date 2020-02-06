@@ -2,11 +2,19 @@ import React from "react";
 import AdminHomePageDocumentsNavContainer from "./AdminHomePageDocumentsNavContainer";
 import AdminHomePageDocumentContainer from "./AdminHomePageDocumentContainer";
 
+<<<<<<< HEAD
 const AdminHomePageDocumentsComponet = ({ username }) => {
   return (
     <div className="container">
       <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center">
         <h1>You logged in as administrator. Username: {username}</h1>
+=======
+const AdminHomePageDocumentsComponet = () => {
+  return (
+    <div className="container">
+      <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center">
+        <h1>You logged in as administrator</h1>
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
       </div>
       <div className="row">
         <div className="col-lg-2 shadow-sm p-3 mb-5 bg-light rounded mr-4">

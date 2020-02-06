@@ -11,6 +11,15 @@ import LogInUserContainer from "./components/LogInPage/LogInUserContainer";
 import AdminHomePageContainer from "./components/HomePage/AdminHomePage/AdminHomePageContainer";
 import AdminHomePageDocumentsContainer from "./components/HomePage/AdminHomePage/AdminHomePageDocuments/AdminHomePageDocumentsContainer";
 import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/AdminHomePageGroupsContainer";
+<<<<<<< HEAD
+=======
+
+import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
+import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
+import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
+import NewUserFormContainer from "./components/NewUserForm/NewUserFormContainer";
+import NewGroupFormContainer from "./components/NewGroupForm/NewGroupFormContainer";
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
 
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
@@ -35,7 +44,19 @@ ReactDOM.render(
       <Route
         path="/userhomepage-groups"
         component={UserHomePageGroupsContainer}
+<<<<<<< HEAD
       />
+=======
+      />   
+      <Route
+        path="/new-user"
+        component={NewUserFormContainer}
+      /> 
+      <Route
+        path="/new-group"
+        component={NewGroupFormContainer}
+      />      
+>>>>>>> b9702dbb969177a2ed673e32523aaea42ffd197e
     </Switch>
   </BrowserRouter>,
 
