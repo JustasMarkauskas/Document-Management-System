@@ -15,22 +15,29 @@ const schema = yup.object({
     .matches(/^[A-Za-z\d]+$/, "Only Uppercases, Lowercases And Numbers"),
   firstName: yup
     .string()
+    .trim()
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
     .required("Please Enter a username")
     .matches(/^[A-Za-z\s-]+$/, "Only Uppercases And Lowercases"),
   lastName: yup
     .string()
+    .trim()
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
     .required("Please Enter a username")
     .matches(/^[A-Za-z\s-]+$/, "Only Uppercases And Lowercases"),
-  comment: yup.string(),
+  comment: yup
+    .string()
+    .trim()
+    .max(50, "Must be 30 characters or less"),
   password: yup
     .string()
     .required("Please Enter your password")
+    .min(8)
+    .max(20)
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d].{8,20}$/,
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]+$/,
       "Must Contain 8 - 20 Characters, One Uppercase, One Lowercase, One Number"
     ),
   confirmPassword: yup
@@ -51,8 +58,6 @@ const handleSubmit = values => {
     .catch(error => {
       console.log(error);
     });
-
-  this.props.history.push("/user");
 };
 
 const NewUserFormComponent = props => {
@@ -72,7 +77,7 @@ const NewUserFormComponent = props => {
       {({ handleSubmit, handleChange, values, isValid, errors }) => (
         <div className="NewUserForm">
           <Form noValidate onSubmit={handleSubmit}>
-            <div className="form-group">
+            <Form.Group>
               <Form.Control
                 size="lg"
                 className="NewUserForm"
@@ -87,7 +92,7 @@ const NewUserFormComponent = props => {
               <Form.Control.Feedback className="FeedBack" type="invalid">
                 {errors.username}
               </Form.Control.Feedback>
-            </div>
+            </Form.Group>
 
             <Form.Group>
               <Form.Control
@@ -157,8 +162,7 @@ const NewUserFormComponent = props => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label></Form.Label>
+            <Form.Group>              
               <Form.Control
                 as="textarea"
                 rows="2"

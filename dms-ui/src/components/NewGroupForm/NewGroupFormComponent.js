@@ -7,12 +7,16 @@ import * as yup from "yup";
 import axios from "axios";
 
 const schema = yup.object({
-  groupName: yup
+  id: yup
     .string()
-    .min(5, "Must be 5 characters or more")
+    .min(5, "Must be 3 characters or more")
     .max(20, "Must be 20 characters or less")
-    .required("Please Enter a groupName")
-    .matches(/^[A-Za-z\d]+$/, "Only Uppercases, Lowercases And Numbers")
+    .required("Please Enter a group name")
+    .matches(/^[A-Za-z]+$/, "Only Uppercases And Lowercases"),
+  comment: yup
+    .string()
+    .trim()
+    .max(30, "Must be 30 characters or less")
 });
 
 const handleSubmit = values => {
@@ -35,28 +39,48 @@ const NewGroupFormComponent = props => {
       validationSchema={schema}
       onSubmit={handleSubmit}
       initialValues={{
-        groupName: ""
+        id: "",
+        comment: ""
       }}
     >
       {({ handleSubmit, handleChange, values, isValid, errors }) => (
         <div className="NewGroupForm">
           <Form noValidate onSubmit={handleSubmit}>
-            <div className="form-group">
+            <Form.Group>
               <Form.Control
                 size="lg"
                 className="NewGroupForm"
                 type="text"
-                id="groupName"
-                name="groupName"
-                value={values.groupName}
+                id="id"
+                name="id"
+                value={values.id}
                 onChange={handleChange}
-                placeholder="groupName"
-                isInvalid={!!errors.groupName}
+                placeholder="Group Name"
+                isInvalid={!!errors.id}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.groupName}
+                {errors.id}
               </Form.Control.Feedback>
-            </div>
+              </Form.Group>
+
+              <Form.Group>              
+              <Form.Control
+                as="textarea"
+                rows="2"
+                className="NewGroupForm"
+                size="lg"
+                name="comment"
+                onChange={handleChange}
+                type="comment"
+                id="comment"
+                value={values.comment}
+                placeholder="Comment"
+                isInvalid={!!errors.comment}
+              />
+              <Form.Control.Feedback className="FeedBack" type="invalid">
+                {errors.comment}
+              </Form.Control.Feedback>
+            </Form.Group>            
 
             <Button
               disabled={!isValid}
