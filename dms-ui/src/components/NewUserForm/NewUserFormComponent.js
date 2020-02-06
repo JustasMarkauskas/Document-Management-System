@@ -11,38 +11,38 @@ const schema = yup.object({
     .string()
     .min(5, "Must be 5 characters or more")
     .max(20, "Must be 20 characters or less")
-    .required("Please Enter a username")
-    .matches(/^[A-Za-z\d]+$/, "Only Uppercases, Lowercases And Numbers"),
+    .required("Please enter a username")
+    .matches(/^[A-Za-z\d]+$/, "Only uppercases, lowercases and numbers"),
   firstName: yup
     .string()
     .trim()
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
-    .required("Please Enter a username")
-    .matches(/^[A-Za-z\s-]+$/, "Only Uppercases And Lowercases"),
+    .required("Please enter a first name")
+    .matches(/^[A-Za-z\s-]+$/, "Only uppercase, lowercase letters and '-', space symbols are allowed"),
   lastName: yup
     .string()
     .trim()
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
-    .required("Please Enter a username")
-    .matches(/^[A-Za-z\s-]+$/, "Only Uppercases And Lowercases"),
+    .required("Please enter a last name")
+    .matches(/^[A-Za-z\s-]+$/, "Only uppercases And lowercases"),
   comment: yup
     .string()
     .trim()
-    .max(50, "Must be 30 characters or less"),
+    .max(50, "Must be 50 characters or less"),
   password: yup
     .string()
-    .required("Please Enter your password")
+    .required("Please enter your password")
     .min(8)
     .max(20)
     .matches(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]+$/,
-      "Must Contain 8 - 20 Characters, One Uppercase, One Lowercase, One Number"
+      "At least one uppercase, lowercase and number"
     ),
   confirmPassword: yup
     .string()
-    .required()
+    .required("Please confirm your password")
     .oneOf([yup.ref("password"), null], "Passwords must match")
 });
 
