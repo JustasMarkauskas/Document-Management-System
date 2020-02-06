@@ -1,16 +1,32 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
+import NewGroupFormComponent from '../../../NewGroupForm/NewGroupFormComponent';
 
 class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    
     this.state = {
+      show: false,
       groups: [],
       groupName: ""
     };
   }
+
+  handleCloseModal() {
+		this.setState({ show: false });
+	}
+
+	handleShowModal() {
+		this.setState({ show: true });
+	}
+
 
   getGroups = () => {
     axios
@@ -69,13 +85,20 @@ class AdminHomePageGroupContainer extends React.Component {
       <div className="container">
         <div className="row col-lg-12">
           <button
-            onClick={this.handleAddGroupButton}
+            onClick={this.handleShowModal}
             type="button"
             className="btn btn-primary col-lg-3 mb-2"
             id="adminAddNewGroupButton"
           >
             Add new Group
           </button>
+	  <Modal show={this.state.show} onHide={this.handleCloseModal}>
+	    <Modal.Header closeButton>
+	    <Modal.Title>Create New Group</Modal.Title>
+	    </Modal.Header>
+	    <Modal.Body> <NewGroupFormComponent onCloseModal={this.handleCloseModal} />             
+            </Modal.Body>  
+		      </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}

@@ -1,16 +1,30 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Modal } from 'react-bootstrap';
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
+import NewUserFormComponent from '../../../NewUserForm/NewUserFormComponent'
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+
     this.state = {
+      show: false,
       users: [],
       inputUsername: ""
     };
   }
+    handleCloseModal() {
+	this.setState({ show: false });
+	}
+
+    handleShowModal() {
+	this.setState({ show: true });
+	}
 
   getUsers = () => {
     axios
@@ -70,13 +84,20 @@ class AdminHomePageUsersContainer extends React.Component {
       <div className="container">
         <div className="row ">
           <button
-            onClick={this.handleAddUserButton}
+            onClick={this.handleShowModal}
             type="button"
             className="btn btn-primary col-lg-2 mb-2"
             id="adminAddNewUserButton"
           >
             Add new user
           </button>
+          <Modal show={this.state.show} onHide={this.handleCloseModal}>
+		<Modal.Header closeButton>
+		<Modal.Title>Create New User</Modal.Title>
+		</Modal.Header>
+		<Modal.Body> <NewUserFormComponent onCloseModal={this.handleCloseModal} />             
+                </Modal.Body>  
+	  </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}

@@ -12,8 +12,7 @@ import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/Adm
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
-import NewUserFormContainer from "./components/NewUserForm/NewUserFormContainer";
-import NewGroupFormContainer from "./components/NewGroupForm/NewGroupFormContainer";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -34,8 +33,6 @@ ReactDOM.render(
         path="/userhomepage-groups"
         component={UserHomePageGroupsContainer}
       />
-      <Route path="/new-user" component={NewUserFormContainer} />
-      <Route path="/new-group" component={NewGroupFormContainer} />
     </Switch>
   </BrowserRouter>,
 

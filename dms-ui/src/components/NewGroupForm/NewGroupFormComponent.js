@@ -1,56 +1,81 @@
-import React, { useState } from "react";
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Form } from "react-bootstrap";
+import { Button} from 'react-bootstrap';
+import { Formik } from "formik";
+import * as yup from 'yup';
+import axios from "axios";
 
-const NewGroupFormComponent = ({
-  handleSubmit,
-  handleCancel,
-  handleGroupNameChange,
-  handleCommentChange,
-  comment,
-  groupName
-}) => {
-  return (
-    <div className="container">
-      <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center">
-        <h1>You logged in as administrator</h1>
-      </div>
-      <h2 className="text-center"> Create New Group</h2>
-      <div className="row">
-        <form className="container bg-light rounded col-md-8 offset-md-2 py-3">
-          <div className="form-group">
-            <label htmlFor="groupName">Group name</label>
-            <input
-              autoFocus
-              type="text"
-              className="form-control"
-              id="groupName"
-              placeholder="Enter Group name"
-              onChange={handleGroupNameChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="groupName">Comment</label>
-            <input
-              type="text"
-              className="form-control"
-              id="comment"
-              placeholder="Enter comment"
-              onChange={handleCommentChange}
-            />
-          </div>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="btn btn-primary mx-2"
-          >
-            Submit
-          </button>
-          <button onClick={handleCancel} className="btn btn-secondary">
-            Cancel
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+const schema = yup.object({
+  groupName: yup
+      .string()
+      .min(5, 'Must be 5 characters or more')
+      .max(20, 'Must be 20 characters or less')
+      .required('Please Enter a groupName')
+      .matches(/^[A-Za-z\d]+$/, "Only Uppercases, Lowercases And Numbers"),  
+});
+
+const handleSubmit = (values) => {
+  axios({
+    method: "POST",
+    url: "http://localhost:8081/api/role/",
+    data: values
+  })      
+      .then(response => {
+        console.log(response);                                       
+      })      
+      .catch(error => {        
+        console.log(error);
+     });   
+    
 };
 
-export default NewGroupFormComponent;
+const NewGroupFormComponent = (props) => {  
+      return (
+        <Formik
+        validationSchema={schema}
+        onSubmit={handleSubmit}        
+        initialValues={{
+          groupName: "",          
+        }}
+      >
+      {({                   
+        handleSubmit,        
+        handleChange,
+        values,         
+        isValid,
+        errors,
+      }) => (
+        <div className="NewGroupForm">            
+        <Form noValidate onSubmit={handleSubmit}>
+        <div class="form-group">
+            <Form.Control
+              size="lg"
+              className="NewGroupForm"
+              type="text"
+              id="groupName"
+              name="groupName"
+              value={values.groupName}                
+              onChange={handleChange}                
+              placeholder="groupName"
+              isInvalid={!!errors.groupName}
+            />                             
+            <Form.Control.Feedback className="FeedBack" type="invalid">
+            {errors.groupName}
+          </Form.Control.Feedback>
+          </div>  
+          
+         <Button disabled={!isValid} onClick={props.onCloseModal} variant="primary" className="SubmitButton mr-2" type="submit">
+        Submit
+      </Button>
+      <Button onClick={props.onCloseModal} variant="primary">
+        Cancel
+      </Button>
+      
+    </Form>
+  </div>)}
+  </Formik>
+);
+};
+
+export default withRouter(NewGroupFormComponent);
