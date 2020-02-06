@@ -2,8 +2,9 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInUserComponent from "./LogInUserComponents";
+import user from "../User/User";
 
-axios.defaults.withCredentials = true; // leidzia dalintis cookies
+axios.defaults.withCredentials = true;
 class LoginUserContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,8 @@ class LoginUserContainer extends React.Component {
       User: {
         userName: "",
         userPassword: ""
-      }
+      },
+      incorrectLogin: false
     };
   }
 
@@ -29,16 +31,26 @@ class LoginUserContainer extends React.Component {
     userData.append("password", this.state.userPassword);
     axios
       .post("http://localhost:8081/login", userData, {
-        headers: { "Content-type": "application/x-www-form-urlencoded" }
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded"
+        }
       })
       .then(resp => {
-        console.log("user " + resp.data.username + " logged in"); //veliau istrinti
-        this.props.history.push("/userPage");
+        user.loggedIn = true;
+        user.username = this.state.userName;
+        if (resp.data.isAdmin === "true") {
+          this.props.history.push("/adminhomepage-users");
+        } else {
+          this.props.history.push("/userhomepage-documents");
+        }
       })
       .catch(e => {
+        this.setState({ incorrectLogin: true });
         console.log(e.resp);
       });
     event.preventDefault();
+    document.getElementById("inputUserNameLogin").value = "";
+    document.getElementById("inputUserPasswordLogin").value = "";
   };
 
   render() {
@@ -47,6 +59,7 @@ class LoginUserContainer extends React.Component {
         handleUserNameChange={this.handleUserNameChange}
         handleUserPasswordChange={this.handleUserPasswordChange}
         handleUserLogIn={this.handleUserLogIn}
+        incorrectLogin={this.state.incorrectLogin}
       />
     );
   }

@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import it.akademija.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -30,11 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SecurityEntryPoint securityEntryPoint;
 	@Autowired
-	private UserDetailsService userService;
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private UserService userService;
+
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		;
 	}
 
@@ -45,13 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		
 		http.authorizeRequests()
-				// be saugumo UI dalis ir swaggeris
+				// UI without security
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
-				// visi /test/ keliai yra saugus, pasiekiami tik prisijungus 
-				.antMatchers("/test/**").authenticated().and().formLogin().loginPage("/login").permitAll() 
-
-				// prisijungus
+				// all /apitest/ are safe, accessed only when user is logged in
+				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll()
 				.successHandler(new AuthenticationSuccessHandler() {
 					@Override
 					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -59,14 +64,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						response.setHeader("Access-Control-Allow-Credentials", "true");
 						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 						response.setHeader("Content-Type", "application/json;charset=UTF-8");
-						response.getWriter().print("{\"username\": \""
-								+ SecurityContextHolder.getContext().getAuthentication().getName() + "\"}");
+						response.getWriter().print("{\"isAdmin\": \"" + userService
+								.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).isAdmin()
+								 + "\"}");
 					}
 				})
-				// esant blogiems user/pass
-				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll()
-				.and().logout().permitAll()
-				// G pridetas testavimui. veikia. tik nzn, ka reikia paduoti i response. idejau ta pati ka i login
+				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll().and()
+				.logout().permitAll()
+				// works, but need to change this part in next sprint
 				.logoutSuccessHandler(new LogoutSuccessHandler() {
 					@Override
 					public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -75,11 +80,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 						response.setHeader("Content-Type", "application/json;charset=UTF-8");
 					}
-				})
-				.and().csrf().disable() // nenaudojam tokenu
-				// forbidden klaidai
+				}).and().csrf().disable() 
 				.exceptionHandling().authenticationEntryPoint(securityEntryPoint).and().headers().frameOptions()
-				.disable(); // H2 konsolei
+				.disable(); 
 
 	}
 }

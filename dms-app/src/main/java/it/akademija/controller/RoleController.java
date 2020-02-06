@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.model.role.NewRole;
 import it.akademija.model.role.Role;
 import it.akademija.model.role.RoleForClient;
-import it.akademija.model.user.NewUser;
-import it.akademija.model.user.User;
-import it.akademija.model.user.UserForClient;
+
 import it.akademija.service.RoleService;
+
 
 @RestController
 @RequestMapping(value = "/api/role")
@@ -47,8 +47,8 @@ public class RoleController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create role", notes = "Creates role with data")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final String roleName) {
-		roleService.saveRole(roleName);
+	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewRole newRole) {
+		roleService.saveRole(newRole);
 	}
 
 	@RequestMapping(path = "/update-role-operations/{groupName}", method = RequestMethod.PUT)
@@ -65,4 +65,12 @@ public class RoleController {
 		roleService.deleteRoleByName(roleName);
 	}
 
+	@RequestMapping(path = "/comment",method = RequestMethod.DELETE)
+	@ApiOperation(value = "Deletes roles/groups by comment", notes = "Usefull for testing")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteRolesByComment(@RequestParam final String comment) {
+		roleService.deleteRolesByComment(comment);
+		
+	}
+	
 }

@@ -5,13 +5,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import it.akademija.dao.OperationRepository;
 import it.akademija.dao.RoleRepository;
 import it.akademija.model.operation.Operation;
+import it.akademija.model.role.NewRole;
 import it.akademija.model.role.Role;
 import it.akademija.model.role.RoleForClient;
+import it.akademija.model.user.User;
 
 @Service
 public class RoleService {
@@ -26,13 +30,18 @@ public class RoleService {
 	}
 
 	@Transactional(readOnly = true)
+	public Role findByRoleName(String roleName) {
+		return roleRepository.findById(roleName);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<Role> getRoles() {
 		return roleRepository.findAll();
 	}
 
 	@Transactional(readOnly = true)
 	public List<RoleForClient> getRolesForClient() {
-		return roleRepository.findAll().stream().map((role) -> new RoleForClient(role.getId()))
+		return roleRepository.findAll().stream().map((role) -> new RoleForClient(role.getId(), role.getComment(), role.getUsers().size()))
 				.collect(Collectors.toList());
 	}
 
@@ -49,9 +58,10 @@ public class RoleService {
 	}
 
 	@Transactional
-	public void saveRole(String roleName) {
+	public void saveRole(NewRole newRole) {
 		Role role = new Role();
-		role.setId(roleName);
+		role.setId(newRole.getId());
+		role.setComment(newRole.getComment());
 		roleRepository.save(role);
 	}
 
@@ -68,6 +78,11 @@ public class RoleService {
 	@Transactional
 	public void deleteRoleByName(String roleName) {
 		roleRepository.deleteById(roleName);
+	}
+	
+	@Transactional
+	public void deleteRolesByComment(String comment) {
+		roleRepository.deleteByComment(comment);
 	}
 	
 }

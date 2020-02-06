@@ -25,6 +25,8 @@ public class Role implements GrantedAuthority {
 
 	@Id
 	private String id;
+	
+	private String comment;
 
 	@ManyToMany(mappedBy = "roles", cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private Collection<User> users;
@@ -36,15 +38,16 @@ public class Role implements GrantedAuthority {
 	public Role() {
 	}
 
-	public Role(String id, Collection<User> users, Collection<Operation> operations) {
+	public Role(String id, String comment, Collection<User> users, Collection<Operation> operations) {
 		this.id = id;
+		this.comment = comment;
 		this.users = users;
 		this.operations = operations;
 	}
 
-	public Role(String id) {
-
+	public Role(String id, String comment) {
 		this.id = id;
+		this.comment = comment;
 	}
 
 	public String getId() {
@@ -75,6 +78,14 @@ public class Role implements GrantedAuthority {
 	public String getAuthority() {
 		return id;
 	}
+	
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 
 	public List<GrantedAuthority> getGrantedAutoritiesFromOperations() {
 
@@ -86,5 +97,7 @@ public class Role implements GrantedAuthority {
 		return grantedAuthoritiesList;
 
 	}
+
+	
 
 }
