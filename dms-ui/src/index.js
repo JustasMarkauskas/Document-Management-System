@@ -13,7 +13,6 @@ import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePa
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 
-
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
