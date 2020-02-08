@@ -30,7 +30,7 @@ class LoginUserContainer extends React.Component {
     userData.append("username", this.state.userName);
     userData.append("password", this.state.userPassword);
     axios
-      .post("http://localhost:8081/login", userData, {
+      .post("http://akademijait.vtmc.lt:8180/dms/login", userData, {
         headers: {
           "Content-type": "application/x-www-form-urlencoded"
         }

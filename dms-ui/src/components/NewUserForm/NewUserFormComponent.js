@@ -19,7 +19,10 @@ const schema = yup.object({
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
     .required("Please enter a first name")
-    .matches(/^[A-Za-z\s-]+$/, "Only uppercase, lowercase letters and '-', space symbols are allowed"),
+    .matches(
+      /^[A-Za-z\s-]+$/,
+      "Only uppercase, lowercase letters and '-', space symbols are allowed"
+    ),
   lastName: yup
     .string()
     .trim()
@@ -49,7 +52,7 @@ const schema = yup.object({
 const handleSubmit = values => {
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/user/",
+    url: "http://akademijait.vtmc.lt:8180/dms/api/user/",
     data: values
   })
     .then(response => {
@@ -162,7 +165,7 @@ const NewUserFormComponent = props => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group>              
+            <Form.Group>
               <Form.Control
                 as="textarea"
                 rows="2"

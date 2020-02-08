@@ -6,7 +6,7 @@ import AdminHomePageGroupNavComponent from "./AdminHomePageGroupNavcomponent";
 class AdminHomePageGroupNavContainer extends React.Component {
   handleLogoutButton = event => {
     axios
-      .post("http://localhost:8081/logout")
+      .post("http://akademijait.vtmc.lt:8180/dms/logout")
       .then(() => {
         this.props.history.push("/");
       })

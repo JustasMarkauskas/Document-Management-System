@@ -14,7 +14,7 @@ class AdminHomePageGroupsContainer extends React.Component {
 
   getUsername = () => {
     axios
-      .get("http://localhost:8081/api/user/loggedUsername")
+      .get("http://akademijait.vtmc.lt:8180/dms/api/user/loggedUsername")
       .then(response => {
         this.setState({ username: response.data });
       })

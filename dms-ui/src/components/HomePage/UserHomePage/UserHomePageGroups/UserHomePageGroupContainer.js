@@ -15,7 +15,10 @@ class UserHomePageGroupContainer extends React.Component {
 
   getGroupNames = () => {
     axios
-      .get("http://localhost:8081/api/user/user-roles/" + user.username)
+      .get(
+        "http://akademijait.vtmc.lt:8180/dms/api/user/user-roles/" +
+          user.username
+      )
       .then(response => {
         this.setState({ groupNames: response.data });
       })

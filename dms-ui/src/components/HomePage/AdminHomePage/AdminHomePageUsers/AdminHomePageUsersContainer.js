@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
-import NewUserFormComponent from '../../../NewUserForm/NewUserFormComponent'
+import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
@@ -18,17 +18,17 @@ class AdminHomePageUsersContainer extends React.Component {
       inputUsername: ""
     };
   }
-    handleCloseModal() {
-	this.setState({ show: false });
-	}
+  handleCloseModal() {
+    this.setState({ show: false });
+  }
 
-    handleShowModal() {
-	this.setState({ show: true });
-	}
+  handleShowModal() {
+    this.setState({ show: true });
+  }
 
   getUsers = () => {
     axios
-      .get("http://localhost:8081/api/user")
+      .get("http://akademijait.vtmc.lt:8180/dms/api/user")
       .then(response => {
         this.setState({ users: response.data });
       })
@@ -57,7 +57,10 @@ class AdminHomePageUsersContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/user/" + this.state.inputUsername)
+      .get(
+        "http://akademijait.vtmc.lt:8180/dms/api/user/" +
+          this.state.inputUsername
+      )
       .then(response => {
         this.setState({ users: [response.data] });
       })
@@ -92,12 +95,14 @@ class AdminHomePageUsersContainer extends React.Component {
             Add new user
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
-		<Modal.Header closeButton>
-		<Modal.Title>Create New User</Modal.Title>
-		</Modal.Header>
-		<Modal.Body> <NewUserFormComponent onCloseModal={this.handleCloseModal} />             
-                </Modal.Body>  
-	  </Modal>
+            <Modal.Header closeButton>
+              <Modal.Title>Create New User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {" "}
+              <NewUserFormComponent onCloseModal={this.handleCloseModal} />
+            </Modal.Body>
+          </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}

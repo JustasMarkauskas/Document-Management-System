@@ -14,7 +14,7 @@ class AdminHomePageDocumentContainer extends React.Component {
 
   getDocuments = () => {
     axios
-      .get("http://localhost:8081/api/document")
+      .get("http://akademijait.vtmc.lt:8180/dms/api/document")
       .then(response => {
         this.setState({ documents: response.data });
       })
@@ -43,7 +43,10 @@ class AdminHomePageDocumentContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/document/" + this.state.documentName)
+      .get(
+        "http://akademijait.vtmc.lt:8180/dms/api/document/" +
+          this.state.documentName
+      )
       .then(response => {
         this.setState({ documents: [response.data] });
       })
