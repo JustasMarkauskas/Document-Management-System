@@ -72,28 +72,28 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Transactional(readOnly = true)
-	public Set<String> getAllDocumentsForCreation(String username) {
+	public Set<String> getAllDocTypesForCreation(String username) {
 		User user = findByUsername(username);
-		Set<String> allDocumentsForCreation = new HashSet<>();
+		Set<String> allDocTypesForCreation = new HashSet<>();
 		for (Role role : user.getRoles()) {
 			for (DocType docType : role.getDocTypesForCreation()) {
-				allDocumentsForCreation.add(docType.getId());
+				allDocTypesForCreation.add(docType.getId());
 			}
 		}
 
-		return allDocumentsForCreation;
+		return allDocTypesForCreation;
 	}
 	
 	@Transactional(readOnly = true)
-	public Set<String> getAllDocumentsForApproval(String username) {
+	public Set<String> getAllDocTypesForApproval(String username) {
 		User user = findByUsername(username);
-		Set<String> allDocumentsForApproval = new HashSet<>();
+		Set<String> allDocTypesForApproval = new HashSet<>();
 		for (Role role : user.getRoles()) {
 			for (DocType docType : role.getDocTypesForApproval()) {
-				allDocumentsForApproval.add(docType.getId());
+				allDocTypesForApproval.add(docType.getId());
 			}
 		}
-		return allDocumentsForApproval;
+		return allDocTypesForApproval;
 	}
 
 

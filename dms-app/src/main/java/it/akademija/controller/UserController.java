@@ -71,8 +71,8 @@ public class UserController {
 	
 	@RequestMapping(path = "/user-doctypes-for-creation/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User doc types for creation", notes = "Return names of all user doc types for creation")
-	public Set<String> getAllDocumentsForCreation(@PathVariable String username) {
-		return userService.getAllDocumentsForCreation(username); 
+	public Set<String> getAllDocTypesForCreation(@PathVariable String username) {
+		return userService.getAllDocTypesForCreation(username); 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
