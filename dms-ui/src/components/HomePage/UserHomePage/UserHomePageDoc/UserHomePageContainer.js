@@ -28,11 +28,7 @@ class UserHomePageContainer extends React.Component {
   }
 
   render() {
-    if (user.loggedIn) {
-      return <UserHomepageComponents username={this.state.username} />;
-    } else {
-      return <LogInUserContainer />;
-    }
+    return <UserHomepageComponents username={this.state.username} />;
   }
 }
 

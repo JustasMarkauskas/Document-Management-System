@@ -1,9 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import user from "../../User/User";
 import AdminHomePageComponent from "./AdminHomePageComponents";
-import LogInUserContainer from "../../LogInPage/LogInUserContainer";
 
 class AdminHomePageContainer extends React.Component {
   constructor(props) {
@@ -28,11 +26,7 @@ class AdminHomePageContainer extends React.Component {
   }
 
   render() {
-    if (user.loggedIn) {
-      return <AdminHomePageComponent username={this.state.username} />;
-    } else {
-      return <LogInUserContainer />;
-    }
+    return <AdminHomePageComponent username={this.state.username} />;
   }
 }
 
