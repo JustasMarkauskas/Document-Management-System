@@ -25,6 +25,10 @@ public class DocType {
 	
 	public DocType() {}
 	
+	public DocType(String id) {
+		this.id = id;
+	}
+	
 	public DocType(String id, String comment, Collection<Role> rolesCanCreate, Collection<Role> rolesCanApprove) {
 		this.id = id;
 		this.comment = comment;

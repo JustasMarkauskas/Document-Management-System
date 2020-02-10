@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.print.Doc;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.dao.RoleRepository;
 import it.akademija.dao.UserRepository;
+import it.akademija.model.doctype.DocType;
 import it.akademija.model.role.Role;
 import it.akademija.model.user.NewUser;
 import it.akademija.model.user.User;
@@ -61,12 +64,38 @@ public class UserService implements UserDetailsService {
 		List<GrantedAuthority> grantedAuthoritiesList = grantedAuthorities.stream().collect(Collectors.toList());
 		return grantedAuthoritiesList;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<String> getUserRoles(String username) {
 		User user = findByUsername(username);
 		return user.getRoles().stream().map((role) -> role.getId()).collect(Collectors.toList());
 	}
+
+	@Transactional(readOnly = true)
+	public Set<String> getAllDocumentsForCreation(String username) {
+		User user = findByUsername(username);
+		Set<String> allDocumentsForCreation = new HashSet<>();
+		for (Role role : user.getRoles()) {
+			for (DocType docType : role.getDocTypesForCreation()) {
+				allDocumentsForCreation.add(docType.getId());
+			}
+		}
+
+		return allDocumentsForCreation;
+	}
+	
+	@Transactional(readOnly = true)
+	public Set<String> getAllDocumentsForApproval(String username) {
+		User user = findByUsername(username);
+		Set<String> allDocumentsForApproval = new HashSet<>();
+		for (Role role : user.getRoles()) {
+			for (DocType docType : role.getDocTypesForApproval()) {
+				allDocumentsForApproval.add(docType.getId());
+			}
+		}
+		return allDocumentsForApproval;
+	}
+
 
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {

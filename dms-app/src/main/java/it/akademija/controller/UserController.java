@@ -1,5 +1,6 @@
 package it.akademija.controller;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,13 @@ public class UserController {
 	@ApiOperation(value = "Get User roles", notes = "Return names of all user roles")
 	public List<String> getUserRoles(@PathVariable String username) {
 		return userService.getUserRoles(username); 
+	}
+	
+	
+	@RequestMapping(path = "/user-doctypes-for-creation/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get User doc types for creation", notes = "Return names of all user doc types for creation")
+	public Set<String> getAllDocumentsForCreation(@PathVariable String username) {
+		return userService.getAllDocumentsForCreation(username); 
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
