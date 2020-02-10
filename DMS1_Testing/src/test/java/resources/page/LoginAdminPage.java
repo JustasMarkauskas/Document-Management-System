@@ -53,7 +53,6 @@ public class LoginAdminPage extends AbstractPage {
 	}
 	
 	public void enterInputAdminDetailsAndLogin(String adminName, String adminPassword) {
-		buttonAdminLoginSelection.click();
 		inputAdminName.sendKeys(adminName);
 		inputAdminPassword.sendKeys(adminPassword);
 		buttonAdminLogin.click();

@@ -53,7 +53,6 @@ public class LoginUserPage extends AbstractPage {
 	}
 	
 	public void enterInputAdminDetailsAndLogin(String username, String userPassword) {
-		buttonUserLoginSelection.click();
 		inputUserName.sendKeys(username);
 		inputUserPassword.sendKeys(userPassword);
 		buttonUserLogin.click();

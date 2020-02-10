@@ -13,7 +13,7 @@ public abstract class AbstractTest {
 
 	@BeforeClass
 	public static void setUp() {
-		System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 	}
