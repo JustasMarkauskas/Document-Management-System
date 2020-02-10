@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import it.akademija.model.doctype.DocType;
 import it.akademija.model.operation.Operation;
 import it.akademija.model.user.User;
 
@@ -25,11 +26,18 @@ public class Role implements GrantedAuthority {
 
 	@Id
 	private String id;
-	
 	private String comment;
 
 	@ManyToMany(mappedBy = "roles", cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private Collection<User> users;
+	
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@JoinTable(name = "role_doctypes_for_creation", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctype_id", referencedColumnName = "id"))
+	private Collection<DocType> docTypesForCreation;
+	
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
+	@JoinTable(name = "role_doctypes_for_approval", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctype_id", referencedColumnName = "id"))
+	private Collection<DocType> docTypesForApproval;
 
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable(name = "role_operations", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "operation_id", referencedColumnName = "id"))
@@ -38,11 +46,13 @@ public class Role implements GrantedAuthority {
 	public Role() {
 	}
 
-	public Role(String id, String comment, Collection<User> users, Collection<Operation> operations) {
+	public Role(String id, String comment, Collection<User> users, Collection<Operation> operations, Collection<DocType> docTypesForCreation, Collection<DocType> docTypesForApproval) {
 		this.id = id;
 		this.comment = comment;
 		this.users = users;
 		this.operations = operations;
+		this.docTypesForApproval = docTypesForApproval;
+		this.docTypesForCreation = docTypesForCreation;
 	}
 
 	public Role(String id, String comment) {
@@ -86,6 +96,22 @@ public class Role implements GrantedAuthority {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	public Collection<DocType> getDocTypesForCreation() {
+		return docTypesForCreation;
+	}
+
+	public void setDocTypesForCreation(Collection<DocType> docTypesForCreation) {
+		this.docTypesForCreation = docTypesForCreation;
+	}
+
+	public Collection<DocType> getDocTypesForApproval() {
+		return docTypesForApproval;
+	}
+
+	public void setDocTypesForApproval(Collection<DocType> docTypesForApproval) {
+		this.docTypesForApproval = docTypesForApproval;
+	}
 
 	public List<GrantedAuthority> getGrantedAutoritiesFromOperations() {
 
@@ -97,6 +123,8 @@ public class Role implements GrantedAuthority {
 		return grantedAuthoritiesList;
 
 	}
+
+	
 
 	
 

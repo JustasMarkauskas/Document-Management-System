@@ -58,6 +58,20 @@ public class RoleController {
 		roleService.updateOperations(groupName, operations);
 	}
 	
+	@RequestMapping(path = "/update-role-doctypes-for-approval/{groupName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update role/group doc types for approval", notes = "Add/update doc types for approval to role/group")
+	public void updateDocTypeForApproval(@ApiParam(required = true) @PathVariable String groupName,
+			@Valid @RequestParam final List<String> docTypesForApprovalNames) {
+		roleService.updateDocTypesForApproval(groupName, docTypesForApprovalNames);
+	}
+	
+	@RequestMapping(path = "/update-role-doctypes-for-creation/{groupName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update role/group doc types for creation", notes = "Add/update doc types for creation to role/group")
+	public void updateDocTypeForCreation(@ApiParam(required = true) @PathVariable String groupName,
+			@Valid @RequestParam final List<String> docTypesForCreationlNames) {
+		roleService.updateDocTypesForCreation(groupName, docTypesForCreationlNames);
+	}
+	
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes role/group by name", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -9,8 +9,11 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import it.akademija.dao.DocTypeRepository;
 import it.akademija.dao.OperationRepository;
 import it.akademija.dao.RoleRepository;
+import it.akademija.model.doctype.DocType;
 import it.akademija.model.operation.Operation;
 import it.akademija.model.role.NewRole;
 import it.akademija.model.role.Role;
@@ -22,11 +25,13 @@ public class RoleService {
 
 	private RoleRepository roleRepository;
 	private OperationRepository operationRepository;
+	private DocTypeRepository docTypeRepository;
 
 	@Autowired
-	public RoleService(RoleRepository roleRepository, OperationRepository operationRepository) {
+	public RoleService(RoleRepository roleRepository, OperationRepository operationRepository, DocTypeRepository docTypeRepository) {
 		this.roleRepository = roleRepository;
 		this.operationRepository = operationRepository;
+		this.docTypeRepository = docTypeRepository;
 	}
 
 	@Transactional(readOnly = true)
@@ -75,6 +80,27 @@ public class RoleService {
 		role.setOperations(operationsList);
 	}
 
+	@Transactional
+	public void updateDocTypesForCreation(String roleName, List<String> docTypesForCreationNames) {
+		Role role = roleRepository.findById(roleName);
+		List<DocType> docTypesForCreation = new ArrayList<DocType>();
+		for (String docTypesForCreationName : docTypesForCreationNames) {
+			docTypesForCreation.add(docTypeRepository.findById(docTypesForCreationName));
+		}
+		role.setDocTypesForCreation(docTypesForCreation);
+	}
+	
+	@Transactional
+	public void updateDocTypesForApproval(String roleName, List<String> docTypesForApprovalNames) {
+		Role role = roleRepository.findById(roleName);
+		List<DocType> docTypesForApproval = new ArrayList<DocType>();
+		for (String docTypesForApprovalName : docTypesForApprovalNames) {
+			docTypesForApproval.add(docTypeRepository.findById(docTypesForApprovalName));
+		}
+		role.setDocTypesForApproval(docTypesForApproval);
+	}
+	
+	
 	@Transactional
 	public void deleteRoleByName(String roleName) {
 		roleRepository.deleteById(roleName);
