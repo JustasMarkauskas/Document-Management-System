@@ -35,7 +35,7 @@ public class LoginUserPage extends AbstractPage {
 		inputUserPassword.sendKeys(userPassword);
 	}
 
-	public void enterInputAdminDetailsAndLogin(String username, String userPassword) {
+	public void enterDetailsAndLogin(String username, String userPassword) {
 		inputUserName.sendKeys(username);
 		inputUserPassword.sendKeys(userPassword);
 		buttonUserLogin.click();
