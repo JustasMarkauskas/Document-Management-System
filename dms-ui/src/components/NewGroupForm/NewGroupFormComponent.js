@@ -26,10 +26,11 @@ const handleSubmit = values => {
     data: values
   })
     .then(response => {
-      console.log(response);
+      console.log(response)
+      alert("New user was created");
     })
     .catch(error => {
-      console.log(error);
+      console.log(error)      
     });
 };
 
@@ -83,7 +84,7 @@ const NewGroupFormComponent = props => {
             </Form.Group>            
 
             <Button
-              disabled={!isValid}
+              disabled={!values.id}
               onClick={props.onCloseModal}
               variant="primary"
               className="SubmitButton mr-2"

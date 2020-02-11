@@ -19,12 +19,13 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
-  handleCloseModal() {
-		this.setState({ show: false });
+  handleCloseModal() {     
+    this.setState({ show: false });
+    window.location.reload();  
 	}
 
-	handleShowModal() {
-		this.setState({ show: true });
+	handleShowModal() {  
+    this.setState({ show: true });    
 	}
 
 
@@ -92,13 +93,13 @@ class AdminHomePageGroupContainer extends React.Component {
           >
             Add new Group
           </button>
-	  <Modal show={this.state.show} onHide={this.handleCloseModal}>
+          <Modal show={this.state.show} onHide={this.handleCloseModal}>
 	    <Modal.Header closeButton>
 	    <Modal.Title>Create New Group</Modal.Title>
 	    </Modal.Header>
 	    <Modal.Body> <NewGroupFormComponent onCloseModal={this.handleCloseModal} />             
             </Modal.Body>  
-		      </Modal>
+		      </Modal>	  
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
