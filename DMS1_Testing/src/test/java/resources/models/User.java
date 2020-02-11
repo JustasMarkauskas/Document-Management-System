@@ -26,8 +26,8 @@ public class User {
 	@XStreamAlias("confirmPassword")
 	private String confirmPassword;
 	
-	@XStreamAlias("comments")
-	private String comments;
+	@XStreamAlias("comment")
+	private String comment;
 	
 	
 	
@@ -88,12 +88,12 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	
