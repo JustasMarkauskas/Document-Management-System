@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.role.NewRole;
-import it.akademija.model.role.Role;
 import it.akademija.model.role.RoleForClient;
 
 import it.akademija.service.RoleService;
@@ -51,36 +50,16 @@ public class RoleController {
 		roleService.saveRole(newRole);
 	}
 
-	@RequestMapping(path = "/update-role-operations/{groupName}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update role/group operations", notes = "Add/update operations to role/group")
-	public void updateOperations(@ApiParam(required = true) @PathVariable String groupName,
-			@Valid @RequestParam final List<String> operations) {
-		roleService.updateOperations(groupName, operations);
-	}
-	
-	@RequestMapping(path = "/update-role-doctypes-for-approval/{groupName}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update role/group doc types for approval", notes = "Add/update doc types for approval to role/group")
-	public void updateDocTypeForApproval(@ApiParam(required = true) @PathVariable String groupName,
-			@Valid @RequestParam final List<String> docTypesForApprovalNames) {
-		roleService.updateDocTypesForApproval(groupName, docTypesForApprovalNames);
-	}
-	
-	@RequestMapping(path = "/update-role-doctypes-for-creation/{groupName}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update role/group doc types for creation", notes = "Add/update doc types for creation to role/group")
-	public void updateDocTypeForCreation(@ApiParam(required = true) @PathVariable String groupName,
-			@Valid @RequestParam final List<String> docTypesForCreationlNames) {
-		roleService.updateDocTypesForCreation(groupName, docTypesForCreationlNames);
-	}
-	
+		
 	@RequestMapping(method = RequestMethod.DELETE)
-	@ApiOperation(value = "Deletes role/group by name", notes = "Usefull for testing")
+	@ApiOperation(value = "Deletes role by name", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteRoleByName(@RequestParam final String roleName) {
 		roleService.deleteRoleByName(roleName);
 	}
 
 	@RequestMapping(path = "/comment",method = RequestMethod.DELETE)
-	@ApiOperation(value = "Deletes roles/groups by comment", notes = "Usefull for testing")
+	@ApiOperation(value = "Deletes roles by comment", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteRolesByComment(@RequestParam final String comment) {
 		roleService.deleteRolesByComment(comment);

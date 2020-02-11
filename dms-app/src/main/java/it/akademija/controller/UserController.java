@@ -62,10 +62,10 @@ public class UserController {
 		return userService.getUserForClient(username);
 	}
 	
-	@RequestMapping(path = "/user-roles/{username}", method = RequestMethod.GET)
-	@ApiOperation(value = "Get User roles", notes = "Return names of all user roles")
-	public List<String> getUserRoles(@PathVariable String username) {
-		return userService.getUserRoles(username); 
+	@RequestMapping(path = "/user-groups/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get User groups", notes = "Return names of all user groups")
+	public List<String> getUserGroups(@PathVariable String username) {
+		return userService.getUserGroups(username); 
 	}
 	
 	
@@ -76,10 +76,17 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Role")
+	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Group")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveUser(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
 		userService.saveUser(newUser);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, path = "/admin")
+	@ApiOperation(value = "Create admin")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void saveAdmin(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
+		userService.saveAdmin(newUser);
 	}
 	
 	
@@ -94,18 +101,25 @@ public class UserController {
 		return userService.updatePassword(username, newUser);
 	}
 	
-	@RequestMapping(path = "/update-user-groups/{username}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update user Roles/Groups", notes = "After update user has only those Roles which are passed in the list")
-	public void updateRoles(@ApiParam(required = true) @PathVariable String username,
-			 @RequestParam final List<String> roles) {
-		 userService.updateRolesForOneUser(username, roles);
+	@RequestMapping(path = "/update-user-info/{username}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update user password", notes = "Update user info")
+	public User updateUserInfo(@ApiParam(required = true) @PathVariable String username,
+			@Valid @RequestBody final NewUser newUser) {
+		return userService.updateUserInfo(username, newUser);
 	}
 	
-	@RequestMapping(path = "/add-users-to-group/{roleName}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Add list of users to one Role/Group", notes = "Usernames must be passed in the list of users")
-	public void assignListOfUsersToOneRole(@ApiParam(required = true) @PathVariable String roleName,
+	@RequestMapping(path = "/update-user-groups/{username}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update user groups", notes = "After update user has only those groups which are passed in the list")
+	public void updateGroups(@ApiParam(required = true) @PathVariable String username,
+			 @RequestParam final List<String> groups) {
+		 userService.updateGroupsForOneUser(username, groups);
+	}
+	
+	@RequestMapping(path = "/add-users-to-group/{groupName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Add list of users to one group", notes = "Usernames must be passed in the list of users")
+	public void assignListOfUsersToOneGroup(@ApiParam(required = true) @PathVariable String groupName,
 			 @RequestParam final List<String> usernames) {
-		 userService.assignListOfUsersToOneRole(roleName, usernames);
+		 userService.assignListOfUsersToOneGroup(groupName, usernames);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

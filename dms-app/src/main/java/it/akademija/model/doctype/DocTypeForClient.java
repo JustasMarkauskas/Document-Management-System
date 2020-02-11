@@ -2,14 +2,15 @@ package it.akademija.model.doctype;
 
 import java.util.Collection;
 
-import it.akademija.model.role.Role;
+import it.akademija.model.group.Group;
+
 
 public class DocTypeForClient {
 	
 	private String id;
 	private String comment;
-	private Collection<Role> rolesCanCreate;
-	private Collection<Role> rolesCanApprove;
+	private Collection<Group> groupsCanCreate;
+	private Collection<Group> groupsCanApprove;
 	
 	public DocTypeForClient() {}
 	
@@ -17,13 +18,13 @@ public class DocTypeForClient {
 		this.id = id;
 	}
 		
-	public DocTypeForClient(String id, String comment, Collection<Role> rolesCanCreate,
-			Collection<Role> rolesCanApprove) {
+	public DocTypeForClient(String id, String comment, Collection<Group> groupsCanCreate,
+			Collection<Group> groupsCanApprove) {
 
 		this.id = id;
 		this.comment = comment;
-		this.rolesCanCreate = rolesCanCreate;
-		this.rolesCanApprove = rolesCanApprove;
+		this.groupsCanCreate = groupsCanCreate;
+		this.groupsCanApprove = groupsCanApprove;
 	}
 	public String getId() {
 		return id;
@@ -37,17 +38,20 @@ public class DocTypeForClient {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Collection<Role> getRolesCanCreate() {
-		return rolesCanCreate;
+	public Collection<Group> getGroupsCanCreate() {
+		return groupsCanCreate;
 	}
-	public void setRolesCanCreate(Collection<Role> rolesCanCreate) {
-		this.rolesCanCreate = rolesCanCreate;
+
+	public void setGroupsCanCreate(Collection<Group> groupsCanCreate) {
+		this.groupsCanCreate = groupsCanCreate;
 	}
-	public Collection<Role> getRolesCanApprove() {
-		return rolesCanApprove;
+
+	public Collection<Group> getGroupsCanApprove() {
+		return groupsCanApprove;
 	}
-	public void setRolesCanApprove(Collection<Role> rolesCanApprove) {
-		this.rolesCanApprove = rolesCanApprove;
+
+	public void setGroupsCanApprove(Collection<Group> groupsCanApprove) {
+		this.groupsCanApprove = groupsCanApprove;
 	}
 	
 	

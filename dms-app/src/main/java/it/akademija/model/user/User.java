@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
+
+import it.akademija.model.group.Group;
 import it.akademija.model.role.Role;
 
 @Entity
@@ -34,9 +36,13 @@ public class User {
 	
 
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+	@JoinTable(name = "users_groups", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+	private Collection<Group> groups;
+
+	
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
-
 
 	
 	public User(String password, String username, String firstName, String lastName, String comment, Long id, boolean isAdmin) {
@@ -110,12 +116,12 @@ public class User {
 		this.id = id;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public Collection<Group> getGroups() {
+		return groups;
 	}
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setGroups(Collection<Group> groups) {
+		this.groups = groups;
 	}
 
 	public String getComment() {
@@ -132,6 +138,16 @@ public class User {
 
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
 
 	
