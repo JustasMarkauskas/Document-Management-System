@@ -49,6 +49,8 @@ public class GroupController {
 	public void saveGroup(@ApiParam(required = true) @Valid @RequestBody final NewGroup newGroup) {
 		groupService.saveGroup(newGroup);
 	}
+	
+	
 
 	
 	@RequestMapping(path = "/update-group-doctypes-for-approval/{groupName}", method = RequestMethod.PUT)
