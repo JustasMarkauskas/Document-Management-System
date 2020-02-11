@@ -14,8 +14,8 @@ public class Group {
 	@XStreamAlias("groupName")
 	private String groupName;
 	
-	@XStreamAlias("comments")
-	private String comments;
+	@XStreamAlias("comment")
+	private String comment;
 	
 
 	public String getTestDataGroup() {
@@ -42,12 +42,12 @@ public class Group {
 		this.groupName = groupName;
 	}
 
-	public String getComments() {
-		return comments;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setComments(String comment) {
+		this.comment = comment;
 	}
 	
 	
