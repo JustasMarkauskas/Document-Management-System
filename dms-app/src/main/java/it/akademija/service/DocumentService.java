@@ -90,8 +90,6 @@ public class DocumentService {
 	}
 	
 	
-	
-	
 	@Transactional
 	public void approveDocument(DocumentInfoAfterReview documentInfoAfterReview) {
 		Document document = getDocument(documentInfoAfterReview.getId());
