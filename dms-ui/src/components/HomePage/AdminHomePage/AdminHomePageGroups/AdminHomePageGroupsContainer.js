@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-import user from "../../../User/User";
 import AdminHomePageGroupsComponent from "./AdminHomePageGroupsComponent";
-import LogInUserContainer from "../../../LogInPage/LogInUserContainer";
 
 class AdminHomePageGroupsContainer extends React.Component {
   constructor(props) {
@@ -27,11 +25,7 @@ class AdminHomePageGroupsContainer extends React.Component {
   }
 
   render() {
-    if (user.loggedIn) {
-      return <AdminHomePageGroupsComponent username={this.state.username} />;
-    } else {
-      return <LogInUserContainer />;
-    }
+    return <AdminHomePageGroupsComponent username={this.state.username} />;
   }
 }
 

@@ -4,7 +4,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Switch, Route } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter as Router,  BrowserRouter } from "react-router-dom";
 import LogInUserContainer from "./components/LogInPage/LogInUserContainer";
 import AdminHomePageContainer from "./components/HomePage/AdminHomePage/AdminHomePageContainer";
 import AdminHomePageDocumentsContainer from "./components/HomePage/AdminHomePage/AdminHomePageDocuments/AdminHomePageDocumentsContainer";
@@ -13,8 +13,14 @@ import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePa
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 
+var AppContainer = props => {
+  return <div>{props.children}</div>;
+};
+
 ReactDOM.render(
   <BrowserRouter>
+   <Router>
+    <AppContainer>
     <Switch>
       <Route exact path="/" component={LogInUserContainer} />
       <Route path="/adminhomepage-users" component={AdminHomePageContainer} />
@@ -33,8 +39,9 @@ ReactDOM.render(
         component={UserHomePageGroupsContainer}
       />
     </Switch>
+    </AppContainer>
+   </Router>
   </BrowserRouter>,
-
   document.getElementById("root")
 );
 

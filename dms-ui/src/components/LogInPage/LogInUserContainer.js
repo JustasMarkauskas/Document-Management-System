@@ -36,7 +36,6 @@ class LoginUserContainer extends React.Component {
         }
       })
       .then(resp => {
-        user.loggedIn = true;
         user.username = this.state.userName;
         if (resp.data.isAdmin === "true") {
           this.props.history.push("/adminhomepage-users");
