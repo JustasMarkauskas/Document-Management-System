@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_commentLength</testDataGroup>
+		<identificator>comment_tooLong</identificator>
+		<groupName>GroupCostAccounts</groupName>
+		<comment>autotesting autotesting autotesting autotesting aut</comment>
+	</Group>
+</resources.models.GroupData>

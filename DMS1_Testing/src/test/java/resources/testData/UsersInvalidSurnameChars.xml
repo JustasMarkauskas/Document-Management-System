@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_surnameSpecChars</testDataGroup>
+		<identificator>surname_dot</identificator>
+		<userName>jamboreemanila</userName>
+		<name>Bobi</name>
+		<surname>Saunders.Solis</surname>
+		<password>GWMgWApBcjc5</password>
+		<confirmPassword>GWMgWApBcjc5</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_surnameSpecChars</testDataGroup>
+		<identificator>surname_underscore</identificator>
+		<userName>liftmorse</userName>
+		<name>Hanlon</name>
+		<surname>Thompson_Romero</surname>
+		<password>LwZa3FGvbWZq</password>
+		<confirmPassword>LwZa3FGvbWZq</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_surnameSpecChars</testDataGroup>
+		<identificator>surname_asterix</identificator>
+		<userName>affinesedan</userName>
+		<name>Hritik</name>
+		<surname>H*</surname>
+		<password>fwRsLc4FMaQU</password>
+		<confirmPassword>fwRsLc4FMaQU</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_surnameSpecChars</testDataGroup>
+		<identificator>surname_questionMark</identificator>
+		<userName>bossdirect</userName>
+		<name>Kiyani</name>
+		<surname>Smit?</surname>
+		<password>4LKgERcRgYSL</password>
+		<confirmPassword>4LKgERcRgYSL</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_surnameSpecChars</testDataGroup>
+		<identificator>surname_digits</identificator>
+		<userName>homerFace</userName>
+		<name>Homer</name>
+		<surname>Face0</surname>
+		<password>SwqaA1kcJU</password>
+		<confirmPassword>SwqaA1kcJU</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+
+	
+</resources.models.UserData>

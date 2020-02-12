@@ -8,6 +8,7 @@
 		<surname>Panaka</surname>
 		<password>SLYQyWd8LH</password>
 		<confirmPassword>SLYQyWd8LH</confirmPassword>
+		<comment>autotesting</comment>
 	</User>
 	<User>
 		<testDataGroup>user_duplicate</testDataGroup>
@@ -17,5 +18,6 @@
 		<surname>PanakaSelick</surname>
 		<password>HFE69SJ4Upzd</password>
 		<confirmPassword>HFE69SJ4Upzd</confirmPassword>
+		<comment>autotesting</comment>
 	</User>
 </resources.models.UserData>
