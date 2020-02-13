@@ -1,11 +1,14 @@
 package it.akademija.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.print.Doc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,8 +22,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.akademija.dao.GroupRepository;
 import it.akademija.dao.RoleRepository;
 import it.akademija.dao.UserRepository;
+import it.akademija.model.doctype.DocType;
+import it.akademija.model.group.Group;
 import it.akademija.model.role.Role;
 import it.akademija.model.user.NewUser;
 import it.akademija.model.user.User;
@@ -30,12 +36,16 @@ import it.akademija.model.user.UserForClient;
 public class UserService implements UserDetailsService {
 
 	private UserRepository userRepository;
+	private GroupRepository groupRepository;
 	private RoleRepository roleRepository;
 
+
 	@Autowired
-	public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+	public UserService(UserRepository userRepository, GroupRepository groupRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
+		this.groupRepository = groupRepository;
 		this.roleRepository = roleRepository;
+
 	}
 
 	@Override
@@ -56,17 +66,42 @@ public class UserService implements UserDetailsService {
 
 		for (Role role : user.getRoles()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(role.getId()));
-			grantedAuthorities.addAll(role.getGrantedAutoritiesFromOperations());
 		}
 		List<GrantedAuthority> grantedAuthoritiesList = grantedAuthorities.stream().collect(Collectors.toList());
 		return grantedAuthoritiesList;
 	}
+
+	@Transactional(readOnly = true)
+	public List<String> getUserGroups(String username) {
+		User user = findByUsername(username);
+		return user.getGroups().stream().map((group) -> group.getId()).collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public Set<String> getAllDocTypesForCreation(String username) {
+		User user = findByUsername(username);
+		Set<String> allDocTypesForCreation = new HashSet<>();
+		for (Group group : user.getGroups()) {
+			for (DocType docType : group.getDocTypesForCreation()) {
+				allDocTypesForCreation.add(docType.getId());
+			}
+		}
+
+		return allDocTypesForCreation;
+	}
 	
 	@Transactional(readOnly = true)
-	public List<String> getUserRoles(String username) {
+	public Set<String> getAllDocTypesForApproval(String username) {
 		User user = findByUsername(username);
-		return user.getRoles().stream().map((role) -> role.getId()).collect(Collectors.toList());
+		Set<String> allDocTypesForApproval = new HashSet<>();
+		for (Group group : user.getGroups()) {
+			for (DocType docType : group.getDocTypesForApproval()) {
+				allDocTypesForApproval.add(docType.getId());
+			}
+		}
+		return allDocTypesForApproval;
 	}
+
 
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
@@ -108,6 +143,22 @@ public class UserService implements UserDetailsService {
 		User saved = userRepository.save(user);
 		return saved;
 	}
+	
+	@Transactional
+	public User saveAdmin(NewUser newUser) {
+		User user = new User();
+		user.setUsername(newUser.getUsername());
+		user.setFirstName(newUser.getFirstName());
+		user.setLastName(newUser.getLastName());
+		user.setComment(newUser.getComment());
+		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		user.setPassword(encoder.encode(newUser.getPassword()));
+		Role adminRole = roleRepository.findById("ADMIN");
+		user.setRoles(Arrays.asList(adminRole));
+		user.setAdmin(true);
+		User saved = userRepository.save(user);
+		return saved;
+	}
 
 	@Transactional
 	public User updatePassword(String username, NewUser newUser) {
@@ -116,42 +167,33 @@ public class UserService implements UserDetailsService {
 		existingUser.setPassword(encoder.encode(newUser.getPassword()));
 		return existingUser;
 	}
-
+	
 	@Transactional
-	public void updateRolesForOneUser(String username, List<String> roles) {
+	public User updateUserInfo(String username, NewUser newUser) {
 		User existingUser = findByUsername(username);
-		Role adminRole = roleRepository.findById("ADMIN");
-
-		List<Role> roleList = new ArrayList<Role>();
-		for (String roleName : roles) {
-			roleList.add(roleRepository.findById(roleName));
-			if (roleRepository.findById(roleName).equals(adminRole)) {
-				existingUser.setAdmin(true);
-			} else {
-				existingUser.setAdmin(false);
-			}
-		}
-
-		existingUser.setRoles(roleList);
-
+		existingUser.setFirstName(newUser.getFirstName());
+		existingUser.setLastName(newUser.getLastName());
+		existingUser.setComment(newUser.getComment());
+		return existingUser;
 	}
 
 	@Transactional
-	public void assignListOfUsersToOneRole(String roleName, List<String> usernames) {
-		Role role = roleRepository.findById(roleName);
-		if (roleName.equals("ADMIN")) {
+	public void updateGroupsForOneUser(String username, List<String> groups) {
+		User existingUser = findByUsername(username);
+		List<Group> groupList = new ArrayList<Group>();
+		for (String groupName : groups) {
+			groupList.add(groupRepository.findById(groupName));
+		}
+		existingUser.setGroups(groupList);
+	}
+
+	@Transactional
+	public void assignListOfUsersToOneGroup(String groupName, List<String> usernames) {
+		Group group = groupRepository.findById(groupName);
 			for (String username : usernames) {
 				User user = userRepository.findByUsername(username);
-				user.setAdmin(true);
-				Collection<Role> userRoles = user.getRoles();
-				userRoles.add(role);
-			}
-		} else {
-			for (String username : usernames) {
-				User user = userRepository.findByUsername(username);
-				Collection<Role> userRoles = user.getRoles();
-				userRoles.add(role);
-			}
+				Collection<Group> userGroups = user.getGroups();
+				userGroups.add(group);
 		}
 	}
 

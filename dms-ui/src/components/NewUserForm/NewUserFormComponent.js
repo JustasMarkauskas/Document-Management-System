@@ -74,12 +74,12 @@ const NewUserFormComponent = props => {
       password: "",
       confirmPassword: ""
     }}
-      validationSchema={schema}      
+      validationSchema={schema}     
       
       onSubmit={handleSubmit}
         
       >
-      {({ handleSubmit, handleChange, values, isValid, errors, touched, handleBlur }) => (
+      {({ handleSubmit, handleChange, values, isValid, errors, handleBlur }) => (
         <div className="NewUserForm">
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
