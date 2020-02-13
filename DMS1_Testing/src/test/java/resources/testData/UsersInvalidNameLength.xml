@@ -8,6 +8,7 @@
 		<surname>menenius</surname>
 		<password>4HRGxqJPMUZd</password>
 		<confirmPassword>4HRGxqJPMUZd</confirmPassword>
+		<comment>autotesting</comment>
 	</User>
 	<User>
 		<testDataGroup>user_nameLength</testDataGroup>
@@ -17,5 +18,6 @@
 		<surname>JenDowanian</surname>
 		<password>eevVgavXAbg3</password>
 		<confirmPassword>eevVgavXAbg3</confirmPassword>
+		<comment>autotesting</comment>
 	</User>
 </resources.models.UserData>

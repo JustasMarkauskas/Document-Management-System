@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_nameSpecChars</testDataGroup>
+		<identificator>name_dot</identificator>
+		<userName>McFloraHem</userName>
+		<name>Stephano.Arno</name>
+		<surname>Kelley</surname>
+		<password>gvFH7S6waKVJ</password>
+		<confirmPassword>gvFH7S6waKVJ</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_nameSpecChars</testDataGroup>
+		<identificator>name_underscore</identificator>
+		<userName>leadribbit</userName>
+		<name>Edouard_Mack</name>
+		<surname>Taylor</surname>
+		<password>e8tgR4wjYrPR</password>
+		<confirmPassword>e8tgR4wjYrPR</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_nameSpecChars</testDataGroup>
+		<identificator>name_asterix</identificator>
+		<userName>frashsignifying</userName>
+		<name>Luc*</name>
+		<surname>Arnold</surname>
+		<password>b3fGcSvmMUgr</password>
+		<confirmPassword>b3fGcSvmMUgr</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_nameSpecChars</testDataGroup>
+		<identificator>name_questionMark</identificator>
+		<userName>flossdakota</userName>
+		<name>?im</name>
+		<surname>Palmer</surname>
+		<password>WjTusb2f4q8C</password>
+		<confirmPassword>WjTusb2f4q8C</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_nameSpecChars</testDataGroup>
+		<identificator>name_digits</identificator>
+		<userName>oakplum</userName>
+		<name>Tom1</name>
+		<surname>Smiths</surname>
+		<password>LaAK2R7Ta7</password>
+		<confirmPassword>LaAK2R7Ta7</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	
+</resources.models.UserData>

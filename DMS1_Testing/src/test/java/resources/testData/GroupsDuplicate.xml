@@ -4,5 +4,6 @@
 		<testDataGroup>group_duplicate</testDataGroup>
 		<identificator>name_duplicate</identificator>
 		<groupName>DuplicateGroup</groupName>
+		<comment>autotesting</comment>
 	</Group>
 </resources.models.GroupData>

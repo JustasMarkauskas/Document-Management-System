@@ -4,15 +4,18 @@
 		<testDataGroup>group_invalidLength</testDataGroup>
 		<identificator>name_tooShort</identificator>
 		<groupName>Acc7</groupName>
+		<comment>autotesting</comment>
 	</Group>
 	<Group>
 		<testDataGroup>group_invalidLength</testDataGroup>
 		<identificator>name_tooLong</identificator>
 		<groupName>costManagementTeam451</groupName>
+		<comment>autotesting</comment>
 	</Group>
 	<Group>
 		<testDataGroup>group_invalidLength</testDataGroup>
 		<identificator>name_blank</identificator>
 		<groupName></groupName>
+		<comment>autotesting</comment>
 	</Group>
 </resources.models.GroupData>

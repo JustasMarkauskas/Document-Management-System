@@ -10,4 +10,5 @@ robots.txt
 .classpath
 .project
 .settings
+.metadata/
 
