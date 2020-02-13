@@ -1,20 +1,46 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 import AdminHomePageDocumentComponent from "./AdminHomePageDocumentComponent";
+import NewDocTypeFormComponent from "../../../NewDocTypeForm/NewDocTypeFormComponent";
 
 class AdminHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
+
     this.state = {
+      show: false,
       documents: [],
       documentName: ""
     };
   }
 
+  refresh(){
+    this.getDocuments();
+    window.location.reload();
+  }
+
+  handleCloseModal() {
+    this.setState({ show: false });     
+	}
+
+  handleCloseModalAfterSubmit() {    
+    this.refresh();    
+    this.setState({ show: false });     
+	}
+
+  handleShowModal() {  
+    this.setState({ show: true });    
+	}
+
   getDocuments = () => {
     axios
-      .get("http://localhost:8081/api/document")
+      .get("http://localhost:8081/api/doctype")
       .then(response => {
         this.setState({ documents: response.data });
       })
@@ -43,7 +69,7 @@ class AdminHomePageDocumentContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/document/" + this.state.documentName)
+      .get("http://localhost:8081/api/doctype/" + this.state.documentName)
       .then(response => {
         this.setState({ documents: [response.data] });
       })
@@ -58,7 +84,7 @@ class AdminHomePageDocumentContainer extends React.Component {
       <AdminHomePageDocumentComponent
         key={index}
         rowNr={index + 1}
-        firstName={document.firstName}
+        documentName={document.id}
         comment={document.comment}
         handleActionClick={this.handleActionClick}
       />
@@ -68,13 +94,20 @@ class AdminHomePageDocumentContainer extends React.Component {
       <div className="container">
         <div className="row col-lg-12">
           <button
-            onClick={this.handleAddDocumentButton}
+            onClick={this.handleShowModal}
             type="button"
             className="btn btn-primary col-lg-3 mb-2"
             id="adminAddNewDocumentButton"
           >
-            Add new Document
+            Add new Document Type
           </button>
+          <Modal show={this.state.show} onHide={this.handleCloseModal}>
+            <Modal.Header closeButton>
+            <Modal.Title>Create New Document Type</Modal.Title>
+            </Modal.Header>
+            <Modal.Body> <NewDocTypeFormComponent onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} onHide={this.handleCloseModal}/>             
+            </Modal.Body>  
+          </Modal>	 
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
