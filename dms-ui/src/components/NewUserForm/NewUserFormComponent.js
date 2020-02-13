@@ -5,26 +5,27 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import Error from "./Error";
 
-const schema = yup.object({
+const schema = yup.object().shape({
   username: yup
     .string()
-    .min(5, "Must be 5 characters or more")
-    .max(20, "Must be 20 characters or less")
+    .min(5, "Must be 5-20 characters long")
+    .max(20, "Must be 5-20 characters long")
     .required("Please enter a username")
-    .matches(/^[A-Za-z\d]+$/, "Only uppercases, lowercases and numbers"),
+    .matches(/^[A-Za-z\d]+$/, "Only uppercase, lowercase letters and numbers are allowed"),
   firstName: yup
     .string()
     .trim()
-    .min(1, "Must be 1 characters or more")
-    .max(30, "Must be 30 characters or less")
+    .min(1, "Must be 1-30 characters long")
+    .max(30, "Must be 1-30 characters long")
     .required("Please enter a first name")
     .matches(/^[A-Za-z\s-]+$/, "Only uppercase, lowercase letters and '-', space symbols are allowed"),
   lastName: yup
     .string()
     .trim()
-    .min(1, "Must be 1 characters or more")
-    .max(30, "Must be 30 characters or less")
+    .min(1, "Must be 1-30 characters long")
+    .max(30, "Must be 1-30 characters long")
     .required("Please enter a last name")
     .matches(/^[A-Za-z\s-]+$/, "Only uppercases And lowercases"),
   comment: yup
@@ -34,16 +35,16 @@ const schema = yup.object({
   password: yup
     .string()
     .required("Please enter your password")
-    .min(8)
-    .max(20)
+    .min(8, "Must be 8-20 characters long")
+    .max(20, "Must be 8-20 characters long")
     .matches(
       /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]+$/,
-      "At least one uppercase, lowercase and number"
+      "Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present."
     ),
   confirmPassword: yup
     .string()
     .required("Please confirm your password")
-    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .oneOf([yup.ref("password"), null], "Please make sure your passwords match")
 });
 
 const handleSubmit = values => {
@@ -54,28 +55,32 @@ const handleSubmit = values => {
   })
     .then(response => {
       console.log(response);
+      
     })
     .catch(error => {
       console.log(error);
     });
+   
 };
 
 const NewUserFormComponent = props => {
   return (
     <Formik
-      validationSchema={schema}
+    initialValues={{
+      username: "",
+      firstName: "",
+      lastName: "",
+      comment: "",
+      password: "",
+      confirmPassword: ""
+    }}
+      validationSchema={schema}     
+      
       onSubmit={handleSubmit}
-      initialValues={{
-        username: "",
-        firstName: "",
-        lastName: "",
-        comment: "",
-        password: "",
-        confirmPassword: ""
-      }}
-    >
-      {({ handleSubmit, handleChange, values, isValid, errors }) => (
-        <div className="NewUserForm">
+        
+      >
+      {({ handleSubmit, handleChange, values, isValid, errors, handleBlur }) => (
+        <div className="NewUserForm" id="adminCreateUserForm">
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control
@@ -85,13 +90,14 @@ const NewUserFormComponent = props => {
                 id="username"
                 name="username"
                 value={values.username}
-                onChange={handleChange}
+                onChange = {handleChange}
+                onBlur={handleBlur}
                 placeholder="Username"
                 isInvalid={!!errors.username}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.username}
-              </Form.Control.Feedback>
+              <p className="text-info">{errors.username}</p>
+              </Form.Control.Feedback>              
             </Form.Group>
 
             <Form.Group>
@@ -107,7 +113,7 @@ const NewUserFormComponent = props => {
                 isInvalid={!!errors.firstName}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.firstName}
+              <p className="text-info">{errors.firstName}</p>
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -124,7 +130,7 @@ const NewUserFormComponent = props => {
                 isInvalid={!!errors.lastName}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.lastName}
+              <p className="text-info">{errors.lastName}</p>
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -141,7 +147,7 @@ const NewUserFormComponent = props => {
                 isInvalid={!!errors.password}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.password}
+              <p className="text-info">{errors.password}</p>
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -158,7 +164,7 @@ const NewUserFormComponent = props => {
                 isInvalid={!!errors.confirmPassword}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.confirmPassword}
+              <p className="text-info">{errors.confirmPassword}</p>
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -177,12 +183,12 @@ const NewUserFormComponent = props => {
                 isInvalid={!!errors.comment}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.comment}
+              <p className="text-info">{errors.comment}</p>
               </Form.Control.Feedback>
             </Form.Group>
             <Button
-              disabled={!isValid}
-              onClick={props.onCloseModal}
+              disabled={!values.username || !values.firstName || !values.lastName || !values.password || !values.confirmPassword || !isValid}
+              onClick={props.onCloseModalAfterSubmit}
               variant="primary"
               className="SubmitButton mr-2"
               type="submit"
