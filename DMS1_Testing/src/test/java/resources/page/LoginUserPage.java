@@ -17,6 +17,10 @@ public class LoginUserPage extends AbstractPage {
 	//buttons	
 	@FindBy(id = "userLoginButton")
 	private WebElement buttonUserLogin;
+	
+	//alert message
+	@FindBy(className = "alert")
+	private WebElement alertMessage;
 
 
 	public LoginUserPage(WebDriver driver) {
@@ -39,6 +43,10 @@ public class LoginUserPage extends AbstractPage {
 		inputUserName.sendKeys(username);
 		inputUserPassword.sendKeys(userPassword);
 		buttonUserLogin.click();
+	}
+	
+	public boolean alertMessageContainsLoginFailed() {
+		return alertMessage.getText().contains("Login failed");
 	}
 
 
