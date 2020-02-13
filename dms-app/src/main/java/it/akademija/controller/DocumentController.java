@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
+import it.akademija.model.file.DBFile;
+import it.akademija.model.file.UploadFileResponse;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
 import it.akademija.service.DocumentService;
@@ -53,7 +57,7 @@ public class DocumentController {
 	public void saveDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
 		documentService.saveDocument(newDocument);
 	}
-	
+		
 	@RequestMapping(path = "/submit",method = RequestMethod.POST)
 	@ApiOperation(value = "Submit document", notes = "Creates document with data. Status SUBMITTED")
 	@ResponseStatus(HttpStatus.CREATED)

@@ -1,12 +1,17 @@
 package it.akademija.model.document;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import it.akademija.model.file.DBFile;
 
 @Entity
 public class Document {
@@ -25,6 +30,9 @@ public class Document {
 	private String documentReceiver;
 	private String rejectionReason;
 	private String status;
+	
+	@OneToMany(mappedBy="document")
+	private List<DBFile> DBfiles;
 	
 	
 	public Document() {}
@@ -110,6 +118,14 @@ public class Document {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public List<DBFile> getDBfiles() {
+		return DBfiles;
+	}
+
+	public void setDBfiles(List<DBFile> dBfiles) {
+		DBfiles = dBfiles;
 	}
 
 }

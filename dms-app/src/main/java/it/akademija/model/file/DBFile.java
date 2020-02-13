@@ -2,6 +2,8 @@ package it.akademija.model.file;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import it.akademija.model.document.Document;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,11 @@ public class DBFile {
 
     @Lob
     private byte[] data;
+    
+    @ManyToOne
+    @JoinColumn(name = "document_id")
+    private Document document;
+    
 
     public DBFile() {
 
@@ -59,6 +66,14 @@ public class DBFile {
 
 	public void setData(byte[] data) {
 		this.data = data;
+	}
+
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
  

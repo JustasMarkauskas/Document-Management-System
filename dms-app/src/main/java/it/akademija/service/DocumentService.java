@@ -1,6 +1,7 @@
 package it.akademija.service;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,21 +9,29 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import it.akademija.dao.DBFileRepository;
 import it.akademija.dao.DocumentRepository;
+import it.akademija.file.exceptions.FileStorageException;
 import it.akademija.model.document.Document;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
+import it.akademija.model.file.DBFile;
 
 @Service
 public class DocumentService {
 
 	private DocumentRepository documentRepository;
 
+	private DBFileRepository dbFileRepository;
+	
 	@Autowired
-	public DocumentService(DocumentRepository documentRepository) {
+	public DocumentService(DocumentRepository documentRepository, DBFileRepository dbFileRepository) {
 		this.documentRepository = documentRepository;
+		this.dbFileRepository = dbFileRepository;
 	}
 
 	@Transactional
@@ -63,6 +72,7 @@ public class DocumentService {
 		document.setStatus("SAVED");	
 		documentRepository.save(document);
 	}
+	
 	
 	@Transactional
 	public void submitDocument(NewDocument newDocument) {
