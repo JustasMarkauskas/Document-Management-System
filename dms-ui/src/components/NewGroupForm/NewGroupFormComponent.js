@@ -44,7 +44,7 @@ const NewGroupFormComponent = props => {
       }}
     >
       {({ handleSubmit, handleChange, values, isValid, errors }) => (
-        <div className="NewGroupForm" id="adminCreateGroupForm>
+        <div className="NewGroupForm" id="adminCreateGroupForm">
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control

@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import Error from "./Error";
+
 
 const schema = yup.object().shape({
   username: yup

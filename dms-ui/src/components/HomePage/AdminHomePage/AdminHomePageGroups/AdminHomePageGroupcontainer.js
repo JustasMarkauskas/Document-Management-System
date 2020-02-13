@@ -11,7 +11,7 @@ class AdminHomePageGroupContainer extends React.Component {
 
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
       show: false,
@@ -25,14 +25,14 @@ class AdminHomePageGroupContainer extends React.Component {
     window.location.reload();
   }
 
-  handleCloseModalAfterSubmit() { 
-    this.setState({ show: false }); 
-    this.refresh();
-  }
+  handleCloseModal() {
+    this.setState({ show: false });     
+	}
 
-  handleCloseModal(){
-    this.setState({ show: false });
-  }
+  handleCloseModalAfterSubmit() {    
+    this.refresh();    
+    this.setState({ show: false });     
+	}
 
   handleShowModal() {  
     this.setState({ show: true });    

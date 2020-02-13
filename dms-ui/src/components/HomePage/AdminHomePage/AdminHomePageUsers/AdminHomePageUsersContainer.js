@@ -10,6 +10,7 @@ class AdminHomePageUsersContainer extends React.Component {
     super(props);
 
     this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
