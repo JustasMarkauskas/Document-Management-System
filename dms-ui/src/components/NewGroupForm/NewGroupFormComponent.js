@@ -22,7 +22,7 @@ const schema = yup.object({
 const handleSubmit = values => {
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/role/",
+    url: "http://localhost:8081/api/group/",
     data: values
   })
     .then(response => {
@@ -61,9 +61,9 @@ const NewGroupFormComponent = props => {
               <Form.Control.Feedback className="FeedBack" type="invalid">
                 {errors.id}
               </Form.Control.Feedback>
-              </Form.Group>
+            </Form.Group>
 
-              <Form.Group>              
+            <Form.Group>
               <Form.Control
                 as="textarea"
                 rows="2"
@@ -80,7 +80,7 @@ const NewGroupFormComponent = props => {
               <Form.Control.Feedback className="FeedBack" type="invalid">
                 {errors.comment}
               </Form.Control.Feedback>
-            </Form.Group>            
+            </Form.Group>
 
             <Button
               disabled={!isValid}
