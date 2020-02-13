@@ -11,6 +11,7 @@ class AdminHomePageGroupContainer extends React.Component {
 
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
       show: false,
@@ -19,13 +20,23 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
-  handleCloseModal() {
-    this.setState({ show: false });
+  refresh(){
+    this.getGroups();
+    window.location.reload();
   }
 
-  handleShowModal() {
-    this.setState({ show: true });
-  }
+  handleCloseModal() {
+    this.setState({ show: false });     
+	}
+
+  handleCloseModalAfterSubmit() {    
+    this.refresh();    
+    this.setState({ show: false });     
+	}
+
+  handleShowModal() {  
+    this.setState({ show: true });    
+	}
 
   getGroups = () => {
     axios
@@ -92,14 +103,12 @@ class AdminHomePageGroupContainer extends React.Component {
             Add new Group
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create New Group</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {" "}
-              <NewGroupFormComponent onCloseModal={this.handleCloseModal} />
-            </Modal.Body>
-          </Modal>
+	    <Modal.Header closeButton>
+	    <Modal.Title>Create New Group</Modal.Title>
+	    </Modal.Header>
+	    <Modal.Body> <NewGroupFormComponent onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} onHide={this.handleCloseModal}/>             
+            </Modal.Body>  
+	  </Modal>	 
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
