@@ -80,7 +80,7 @@ const NewUserFormComponent = props => {
         
       >
       {({ handleSubmit, handleChange, values, isValid, errors, handleBlur }) => (
-        <div className="NewUserForm">
+        <div className="NewUserForm" id="adminCreateUserForm">
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control

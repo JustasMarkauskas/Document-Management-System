@@ -10,7 +10,6 @@ class AdminHomePageUsersContainer extends React.Component {
     super(props);
 
     this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
@@ -28,10 +27,7 @@ class AdminHomePageUsersContainer extends React.Component {
     this.setState({ show: false });     
 	}
 
-  handleCloseModalAfterSubmit() {
-    setTimeout(() => {
-      alert("new user was created ;) ")
-    },500);
+  handleCloseModalAfterSubmit() {    
     this.refresh();    
     this.setState({ show: false });     
 	}
@@ -39,6 +35,7 @@ class AdminHomePageUsersContainer extends React.Component {
     handleShowModal() {
 	this.setState({ show: true });
 	}
+
 
   getUsers = () => {
     axios
