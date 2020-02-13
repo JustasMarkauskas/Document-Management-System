@@ -11,6 +11,7 @@ class AdminHomePageUsersContainer extends React.Component {
 
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
       show: false,
@@ -18,8 +19,21 @@ class AdminHomePageUsersContainer extends React.Component {
       inputUsername: ""
     };
   }
-    handleCloseModal() {
-	this.setState({ show: false });
+  refresh(){
+    this.getUsers();
+    window.location.reload();
+  }
+
+  handleCloseModal() {
+    this.setState({ show: false });     
+	}
+
+  handleCloseModalAfterSubmit() {
+    setTimeout(() => {
+      alert("new user was created ;) ")
+    },500);
+    this.refresh();    
+    this.setState({ show: false });     
 	}
 
     handleShowModal() {
@@ -95,7 +109,7 @@ class AdminHomePageUsersContainer extends React.Component {
 		<Modal.Header closeButton>
 		<Modal.Title>Create New User</Modal.Title>
 		</Modal.Header>
-		<Modal.Body> <NewUserFormComponent onCloseModal={this.handleCloseModal} />             
+		<Modal.Body> <NewUserFormComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />             
                 </Modal.Body>  
 	  </Modal>
           <div className="input-group mb-3 col-lg-5">

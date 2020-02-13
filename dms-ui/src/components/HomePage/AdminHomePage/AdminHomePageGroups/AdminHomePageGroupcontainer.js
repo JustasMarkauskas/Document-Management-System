@@ -10,6 +10,7 @@ class AdminHomePageGroupContainer extends React.Component {
     super(props);
     
     this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     
     this.state = {
@@ -19,10 +20,20 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
-  handleCloseModal() {     
-    this.setState({ show: false });
-    window.location.reload();  
+  refresh(){
+    this.getGroups();
+    window.location.reload();
+  }
+
+  handleCloseModalAfterSubmit() { 
+    this.setState({ show: false });    
+    //alert("my text here");
+    this.refresh();
 	}
+
+  handleCloseModal(){
+    this.setState({ show: false });
+  }
 
 	handleShowModal() {  
     this.setState({ show: true });    
@@ -97,7 +108,7 @@ class AdminHomePageGroupContainer extends React.Component {
 	    <Modal.Header closeButton>
 	    <Modal.Title>Create New Group</Modal.Title>
 	    </Modal.Header>
-	    <Modal.Body> <NewGroupFormComponent onCloseModal={this.handleCloseModal} />             
+	    <Modal.Body> <NewGroupFormComponent onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} onHide={this.handleCloseModal}/>             
             </Modal.Body>  
 		      </Modal>	  
           <div className="input-group mb-3 col-lg-5">

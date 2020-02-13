@@ -6,28 +6,27 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 
-const schema = yup.object({
+const schema = yup.object().shape({
   id: yup
     .string()
-    .min(5, "Must be 5 characters or more")
-    .max(20, "Must be 20 characters or less")
+    .min(5, "Must be 5-20 characters long")
+    .max(20, "Must be 5-20 characters long")
     .required("Please enter a group name")
-    .matches(/^[A-Za-z\d]+$/, "Only uppercases, lowercases and numbers"),
+    .matches(/^[A-Za-z\d]+$/, "Only uppercase, lowercase letters and numbers are allowed"),
   comment: yup
     .string()
     .trim()
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
+const handleSubmit = values => {  
   axios({
     method: "POST",
     url: "http://localhost:8081/api/role/",
     data: values
   })
     .then(response => {
-      console.log(response)
-      alert("New user was created");
+      console.log(response)      
     })
     .catch(error => {
       console.log(error)      
@@ -60,7 +59,7 @@ const NewGroupFormComponent = props => {
                 isInvalid={!!errors.id}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.id}
+              <p className="text-info">{errors.id}</p>
               </Form.Control.Feedback>
               </Form.Group>
 
@@ -79,20 +78,20 @@ const NewGroupFormComponent = props => {
                 isInvalid={!!errors.comment}
               />
               <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.comment}
+              <p className="text-info">{errors.comment}</p>
               </Form.Control.Feedback>
             </Form.Group>            
 
             <Button
-              disabled={!values.id}
-              onClick={props.onCloseModal}
+              disabled={!values.id || !isValid}
+              onClick={props.onCloseModalAfterSubmit}
               variant="primary"
               className="SubmitButton mr-2"
               type="submit"
             >
               Submit
             </Button>
-            <Button onClick={props.onCloseModal} variant="primary">
+            <Button onClick={props.onHide} variant="primary">
               Cancel
             </Button>
           </Form>
