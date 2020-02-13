@@ -1,4 +1,4 @@
-package it.akademija.file;
+package it.akademija.file.exceptions;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {

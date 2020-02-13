@@ -1,4 +1,4 @@
-package it.akademija.file;
+package it.akademija.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -12,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
+import it.akademija.model.file.DBFile;
+import it.akademija.model.file.UploadFileResponse;
+import it.akademija.service.DBFileStorageService;
 import it.akademija.service.GroupService;
 
 import java.util.Arrays;

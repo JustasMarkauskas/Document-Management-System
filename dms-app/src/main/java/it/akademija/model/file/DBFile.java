@@ -1,4 +1,4 @@
-package it.akademija.file;
+package it.akademija.model.file;
 
 import org.hibernate.annotations.GenericGenerator;
 
