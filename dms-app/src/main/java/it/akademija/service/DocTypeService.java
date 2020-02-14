@@ -11,6 +11,7 @@ import it.akademija.dao.DocTypeRepository;
 import it.akademija.model.doctype.DocType;
 import it.akademija.model.doctype.DocTypeForClient;
 import it.akademija.model.doctype.NewDocType;
+import it.akademija.model.group.GroupForClient;
 
 
 
@@ -39,6 +40,18 @@ public class DocTypeService {
 	public List<DocTypeForClient> getDocTypeNamesForClient() {
 		return docTypeRepository.findAll().stream().map((docType) -> new DocTypeForClient(docType.getId()))
 				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocTypeForClient> getDocTypeNamesAndCommentsForClient() {
+		return docTypeRepository.findAll().stream().map((docType) -> new DocTypeForClient(docType.getId(), docType.getComment()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional
+	public DocTypeForClient getDocTypeNameAndCommentForClient(String docTypeName) {
+		return getDocTypeNamesAndCommentsForClient().stream().filter(docType -> docType.getId().equals(docTypeName)).findFirst()
+				.orElseThrow(() -> new RuntimeException("Can't find group"));
 	}
 	
 	

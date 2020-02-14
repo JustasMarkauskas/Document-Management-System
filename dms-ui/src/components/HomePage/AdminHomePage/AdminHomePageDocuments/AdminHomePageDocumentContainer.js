@@ -40,7 +40,7 @@ class AdminHomePageDocumentContainer extends React.Component {
 
   getDocuments = () => {
     axios
-      .get("http://localhost:8081/api/doctype")
+      .get("http://localhost:8081/api/doctype/names-comments")
       .then(response => {
         this.setState({ documents: response.data });
       })

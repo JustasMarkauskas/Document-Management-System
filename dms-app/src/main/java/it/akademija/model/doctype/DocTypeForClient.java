@@ -17,6 +17,11 @@ public class DocTypeForClient {
 	public DocTypeForClient(String id) {
 		this.id = id;
 	}
+	
+	public DocTypeForClient(String id, String comment) {
+		this.id = id;
+		this.comment = comment;
+	}
 		
 	public DocTypeForClient(String id, String comment, Collection<Group> groupsCanCreate,
 			Collection<Group> groupsCanApprove) {
