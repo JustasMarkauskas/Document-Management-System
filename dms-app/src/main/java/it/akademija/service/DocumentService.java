@@ -55,24 +55,13 @@ public class DocumentService {
 						document.getRejectionReason(), document.getStatus(), document.generateDbFileIDs()))
 				.collect(Collectors.toList());
 	}
-
 	
 	@Transactional
 	public DocumentForClient getDocumentForClientById(String username, Long id) {
 		return getDocumentsForClientByAuthor(username).stream().filter(document -> document.getId().equals(id)).findFirst()
 				.orElseThrow(() -> new RuntimeException("Can't find document"));
 	}
-	
-	@Transactional
-	public void saveDocument(NewDocument newDocument) {
-		Document document = new Document();
-		document.setAuthor(newDocument.getAuthor());
-		document.setDescription(newDocument.getDescription());
-		document.setDocType(newDocument.getDocType());
-		document.setTitle(newDocument.getTitle());
-		document.setStatus("SAVED");	
-		documentRepository.save(document);
-	}
+
 	
 	@Transactional
 	public DBFile saveDocumentWithOneFile(NewDocument newDocument, MultipartFile file) {
@@ -82,9 +71,7 @@ public class DocumentService {
 		document.setDocType(newDocument.getDocType());
 		document.setTitle(newDocument.getTitle());
 		document.setStatus("SAVED");	
-		
 		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
 	        try {
 	            // Check if the file's name contains invalid characters
 	            if(fileName.contains("..")) {
@@ -130,31 +117,105 @@ public class DocumentService {
 		  
 	}
 	
-	
 	@Transactional
-	public void submitDocument(NewDocument newDocument) {
+	public List<DBFile> submitDocument(NewDocument newDocument, MultipartFile[] files) {
 		Document document = new Document();
 		document.setAuthor(newDocument.getAuthor());
 		document.setDescription(newDocument.getDescription());
 		document.setDocType(newDocument.getDocType());
 		document.setTitle(newDocument.getTitle());
-		document.setStatus("SUBMITTED");
+		document.setStatus("SUBMITTED");	
 		Date date = new Date();	 
-		document.setSubmissionDate(date);	
+		document.setSubmissionDate(date);
+		List<DBFile> DBFiles = new ArrayList<DBFile>();
+		
+		for(MultipartFile file: files) {
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+	            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+	            document.addFile(dbFile);	
+	    		DBFiles.add(dbFile);	
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }	
+		}
 		documentRepository.save(document);
+		return DBFiles;
+		  
 	}
 	
 	@Transactional
-	public void submitDocumentAfterSaveForLater(NewDocument newDocument, Long id) {
+	public List<DBFile> submitDocumentAfterSaveForLater(Long id, NewDocument newDocument, MultipartFile[] files) {
 		Document document = getDocument(id);
 		document.setDescription(newDocument.getDescription());
 		document.setDocType(newDocument.getDocType());
 		document.setTitle(newDocument.getTitle());
 		document.setStatus("SUBMITTED");
 		Date date = new Date();	 
-		document.setSubmissionDate(date);	
+		document.setSubmissionDate(date);;
+		List<DBFile> DBFiles = new ArrayList<DBFile>();
+		
+		for(MultipartFile file: files) {
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+	            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+	            document.addFile(dbFile);	
+	    		DBFiles.add(dbFile);	
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }	
+		}
 		documentRepository.save(document);
+		return DBFiles;
+		  
 	}
+	
+	
+//	@Transactional
+//	public void saveDocument(NewDocument newDocument) {
+//		Document document = new Document();
+//		document.setAuthor(newDocument.getAuthor());
+//		document.setDescription(newDocument.getDescription());
+//		document.setDocType(newDocument.getDocType());
+//		document.setTitle(newDocument.getTitle());
+//		document.setStatus("SAVED");	
+//		documentRepository.save(document);
+//	}
+	
+//	@Transactional
+//	public void submitDocument(NewDocument newDocument) {
+//		Document document = new Document();
+//		document.setAuthor(newDocument.getAuthor());
+//		document.setDescription(newDocument.getDescription());
+//		document.setDocType(newDocument.getDocType());
+//		document.setTitle(newDocument.getTitle());
+//		document.setStatus("SUBMITTED");
+//		Date date = new Date();	 
+//		document.setSubmissionDate(date);	
+//		documentRepository.save(document);
+//	}
+	
+//	@Transactional
+//	public void submitDocumentAfterSaveForLater(NewDocument newDocument, Long id) {
+//		Document document = getDocument(id);
+//		document.setDescription(newDocument.getDescription());
+//		document.setDocType(newDocument.getDocType());
+//		document.setTitle(newDocument.getTitle());
+//		document.setStatus("SUBMITTED");
+//		Date date = new Date();	 
+//		document.setSubmissionDate(date);	
+//		documentRepository.save(document);
+//	}
 	
 	
 	@Transactional

@@ -58,19 +58,19 @@ public class DocumentController {
 		return documentService.getDocumentForClientById(username, id);
 	}
 
-	@RequestMapping(path = "/one-file", method = RequestMethod.POST)
-	@ApiOperation(value = "Save document with one file", notes = "Creates document with one file")
-	@ResponseStatus(HttpStatus.CREATED)
-	public UploadFileResponse saveDocumentWithOneFile(
-			@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
-			@RequestParam("file") MultipartFile file) {
-		DBFile dbFile = documentService.saveDocumentWithOneFile(newDocument, file);
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-				.path(dbFile.getId()).toUriString();
-		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
-	}
+//	@RequestMapping(path = "/one-file", method = RequestMethod.POST)
+//	@ApiOperation(value = "Save document with one file", notes = "Creates document with one file")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public UploadFileResponse saveDocumentWithOneFile(
+//			@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
+//			@RequestParam("file") MultipartFile file) {
+//		DBFile dbFile = documentService.saveDocumentWithOneFile(newDocument, file);
+//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+//				.path(dbFile.getId()).toUriString();
+//		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
+//	}
 
-	@RequestMapping(path = "/multiple-files", method = RequestMethod.POST)
+	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<UploadFileResponse> saveDocumentWithMultipleFiles(
@@ -84,31 +84,66 @@ public class DocumentController {
 					.path(dBFiles.get(i).getId()).toUriString();
 			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
 					files[i].getSize()));
-
 		}
 		return list;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Save document", notes = "Creates document with data")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
-		documentService.saveDocument(newDocument);
-	}
-
+	
 	@RequestMapping(path = "/submit", method = RequestMethod.POST)
-	@ApiOperation(value = "Submit document", notes = "Creates document with data. Status SUBMITTED")
+	@ApiOperation(value = "Submit document with multiple files", notes = "Submit document with multiple files")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void submitDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
-		documentService.submitDocument(newDocument);
-	}
+	public List<UploadFileResponse> submitDocument(
+			@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
+			@RequestParam("files") MultipartFile[] files) {
 
+		List<DBFile> dBFiles = documentService.submitDocument(newDocument, files);
+		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
+		for (int i = 0; i < files.length; i++) {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(dBFiles.get(i).getId()).toUriString();
+			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
+					files[i].getSize()));
+		}
+		return list;
+	}
+	
 	@RequestMapping(path = "/submit-after-save/{id}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after save for later")
-	public void submitDocumentAfterSaveForLater(
-			@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument, @PathVariable Long id) {
-		documentService.submitDocumentAfterSaveForLater(newDocument, id);
+	public List<UploadFileResponse> submitDocumentAfterSaveForLater(
+			@ApiParam(required = true) @Valid @PathVariable Long id, @ModelAttribute final NewDocument newDocument,
+			@RequestParam("files") MultipartFile[] files) {
+
+		List<DBFile> dBFiles = documentService.submitDocumentAfterSaveForLater(id, newDocument, files);
+		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
+		for (int i = 0; i < files.length; i++) {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(dBFiles.get(i).getId()).toUriString();
+			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
+					files[i].getSize()));
+		}
+		return list;
 	}
+	
+//	@RequestMapping(method = RequestMethod.POST)
+//	@ApiOperation(value = "Save document", notes = "Creates document with data")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public void saveDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
+//		documentService.saveDocument(newDocument);
+//	}
+
+//	@RequestMapping(path = "/submit", method = RequestMethod.POST)
+//	@ApiOperation(value = "Submit document", notes = "Creates document with data. Status SUBMITTED")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public void submitDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
+//		documentService.submitDocument(newDocument);
+//	}
+
+//	@RequestMapping(path = "/submit-after-save/{id}", method = RequestMethod.PUT)
+//	@ApiOperation(value = "Update document info after save for later")
+//	public void submitDocumentAfterSaveForLater(
+//			@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument, @PathVariable Long id) {
+//		documentService.submitDocumentAfterSaveForLater(newDocument, id);
+//	}
 
 	@RequestMapping(path = "/approve-document", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after approval", notes = "Update document info after approval")
