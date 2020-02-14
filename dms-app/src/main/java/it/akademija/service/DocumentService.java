@@ -52,7 +52,7 @@ public class DocumentService {
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(),
-						document.getRejectionReason(), document.getStatus()))
+						document.getRejectionReason(), document.getStatus(), document.generateDbFileIDs()))
 				.collect(Collectors.toList());
 	}
 
@@ -119,16 +119,12 @@ public class DocumentService {
 	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
 	            }
 	            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
-	            document.addFile(dbFile);
-	    		
-	    		DBFiles.add(dbFile);
-	    		
+	            document.addFile(dbFile);	
+	    		DBFiles.add(dbFile);	
 	        } catch (IOException ex) {
 	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
 	        }	
-			
 		}
-
 		documentRepository.save(document);
 		return DBFiles;
 		  

@@ -2,7 +2,9 @@ package it.akademija.model.document;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import it.akademija.model.file.DBFile;
 
@@ -36,6 +39,8 @@ public class Document {
 	@OneToMany(mappedBy="document",  cascade = { CascadeType.ALL })
 	private List<DBFile> DBfiles = new ArrayList<DBFile>();
 	
+	@Transient
+	private Map<String, String> dbFileIDs;
 	
 	public Document() {}
 	
@@ -135,4 +140,27 @@ public class Document {
 		this.DBfiles.add(file);
 		file.setDocument(this);
 		}
+
+	
+	public Map<String, String> generateDbFileIDs() {
+		Map<String, String> dbFilesIds = new HashMap<String, String>();
+		
+		for(int i = 0; i< getDBfiles().size(); i++) {
+			dbFilesIds.put(getDBfiles().get(i).getId(), getDBfiles().get(i).getFileName());
+			
+		}
+		
+		return dbFilesIds;
+	}
+
+	public Map<String, String> getDbFileIDs() {
+		return dbFileIDs;
+	}
+
+	public void setDbFileIDs(Map<String, String> dbFileIDs) {
+		this.dbFileIDs = dbFileIDs;
+	}
+	
+	
+	
 }

@@ -53,7 +53,7 @@ public class DocumentController {
 	}
 
 	@RequestMapping(path = "/{id}/{username}", method = RequestMethod.GET)
-	@ApiOperation(value = "Get documents by author", notes = "Returns list of documents by author")
+	@ApiOperation(value = "Get document by document id", notes = "Returns document by document id")
 	public DocumentForClient getDocumentForClientById(@PathVariable String username, @PathVariable Long id) {
 		return documentService.getDocumentForClientById(username, id);
 	}
@@ -66,31 +66,28 @@ public class DocumentController {
 			@RequestParam("file") MultipartFile file) {
 		DBFile dbFile = documentService.saveDocumentWithOneFile(newDocument, file);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-				.path(dbFile.getId()) 
-				.toUriString();
+				.path(dbFile.getId()).toUriString();
 		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
 	}
-	
-	
-	  @RequestMapping(path = "/multiple-files", method = RequestMethod.POST)
-		@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
-	   	@ResponseStatus(HttpStatus.CREATED)
-	    public List<UploadFileResponse> saveDocumentWithMultipleFiles(@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
-				@RequestParam("files") MultipartFile[] files) {
-		  
-		  List<DBFile> dBFiles = documentService.saveDocumentWithMultipleFiles(newDocument, files);
-		  List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
-		  for(int i = 0; i< files.length; i++) {
-			  String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-						.path(dBFiles.get(i).getId()) 
-						.toUriString();
-			  list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(), files[i].getSize()));
-			  
-		  }
-		  
-		 
-	        return list;
-	    }
+
+	@RequestMapping(path = "/multiple-files", method = RequestMethod.POST)
+	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
+	@ResponseStatus(HttpStatus.CREATED)
+	public List<UploadFileResponse> saveDocumentWithMultipleFiles(
+			@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
+			@RequestParam("files") MultipartFile[] files) {
+
+		List<DBFile> dBFiles = documentService.saveDocumentWithMultipleFiles(newDocument, files);
+		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
+		for (int i = 0; i < files.length; i++) {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(dBFiles.get(i).getId()).toUriString();
+			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
+					files[i].getSize()));
+
+		}
+		return list;
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Save document", notes = "Creates document with data")

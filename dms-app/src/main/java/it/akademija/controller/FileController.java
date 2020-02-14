@@ -67,5 +67,12 @@ public class FileController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
                 .body(new ByteArrayResource(dbFile.getData()));
     }
+    
+	@RequestMapping(method = RequestMethod.DELETE)
+	@ApiOperation(value = "Deletes file by id")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteFileById(@RequestParam final String id) {
+		dbFileStorageService.deleteFileById(id);
+	}
 
 }

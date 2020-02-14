@@ -8,4 +8,5 @@ import it.akademija.model.file.DBFile;
 @Repository
 public interface DBFileRepository extends JpaRepository<DBFile, String> {
 
+	void deleteById(String id);
 }
