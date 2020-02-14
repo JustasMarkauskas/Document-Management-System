@@ -21,7 +21,7 @@ public class DBFile {
     @Lob
     private byte[] data;
     
-    @ManyToOne
+    @ManyToOne( cascade = { CascadeType.MERGE, CascadeType.DETACH })
     @JoinColumn(name = "document_id")
     private Document document;
     

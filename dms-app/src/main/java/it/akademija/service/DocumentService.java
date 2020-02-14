@@ -73,6 +73,39 @@ public class DocumentService {
 		documentRepository.save(document);
 	}
 	
+	@Transactional
+	public void saveDocumentTEST(NewDocument newDocument, MultipartFile file) {
+		Document document = new Document();
+		document.setAuthor(newDocument.getAuthor());
+		document.setDescription(newDocument.getDescription());
+		document.setDocType(newDocument.getDocType());
+		document.setTitle(newDocument.getTitle());
+		document.setStatus("SAVED");	
+		
+		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+
+	            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+	           // dbFile.setDocument(document);
+	                  
+	           // List<DBFile> list = new ArrayList<DBFile>();
+	    		//list.add(dbFile);
+	    		//document.setDBfiles(list);
+	            document.addFile(dbFile);
+	    		
+	    		documentRepository.save(document);
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }
+
+		
+	}
+	
 	
 	@Transactional
 	public void submitDocument(NewDocument newDocument) {

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import it.akademija.model.file.DBFile;
 import it.akademija.model.file.UploadFileResponse;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
+import it.akademija.service.DBFileStorageService;
 import it.akademija.service.DocumentService;
 import it.akademija.service.GroupService;
 
@@ -33,10 +35,12 @@ import it.akademija.service.GroupService;
 public class DocumentController {
 
 	private final DocumentService documentService;
-
+	private final DBFileStorageService dbFileStorageService;
+	
 	@Autowired
-	public DocumentController(DocumentService documentService) {
+	public DocumentController(DocumentService documentService, DBFileStorageService dbFileStorageService) {
 		this.documentService = documentService;
+		this.dbFileStorageService = dbFileStorageService;
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -49,6 +53,22 @@ public class DocumentController {
 	@ApiOperation(value = "Get documents by author", notes = "Returns list of documents by author")
 	public DocumentForClient getDocumentForClientById(@PathVariable String username, @PathVariable Long id) {
 		return documentService.getDocumentForClientById(username, id);
+	}
+	
+	@RequestMapping(path = "/TEST",method = RequestMethod.POST)
+	@ApiOperation(value = "Save document", notes = "Creates document with data")
+	@ResponseStatus(HttpStatus.CREATED)
+	public UploadFileResponse saveDocumentTEST(@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument, @RequestParam("file") MultipartFile file) {
+		documentService.saveDocumentTEST(newDocument, file);
+		
+		DBFile dbFile = dbFileStorageService.storeFile(file); //du kartus saugo. 
+		
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(dbFile.getId()) //negerai cia
+                .toUriString();
+        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
+                file.getContentType(), file.getSize());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

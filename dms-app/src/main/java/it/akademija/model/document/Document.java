@@ -1,8 +1,10 @@
 package it.akademija.model.document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,8 +33,8 @@ public class Document {
 	private String rejectionReason;
 	private String status;
 	
-	@OneToMany(mappedBy="document")
-	private List<DBFile> DBfiles;
+	@OneToMany(mappedBy="document",  cascade = { CascadeType.ALL })
+	private List<DBFile> DBfiles = new ArrayList<DBFile>();
 	
 	
 	public Document() {}
@@ -128,4 +130,9 @@ public class Document {
 		DBfiles = dBfiles;
 	}
 
+	
+	public void addFile(DBFile file) {
+		this.DBfiles.add(file);
+		file.setDocument(this);
+		}
 }
