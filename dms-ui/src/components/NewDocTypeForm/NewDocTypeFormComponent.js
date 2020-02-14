@@ -33,7 +33,17 @@ const handleSubmit = values => {
     });
 };
 
-const NewDocTypeFormComponent = props => {
+class NewDocTypeFormComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.innerRef = React.createRef();
+  }
+  componentDidMount(){
+    setTimeout(() => {
+      this.innerRef.current.focus();
+    }, 1);
+  }
+ render(){
   return (
     <Formik
       validationSchema={schema}
@@ -48,6 +58,7 @@ const NewDocTypeFormComponent = props => {
           <Form noValidate onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Control
+                ref={this.innerRef} 
                 size="lg"
                 type="text"
                 id="id"
@@ -82,14 +93,14 @@ const NewDocTypeFormComponent = props => {
 
             <Button
               disabled={!values.id || !isValid}
-              onClick={props.onCloseModalAfterSubmit}
+              onClick={this.props.onCloseModalAfterSubmit}
               variant="primary"
               className="SubmitButton mr-2"
               type="submit"
             >
               Submit
             </Button>
-            <Button onClick={props.onHide} variant="primary">
+            <Button onClick={this.props.onHide} variant="primary">
               Cancel
             </Button>
           </Form>
@@ -97,6 +108,7 @@ const NewDocTypeFormComponent = props => {
       )}
     </Formik>
   );
+}
 };
 
 export default withRouter(NewDocTypeFormComponent);

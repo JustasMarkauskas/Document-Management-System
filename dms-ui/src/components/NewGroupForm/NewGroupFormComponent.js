@@ -19,86 +19,98 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {  
+const handleSubmit = values => {
   axios({
     method: "POST",
     url: "http://localhost:8081/api/group/",
     data: values
   })
     .then(response => {
-      console.log(response)      
+      console.log(response)
     })
     .catch(error => {
-      console.log(error)      
+      console.log(error)
     });
 };
 
-const NewGroupFormComponent = props => {
-  return (
-    <Formik
-      validationSchema={schema}
-      onSubmit={handleSubmit}
-      initialValues={{
-        id: "",
-        comment: ""
-      }}
-    >
-      {({ handleSubmit, handleChange, values, isValid, errors }) => (
-        <div className="NewGroupForm" id="adminCreateGroupForm">
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Control
-                size="lg"
-                className="NewGroupForm"
-                type="text"
-                id="id"
-                name="id"
-                value={values.id}
-                onChange={handleChange}
-                placeholder="Group Name"
-                isInvalid={!!errors.id}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-              <p className="text-info">{errors.id}</p>
-              </Form.Control.Feedback>
-            </Form.Group>
+class NewGroupFormComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.innerRef = React.createRef();
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.innerRef.current.focus();
+    }, 1);
+  }
+  render() {
+    return (
+      <Formik
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+        initialValues={{
+          id: "",
+          comment: ""
+        }}
+      >
+        {({ handleSubmit, handleChange, values, isValid, errors }) => (
+          <div className="NewGroupForm" id="adminCreateGroupForm">
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Control
+                  ref={this.innerRef}
+                  size="lg"
+                  className="NewGroupForm"
+                  type="text"
+                  id="id"
+                  name="id"
+                  value={values.id}
+                  onChange={handleChange}
+                  placeholder="Group Name"
+                  isInvalid={!!errors.id}
+                />
+                <Form.Control.Feedback className="FeedBack" type="invalid">
+                  <p className="text-info">{errors.id}</p>
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group>
-              <Form.Control
-                as="textarea"
-                rows="2"
-                className="NewGroupForm"
-                size="lg"
-                name="comment"
-                onChange={handleChange}
-                type="comment"
-                id="comment"
-                value={values.comment}
-                placeholder="Comment"
-                isInvalid={!!errors.comment}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-              <p className="text-info">{errors.comment}</p>
-              </Form.Control.Feedback>
-            </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  as="textarea"
+                  rows="2"
+                  className="NewGroupForm"
+                  size="lg"
+                  name="comment"
+                  onChange={handleChange}
+                  type="comment"
+                  id="comment"
+                  value={values.comment}
+                  placeholder="Comment"
+                  isInvalid={!!errors.comment}
+                />
+                <Form.Control.Feedback className="FeedBack" type="invalid">
+                  <p className="text-info">{errors.comment}</p>
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Button
-              disabled={!values.id || !isValid}
-              onClick={props.onCloseModalAfterSubmit}
-              variant="primary"
-              className="SubmitButton mr-2"
-              type="submit"
-            >
-              Submit
+              <Button
+                disabled={!values.id || !isValid}
+                onClick={this.props.onCloseModalAfterSubmit}
+                variant="primary"
+                className="SubmitButton mr-2"
+                type="submit"
+              >
+                Submit
             </Button>
-            <Button onClick={props.onHide} variant="primary">
-              Cancel
+              <Button onClick={this.props.onHide} variant="primary">
+                Cancel
             </Button>
-          </Form>
-        </div>
-      )}
-    </Formik>
-  );
+            </Form>
+          </div>
+        )}
+      </Formik>
+    );
+  }
 };
 
 export default withRouter(NewGroupFormComponent);
