@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import it.akademija.model.file.DBFile;
+
 
 public class DocumentForClient {
 	
@@ -17,12 +19,14 @@ public class DocumentForClient {
 	private String documentReceiver;
 	private String rejectionReason;
 	private String status;
-	private Map<String, String> dbFileIDs;
+	//private Map<String, String> dbFileIDs;
+	private List<String> dbFileIDs;
+	
 	
 	public DocumentForClient() {}
 	
 	public DocumentForClient(Long id, String author, String docType, String title, String description, Date submissionDate,
-			Date reviewDate, String documentReceiver, String rejectionReason, String status, Map<String, String> dbFileIDs) {
+			Date reviewDate, String documentReceiver, String rejectionReason, String status, List<String> dbFileIDs) {
 		this.id = id;
 		this.author = author;
 		this.docType = docType;
@@ -34,6 +38,7 @@ public class DocumentForClient {
 		this.rejectionReason = rejectionReason;
 		this.status = status;
 		this.dbFileIDs = dbFileIDs;
+		
 	}
 	
 	
@@ -103,13 +108,23 @@ public class DocumentForClient {
 		this.status = status;
 	}
 
-	public Map<String, String> getDbFileIDs() {
+	public List<String> getDbFileIDs() {
 		return dbFileIDs;
 	}
 
-	public void setDbFileIDs(Map<String, String> dbFileIDs) {
+	public void setDbFileIDs(List<String> dbFileIDs) {
 		this.dbFileIDs = dbFileIDs;
 	}
+
+//	public Map<String, String> getDbFileIDs() {
+//		return dbFileIDs;
+//	}
+//
+//	public void setDbFileIDs(Map<String, String> dbFileIDs) {
+//		this.dbFileIDs = dbFileIDs;
+//	}
+
+	
 
 
 	

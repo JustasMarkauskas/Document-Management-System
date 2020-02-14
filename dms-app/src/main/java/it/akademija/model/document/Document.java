@@ -142,11 +142,22 @@ public class Document {
 		}
 
 	
-	public Map<String, String> generateDbFileIDs() {
-		Map<String, String> dbFilesIds = new HashMap<String, String>();
+//	public Map<String, String> generateDbFileIDs() {
+//		Map<String, String> dbFilesIds = new HashMap<String, String>();
+//		
+//		for(int i = 0; i< getDBfiles().size(); i++) {
+//			dbFilesIds.put(getDBfiles().get(i).getId(), getDBfiles().get(i).getFileName());
+//			
+//		}
+//		
+//		return dbFilesIds;
+//	}
+	
+	public List<String> generateDbFileIDs() {
+		List<String> dbFilesIds = new ArrayList<String>();
 		
 		for(int i = 0; i< getDBfiles().size(); i++) {
-			dbFilesIds.put(getDBfiles().get(i).getId(), getDBfiles().get(i).getFileName());
+			dbFilesIds.add(getDBfiles().get(i).getId());
 			
 		}
 		
