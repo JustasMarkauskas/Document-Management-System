@@ -12,7 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
+import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.file.DBFile;
+import it.akademija.model.file.DBFileNameAndId;
 import it.akademija.model.file.UploadFileResponse;
 import it.akademija.service.DBFileStorageService;
 import it.akademija.service.GroupService;
@@ -56,6 +58,11 @@ public class FileController {
                 .collect(Collectors.toList());
     }
     
+    @RequestMapping(path = "/{documentId}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get files by document id", notes = "Returns list of files by document id")
+	public List<DBFileNameAndId> getFilesByDocumentId(@PathVariable Long documentId) {
+		return dbFileStorageService.getFilesByDocumentId(documentId);
+	}
    
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {

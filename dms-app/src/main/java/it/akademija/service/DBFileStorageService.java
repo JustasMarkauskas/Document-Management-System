@@ -11,9 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 import it.akademija.dao.DBFileRepository;
 import it.akademija.file.exceptions.FileStorageException;
 import it.akademija.file.exceptions.MyFileNotFoundException;
+import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.file.DBFile;
+import it.akademija.model.file.DBFileNameAndId;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DBFileStorageService {
@@ -44,6 +48,13 @@ public class DBFileStorageService {
     public DBFile getFile(String fileId) {
         return dbFileRepository.findById(fileId)
                 .orElseThrow(() -> new MyFileNotFoundException("File not found with id " + fileId));
+    }
+    
+    @Transactional
+    public List<DBFileNameAndId> getFilesByDocumentId(Long id) {
+        return dbFileRepository.findByDocumentId(id).stream()
+				.map((file) -> new DBFileNameAndId(file.getId(), file.getFileName()))
+				.collect(Collectors.toList());
     }
     
     @Transactional
