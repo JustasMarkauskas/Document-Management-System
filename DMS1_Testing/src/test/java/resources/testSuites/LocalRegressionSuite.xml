@@ -8,6 +8,7 @@
 
 		<classes>
 			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest" />
+			<class name="com.TheGoodGuys.DMS1.InvalidLoginTest" />
 		</classes>
 	</test>
 

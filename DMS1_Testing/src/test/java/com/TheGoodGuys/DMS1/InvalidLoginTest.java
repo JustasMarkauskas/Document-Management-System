@@ -3,6 +3,7 @@ package com.TheGoodGuys.DMS1;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -14,6 +15,7 @@ import resources.models.User;
 import resources.models.UserData;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
+import resources.utils.*;
 
 public class InvalidLoginTest extends AbstractTest{
 	
@@ -33,13 +35,9 @@ public class InvalidLoginTest extends AbstractTest{
 	public static Object[] testData() throws IOException {
 
 		XStream xstream = new XStream();
-
 		xstream.processAnnotations(UserData.class);
 		xstream.processAnnotations(User.class);
-		//pakurti xml'a savo ar galima pernaudot kazkaip?
-		//jei pernaudot man reikia dkeliu xml UsersInvalidUsernameChars, Length + InvalidPassword
-		UserData data = (UserData) xstream.fromXML(FileUtils.readFileToString(new File("src/test/java/resources/testData/GroupsValid.xml")));
-
+		UserData data = (UserData) xstream.fromXML(FileUtils.readFileToString(new File("src/test/java/resources/testData/UsersInvalid.xml")));
 		return data.getUsers().toArray();
 	}
 	
@@ -50,6 +48,7 @@ public class InvalidLoginTest extends AbstractTest{
 	public void testInvalidUserLogin(String loginUsername, String loginPassword) throws Exception {
 		
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
+		CustomWaits.waitForJavascript(driver);
 		Assert.assertTrue(login.alertMessageContainsLoginFailed());
 
 	}

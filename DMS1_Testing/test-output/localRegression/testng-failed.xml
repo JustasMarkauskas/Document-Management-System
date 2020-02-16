@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [localRegression]">
+  <test thread-count="5" name="GroupCreationTest(failed)">
+    <parameter name="baseURL" value="http://localhost:3000/#/"/>
+    <parameter name="loginUsername" value="admin1"/>
+    <parameter name="loginPassword" value="Password1"/>
+    <classes>
+      <class name="com.TheGoodGuys.DMS1.InvalidLoginTest">
+        <methods>
+          <include name="testInvalidUserLogin"/>
+          <include name="preconditions"/>
+          <include name="setUp"/>
+          <include name="closeBrowser"/>
+        </methods>
+      </class> <!-- com.TheGoodGuys.DMS1.InvalidLoginTest -->
+      <class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest">
+        <methods>
+          <include name="testToCreateNewGroup"/>
+          <include name="preconditions"/>
+          <include name="setUp"/>
+          <include name="closeBrowser"/>
+        </methods>
+      </class> <!-- com.TheGoodGuys.DMS1.AdminCreateGroupTest -->
+    </classes>
+  </test> <!-- GroupCreationTest(failed) -->
+</suite> <!-- Failed suite [localRegression] -->
