@@ -36,8 +36,8 @@
 		<userName>AMLTEAMTWO</userName>
 		<name>JOHN</name>
 		<surname>JOHNSON</surname>
-		<password>prekey82drut</password>
-		<confirmPassword>prekey82drut</confirmPassword>
+		<password>prekey82Drut</password>
+		<confirmPassword>prekey82Drut</confirmPassword>
 		<comment>autotesting</comment>
 	</User>
 	<User>

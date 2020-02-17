@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_invalidLength</testDataGroup>
+		<identificator>name_blank</identificator>
+		<groupName></groupName>
+		<comment>autotesting</comment>
+	</Group>
+</resources.models.GroupData>

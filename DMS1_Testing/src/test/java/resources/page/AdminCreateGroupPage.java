@@ -28,21 +28,21 @@ public class AdminCreateGroupPage extends AbstractPage {
 	private WebElement buttonCancel;
 	
 	//error messages
-	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group Name']//following-sibling::div[contains(@class,'invalid-feedback')]")
-	private WebElement msgInvalidUsername;
+	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group Name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	private WebElement msgInvalidGroupName;
 	
-	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//itextarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
 	private WebElement msgInvalidComment;
 	
-	private void waitForClickable(WebElement element) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
-	}
+	
 	
 	public AdminCreateGroupPage(WebDriver driver) {
 		super(driver);
 	}
 	
-	
+	private void waitForClickable(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+	}
 	
 	public void enterInputGroupName(String groupName) {
 		inputGroupName.sendKeys(groupName);
@@ -60,17 +60,20 @@ public class AdminCreateGroupPage extends AbstractPage {
 		buttonCancel.click();
 	}
 	
-	public void fillAndSubmitForm(Group group) {
+	public void fillAndSubmitForm(Group group) throws InterruptedException {
 		inputGroupName.sendKeys(group.getGroupName());
 		inputComment.sendKeys(group.getComment());
 		waitForClickable(buttonSubmit);
+
+		Thread.sleep(1000);
+		buttonSubmit.submit();
 		buttonSubmit.click();
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
 	}
 	
 	//getters
 
-	public WebElement getInputUsername() {
+	public WebElement getInputGroupName() {
 		return inputGroupName;
 	}
 
@@ -86,8 +89,8 @@ public class AdminCreateGroupPage extends AbstractPage {
 		return buttonCancel;
 	}
 
-	public WebElement getMsgInvalidUsername() {
-		return msgInvalidUsername;
+	public WebElement getMsgInvalidGroupName() {
+		return msgInvalidGroupName;
 	}
 
 	public WebElement getMsgInvalidComment() {

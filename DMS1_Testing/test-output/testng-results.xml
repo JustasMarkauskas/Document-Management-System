@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="5" ignored="0" total="5" passed="0">
+<testng-results skipped="0" failed="1" ignored="0" total="8" passed="7">
   <reporter-output>
   </reporter-output>
-  <suite name="localCreateGroup" duration-ms="45286" started-at="2020-02-17T12:51:15Z" finished-at="2020-02-17T12:52:00Z">
+  <suite name="localCreateGroup" duration-ms="17681" started-at="2020-02-17T16:42:17Z" finished-at="2020-02-17T16:42:35Z">
     <groups>
       <group name="groupCreation">
+        <method signature="AdminCreateGroupTest.testToCheckBlankRestrictionsInCreateGroup(resources.models.Group)[pri:3, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCheckBlankRestrictionsInCreateGroup" class="com.TheGoodGuys.DMS1.AdminCreateGroupTest"/>
+        <method signature="AdminCreateGroupTest.testToCheckLengthRestrictionsInCreateGroup(resources.models.Group)[pri:2, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCheckLengthRestrictionsInCreateGroup" class="com.TheGoodGuys.DMS1.AdminCreateGroupTest"/>
         <method signature="AdminCreateGroupTest.testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" class="com.TheGoodGuys.DMS1.AdminCreateGroupTest"/>
       </group> <!-- groupCreation -->
     </groups>
-    <test name="GroupCreationTest" duration-ms="45286" started-at="2020-02-17T12:51:15Z" finished-at="2020-02-17T12:52:00Z">
+    <test name="GroupCreationTest" duration-ms="17681" started-at="2020-02-17T16:42:17Z" finished-at="2020-02-17T16:42:35Z">
       <class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="setUp" is-config="true" duration-ms="1099" started-at="2020-02-17T12:51:15Z" finished-at="2020-02-17T12:51:16Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="setUp" is-config="true" duration-ms="1260" started-at="2020-02-17T16:42:17Z" finished-at="2020-02-17T16:42:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="preconditions(java.lang.String)[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="preconditions" is-config="true" duration-ms="1096" started-at="2020-02-17T12:51:16Z" finished-at="2020-02-17T12:51:17Z">
+        <test-method status="PASS" signature="preconditions(java.lang.String)[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="preconditions" is-config="true" duration-ms="1093" started-at="2020-02-17T16:42:18Z" finished-at="2020-02-17T16:42:19Z">
           <params>
             <param index="0">
               <value>
@@ -25,11 +27,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- preconditions -->
-        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="11288" started-at="2020-02-17T12:51:17Z" data-provider="validGroups" finished-at="2020-02-17T12:51:29Z">
+        <test-method status="PASS" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="2486" started-at="2020-02-17T16:42:20Z" data-provider="validGroups" finished-at="2020-02-17T16:42:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[resources.models.Group@662f5666]]>
+                <![CDATA[resources.models.Group@1ef3efa8]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToCreateNewGroup -->
+        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="2795" started-at="2020-02-17T16:42:22Z" data-provider="validGroups" finished-at="2020-02-17T16:42:25Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[resources.models.Group@74e47444]]>
               </value>
             </param>
           </params>
@@ -40,7 +53,7 @@
             <full-stacktrace>
               <![CDATA[java.lang.AssertionError: Group name could not be found in the group list
 at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
-at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:66)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -72,226 +85,73 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToCreateNewGroup -->
-        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="11749" started-at="2020-02-17T12:51:29Z" data-provider="validGroups" finished-at="2020-02-17T12:51:40Z">
+        <test-method status="PASS" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="2274" started-at="2020-02-17T16:42:25Z" data-provider="validGroups" finished-at="2020-02-17T16:42:27Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[resources.models.Group@24bdb479]]>
+                <![CDATA[resources.models.Group@1d9bec4d]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[Group name could not be found in the group list]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Group name could not be found in the group list
-at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
-at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.lang.reflect.Method.invoke(Method.java:498)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
-at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
-at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-at org.testng.TestRunner.privateRun(TestRunner.java:648)
-at org.testng.TestRunner.run(TestRunner.java:505)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-at org.testng.TestNG.runSuites(TestNG.java:1049)
-at org.testng.TestNG.run(TestNG.java:1017)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToCreateNewGroup -->
-        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="10947" started-at="2020-02-17T12:51:40Z" data-provider="validGroups" finished-at="2020-02-17T12:51:51Z">
+        <test-method status="PASS" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="2436" started-at="2020-02-17T16:42:27Z" data-provider="validGroups" finished-at="2020-02-17T16:42:30Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[resources.models.Group@60b71e8f]]>
+                <![CDATA[resources.models.Group@9f46d94]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[Group name could not be found in the group list]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Group name could not be found in the group list
-at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
-at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.lang.reflect.Method.invoke(Method.java:498)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
-at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
-at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-at org.testng.TestRunner.privateRun(TestRunner.java:648)
-at org.testng.TestRunner.run(TestRunner.java:505)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-at org.testng.TestNG.runSuites(TestNG.java:1049)
-at org.testng.TestNG.run(TestNG.java:1017)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToCreateNewGroup -->
-        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="8479" started-at="2020-02-17T12:51:51Z" data-provider="validGroups" finished-at="2020-02-17T12:52:00Z">
+        <test-method status="PASS" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="2317" started-at="2020-02-17T16:42:30Z" data-provider="validGroups" finished-at="2020-02-17T16:42:32Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[resources.models.Group@552518c3]]>
+                <![CDATA[resources.models.Group@5d8445d7]]>
               </value>
             </param>
           </params>
-          <exception class="java.lang.AssertionError">
-            <message>
-              <![CDATA[Group name could not be found in the group list]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Group name could not be found in the group list
-at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
-at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.lang.reflect.Method.invoke(Method.java:498)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
-at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
-at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-at org.testng.TestRunner.privateRun(TestRunner.java:648)
-at org.testng.TestRunner.run(TestRunner.java:505)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-at org.testng.TestNG.runSuites(TestNG.java:1049)
-at org.testng.TestNG.run(TestNG.java:1017)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToCreateNewGroup -->
-        <test-method status="FAIL" signature="testToCreateNewGroup(resources.models.Group)[pri:1, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCreateNewGroup" duration-ms="84" started-at="2020-02-17T12:52:00Z" data-provider="validGroups" finished-at="2020-02-17T12:52:00Z">
+        <test-method status="PASS" signature="testToCheckLengthRestrictionsInCreateGroup(resources.models.Group)[pri:2, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCheckLengthRestrictionsInCreateGroup" duration-ms="725" started-at="2020-02-17T16:42:32Z" data-provider="groupsInvalidLength" finished-at="2020-02-17T16:42:33Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[resources.models.Group@263f04ca]]>
+                <![CDATA[resources.models.Group@36dce7ed]]>
               </value>
             </param>
           </params>
-          <exception class="org.openqa.selenium.WebDriverException">
-            <message>
-              <![CDATA[chrome not reachable
-  (Session info: chrome=80.0.3987.87)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'Justas', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.3.0-28-generic', java.version: '1.8.0_221'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.87, chrome: {chromedriverVersion: 80.0.3987.16 (320f6526c1632..., userDataDir: /tmp/.com.google.Chrome.PhcLcF}, goog:chromeOptions: {debuggerAddress: localhost:45697}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
-Session ID: 17584b2b3fcdafb47f321c1582e6cf02
-*** Element info: {Using=id, value=adminGroupNav}]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.WebDriverException: chrome not reachable
-  (Session info: chrome=80.0.3987.87)
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'Justas', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.3.0-28-generic', java.version: '1.8.0_221'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.87, chrome: {chromedriverVersion: 80.0.3987.16 (320f6526c1632..., userDataDir: /tmp/.com.google.Chrome.PhcLcF}, goog:chromeOptions: {debuggerAddress: localhost:45697}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
-Session ID: 17584b2b3fcdafb47f321c1582e6cf02
-*** Element info: {Using=id, value=adminGroupNav}
-at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:372)
-at org.openqa.selenium.By$ById.findElement(By.java:188)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
-at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
-at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
-at com.sun.proxy.$Proxy11.click(Unknown Source)
-at resources.page.AdminNavPage.clickButtonGroups(AdminNavPage.java:39)
-at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:68)
-at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-at java.lang.reflect.Method.invoke(Method.java:498)
-at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
-at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
-at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
-at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-at org.testng.TestRunner.privateRun(TestRunner.java:648)
-at org.testng.TestRunner.run(TestRunner.java:505)
-at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-at org.testng.TestNG.runSuites(TestNG.java:1049)
-at org.testng.TestNG.run(TestNG.java:1017)
-at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
-at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.WebDriverException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testToCreateNewGroup -->
-        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="closeBrowser" is-config="true" duration-ms="42" started-at="2020-02-17T12:52:00Z" finished-at="2020-02-17T12:52:00Z">
+        </test-method> <!-- testToCheckLengthRestrictionsInCreateGroup -->
+        <test-method status="PASS" signature="testToCheckLengthRestrictionsInCreateGroup(resources.models.Group)[pri:2, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCheckLengthRestrictionsInCreateGroup" duration-ms="1047" started-at="2020-02-17T16:42:33Z" data-provider="groupsInvalidLength" finished-at="2020-02-17T16:42:34Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[resources.models.Group@71b1a49c]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToCheckLengthRestrictionsInCreateGroup -->
+        <test-method status="PASS" signature="testToCheckBlankRestrictionsInCreateGroup(resources.models.Group)[pri:3, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="testToCheckBlankRestrictionsInCreateGroup" duration-ms="755" started-at="2020-02-17T16:42:34Z" data-provider="groupsBlankName" finished-at="2020-02-17T16:42:35Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[resources.models.Group@49d98dc5]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToCheckBlankRestrictionsInCreateGroup -->
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:com.TheGoodGuys.DMS1.AdminCreateGroupTest@2aece37d]" name="closeBrowser" is-config="true" duration-ms="1" started-at="2020-02-17T16:42:35Z" finished-at="2020-02-17T16:42:35Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->
