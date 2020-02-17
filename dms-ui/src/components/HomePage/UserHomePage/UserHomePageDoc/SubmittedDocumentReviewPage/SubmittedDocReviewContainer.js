@@ -26,7 +26,7 @@ class SubmittedDocReviewContainer extends React.Component {
   getDocument = () => {
     axios
       //  .get("http://localhost:8081/api/document/{id}/{username}")
-      .get("http://localhost:8081/api/document/865/ttta")
+      .get("http://localhost:8081/api/document/833/tt")
       .then(response => {
         this.setState({ document: response.data });
       })
