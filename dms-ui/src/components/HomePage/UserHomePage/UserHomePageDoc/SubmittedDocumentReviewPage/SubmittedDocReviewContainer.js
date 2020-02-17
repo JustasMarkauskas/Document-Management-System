@@ -7,47 +7,33 @@ class SubmittedDocReviewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      document: [],
-      username: ""
+      document: []
+      //   username: ""
     };
   }
 
-  getUsername = () => {
+  getDocument = () => {
+    let docId = this.props.location.state.documentId;
+
     axios
       .get("http://localhost:8081/api/user/loggedUsername")
       .then(response => {
-        this.setState({ username: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  getDocument = () => {
-    axios
-      .get("http://localhost:8081/api/document/833/tt")
-      .then(response => {
-        this.setState({ document: response.data });
-        //     console.log(this.props.location);
-        //console.log(this.state.document.id + this.state.username);
-      })
-      .catch(error => {
-        //  console.log(this.state.document.id + this.state.username);
-        console.log(error);
+        let username = response.data;
+        axios
+          //    .get("http://localhost:8081/api/document/898/" + username)
+          .get("http://localhost:8081/api/document/" + docId + "/" + username)
+          .then(response => {
+            this.setState({ document: response.data });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       });
   };
 
   componentDidMount() {
-    this.getUsername();
     this.getDocument();
-    // this.getDocument();
   }
-
-  // componentDidUpdate(state) {
-  //   if (this.state.username !== state.username) {
-  //     this.getDocument();
-  //   }
-  // }
 
   render() {
     return (

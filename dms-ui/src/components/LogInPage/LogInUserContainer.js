@@ -40,10 +40,7 @@ class LoginUserContainer extends React.Component {
         if (resp.data.isAdmin === "true") {
           this.props.history.push("/adminhomepage-users");
         } else {
-          this.props.history.push({
-            pathname: "/userhomepage-documents",
-            state: { user: "aaaaaaaa" }
-          });
+          this.props.history.push("/userhomepage-documents");
         }
       })
       .catch(e => {

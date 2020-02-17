@@ -8,25 +8,17 @@ class UserHomePageDocumentContainer extends React.Component {
     super(props);
     this.state = {
       documents: [],
-      inputDocumentTitle: "", //paieskai skirtas
-      username: ""
+      inputDocumentTitle: "" //paieskai skirtas
     };
   }
 
   getDocuments = () => {
-    // axios.get('api link').then(data => {
-    //   let live = data
-    //   axios.get('api link2').then(data2 =>
-    //   let current = data2
-    //        })
-    //   })
-
     axios
       .get("http://localhost:8081/api/user/loggedUsername")
       .then(response => {
-        let user = response.data;
+        let username = response.data;
         axios
-          .get("http://localhost:8081/api/document/" + user)
+          .get("http://localhost:8081/api/document/" + username)
           .then(response => {
             this.setState({ documents: response.data });
           })
@@ -36,33 +28,17 @@ class UserHomePageDocumentContainer extends React.Component {
       });
   };
 
-  getUsername = () => {
-    axios
-      .get("http://localhost:8081/api/user/loggedUsername")
-      .then(response => {
-        this.setState({ username: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  // componentDidUpdate(state) {
-  //   if (this.state.username !== state.username) {
-  //     this.getDocuments();
-  //   }
-  // }
-
   componentDidMount() {
-    //  this.getUsername();
-
     this.getDocuments();
   }
 
   handleActionClick = event => {
     event.preventDefault();
     if (this.status === "APPROVED" || "REJECTED") {
-      this.props.history.push("/submitted-document", { some: "state" }); //navigacija teisinga padaryti.
+      this.props.history.push({
+        pathname: "/submitted-document",
+        state: { documentId: "898" }
+      });
     }
   };
 
