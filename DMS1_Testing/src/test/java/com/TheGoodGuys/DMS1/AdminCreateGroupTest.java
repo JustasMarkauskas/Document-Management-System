@@ -46,15 +46,8 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup = new AdminCreateGroupPage(driver);
 		
 		driver.get(baseURL);
+		login.enterDetailsAndLogin("admin1", "Password1");
 	}
-
-	//	@BeforeGroups("groupCreation")
-	//	public void navigateToProductList() {
-	//		driver.get("http://akademijait.vtmc.lt/opencartone/");
-	//
-	//	}
-
-
 
 	@DataProvider(name = "validGroups")
 	public static Object[] testData() throws IOException {
@@ -70,16 +63,18 @@ public class AdminCreateGroupTest extends AbstractTest {
 
 
 	@Test (priority = 1, groups = { "groupCreation" } , dataProvider = "validGroups")
-	@Parameters({"loginUsername", "loginPassword"})
-	public void testToCreateNewGroup(Group group, String loginUsername, String loginPassword) throws Exception {
-		
-		login.enterDetailsAndLogin(loginUsername, loginPassword);
+	public void testToCreateNewGroup(Group group) throws Exception {
 		
 		adminNav.clickButtonGroups();
-		adminGroups.clickButtonAddNewUser();
+		adminGroups.clickButtonAddNewGroup();
 		createGroup.fillAndSubmitForm(group);
+//		createGroup.enterInputGroupName(group.getGroupName());
+//		createGroup.enterInputComment(group.getComment());
+//		createGroup.clickButtonSubmit();
 		
-		assertThat("success msg", containsString("success"));
+//		assertThat("success msg", containsString("success"));
+		
+		assertThat("Group name could not be found in the group list",adminGroups.checkIfGroupNameExists(group.getGroupName()));
 		
 		
 		//Call take screenshot function

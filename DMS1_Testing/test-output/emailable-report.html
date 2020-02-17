@@ -7,25 +7,51 @@
 </head>
 <body>
 <table>
-<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
-<tr><th colspan="7">localRegression</th></tr>
-<tr><td><a href="#t0">GroupCreationTest</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">2</td><td class="num">5,974</td><td></td><td></td></tr>
+<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
+<tr><th colspan="7">localCreateGroup</th></tr>
+<tr><td><a href="#t0">GroupCreationTest</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">5</td><td class="num">45,286</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">localRegression</th></tr></tbody><tbody id="t0"><tr><th colspan="4">GroupCreationTest &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.TheGoodGuys.DMS1.AdminCreateGroupTest</td><td><a href="#m0">testToCreateNewGroup</a></td><td rowspan="1">1581854422586</td><td rowspan="1">219</td></tr><tr class="failedodd"><td rowspan="1">com.TheGoodGuys.DMS1.InvalidLoginTest</td><td><a href="#m1">testInvalidUserLogin</a></td><td rowspan="1">1581854425455</td><td rowspan="1">16</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">localCreateGroup</th></tr></tbody><tbody id="t0"><tr><th colspan="4">GroupCreationTest &#8212; failed</th></tr><tr class="failedeven"><td rowspan="5">com.TheGoodGuys.DMS1.AdminCreateGroupTest</td><td><a href="#m0">testToCreateNewGroup</a></td><td rowspan="5">1581943911852</td><td rowspan="5">8479</td></tr><tr class="failedeven"><td><a href="#m1">testToCreateNewGroup</a></td></tr><tr class="failedeven"><td><a href="#m2">testToCreateNewGroup</a></td></tr><tr class="failedeven"><td><a href="#m3">testToCreateNewGroup</a></td></tr><tr class="failedeven"><td><a href="#m4">testToCreateNewGroup</a></td></tr></tbody>
 </table>
-<h2>GroupCreationTest</h2><h3 id="m0">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.testng.internal.reflect.MethodMatcherException: 
-[public void com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(resources.models.Group,java.lang.String,java.lang.String) throws java.lang.Exception] has no parameters defined but was found to be using a data provider (either explicitly specified or inherited from class level annotation).
-Data provider mismatch
-Method: testToCreateNewGroup([Parameter{index=0, type=resources.models.Group, declaredAnnotations=[]}, Parameter{index=1, type=java.lang.String, declaredAnnotations=[]}, Parameter{index=2, type=java.lang.String, declaredAnnotations=[]}])
-Arguments: [(resources.models.Group) resources.models.Group@4dc8caa7]
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">com.TheGoodGuys.DMS1.InvalidLoginTest#testInvalidUserLogin</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.testng.internal.reflect.MethodMatcherException: 
-[public void com.TheGoodGuys.DMS1.InvalidLoginTest.testInvalidUserLogin(java.lang.String,java.lang.String) throws java.lang.Exception] has no parameters defined but was found to be using a data provider (either explicitly specified or inherited from class level annotation).
-Data provider mismatch
-Method: testInvalidUserLogin([Parameter{index=0, type=java.lang.String, declaredAnnotations=[]}, Parameter{index=1, type=java.lang.String, declaredAnnotations=[]}])
-Arguments: [(resources.models.User) resources.models.User@63fdab07]
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>GroupCreationTest</h2><h3 id="m0">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>resources.models.Group@552518c3</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>resources.models.Group@24bdb479</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>resources.models.Group@60b71e8f</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>resources.models.Group@263f04ca</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=80.0.3987.87)
+Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
+System info: host: &apos;Justas&apos;, ip: &apos;127.0.1.1&apos;, os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.3.0-28-generic&apos;, java.version: &apos;1.8.0_221&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.87, chrome: {chromedriverVersion: 80.0.3987.16 (320f6526c1632..., userDataDir: /tmp/.com.google.Chrome.PhcLcF}, goog:chromeOptions: {debuggerAddress: localhost:45697}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 17584b2b3fcdafb47f321c1582e6cf02
+*** Element info: {Using=id, value=adminGroupNav}
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:372)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy11.click(Unknown Source)
+	at resources.page.AdminNavPage.clickButtonGroups(AdminNavPage.java:39)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:68)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">com.TheGoodGuys.DMS1.AdminCreateGroupTest#testToCreateNewGroup</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>resources.models.Group@662f5666</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

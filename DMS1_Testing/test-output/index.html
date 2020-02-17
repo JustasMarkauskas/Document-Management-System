@@ -24,7 +24,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
+      <span class="top-banner-font-1">1 suite, 5 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,8 +37,8 @@
       <div class="suite">
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
-            <a href="#" class="navigator-link" panel-name="suite-localRegression">
-              <span class="suite-name border-failed">localRegression</span>
+            <a href="#" class="navigator-link" panel-name="suite-localCreateGroup">
+              <span class="suite-name border-failed">localCreateGroup</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -48,37 +48,37 @@
             <div class="suite-section-content">
               <ul>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="test-xml-localRegression">
-                    <span>LocalRegressionSuite.xml</span>
+                  <a href="#" class="navigator-link " panel-name="test-xml-localCreateGroup">
+                    <span>GUAdminCreateGroupSuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="testlist-localRegression">
+                  <a href="#" class="navigator-link " panel-name="testlist-localCreateGroup">
                     <span class="test-stats">1 test</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="group-localRegression">
-                    <span>2 groups</span>
+                  <a href="#" class="navigator-link " panel-name="group-localCreateGroup">
+                    <span>1 group</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="times-localRegression">
+                  <a href="#" class="navigator-link " panel-name="times-localCreateGroup">
                     <span>Times</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="reporter-localRegression">
+                  <a href="#" class="navigator-link " panel-name="reporter-localCreateGroup">
                     <span>Reporter output</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="ignored-methods-localRegression">
+                  <a href="#" class="navigator-link " panel-name="ignored-methods-localCreateGroup">
                     <span>Ignored methods</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
-                  <a href="#" class="navigator-link " panel-name="chronological-localRegression">
+                  <a href="#" class="navigator-link " panel-name="chronological-localCreateGroup">
                     <span>Chronological view</span>
                   </a> <!-- navigator-link  -->
                 </li>
@@ -91,26 +91,41 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods, 2 failed,   </span>
+                    <span class="method-stats">5 methods, 5 failed,   </span>
                   </li>
                   <li>
                     <span class="method-list-title failed">Failed methods</span>
                     <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-localRegression" class="hide-methods failed suite-localRegression"> (hide)</a> <!-- hide-methods failed suite-localRegression -->
-                      <a href="#" panel-name="suite-localRegression" class="show-methods failed suite-localRegression"> (show)</a> <!-- show-methods failed suite-localRegression -->
+                      <a href="#" panel-name="suite-localCreateGroup" class="hide-methods failed suite-localCreateGroup"> (hide)</a> <!-- hide-methods failed suite-localCreateGroup -->
+                      <a href="#" panel-name="suite-localCreateGroup" class="show-methods failed suite-localCreateGroup"> (show)</a> <!-- show-methods failed suite-localCreateGroup -->
                     </span>
-                    <div class="method-list-content failed suite-localRegression">
+                    <div class="method-list-content failed suite-localCreateGroup">
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-localRegression" title="com.TheGoodGuys.DMS1.InvalidLoginTest" hash-for-method="testInvalidUserLogin">testInvalidUserLogin</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-localCreateGroup" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup(resources.models.Group@552518c3)">testToCreateNewGroup(resources.models.Group@552518c3)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-localRegression" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup">testToCreateNewGroup</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-localCreateGroup" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup(resources.models.Group@24bdb479)">testToCreateNewGroup(resources.models.Group@24bdb479)</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content failed suite-localRegression -->
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-localCreateGroup" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup(resources.models.Group@60b71e8f)">testToCreateNewGroup(resources.models.Group@60b71e8f)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-localCreateGroup" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup(resources.models.Group@263f04ca)">testToCreateNewGroup(resources.models.Group@263f04ca)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-localCreateGroup" title="com.TheGoodGuys.DMS1.AdminCreateGroupTest" hash-for-method="testToCreateNewGroup(resources.models.Group@662f5666)">testToCreateNewGroup(resources.models.Group@662f5666)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-localCreateGroup -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -121,31 +136,8 @@
     </div> <!-- navigator-root -->
     <div class="wrapper">
       <div class="main-panel-root">
-        <div panel-name="suite-localRegression" class="panel localRegression">
-          <div class="suite-localRegression-class-failed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">com.TheGoodGuys.DMS1.InvalidLoginTest</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="testInvalidUserLogin">
-                  </a> <!-- testInvalidUserLogin -->
-                  <span class="method-name">testInvalidUserLogin</span>
-                  <div class="stack-trace">org.testng.internal.reflect.MethodMatcherException: 
-[public void com.TheGoodGuys.DMS1.InvalidLoginTest.testInvalidUserLogin(java.lang.String,java.lang.String) throws java.lang.Exception] has no parameters defined but was found to be using a data provider (either explicitly specified or inherited from class level annotation).
-Data provider mismatch
-Method: testInvalidUserLogin([Parameter{index=0, type=java.lang.String, declaredAnnotations=[]}, Parameter{index=1, type=java.lang.String, declaredAnnotations=[]}])
-Arguments: [(resources.models.User) resources.models.User@63fdab07]
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames
-</div> <!-- stack-trace -->
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-localRegression-class-failed -->
-          <div class="suite-localRegression-class-failed">
+        <div panel-name="suite-localCreateGroup" class="panel localCreateGroup">
+          <div class="suite-localCreateGroup-class-failed">
             <div class="main-panel-header rounded-window-top">
               <img src="failed.png"/>
               <span class="class-name">com.TheGoodGuys.DMS1.AdminCreateGroupTest</span>
@@ -153,59 +145,128 @@ Arguments: [(resources.models.User) resources.models.User@63fdab07]
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="testToCreateNewGroup">
-                  </a> <!-- testToCreateNewGroup -->
+                  <a name="testToCreateNewGroup(resources.models.Group@552518c3)">
+                  </a> <!-- testToCreateNewGroup(resources.models.Group@552518c3) -->
                   <span class="method-name">testToCreateNewGroup</span>
-                  <div class="stack-trace">org.testng.internal.reflect.MethodMatcherException: 
-[public void com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(resources.models.Group,java.lang.String,java.lang.String) throws java.lang.Exception] has no parameters defined but was found to be using a data provider (either explicitly specified or inherited from class level annotation).
-Data provider mismatch
-Method: testToCreateNewGroup([Parameter{index=0, type=resources.models.Group, declaredAnnotations=[]}, Parameter{index=1, type=java.lang.String, declaredAnnotations=[]}, Parameter{index=2, type=java.lang.String, declaredAnnotations=[]}])
-Arguments: [(resources.models.Group) resources.models.Group@4dc8caa7]
-	at java.util.ArrayList.forEach(ArrayList.java:1257)
-... Removed 22 stack frames
+                  <span class="parameters">(resources.models.Group@552518c3)</span>
+                  <div class="stack-trace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testToCreateNewGroup(resources.models.Group@24bdb479)">
+                  </a> <!-- testToCreateNewGroup(resources.models.Group@24bdb479) -->
+                  <span class="method-name">testToCreateNewGroup</span>
+                  <span class="parameters">(resources.models.Group@24bdb479)</span>
+                  <div class="stack-trace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testToCreateNewGroup(resources.models.Group@60b71e8f)">
+                  </a> <!-- testToCreateNewGroup(resources.models.Group@60b71e8f) -->
+                  <span class="method-name">testToCreateNewGroup</span>
+                  <span class="parameters">(resources.models.Group@60b71e8f)</span>
+                  <div class="stack-trace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testToCreateNewGroup(resources.models.Group@263f04ca)">
+                  </a> <!-- testToCreateNewGroup(resources.models.Group@263f04ca) -->
+                  <span class="method-name">testToCreateNewGroup</span>
+                  <span class="parameters">(resources.models.Group@263f04ca)</span>
+                  <div class="stack-trace">org.openqa.selenium.WebDriverException: chrome not reachable
+  (Session info: chrome=80.0.3987.87)
+Build info: version: &apos;3.141.59&apos;, revision: &apos;e82be7d358&apos;, time: &apos;2018-11-14T08:17:03&apos;
+System info: host: &apos;Justas&apos;, ip: &apos;127.0.1.1&apos;, os.name: &apos;Linux&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;5.3.0-28-generic&apos;, java.version: &apos;1.8.0_221&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 80.0.3987.87, chrome: {chromedriverVersion: 80.0.3987.16 (320f6526c1632..., userDataDir: /tmp/.com.google.Chrome.PhcLcF}, goog:chromeOptions: {debuggerAddress: localhost:45697}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: LINUX, platformName: LINUX, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 17584b2b3fcdafb47f321c1582e6cf02
+*** Element info: {Using=id, value=adminGroupNav}
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:372)
+	at org.openqa.selenium.By$ById.findElement(By.java:188)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy11.click(Unknown Source)
+	at resources.page.AdminNavPage.clickButtonGroups(AdminNavPage.java:39)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:68)
+... Removed 29 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="testToCreateNewGroup(resources.models.Group@662f5666)">
+                  </a> <!-- testToCreateNewGroup(resources.models.Group@662f5666) -->
+                  <span class="method-name">testToCreateNewGroup</span>
+                  <span class="parameters">(resources.models.Group@662f5666)</span>
+                  <div class="stack-trace">java.lang.AssertionError: Group name could not be found in the group list
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:26)
+	at com.TheGoodGuys.DMS1.AdminCreateGroupTest.testToCreateNewGroup(AdminCreateGroupTest.java:77)
+... Removed 25 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-localRegression-class-failed -->
-        </div> <!-- panel localRegression -->
-        <div panel-name="test-xml-localRegression" class="panel">
+          </div> <!-- suite-localCreateGroup-class-failed -->
+        </div> <!-- panel localCreateGroup -->
+        <div panel-name="test-xml-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/home/justas/Desktop/DMS/DMS1_Testing/src/test/java/resources/testSuites/LocalRegressionSuite.xml</span>
+            <span class="header-content">/home/justas/Desktop/DMS_testing/DMS1_Testing/src/test/java/resources/testSuites/GUAdminCreateGroupSuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
-&lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;localRegression&quot;&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;http://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;localCreateGroup&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;GroupCreationTest&quot;&gt;
     &lt;parameter name=&quot;baseURL&quot; value=&quot;http://localhost:3000/#/&quot;/&gt;
     &lt;parameter name=&quot;loginUsername&quot; value=&quot;admin1&quot;/&gt;
     &lt;parameter name=&quot;loginPassword&quot; value=&quot;Password1&quot;/&gt;
     &lt;classes&gt;
       &lt;class name=&quot;com.TheGoodGuys.DMS1.AdminCreateGroupTest&quot;/&gt;
-      &lt;class name=&quot;com.TheGoodGuys.DMS1.InvalidLoginTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- GroupCreationTest --&gt;
-&lt;/suite&gt; &lt;!-- localRegression --&gt;
+&lt;/suite&gt; &lt;!-- localCreateGroup --&gt;
             </pre>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="testlist-localRegression" class="panel">
+        <div panel-name="testlist-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Tests for localRegression</span>
+            <span class="header-content">Tests for localCreateGroup</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">GroupCreationTest (2 classes)</span>
+                <span class="test-name">GroupCreationTest (1 class)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="group-localRegression" class="panel">
+        <div panel-name="group-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Groups for localRegression</span>
+            <span class="header-content">Groups for localCreateGroup</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="test-group">
@@ -216,64 +277,68 @@ Arguments: [(resources.models.Group) resources.models.Group@4dc8caa7]
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
-            <div class="test-group">
-              <span class="test-group-name">invalidUserLogin</span>
-              <br/>
-              <div class="method-in-group">
-                <span class="method-in-group-name">testInvalidUserLogin</span>
-                <br/>
-              </div> <!-- method-in-group -->
-            </div> <!-- test-group -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="times-localRegression" class="panel">
+        <div panel-name="times-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Times for localRegression</span>
+            <span class="header-content">Times for localCreateGroup</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="times-div">
               <script type="text/javascript">
-suiteTableInitFunctions.push('tableData_localRegression');
-function tableData_localRegression() {
+suiteTableInitFunctions.push('tableData_localCreateGroup');
+function tableData_localCreateGroup() {
 var data = new google.visualization.DataTable();
 data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(5);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testToCreateNewGroup')
 data.setCell(0, 2, 'com.TheGoodGuys.DMS1.AdminCreateGroupTest')
-data.setCell(0, 3, 219);
+data.setCell(0, 3, 11749);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'testInvalidUserLogin')
-data.setCell(1, 2, 'com.TheGoodGuys.DMS1.InvalidLoginTest')
-data.setCell(1, 3, 16);
-window.suiteTableData['localRegression']= { tableData: data, tableDiv: 'times-div-localRegression'}
+data.setCell(1, 1, 'testToCreateNewGroup')
+data.setCell(1, 2, 'com.TheGoodGuys.DMS1.AdminCreateGroupTest')
+data.setCell(1, 3, 11288);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testToCreateNewGroup')
+data.setCell(2, 2, 'com.TheGoodGuys.DMS1.AdminCreateGroupTest')
+data.setCell(2, 3, 10947);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'testToCreateNewGroup')
+data.setCell(3, 2, 'com.TheGoodGuys.DMS1.AdminCreateGroupTest')
+data.setCell(3, 3, 8479);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'testToCreateNewGroup')
+data.setCell(4, 2, 'com.TheGoodGuys.DMS1.AdminCreateGroupTest')
+data.setCell(4, 3, 84);
+window.suiteTableData['localCreateGroup']= { tableData: data, tableDiv: 'times-div-localCreateGroup'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 235 ms</span>
-              <div id="times-div-localRegression">
-              </div> <!-- times-div-localRegression -->
+              <span class="suite-total-time">Total running time: 42 seconds</span>
+              <div id="times-div-localCreateGroup">
+              </div> <!-- times-div-localCreateGroup -->
             </div> <!-- times-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="reporter-localRegression" class="panel">
+        <div panel-name="reporter-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">Reporter output for localRegression</span>
+            <span class="header-content">Reporter output for localCreateGroup</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="ignored-methods-localRegression" class="panel">
+        <div panel-name="ignored-methods-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
             <span class="header-content">0 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
-        <div panel-name="chronological-localRegression" class="panel">
+        <div panel-name="chronological-localCreateGroup" class="panel">
           <div class="main-panel-header rounded-window-top">
             <span class="header-content">Methods in chronological order</span>
           </div> <!-- main-panel-header rounded-window-top -->
@@ -286,26 +351,41 @@ return data;
               </div> <!-- configuration-class before -->
               <div class="configuration-class before">
                 <span class="method-name">preconditions(http://localhost:3000/#/)</span>
-                <span class="method-start">1765 ms</span>
+                <span class="method-start">1099 ms</span>
               </div> <!-- configuration-class before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testToCreateNewGroup(resources.models.Group@662f5666)</span>
+                <span class="method-start">2671 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testToCreateNewGroup(resources.models.Group@24bdb479)</span>
+                <span class="method-start">13964 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testToCreateNewGroup(resources.models.Group@60b71e8f)</span>
+                <span class="method-start">25715 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testToCreateNewGroup(resources.models.Group@552518c3)</span>
+                <span class="method-start">36664 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testToCreateNewGroup(resources.models.Group@263f04ca)</span>
+                <span class="method-start">45146 ms</span>
+              </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">closeBrowser</span>
-                <span class="method-start">3259 ms</span>
-              </div> <!-- configuration-class after -->
-            </div> <!-- chronological-class -->
-            <div class="chronological-class">
-              <div class="chronological-class-name">com.TheGoodGuys.DMS1.InvalidLoginTest</div> <!-- chronological-class-name -->
-              <div class="configuration-class before">
-                <span class="method-name">setUp</span>
-                <span class="method-start">3341 ms</span>
-              </div> <!-- configuration-class before -->
-              <div class="configuration-class before">
-                <span class="method-name">preconditions(http://localhost:3000/#/)</span>
-                <span class="method-start">5041 ms</span>
-              </div> <!-- configuration-class before -->
-              <div class="configuration-class after">
-                <span class="method-name">closeBrowser</span>
-                <span class="method-start">5816 ms</span>
+                <span class="method-start">45231 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
