@@ -6,6 +6,9 @@ import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
 import NewUserFormComponent from '../../../NewUserForm/NewUserFormComponent'
 
 class AdminHomePageUsersContainer extends React.Component {
+  
+  // Siti butini :D 
+  
   constructor(props) {
     super(props);
 
@@ -52,10 +55,10 @@ class AdminHomePageUsersContainer extends React.Component {
     this.getUsers();
   }
 
-  handleActionClick = event => {
-    event.preventDefault();
-    this.props.history.push("/user-info"); //navigacija teisinga padaryti
-  };
+  // handleActionClick = event => {
+  //   event.preventDefault();
+  //   this.props.history.push("/user-info"); //navigacija teisinga padaryti
+  // };
 
   handleAddUserButton = event => {
     event.preventDefault();
@@ -88,7 +91,7 @@ class AdminHomePageUsersContainer extends React.Component {
         lastName={user.lastName}
         username={user.username}
         comment={user.comment}
-        handleActionClick={this.handleActionClick}
+        handleShowModal={this.handleShowModal}
       />
     ));
 
@@ -104,12 +107,13 @@ class AdminHomePageUsersContainer extends React.Component {
             Add new user
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
-		<Modal.Header closeButton>
-		<Modal.Title>Create New User</Modal.Title>
-		</Modal.Header>
-		<Modal.Body> <NewUserFormComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />             
-                </Modal.Body>  
-	  </Modal>
+		        <Modal.Header closeButton>
+		          <Modal.Title>Create New User</Modal.Title>
+		        </Modal.Header>
+		        <Modal.Body> 
+              <NewUserFormComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />             
+            </Modal.Body>  
+	        </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
