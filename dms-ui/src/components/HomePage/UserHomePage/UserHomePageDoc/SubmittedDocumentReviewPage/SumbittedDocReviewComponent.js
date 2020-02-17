@@ -12,8 +12,8 @@ class SumbittedDocReviewComponent extends React.Component {
 
   getDocumentFiles = () => {
     axios
-      // .get("http://localhost:8081/api/file/" + this.props.id)
-      .get("http://localhost:8081/api/file/898")
+      .get("http://localhost:8081/api/file/" + this.props.id)
+      //    .get("http://localhost:8081/api/file/898")
       .then(response => {
         this.setState({ files: response.data });
         console.log(response);
@@ -23,15 +23,15 @@ class SumbittedDocReviewComponent extends React.Component {
       });
   };
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.id !== prevProps.id) {
-  //     this.getDocumentFiles();
-  //   }
-  // }
-
-  componentDidMount() {
-    this.getDocumentFiles();
+  componentDidUpdate(prevProps) {
+    if (this.props.id !== prevProps.id) {
+      this.getDocumentFiles();
+    }
   }
+
+  // componentDidMount() {
+  //   this.getDocumentFiles();
+  // }
 
   render() {
     const documentFiles = this.state.files.map((file, index) => (

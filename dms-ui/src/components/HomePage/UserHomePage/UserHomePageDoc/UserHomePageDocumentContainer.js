@@ -32,16 +32,6 @@ class UserHomePageDocumentContainer extends React.Component {
     this.getDocuments();
   }
 
-  handleActionClick = event => {
-    event.preventDefault();
-    if (this.status === "APPROVED" || "REJECTED") {
-      this.props.history.push({
-        pathname: "/submitted-document",
-        state: { documentId: "898" }
-      });
-    }
-  };
-
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
       <UserHomePageDocumentComponent
@@ -53,7 +43,6 @@ class UserHomePageDocumentContainer extends React.Component {
         status={document.status}
         submissionDate={document.submissionDate}
         reviewDate={document.reviewDate}
-        handleActionClick={this.handleActionClick}
       />
     ));
 
