@@ -3,7 +3,15 @@ import React from "react";
 class UserHomePageDocumentComponent extends React.Component {
   render() {
     return (
-      <tr>
+      <tr
+        className={
+          this.props.status === "SAVED"
+            ? "table-warning"
+            : this.props.status === "SUBMITTED"
+            ? "table-primary"
+            : "table-secondary"
+        }
+      >
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.title}</td>
         <td>{this.props.docType}</td>

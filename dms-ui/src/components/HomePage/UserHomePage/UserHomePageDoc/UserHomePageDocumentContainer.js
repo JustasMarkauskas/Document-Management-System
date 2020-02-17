@@ -37,36 +37,16 @@ class UserHomePageDocumentContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.getDocuments();
     this.getUsername();
+    this.getDocuments();
   }
 
-  // handleActionClick = event => {
-  //   event.preventDefault();
-  //   this.props.history.push("/document-info"); //navigacija teisinga padaryti
-  // };
-
-  //   handleAddUserButton = event => {
-  //     event.preventDefault();
-  //     this.props.history.push("/new-user"); //navigacija teisinga padaryti
-  //   };
-
-  //   handleSearchChange = event => {
-  //     this.setState({ inputUsername: event.target.value });
-  //   };
-
-  //   handleSearchButton = event => {
-  //     event.preventDefault();
-  //     axios
-  //       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
-  //       .then(response => {
-  //         this.setState({ users: [response.data] });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //     document.getElementById("adminUserSearchInput").value = "";
-  //   };
+  handleActionClick = event => {
+    event.preventDefault();
+    if (this.status === "APPROVED" || "REJECTED") {
+      this.props.history.push("/submitted-document"); //navigacija teisinga padaryti.
+    }
+  };
 
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
@@ -79,7 +59,7 @@ class UserHomePageDocumentContainer extends React.Component {
         status={document.status}
         submissionDate={document.submissionDate}
         reviewDate={document.reviewDate}
-        // handleActionClick={this.handleActionClick}
+        handleActionClick={this.handleActionClick}
       />
     ));
 
