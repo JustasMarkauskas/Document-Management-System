@@ -10,8 +10,16 @@ class UserHomePageDocumentComponent extends React.Component {
     this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
       this
     );
+
+    this.handleShowModal2 = this.handleShowModal2.bind(this);
+    this.handleCloseModal2 = this.handleCloseModal2.bind(this);
+    this.handleCloseModalAfterSubmit2 = this.handleCloseModalAfterSubmit2.bind(
+      this
+    );
+
     this.state = {
-      show: false
+      show: false,
+      show2: false
     };
   }
 
@@ -26,9 +34,24 @@ class UserHomePageDocumentComponent extends React.Component {
   handleShowModal() {
     this.setState({ show: true });
   }
+
+  handleCloseModal2() {
+    this.setState({ show2: false });
+  }
+
+  handleCloseModalAfterSubmit2() {
+    this.setState({ show2: false });
+  }
+
+  handleShowModal2() {
+    this.setState({ show2: true });
+  }
+
   handleActionClick = event => {
     event.preventDefault();
-    this.handleShowModal();
+    if (this.props.status === "SUBMITTED") {
+      this.handleShowModal();
+    } else if (this.props.status === "APPROVED") this.handleShowModal2();
   };
 
   render() {
@@ -42,18 +65,6 @@ class UserHomePageDocumentComponent extends React.Component {
             : "table-secondary"
         }
       >
-        <Modal show={this.state.show} onHide={this.handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Document info</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <SubmittedDocReviewContainer
-              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
-              onHide={this.handleCloseModal}
-              docId={this.props.id}
-            />
-          </Modal.Body>
-        </Modal>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.title}</td>
         <td>{this.props.docType}</td>
@@ -69,6 +80,31 @@ class UserHomePageDocumentComponent extends React.Component {
             <i className="fas fa-cog"></i>
           </button>
         </td>
+
+        <Modal show={this.state.show} onHide={this.handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Document info</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <SubmittedDocReviewContainer
+              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+              onHide={this.handleCloseModal}
+              docId={this.props.id}
+            />
+          </Modal.Body>
+        </Modal>
+        <Modal show={this.state.show2} onHide={this.handleCloseModal2}>
+          <Modal.Header closeButton>
+            <Modal.Title>Document info2</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <SubmittedDocReviewContainer
+              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit2}
+              onHide={this.handleCloseModal2}
+              docId={this.props.id}
+            />
+          </Modal.Body>
+        </Modal>
       </tr>
     );
   }

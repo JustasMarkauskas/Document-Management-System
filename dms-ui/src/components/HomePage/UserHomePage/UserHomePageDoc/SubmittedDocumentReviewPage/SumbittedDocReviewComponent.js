@@ -13,10 +13,8 @@ class SumbittedDocReviewComponent extends React.Component {
   getDocumentFiles = () => {
     axios
       .get("http://localhost:8081/api/file/" + this.props.id)
-      //    .get("http://localhost:8081/api/file/898")
       .then(response => {
         this.setState({ files: response.data });
-        console.log(response);
       })
       .catch(error => {
         console.log(error);
