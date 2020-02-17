@@ -39,14 +39,15 @@ class SubmittedDocReviewContainer extends React.Component {
 
   componentDidMount() {
     this.getUsername();
+    this.getDocument();
     // this.getDocument();
   }
 
-  componentDidUpdate(state) {
-    if (this.state.username !== state.username) {
-      this.getDocument();
-    }
-  }
+  // componentDidUpdate(state) {
+  //   if (this.state.username !== state.username) {
+  //     this.getDocument();
+  //   }
+  // }
 
   render() {
     return (

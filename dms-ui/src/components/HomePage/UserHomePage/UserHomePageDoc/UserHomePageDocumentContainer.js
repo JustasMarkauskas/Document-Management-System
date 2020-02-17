@@ -14,13 +14,25 @@ class UserHomePageDocumentContainer extends React.Component {
   }
 
   getDocuments = () => {
+    // axios.get('api link').then(data => {
+    //   let live = data
+    //   axios.get('api link2').then(data2 =>
+    //   let current = data2
+    //        })
+    //   })
+
     axios
-      .get("http://localhost:8081/api/document/" + this.state.username)
+      .get("http://localhost:8081/api/user/loggedUsername")
       .then(response => {
-        this.setState({ documents: response.data });
-      })
-      .catch(error => {
-        console.log(error);
+        let user = response.data;
+        axios
+          .get("http://localhost:8081/api/document/" + user)
+          .then(response => {
+            this.setState({ documents: response.data });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       });
   };
 
@@ -35,14 +47,16 @@ class UserHomePageDocumentContainer extends React.Component {
       });
   };
 
-  componentDidUpdate(state) {
-    if (this.state.username !== state.username) {
-      this.getDocuments();
-    }
-  }
+  // componentDidUpdate(state) {
+  //   if (this.state.username !== state.username) {
+  //     this.getDocuments();
+  //   }
+  // }
 
   componentDidMount() {
-    this.getUsername();
+    //  this.getUsername();
+
+    this.getDocuments();
   }
 
   handleActionClick = event => {

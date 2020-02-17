@@ -22,10 +22,14 @@ class SumbittedDocReviewComponent extends React.Component {
       });
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id) {
-      this.getDocumentFiles();
-    }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.id !== prevProps.id) {
+  //     this.getDocumentFiles();
+  //   }
+  // }
+
+  componentDidMount() {
+    this.getDocumentFiles();
   }
 
   render() {
