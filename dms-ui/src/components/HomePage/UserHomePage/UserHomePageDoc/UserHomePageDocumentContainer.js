@@ -8,15 +8,14 @@ class UserHomePageDocumentContainer extends React.Component {
     super(props);
     this.state = {
       documents: [],
-      inputDocumentTitle: "",
+      inputDocumentTitle: "", //paieskai skirtas
       username: ""
     };
   }
 
   getDocuments = () => {
     axios
-      //  .get("http://localhost:8081/api/document/" + this.state.username)
-      .get("http://localhost:8081/api/document/ttta")
+      .get("http://localhost:8081/api/document/" + this.state.username)
       .then(response => {
         this.setState({ documents: response.data });
       })
@@ -36,15 +35,20 @@ class UserHomePageDocumentContainer extends React.Component {
       });
   };
 
+  componentDidUpdate(state) {
+    if (this.state.username !== state.username) {
+      this.getDocuments();
+    }
+  }
+
   componentDidMount() {
     this.getUsername();
-    this.getDocuments();
   }
 
   handleActionClick = event => {
     event.preventDefault();
     if (this.status === "APPROVED" || "REJECTED") {
-      this.props.history.push("/submitted-document"); //navigacija teisinga padaryti.
+      this.props.history.push("/submitted-document", { some: "state" }); //navigacija teisinga padaryti.
     }
   };
 
