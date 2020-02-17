@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import SumbittedDocReviewComponent from "./SumbittedDocReviewComponent";
+import SavedDocReviewComponent from "./SavedDocReviewComponent";
 
-class SubmittedDocReviewContainer extends React.Component {
+class SavedDocReviewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +40,7 @@ class SubmittedDocReviewContainer extends React.Component {
 
   render() {
     return (
-      <SumbittedDocReviewComponent
+      <SavedDocReviewComponent
         id={this.state.document.id}
         docType={this.state.document.docType}
         title={this.state.document.title}
@@ -56,4 +56,4 @@ class SubmittedDocReviewContainer extends React.Component {
   }
 }
 
-export default withRouter(SubmittedDocReviewContainer);
+export default withRouter(SavedDocReviewContainer);

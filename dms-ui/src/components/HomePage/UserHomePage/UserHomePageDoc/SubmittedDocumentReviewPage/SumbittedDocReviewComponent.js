@@ -126,6 +126,14 @@ class SumbittedDocReviewComponent extends React.Component {
           </div>
         </fieldset>
         {documentFiles}
+
+        <button
+          onClick={this.props.onHide}
+          type="button"
+          className="btn btn-primary col-lg-2 mb-2"
+        >
+          Cancel
+        </button>
       </form>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import SubmittedDocReviewContainer from "./SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
+import SavedDocReviewContainer from "./SavedDocumentReviewPage/SavedDocReviewContainer";
 import { Modal } from "react-bootstrap";
 
 class UserHomePageDocumentComponent extends React.Component {
@@ -51,7 +52,7 @@ class UserHomePageDocumentComponent extends React.Component {
     event.preventDefault();
     if (this.props.status === "SUBMITTED") {
       this.handleShowModal();
-    } else if (this.props.status === "APPROVED") this.handleShowModal2();
+    } else if (this.props.status === "SAVED") this.handleShowModal2();
   };
 
   render() {
@@ -98,7 +99,7 @@ class UserHomePageDocumentComponent extends React.Component {
             <Modal.Title>Document info2</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SubmittedDocReviewContainer
+            <SavedDocReviewContainer
               onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit2}
               onHide={this.handleCloseModal2}
               docId={this.props.id}
