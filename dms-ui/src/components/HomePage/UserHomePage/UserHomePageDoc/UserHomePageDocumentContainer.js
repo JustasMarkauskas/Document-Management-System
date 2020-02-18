@@ -2,11 +2,14 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
+import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
+import { Modal } from "react-bootstrap";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      showModal: false,
       userDocTypes: [],
       documents: [],
       inputDocumentTitle: "" //paieskai skirtas
@@ -40,6 +43,22 @@ class UserHomePageDocumentContainer extends React.Component {
   componentDidMount() {
     this.getDocuments();
   }
+
+  handleModalClose = () => {
+    this.setState({ showModal: false });
+  };
+
+  handleCloseModalAfterSubmit = () => {
+    this.setState({ showModal: false });
+  };
+
+  handleShowModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  handleAddNewDocumentButton = () => {
+    this.handleShowModal();
+  };
 
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
@@ -113,6 +132,18 @@ class UserHomePageDocumentContainer extends React.Component {
           </thead>
           <tbody>{documentInfo}</tbody>
         </table>
+        <Modal show={this.state.showModal} onHide={this.handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create New Document</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <NewDocumentFormComponent
+              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+              onHide={this.handleModalClose}
+              //docId={this.props.id}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
