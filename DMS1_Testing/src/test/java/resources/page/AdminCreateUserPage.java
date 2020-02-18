@@ -105,6 +105,7 @@ public class AdminCreateUserPage extends AbstractPage {
 		inputConfirmPassword.sendKeys(user.getConfirmPassword());
 		inputComment.sendKeys(user.getComment());
 		waitForClickable(buttonSubmit);
+		buttonSubmit.submit();
 		buttonSubmit.click();
 	}
 	

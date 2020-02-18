@@ -65,7 +65,7 @@ public class AdminCreateGroupPage extends AbstractPage {
 		inputComment.sendKeys(group.getComment());
 		waitForClickable(buttonSubmit);
 
-		Thread.sleep(1000);
+//		Thread.sleep(1000);
 		buttonSubmit.submit();
 		buttonSubmit.click();
 

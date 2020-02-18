@@ -60,9 +60,6 @@ public class AdminCreateUserTest extends AbstractTest {
 		
 		assertThat("Username could not be found in the user list", adminUsers.checkIfUsernameExists(user.getUserName()));
 		
-		
-		//Call take screenshot function
-//		ScreenshotUtils.takeScreenshot(driver, "resources/screenshots/test1.png");
 
 	}
 }
