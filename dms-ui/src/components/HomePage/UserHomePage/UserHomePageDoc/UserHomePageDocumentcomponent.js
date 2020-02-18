@@ -6,7 +6,6 @@ import { Modal } from "react-bootstrap";
 class UserHomePageDocumentComponent extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       showSubmitModal: false,
       showSaveModal: false

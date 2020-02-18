@@ -35,6 +35,15 @@ class SavedDocReviewComponent extends React.Component {
     }
   }
 
+  handleFormValidation = () => {
+    var formIsValid = true;
+    if (this.state.title.length < 5) {
+      formIsValid = false;
+    }
+
+    return formIsValid;
+  };
+
   handleDocTypeChange = event => {
     this.setState({ docType: event.target.value });
   };
@@ -56,18 +65,27 @@ class SavedDocReviewComponent extends React.Component {
 
   onSaveClick = event => {
     event.preventDefault();
-    this.fileSaveUpload(this.state.files).then(() => {
-      this.closeModal();
-      this.updateDocuments();
-    });
+
+    if (this.handleFormValidation()) {
+      this.fileSaveUpload(this.state.files).then(() => {
+        this.closeModal();
+        this.updateDocuments();
+      });
+    } else {
+      alert("Form has errors.");
+    }
   };
 
   onSubmitClick = event => {
     event.preventDefault();
-    this.fileSubmitUpload(this.state.files).then(() => {
-      this.closeModal();
-      this.updateDocuments();
-    });
+    if (this.handleFormValidation()) {
+      this.fileSubmitUpload(this.state.files).then(() => {
+        this.closeModal();
+        this.updateDocuments();
+      });
+    } else {
+      alert("Form has errors.");
+    }
   };
 
   onDeleteDocumentClick = event => {
