@@ -52,6 +52,7 @@ class SavedDocReviewContainer extends React.Component {
         rejectionReason={this.state.document.rejectionReason}
         onHide={this.props.onHide}
         updateDocuments={this.props.updateDocuments}
+        userDocTypes={this.props.userDocTypes}
       />
     );
   }

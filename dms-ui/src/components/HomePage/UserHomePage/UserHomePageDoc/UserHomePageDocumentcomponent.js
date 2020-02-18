@@ -104,6 +104,7 @@ class UserHomePageDocumentComponent extends React.Component {
               onHide={this.handleCloseModal2}
               docId={this.props.id}
               updateDocuments={this.props.updateDocuments}
+              userDocTypes={this.props.userDocTypes}
             />
           </Modal.Body>
         </Modal>

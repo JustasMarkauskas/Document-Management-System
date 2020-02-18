@@ -154,14 +154,24 @@ class SavedDocReviewComponent extends React.Component {
       <form className="container">
         <div className="form-group">
           <label htmlFor="savedDocType">Doc type</label>
-          <input
+
+          <select className="form-control" id="savedDocType">
+            {this.props.userDocTypes.map((option, index) => {
+              return (
+                <option key={index} value={option}>
+                  {option}
+                </option>
+              );
+            })}
+          </select>
+          {/* <input
             type="text"
             id="savedDocType"
             className="form-control"
             placeholder="select doc type"
             onChange={this.handleDocTypeChange}
             defaultValue={this.props.docType}
-          />
+          /> */}
         </div>
         <div className="form-group">
           <label htmlFor="savedTitle">Title</label>

@@ -7,6 +7,7 @@ class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userDocTypes: [],
       documents: [],
       inputDocumentTitle: "" //paieskai skirtas
     };
@@ -21,6 +22,14 @@ class UserHomePageDocumentContainer extends React.Component {
           .get("http://localhost:8081/api/document/" + username)
           .then(response => {
             this.setState({ documents: response.data });
+            axios
+              .get(
+                "http://localhost:8081/api/user/user-doctypes-for-creation/" +
+                  username
+              )
+              .then(response => {
+                this.setState({ userDocTypes: response.data });
+              });
           })
           .catch(error => {
             console.log(error);
@@ -44,6 +53,7 @@ class UserHomePageDocumentContainer extends React.Component {
         submissionDate={document.submissionDate}
         reviewDate={document.reviewDate}
         updateDocuments={this.getDocuments}
+        userDocTypes={this.state.userDocTypes}
       />
     ));
 
