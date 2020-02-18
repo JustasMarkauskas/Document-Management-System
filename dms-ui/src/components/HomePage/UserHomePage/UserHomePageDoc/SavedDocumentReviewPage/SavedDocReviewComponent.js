@@ -37,7 +37,7 @@ class SavedDocReviewComponent extends React.Component {
 
   handleFormValidation = () => {
     var formIsValid = true;
-    if (this.state.title.length < 5) {
+    if (this.state.title.length < 5 || this.state.title.length > 30) {
       formIsValid = false;
     }
 
@@ -72,7 +72,7 @@ class SavedDocReviewComponent extends React.Component {
         this.updateDocuments();
       });
     } else {
-      alert("Form has errors.");
+      alert("Title length must be between 5 and 30 symbols");
     }
   };
 
@@ -84,7 +84,7 @@ class SavedDocReviewComponent extends React.Component {
         this.updateDocuments();
       });
     } else {
-      alert("Form has errors.");
+      alert("Title length must be between 5 and 30 symbols");
     }
   };
 
@@ -197,6 +197,9 @@ class SavedDocReviewComponent extends React.Component {
             type="text"
             id="savedTitle"
             className="form-control"
+            required
+            minLength="5"
+            maxLength="30"
             onChange={this.handleTitleChange}
             defaultValue={this.props.title}
             placeholder="enter title"
@@ -208,6 +211,7 @@ class SavedDocReviewComponent extends React.Component {
             type="text"
             id="savedDescription"
             className="form-control"
+            maxLength="50"
             onChange={this.handleDescriptionChange}
             defaultValue={this.props.description}
             placeholder="enter description"
