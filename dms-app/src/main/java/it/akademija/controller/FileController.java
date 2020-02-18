@@ -75,11 +75,11 @@ public class FileController {
                 .body(new ByteArrayResource(dbFile.getData()));
     }
     
-	@RequestMapping(method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{fileId}", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes file by id")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteFileById(@RequestParam final String id) {
-		dbFileStorageService.deleteFileById(id);
+	public void deleteFileById(@PathVariable String fileId) {
+		dbFileStorageService.deleteFileById(fileId);
 	}
 
 }
