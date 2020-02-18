@@ -157,7 +157,35 @@ public class DocumentService {
 		document.setTitle(newDocument.getTitle());
 		document.setStatus("SUBMITTED");
 		Date date = new Date();	 
-		document.setSubmissionDate(date);;
+		document.setSubmissionDate(date);
+		List<DBFile> DBFiles = new ArrayList<DBFile>();
+		
+		for(MultipartFile file: files) {
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+	            DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
+	            document.addFile(dbFile);	
+	    		DBFiles.add(dbFile);	
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }	
+		}
+		documentRepository.save(document);
+		return DBFiles;
+		  
+	}
+	
+	@Transactional
+	public List<DBFile> saveDocumentAfterSaveForLater(Long id, NewDocument newDocument, MultipartFile[] files) {
+		Document document = getDocument(id);
+		document.setDescription(newDocument.getDescription());
+		document.setDocType(newDocument.getDocType());
+		document.setTitle(newDocument.getTitle());
 		List<DBFile> DBFiles = new ArrayList<DBFile>();
 		
 		for(MultipartFile file: files) {

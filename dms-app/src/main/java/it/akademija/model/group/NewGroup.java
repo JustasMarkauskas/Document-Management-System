@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 public class NewGroup {
 	
 	@NotNull
-	@Length(min = 1, max = 15)
+	@Length(min = 1, max = 20)
 	private String id;
 	
 	@Length(max = 50)

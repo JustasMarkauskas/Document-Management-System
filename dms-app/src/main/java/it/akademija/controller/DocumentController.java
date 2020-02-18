@@ -124,6 +124,24 @@ public class DocumentController {
 		return list;
 	}
 	
+	@RequestMapping(path = "/save-after-save/{id}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update document info after save for later")
+	public List<UploadFileResponse> saveDocumentAfterSaveForLater(
+			@ApiParam(required = true) @Valid @PathVariable Long id, @ModelAttribute final NewDocument newDocument,
+			@RequestParam("files") MultipartFile[] files) {
+
+		List<DBFile> dBFiles = documentService.saveDocumentAfterSaveForLater(id, newDocument, files);
+		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
+		for (int i = 0; i < files.length; i++) {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+					.path(dBFiles.get(i).getId()).toUriString();
+			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
+					files[i].getSize()));
+		}
+		return list;
+	}
+	
+	
 //	@RequestMapping(method = RequestMethod.POST)
 //	@ApiOperation(value = "Save document", notes = "Creates document with data")
 //	@ResponseStatus(HttpStatus.CREATED)
