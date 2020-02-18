@@ -43,6 +43,7 @@ class UserHomePageDocumentContainer extends React.Component {
         status={document.status}
         submissionDate={document.submissionDate}
         reviewDate={document.reviewDate}
+        updateDocuments={this.getDocuments}
       />
     ));
 

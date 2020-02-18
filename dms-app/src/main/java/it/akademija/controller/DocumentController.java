@@ -176,5 +176,12 @@ public class DocumentController {
 			@ApiParam(required = true) @Valid @RequestBody final DocumentInfoAfterReview documentInfoAfterReview) {
 		documentService.rejectDocument(documentInfoAfterReview);
 	}
+	
+	@RequestMapping(path = "/{documentId}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Deletes saved document by id")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteSavedDocumentById(@PathVariable Long documentId) {
+		documentService.deleteSavedDocumentById(documentId);
+	}
 
 }

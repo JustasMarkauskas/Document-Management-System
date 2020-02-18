@@ -267,4 +267,9 @@ public class DocumentService {
 		documentRepository.save(document);
 	}
 
+	@Transactional
+	public void deleteSavedDocumentById(Long id) {
+		documentRepository.deleteById(id);
+	}
+	
 }

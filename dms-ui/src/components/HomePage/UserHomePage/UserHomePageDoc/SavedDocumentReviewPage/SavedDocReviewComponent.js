@@ -49,6 +49,7 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   closeModal = this.props.onHide;
+  updateDocuments = this.props.updateDocuments;
 
   onSaveClick = event => {
     event.preventDefault();
@@ -63,6 +64,19 @@ class SavedDocReviewComponent extends React.Component {
       console.log(response.data);
     });
     this.closeModal();
+  };
+
+  onDeleteDocumentClick = event => {
+    event.preventDefault();
+    axios
+      .delete("http://localhost:8081/api/document/" + this.props.id)
+      .then(() => {
+        this.closeModal();
+        this.updateDocuments();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   fileSaveUpload = files => {
@@ -196,6 +210,14 @@ class SavedDocReviewComponent extends React.Component {
           className="btn btn-primary col-lg-2 mb-2"
         >
           SUBMIT
+        </button>
+
+        <button
+          className="btn"
+          onClick={this.onDeleteDocumentClick}
+          type="button"
+        >
+          <i className="fas fa-trash-alt"></i>
         </button>
       </form>
     );

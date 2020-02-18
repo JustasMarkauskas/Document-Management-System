@@ -84,7 +84,7 @@ class UserHomePageDocumentComponent extends React.Component {
 
         <Modal show={this.state.show} onHide={this.handleCloseModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Document info</Modal.Title>
+            <Modal.Title>Submitted document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <SubmittedDocReviewContainer
@@ -96,13 +96,14 @@ class UserHomePageDocumentComponent extends React.Component {
         </Modal>
         <Modal show={this.state.show2} onHide={this.handleCloseModal2}>
           <Modal.Header closeButton>
-            <Modal.Title>Document info2</Modal.Title>
+            <Modal.Title>Saved document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <SavedDocReviewContainer
               onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit2}
               onHide={this.handleCloseModal2}
               docId={this.props.id}
+              updateDocuments={this.props.updateDocuments}
             />
           </Modal.Body>
         </Modal>
