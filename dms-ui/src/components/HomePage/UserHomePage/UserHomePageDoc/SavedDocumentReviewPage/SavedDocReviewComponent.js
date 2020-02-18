@@ -55,15 +55,16 @@ class SavedDocReviewComponent extends React.Component {
     event.preventDefault();
     this.fileSaveUpload(this.state.files).then(() => {
       this.closeModal();
+      this.updateDocuments();
     });
   };
 
   onSubmitClick = event => {
     event.preventDefault();
-    this.fileSubmitUpload(this.state.files).then(response => {
-      console.log(response.data);
+    this.fileSubmitUpload(this.state.files).then(() => {
+      this.closeModal();
+      this.updateDocuments();
     });
-    this.closeModal();
   };
 
   onDeleteDocumentClick = event => {
@@ -122,9 +123,8 @@ class SavedDocReviewComponent extends React.Component {
   deleteFile(fileId) {
     axios
       .delete("http://localhost:8081/api/file/" + fileId)
-      .then(response => {
+      .then(() => {
         this.getDocumentFiles();
-        console.log(response);
       })
       .catch(error => {
         console.log(error);
@@ -133,10 +133,10 @@ class SavedDocReviewComponent extends React.Component {
 
   render() {
     const documentFiles = this.state.downloadFiles.map((file, index) => (
-      <p key={index}>
+      <div key={index}>
         <a
           href={"http://localhost:8081/api/file/downloadFile/" + file.id}
-          className="text-decoration-none mr-3"
+          className="text-decoration-none mr-2"
         >
           {file.fileName}
         </a>
@@ -145,9 +145,9 @@ class SavedDocReviewComponent extends React.Component {
           onClick={() => this.deleteFile(file.id)}
           type="button"
         >
-          <i className="fas fa-trash-alt"></i>
+          <i className="fas fa-trash"></i>
         </button>
-      </p>
+      </div>
     ));
 
     return (
@@ -158,9 +158,9 @@ class SavedDocReviewComponent extends React.Component {
             type="text"
             id="savedDocType"
             className="form-control"
-            placeholder={this.props.docType}
+            placeholder="select doc type"
             onChange={this.handleDocTypeChange}
-            //value={this.props.docType}
+            defaultValue={this.props.docType}
           />
         </div>
         <div className="form-group">
@@ -170,8 +170,8 @@ class SavedDocReviewComponent extends React.Component {
             id="savedTitle"
             className="form-control"
             onChange={this.handleTitleChange}
-            /// value={this.state.title}
-            placeholder={this.props.title}
+            defaultValue={this.props.title}
+            placeholder="enter title"
           />
         </div>
         <div className="form-group">
@@ -181,44 +181,56 @@ class SavedDocReviewComponent extends React.Component {
             id="savedDescription"
             className="form-control"
             onChange={this.handleDescriptionChange}
-            //  value={this.state.description}
-            placeholder={this.props.description}
+            defaultValue={this.props.description}
+            placeholder="enter description"
           />
         </div>
         <input type="file" multiple onChange={this.onFileChange} />
 
         {documentFiles}
 
-        <button
-          onClick={this.props.onHide}
-          type="button"
-          className="btn btn-primary col-lg-2 mb-2"
-        >
-          Cancel
-        </button>
+        <div className="container mt-2">
+          <div className="row">
+            <div className="mr-2">
+              <button
+                onClick={this.onSubmitClick}
+                type="button"
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+            </div>
+            <div className="mr-2 ">
+              <button
+                onClick={this.onSaveClick}
+                type="button"
+                className="btn btn-primary"
+              >
+                Save
+              </button>
+            </div>
 
-        <button
-          onClick={this.onSaveClick}
-          type="button"
-          className="btn btn-primary col-lg-2 mb-2"
-        >
-          SAVE
-        </button>
-        <button
-          onClick={this.onSubmitClick}
-          type="button"
-          className="btn btn-primary col-lg-2 mb-2"
-        >
-          SUBMIT
-        </button>
+            <div className="mr-2 ">
+              <button
+                onClick={this.props.onHide}
+                type="button"
+                className="btn btn-primary"
+              >
+                Cancel
+              </button>
+            </div>
 
-        <button
-          className="btn"
-          onClick={this.onDeleteDocumentClick}
-          type="button"
-        >
-          <i className="fas fa-trash-alt"></i>
-        </button>
+            <div className="col text-right">
+              <button
+                className="btn text-danger"
+                onClick={this.onDeleteDocumentClick}
+                type="button"
+              >
+                <i className="fas fa-trash-alt fa-lg"></i>
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     );
   }
