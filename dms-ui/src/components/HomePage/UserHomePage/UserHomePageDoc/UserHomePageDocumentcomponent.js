@@ -6,53 +6,42 @@ import { Modal } from "react-bootstrap";
 class UserHomePageDocumentComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
-      this
-    );
-
-    this.handleShowModal2 = this.handleShowModal2.bind(this);
-    this.handleCloseModal2 = this.handleCloseModal2.bind(this);
-    this.handleCloseModalAfterSubmit2 = this.handleCloseModalAfterSubmit2.bind(
-      this
-    );
 
     this.state = {
-      show: false,
-      show2: false
+      showSubmitModal: false,
+      showSaveModal: false
     };
   }
 
-  handleCloseModal() {
-    this.setState({ show: false });
-  }
+  handleSubmittedModalClose = () => {
+    this.setState({ showSubmitModal: false });
+  };
 
-  handleCloseModalAfterSubmit() {
-    this.setState({ show: false });
-  }
+  handleCloseModalAfterSubmit = () => {
+    this.setState({ showSubmitModal: false });
+  };
 
-  handleShowModal() {
-    this.setState({ show: true });
-  }
+  handleShowSubmitModal = () => {
+    this.setState({ showSubmitModal: true });
+  };
 
-  handleCloseModal2() {
-    this.setState({ show2: false });
-  }
+  handleSaveModalClose = () => {
+    this.setState({ showSaveModal: false });
+  };
 
-  handleCloseModalAfterSubmit2() {
-    this.setState({ show2: false });
-  }
+  handleCloseSaveModalAfterSubmit = () => {
+    this.setState({ showSaveModal: false });
+  };
 
-  handleShowModal2() {
-    this.setState({ show2: true });
-  }
+  handleShowSaveModal = () => {
+    this.setState({ showSaveModal: true });
+  };
 
   handleActionClick = event => {
     event.preventDefault();
-    if (this.props.status === "SUBMITTED") {
-      this.handleShowModal();
-    } else if (this.props.status === "SAVED") this.handleShowModal2();
+    if (this.props.status === "SAVED") {
+      this.handleShowSaveModal();
+    } else this.handleShowSubmitModal();
   };
 
   render() {
@@ -82,26 +71,32 @@ class UserHomePageDocumentComponent extends React.Component {
           </button>
         </td>
 
-        <Modal show={this.state.show} onHide={this.handleCloseModal}>
+        <Modal
+          show={this.state.showSubmitModal}
+          onHide={this.handleSubmittedModalClose}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Submitted document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <SubmittedDocReviewContainer
               onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
-              onHide={this.handleCloseModal}
+              onHide={this.handleSubmittedModalClose}
               docId={this.props.id}
             />
           </Modal.Body>
         </Modal>
-        <Modal show={this.state.show2} onHide={this.handleCloseModal2}>
+        <Modal
+          show={this.state.showSaveModal}
+          onHide={this.handleSaveModalClose}
+        >
           <Modal.Header closeButton>
             <Modal.Title>Saved document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <SavedDocReviewContainer
-              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit2}
-              onHide={this.handleCloseModal2}
+              onCloseModalAfterSubmit={this.handleCloseSaveModalAfterSubmit}
+              onHide={this.handleSaveModalClose}
               docId={this.props.id}
               updateDocuments={this.props.updateDocuments}
               userDocTypes={this.props.userDocTypes}

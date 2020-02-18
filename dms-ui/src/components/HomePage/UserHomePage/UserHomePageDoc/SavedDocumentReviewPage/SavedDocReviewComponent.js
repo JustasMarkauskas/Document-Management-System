@@ -7,11 +7,9 @@ class SavedDocReviewComponent extends React.Component {
     this.state = {
       downloadFiles: [],
       files: [],
-      document: {
-        docType: "",
-        title: "",
-        description: ""
-      }
+      docType: "",
+      title: "",
+      description: ""
     };
   }
 
@@ -19,7 +17,12 @@ class SavedDocReviewComponent extends React.Component {
     axios
       .get("http://localhost:8081/api/file/" + this.props.id)
       .then(response => {
-        this.setState({ downloadFiles: response.data });
+        this.setState({
+          downloadFiles: response.data,
+          docType: this.props.docType,
+          title: this.props.title,
+          description: this.props.description
+        });
       })
       .catch(error => {
         console.log(error);
@@ -155,7 +158,12 @@ class SavedDocReviewComponent extends React.Component {
         <div className="form-group">
           <label htmlFor="savedDocType">Doc type</label>
 
-          <select className="form-control" id="savedDocType">
+          <select
+            className="form-control"
+            id="savedDocType"
+            value={this.state.docType}
+            onChange={this.handleDocTypeChange}
+          >
             {this.props.userDocTypes.map((option, index) => {
               return (
                 <option key={index} value={option}>
@@ -164,14 +172,6 @@ class SavedDocReviewComponent extends React.Component {
               );
             })}
           </select>
-          {/* <input
-            type="text"
-            id="savedDocType"
-            className="form-control"
-            placeholder="select doc type"
-            onChange={this.handleDocTypeChange}
-            defaultValue={this.props.docType}
-          /> */}
         </div>
         <div className="form-group">
           <label htmlFor="savedTitle">Title</label>
