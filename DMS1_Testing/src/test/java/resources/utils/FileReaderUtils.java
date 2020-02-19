@@ -11,6 +11,8 @@ import org.apache.commons.io.FileUtils;
 
 import com.thoughtworks.xstream.XStream;
 
+import resources.models.Document;
+import resources.models.DocumentData;
 import resources.models.Group;
 import resources.models.GroupData;
 import resources.models.User;
@@ -40,6 +42,16 @@ public class FileReaderUtils {
 		GroupData data = (GroupData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
 
 		return data.getGroups().toArray();
+	}
+	
+	public static Object[] getDocumentsFromXml(String fileName) throws IOException {
+		XStream xstream = new XStream();
+
+		xstream.processAnnotations(DocumentData.class);
+		xstream.processAnnotations(Document.class);
+		DocumentData data = (DocumentData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
+
+		return data.getDocuments().toArray();
 	}
 	
 	public static Object[] getUsersFromXml(String fileName) throws IOException {

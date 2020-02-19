@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="localCreateDocumentType">
+	<test name="DocumentTypeCreationTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="DemoUser1" />
+		<parameter name="loginPassword" value="DemoUser1" />
+
+		<classes>
+			<class name="com.TheGoodGuys.DMS1.AdminCreateDocumentTypeTest" />
+		</classes>
+	</test>
+
+
+</suite>

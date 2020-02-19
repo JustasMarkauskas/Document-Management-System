@@ -20,7 +20,7 @@ public class LoginUserPage extends AbstractPage {
 	
 	//alert message
 	@FindBy(className = "alert")
-	private WebElement alertMessage;
+	public static WebElement alertMessage;
 
 
 	public LoginUserPage(WebDriver driver) {
