@@ -23,32 +23,27 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-// fileSaveUpload = files => {
-//   const url = "http://localhost:8081/api/document/save/";
-//   const formData = new FormData();
-
-//   var i;
-//   for (i = 0; i <= files.length; i++) {
-//     formData.append("files", files[i]);
-//   }
-//   formData.append("description", this.state.description);
-//   formData.append("docType", this.state.docType);
-//   formData.append("title", this.state.title);
-//   const config = {
-//     headers: {
-//       "content-type": "multipart/form-data"
-//     }
-//   };
-//   return post(url, formData, config);
-// };
-
 const handleSubmit = values => {
+  const formData = new FormData();
+  formData.append("author", values.author);
+  formData.append("title", values.title);
+  formData.append("description", values.description);
+
+  var i;
+  for (i = 0; i <= values.files.length; i++) {
+    formData.append("files", values.files[i]);
+  }
+
   axios({
     method: "POST",
     url: "http://localhost:8081/api/document/save",
-    data: values
+    data: formData,
+    headers: {
+      "content-type": "multipart/form-data"
+    }
   })
     .then(response => {
+      //uzdaryti modala
       console.log(response);
     })
     .catch(error => {
@@ -63,7 +58,8 @@ const NewDocumentFormComponent = props => {
         files: [],
         docType: "",
         title: "",
-        description: ""
+        description: "",
+        author: props.author
       }}
       validationSchema={schema}
       onSubmit={handleSubmit}
@@ -71,6 +67,7 @@ const NewDocumentFormComponent = props => {
       {({
         handleSubmit,
         handleChange,
+        setFieldValue,
         values,
         isValid,
         errors,
@@ -119,10 +116,9 @@ const NewDocumentFormComponent = props => {
               className="NewDocumentForm"
               type="file"
               multiple
-              onChange={handleChange}
-              name="files"
-              id="files"
-              value={values.files}
+              onChange={event => {
+                setFieldValue("files", event.currentTarget.files);
+              }}
             />
 
             <Button

@@ -12,6 +12,7 @@ class UserHomePageDocumentContainer extends React.Component {
       showModal: false,
       userDocTypes: [],
       documents: [],
+      username: "",
       inputDocumentTitle: "" //paieskai skirtas
     };
   }
@@ -21,6 +22,7 @@ class UserHomePageDocumentContainer extends React.Component {
       .get("http://localhost:8081/api/user/loggedUsername")
       .then(response => {
         let username = response.data;
+        this.setState({ username: response.data });
         axios
           .get("http://localhost:8081/api/document/" + username)
           .then(response => {
@@ -140,6 +142,7 @@ class UserHomePageDocumentContainer extends React.Component {
             <NewDocumentFormComponent
               onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
               onHide={this.handleModalClose}
+              author={this.state.username}
               //docId={this.props.id}
             />
           </Modal.Body>
