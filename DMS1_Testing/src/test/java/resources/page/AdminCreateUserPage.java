@@ -90,6 +90,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	}
 	
 	public void clickButtonSubmit() {
+		buttonSubmit.submit();
 		buttonSubmit.click();
 	}
 	
@@ -97,7 +98,7 @@ public class AdminCreateUserPage extends AbstractPage {
 		buttonCancel.click();
 	}
 	
-	public void fillAndSubmitForm(User user) {
+	public void fillAndSubmitUserCreationForm(User user) {
 		inputUsername.sendKeys(user.getUserName());
 		inputFirstName.sendKeys(user.getName());
 		inputLastName.sendKeys(user.getSurname());
@@ -107,6 +108,15 @@ public class AdminCreateUserPage extends AbstractPage {
 		waitForClickable(buttonSubmit);
 		buttonSubmit.submit();
 		buttonSubmit.click();
+	}
+	
+	public void fillUserCreationForm(User user) {
+		inputUsername.sendKeys(user.getUserName());
+		inputFirstName.sendKeys(user.getName());
+		inputLastName.sendKeys(user.getSurname());
+		inputPassword.sendKeys(user.getPassword());
+		inputConfirmPassword.sendKeys(user.getConfirmPassword());
+		inputComment.sendKeys(user.getComment());
 	}
 	
 	//getters

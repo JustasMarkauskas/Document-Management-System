@@ -53,6 +53,7 @@ public class AdminCreateGroupPage extends AbstractPage {
 	}
 	
 	public void clickButtonSubmit() {
+		buttonSubmit.submit();
 		buttonSubmit.click();
 	}
 	

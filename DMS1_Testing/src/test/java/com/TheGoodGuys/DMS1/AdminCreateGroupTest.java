@@ -60,15 +60,15 @@ public class AdminCreateGroupTest extends AbstractTest {
 		
 //		assertThat("success msg", containsString("success"));
 		
-		assertThat("Group name could not be found in the group list", adminGroups.checkIfGroupNameExists(group.getGroupName()));
+		assertThat("Group name could not be found in the group list", adminGroups.checkIfGroupNameExists(group.getGroupName()), is(true));
 		
 		
 		//Call take screenshot function
 //		ScreenshotUtils.takeScreenshot(driver, "resources/screenshots/test1.png");
 
-
-
 	}
+	
+	
 	@DataProvider(name = "groupsInvalidLength")
 	public static Object[] testDataGroupsInvalidLength() throws IOException {
 		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsInvalidLength.xml");
@@ -133,7 +133,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 	
 	
 	@Test (priority = 5, groups = { "groupCreation" } , dataProvider = "groupsInvalidChars")
-	public void testToCheckSpacialCharsRestrictionsInCreateGroup(Group group) throws Exception {
+	public void testToCheckSpecialCharsRestrictionsInCreateGroup(Group group) throws Exception {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
@@ -142,6 +142,18 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.clickButtonSubmit();
 				
 		assertThat("Spec Chars restrictions msg for group name does not match", createGroup.getMsgInvalidGroupName().getText(), is(equalTo("Only uppercase, lowercase letters and numbers are allowed")));
+		createGroup.clickButtonCancel();
+	}
+
+	
+	@Test (priority = 6, groups = { "groupCreation" } )
+	public void testToSubmitBlankFormInCreateGroup() throws Exception {
+		
+		adminNav.clickButtonGroups();
+		adminGroups.clickButtonAddNewGroup();
+		createGroup.clickButtonSubmit();
+				
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 		createGroup.clickButtonCancel();
 	}
 }
