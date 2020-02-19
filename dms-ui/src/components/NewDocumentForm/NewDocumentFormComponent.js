@@ -7,7 +7,7 @@ import * as yup from "yup";
 import axios from "axios";
 
 const schema = yup.object().shape({
-  //docType: yup.required("Please select document type"),
+  docType: yup.string().required("Please select document type"),
   title: yup
     .string()
     .min(5, "Must be 5-30 characters long")
@@ -23,12 +23,12 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
-  console.log("sub");
+const handleSaveForLater = values => {
   const formData = new FormData();
   formData.append("author", values.author);
   formData.append("title", values.title);
   formData.append("description", values.description);
+  formData.append("docType", values.docType);
 
   var i;
   for (i = 0; i <= values.files.length; i++) {
@@ -44,7 +44,34 @@ const handleSubmit = values => {
     }
   })
     .then(response => {
-      //uzdaryti modala perkrauti psl
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+const handleSubmit = values => {
+  const formData = new FormData();
+  formData.append("author", values.author);
+  formData.append("title", values.title);
+  formData.append("description", values.description);
+  formData.append("docType", values.docType);
+
+  var i;
+  for (i = 0; i <= values.files.length; i++) {
+    formData.append("files", values.files[i]);
+  }
+
+  axios({
+    method: "POST",
+    url: "http://localhost:8081/api/document/submit",
+    data: formData,
+    headers: {
+      "content-type": "multipart/form-data"
+    }
+  })
+    .then(response => {
       console.log(response);
     })
     .catch(error => {
@@ -93,6 +120,29 @@ const NewDocumentFormComponent = props => {
                 <p className="text-info">{errors.title}</p>
               </Form.Control.Feedback>
             </Form.Group>
+
+            <Form.Group>
+              <select
+                className="form-control"
+                id="docType"
+                value={values.docType}
+                onChange={event => {
+                  setFieldValue("docType", event.currentTarget.value);
+                }}
+              >
+                <option value="" disabled defaultValue>
+                  Select document type
+                </option>
+                {props.userDocTypes.map((option, index) => {
+                  return (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  );
+                })}
+              </select>
+            </Form.Group>
+
             <Form.Group>
               <Form.Control
                 as="textarea"
@@ -119,22 +169,37 @@ const NewDocumentFormComponent = props => {
                 setFieldValue("files", event.currentTarget.files);
               }}
             />
-
-            <Button
-              disabled={!values.title || !values.description || !isValid}
-              onClick={() => {
-                handleSubmit();
-                props.onCloseModalAfterSubmit();
-              }}
-              variant="primary"
-              className="SubmitButton mr-2"
-              type="submit"
-            >
-              Submit
-            </Button>
-            <Button onClick={props.onHide} variant="primary">
-              Cancel
-            </Button>
+            <div className="container mt-2">
+              <div className="row">
+                <Button
+                  disabled={!values.title || !isValid}
+                  onClick={() => {
+                    handleSubmit();
+                    props.onCloseModalAfterSubmit();
+                  }}
+                  variant="primary"
+                  className="SubmitButton mr-2"
+                  type="button"
+                >
+                  Submit
+                </Button>
+                <Button
+                  disabled={!values.title || !isValid}
+                  onClick={() => {
+                    handleSaveForLater();
+                    props.onCloseModalAfterSubmit();
+                  }}
+                  variant="primary"
+                  className="SubmitButton mr-2"
+                  type="button"
+                >
+                  Save for later
+                </Button>
+                <Button onClick={props.onHide} variant="primary">
+                  Cancel
+                </Button>
+              </div>
+            </div>
           </Form>
         </div>
       )}

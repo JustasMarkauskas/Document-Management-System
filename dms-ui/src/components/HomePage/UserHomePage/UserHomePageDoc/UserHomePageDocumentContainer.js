@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
 import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
 import { Modal } from "react-bootstrap";
-import NewDocumentFormComponentTest from "../../../NewDocumentForm/NewDocumentFormComponentTest";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -145,7 +144,7 @@ class UserHomePageDocumentContainer extends React.Component {
               onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
               onHide={this.handleModalClose}
               author={this.state.username}
-              //docId={this.props.id}
+              userDocTypes={this.state.userDocTypes}
             />
           </Modal.Body>
         </Modal>
