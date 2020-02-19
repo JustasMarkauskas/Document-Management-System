@@ -53,45 +53,18 @@ class AdminHomePageUsersComponent extends React.Component {
             className="btn btn-primary"
             onClick={this.handleShowModal}
             data-toggle="modal" data-target="#userInfoModal"
-            // onClick={this.props.handleActionClick}
             id={"userNr"+this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>
-
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
 		        <Modal.Header closeButton>
 		          <Modal.Title>User Infomation</Modal.Title>
 		        </Modal.Header>
-		        <Modal.Body> 
-                           
-                      <h1>Bandymas</h1>     
-                           {/* Cia visa modalo info turetu buti sukelta su validacijomis */}
+		        <Modal.Body>                         
+            <UserInfoComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />
             </Modal.Body>  
-	        </Modal>
-
-
-          {/* User Info Modal */}
-          {/* <div className="modal fade" id="userInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel">Information about: </h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  ...
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          {/* Modal ends here */}
+	        </Modal>          
         </td>
       </tr>
     );

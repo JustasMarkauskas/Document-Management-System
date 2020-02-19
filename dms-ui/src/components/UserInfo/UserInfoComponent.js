@@ -3,8 +3,14 @@ import { withRouter } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
+import { Modal } from 'react-bootstrap';
 import * as yup from "yup";
 import axios from "axios";
+
+
+
+
+
 
 const schema = yup.object({
   firstName: yup
@@ -24,41 +30,56 @@ const schema = yup.object({
   comment: yup
     .string()
     .trim()
-    .max(50, "Must be 50 characters or less"),
-  // password: yup
-  //   .string()
-  //   .required("Please enter your password")
-  //   .min(8)
-  //   .max(20)
-  //   .matches(
-  //     /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]+$/,
-  //     "At least one uppercase, lowercase and number"
-  //   ),
-  // confirmPassword: yup
-  //   .string()
-  //   .required("Please confirm your password")
-  //   .oneOf([yup.ref("password"), null], "Passwords must match")
+    .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
-  axios({
-    method: "POST",
-    url: "http://localhost:8081/api/user/",
-    data: values
-  })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+// const handleSubmit = values => {
+//   axios({
+//     method: "POST",
+//     url: "http://localhost:8081/api/user/",
+//     data: values
+//   })
+//     .then(response => {
+//       console.log(response);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// };
 
-const UserInfoComponent = props => {
-  return (
-    <Formik
+class UserInfoComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleShowModal = this.handleShowModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    // this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
+
+    this.state = {
+      show: false,
+      users: [],
+      inputUsername: ""
+    };
+  }
+
+  handleCloseModal() {
+    this.setState({ show: false });     
+	}
+
+  handleCloseModalAfterSubmit() {    
+    this.refresh();    
+    this.setState({ show: false });     
+	}
+
+    handleShowModal() {
+	this.setState({ show: true });
+	}
+
+  render(){
+    return(
+      <Formik
       validationSchema={schema}
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       initialValues={{
         username: "",
         firstName: "",
@@ -71,126 +92,160 @@ const UserInfoComponent = props => {
       {({ handleSubmit, handleChange, values, isValid, errors }) => (
         <div className="NewUserForm">
           <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Control
-                size="lg"
-                className="NewUserForm"
-                type="text"
-                id="username"
-                name="username"
-                value={values.username}
-                onChange={handleChange}
-                placeholder="Username"
-                isInvalid={!!errors.username}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.username}
-              </Form.Control.Feedback>
-            </Form.Group>
+          {/* User info */}
 
-            <Form.Group>
-              <Form.Control
-                type="firstname"
-                placeholder="First Name"
-                value={values.firstName}
-                onChange={handleChange}
-                name="firstName"
-                id="firstName"
-                className="NewUserForm"
-                size="lg"
-                isInvalid={!!errors.firstName}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.firstName}
-              </Form.Control.Feedback>
-            </Form.Group>
 
-            <Form.Group>
-              <Form.Control
-                type="lastname"
-                placeholder="Last Name"
-                value={values.lastName}
-                onChange={handleChange}
-                name="lastName"
-                id="lastName"
-                className="NewUserForm"
-                size="lg"
-                isInvalid={!!errors.lastName}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.lastName}
-              </Form.Control.Feedback>
-            </Form.Group>
+          <div className="row" >
+            <div className="d-flex  mb-2 justify-content-center  col-12">
+              <h2>User Name:(User Name Is DB)</h2>
+            </div>
+            <div className="row d-flex justify-content-center  col-12  m-0">                            
+              <div className="col-5 d-flex flex-column col-6">
+                <div>
+                <Form.Group>
+                <label for="input">First Name</label>
+                  <Form.Control
+                    type="firstname"
+                    placeholder="Info from DB"
+                    value={values.firstName}
+                    onChange={handleChange}
+                    name="firstName"
+                    id="firstName"
+                    className="NewUserForm"
+                    size="lg"
+                    isInvalid={!!errors.firstName}
+                  />
+                  <Form.Control.Feedback className="FeedBack" type="invalid">
+                    {errors.firstName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group>
+                  <label for="input">Last Name</label>
+                  <Form.Control
+                    type="lastname"
+                    placeholder="Last Name from DB"
+                    value={values.lastName}
+                    onChange={handleChange}
+                    name="lastName"
+                    id="lastName"
+                    className="NewUserForm"
+                    size="lg"
+                    isInvalid={!!errors.lastName}
+                  />
+                  <Form.Control.Feedback className="FeedBack" type="invalid">
+                    {errors.lastName}
+                  </Form.Control.Feedback>
+                </Form.Group>                  
+                  <button 
+                    type="button" 
+                    className="col-12 mb-1 btn btn-primary btn-sm"
+                    onClick={this.handleShowModal}
+                  >
+                    Assign to group
+                  </button>
+                   
+                    {/* Assign to group modal begining */}
+                    <Modal show={this.state.show} onHide={this.handleCloseModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Assign to groups</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>     
+                      <h2>bandymas</h2>                    
+                      {/* <UserInfoComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  /> */}
+                      </Modal.Body>  
+                    </Modal>
+                    {/* Assign to group modal end */}
 
-            <Form.Group>
-              <Form.Control
-                className="NewUserForm"
-                size="lg"
-                type="password"
-                name="password"
-                id="password"
-                value={values.password}
-                onChange={handleChange}
-                placeholder="Password"
-                isInvalid={!!errors.password}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
+                  <button 
+                    type="button" 
+                    className="col-12 btn btn-primary btn-sm"
+                    onClick={this.handleShowModal}
+                  >
+                    Change password
+                  </button>
 
-            <Form.Group>
-              <Form.Control
-                className="NewUserForm"
-                size="lg"
-                name="confirmPassword"
-                type="password"
-                id="confirmPassword"
-                value={values.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm Password"
-                isInvalid={!!errors.confirmPassword}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.confirmPassword}
-              </Form.Control.Feedback>
-            </Form.Group>
+                    {/* Change password modal begining */}
+                    <Modal show={this.state.show} onHide={this.handleCloseModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Change password</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>    
+                        <h1>bandymas</h1>                     
+                      {/* <UserInfoComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  /> */}
+                      </Modal.Body>  
+                    </Modal>
+                    {/* Change password modal end */}
 
-            <Form.Group>              
-              <Form.Control
-                as="textarea"
-                rows="2"
-                className="NewUserForm"
-                size="lg"
-                name="comment"
-                onChange={handleChange}
-                type="comment"
-                id="comment"
-                value={values.comment}
-                placeholder="Comment"
-                isInvalid={!!errors.comment}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                {errors.comment}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Button
-              disabled={!isValid}
-              onClick={props.onCloseModal}
-              variant="primary"
-              className="SubmitButton mr-2"
-              type="submit"
-            >
-              Submit
-            </Button>
-            <Button onClick={props.onCloseModal} variant="primary">
-              Cancel
-            </Button>
-          </Form>
+                </div>
+              </div>
+              <div className="col-6  m-0">
+                <ul className="list-group">
+                  <li className="list-group-item">Group1</li>
+                  <li className="list-group-item">Group2</li>
+                  <li className="list-group-item">Group3</li>
+                  <li className="list-group-item">Group4</li>
+                  <li className="list-group-item">Group5</li>
+                </ul>
+              </div>                            
+            </div>
+            <div className="row d-flex flex-row justify-content-between align-items-center col-12  m-0">
+              <div className="form-check col-4">
+                <input className="form-check-input" type="checkbox" value="" id="defaultCheck1"></input>
+                <label className="form-check-label" for="defaultCheck1">
+                  Deactivate
+                </label>
+              </div>
+              <Form.Group className="col-6">              
+                <Form.Control
+                  as="textarea"
+                  rows="2"
+                  className="NewUserForm col-12"
+                  size="lg"
+                  name="comment"
+                  onChange={handleChange}
+                  type="comment"
+                  id="comment"
+                  value={values.comment}
+                  placeholder="Comment"
+                  isInvalid={!!errors.comment}
+                />
+                <Form.Control.Feedback className="FeedBack" type="invalid">
+                  {errors.comment}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </div>
+          </div>
+        <div class="modal-footer d-flex shadow-sm  bg-light rounded justify-content-center align-items-center col-12">
+          <Button
+            disabled={!isValid}
+            // onClick={props.onCloseModal}
+            variant="primary"
+            className="SubmitButton mr-2 col-4"
+            type="submit"
+          >
+            Submit
+          </Button>
+          <Button 
+          //  onClick={props.onCloseModal} 
+           variant="secondary" 
+           className="col-4"
+          >
+             Cancel
+          </Button>         
+        </div>
+        {/* userinfo */} 
+        </Form>
         </div>
       )}
     </Formik>
-  );
-};
+    );
+  }
+
+
+
+}
+
+
+
 
 export default withRouter(UserInfoComponent);
