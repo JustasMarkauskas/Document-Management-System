@@ -24,6 +24,7 @@ const schema = yup.object().shape({
 });
 
 const handleSubmit = values => {
+  console.log("sub");
   const formData = new FormData();
   formData.append("author", values.author);
   formData.append("title", values.title);
@@ -43,7 +44,7 @@ const handleSubmit = values => {
     }
   })
     .then(response => {
-      //uzdaryti modala
+      //uzdaryti modala perkrauti psl
       console.log(response);
     })
     .catch(error => {
@@ -92,7 +93,6 @@ const NewDocumentFormComponent = props => {
                 <p className="text-info">{errors.title}</p>
               </Form.Control.Feedback>
             </Form.Group>
-
             <Form.Group>
               <Form.Control
                 as="textarea"
@@ -111,7 +111,6 @@ const NewDocumentFormComponent = props => {
                 <p className="text-info">{errors.description}</p>
               </Form.Control.Feedback>
             </Form.Group>
-
             <input
               className="NewDocumentForm"
               type="file"
@@ -123,7 +122,10 @@ const NewDocumentFormComponent = props => {
 
             <Button
               disabled={!values.title || !values.description || !isValid}
-              onClick={handleSubmit}
+              onClick={() => {
+                handleSubmit();
+                props.onCloseModalAfterSubmit();
+              }}
               variant="primary"
               className="SubmitButton mr-2"
               type="submit"

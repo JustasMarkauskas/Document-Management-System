@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
 import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
 import { Modal } from "react-bootstrap";
+import NewDocumentFormComponentTest from "../../../NewDocumentForm/NewDocumentFormComponentTest";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -52,6 +53,7 @@ class UserHomePageDocumentContainer extends React.Component {
 
   handleCloseModalAfterSubmit = () => {
     this.setState({ showModal: false });
+    this.getDocuments();
   };
 
   handleShowModal = () => {
