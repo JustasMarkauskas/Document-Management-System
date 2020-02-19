@@ -16,19 +16,11 @@ class UserHomePageDocumentComponent extends React.Component {
     this.setState({ showSubmitModal: false });
   };
 
-  handleCloseModalAfterSubmit = () => {
-    this.setState({ showSubmitModal: false });
-  };
-
   handleShowSubmitModal = () => {
     this.setState({ showSubmitModal: true });
   };
 
   handleSaveModalClose = () => {
-    this.setState({ showSaveModal: false });
-  };
-
-  handleCloseSaveModalAfterSubmit = () => {
     this.setState({ showSaveModal: false });
   };
 
@@ -79,7 +71,6 @@ class UserHomePageDocumentComponent extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <SubmittedDocReviewContainer
-              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
               onHide={this.handleSubmittedModalClose}
               docId={this.props.id}
             />
@@ -94,7 +85,6 @@ class UserHomePageDocumentComponent extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <SavedDocReviewContainer
-              onCloseModalAfterSubmit={this.handleCloseSaveModalAfterSubmit}
               onHide={this.handleSaveModalClose}
               docId={this.props.id}
               updateDocuments={this.props.updateDocuments}

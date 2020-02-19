@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
@@ -12,11 +11,7 @@ const schema = yup.object().shape({
     .string()
     .min(5, "Must be 5-30 characters long")
     .max(30, "Must be 5-30 characters long")
-    .required("Please enter a title")
-    .matches(
-      /^[A-Za-z\d]+$/,
-      "Only uppercase, lowercase letters and numbers are allowed"
-    ),
+    .required("Please enter a title"),
   description: yup
     .string()
     .trim()
@@ -86,7 +81,6 @@ const NewDocumentFormComponent = props => {
                 type="text"
                 id="title"
                 name="title"
-                maxLength="30"
                 value={values.title}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -127,7 +121,6 @@ const NewDocumentFormComponent = props => {
                 className="NewDocumentForm"
                 size="lg"
                 name="description"
-                maxLength="50"
                 onChange={handleChange}
                 type="description"
                 id="description"
@@ -186,4 +179,4 @@ const NewDocumentFormComponent = props => {
   );
 };
 
-export default withRouter(NewDocumentFormComponent);
+export default NewDocumentFormComponent;

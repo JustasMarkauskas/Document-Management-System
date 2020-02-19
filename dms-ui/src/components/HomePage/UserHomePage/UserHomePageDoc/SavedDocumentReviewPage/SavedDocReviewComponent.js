@@ -1,5 +1,5 @@
 import React from "react";
-import axios, { post, put } from "axios";
+import axios, { put } from "axios";
 
 class SavedDocReviewComponent extends React.Component {
   constructor(props) {
@@ -35,9 +35,13 @@ class SavedDocReviewComponent extends React.Component {
     }
   }
 
-  handleFormValidation = () => {
+  handleButtonValidation = () => {
     var formIsValid = true;
-    if (this.state.title.length < 5 || this.state.title.length > 30) {
+    if (
+      this.state.title.length < 5 ||
+      this.state.title.length > 30 ||
+      this.state.description.length > 50
+    ) {
       formIsValid = false;
     }
 
@@ -49,10 +53,28 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleTitleChange = event => {
+    if (event.target.value.length < 5 || event.target.value.length > 30) {
+      document
+        .getElementById("savedTitle")
+        .setAttribute("class", "form-control is-invalid");
+    } else {
+      document
+        .getElementById("savedTitle")
+        .setAttribute("class", "form-control");
+    }
     this.setState({ title: event.target.value });
   };
 
   handleDescriptionChange = event => {
+    if (event.target.value.length > 50) {
+      document
+        .getElementById("savedDescription")
+        .setAttribute("class", "form-control is-invalid");
+    } else {
+      document
+        .getElementById("savedDescription")
+        .setAttribute("class", "form-control");
+    }
     this.setState({ description: event.target.value });
   };
 
@@ -65,27 +87,19 @@ class SavedDocReviewComponent extends React.Component {
 
   onSaveClick = event => {
     event.preventDefault();
-
-    if (this.handleFormValidation()) {
-      this.fileSaveUpload(this.state.files).then(() => {
-        this.closeModal();
-        this.updateDocuments();
-      });
-    } else {
-      alert("Title length must be between 5 and 30 symbols");
-    }
+    this.fileSaveUpload(this.state.files).then(() => {
+      this.closeModal();
+      this.updateDocuments();
+    });
   };
 
   onSubmitClick = event => {
     event.preventDefault();
-    if (this.handleFormValidation()) {
-      this.fileSubmitUpload(this.state.files).then(() => {
-        this.closeModal();
-        this.updateDocuments();
-      });
-    } else {
-      alert("Title length must be between 5 and 30 symbols");
-    }
+
+    this.fileSubmitUpload(this.state.files).then(() => {
+      this.closeModal();
+      this.updateDocuments();
+    });
   };
 
   onDeleteDocumentClick = event => {
@@ -180,13 +194,15 @@ class SavedDocReviewComponent extends React.Component {
             id="savedTitle"
             className="form-control"
             required
-            minLength="5"
-            maxLength="30"
             onChange={this.handleTitleChange}
             defaultValue={this.props.title}
-            placeholder="enter title"
+            placeholder="Title"
           />
+          <div className="invalid-feedback text-info">
+            Must be 5-30 characters long
+          </div>
         </div>
+
         <div className="form-group">
           <label htmlFor="savedDocType">Doc type</label>
 
@@ -212,11 +228,13 @@ class SavedDocReviewComponent extends React.Component {
             type="text"
             id="savedDescription"
             className="form-control"
-            maxLength="50"
             onChange={this.handleDescriptionChange}
             defaultValue={this.props.description}
-            placeholder="enter description"
+            placeholder="Description"
           />
+          <div className="invalid-feedback text-info">
+            Must be 50 characters or less
+          </div>
         </div>
         <input type="file" multiple onChange={this.onFileChange} />
 
@@ -226,6 +244,7 @@ class SavedDocReviewComponent extends React.Component {
           <div className="row">
             <div className="mr-2">
               <button
+                disabled={!this.handleButtonValidation()}
                 onClick={this.onSubmitClick}
                 type="button"
                 className="btn btn-primary"
@@ -235,6 +254,7 @@ class SavedDocReviewComponent extends React.Component {
             </div>
             <div className="mr-2 ">
               <button
+                disabled={!this.handleButtonValidation()}
                 onClick={this.onSaveClick}
                 type="button"
                 className="btn btn-primary"

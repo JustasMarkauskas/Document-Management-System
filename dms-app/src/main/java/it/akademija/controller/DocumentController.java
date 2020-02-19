@@ -1,9 +1,8 @@
 package it.akademija.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 import javax.validation.Valid;
 
@@ -27,23 +26,20 @@ import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
 import it.akademija.model.file.DBFile;
 import it.akademija.model.file.UploadFileResponse;
-import it.akademija.model.group.GroupForClient;
-import it.akademija.model.group.NewGroup;
-import it.akademija.service.DBFileStorageService;
 import it.akademija.service.DocumentService;
-import it.akademija.service.GroupService;
+
 
 @RestController
 @RequestMapping(value = "/api/document")
 public class DocumentController {
 
 	private final DocumentService documentService;
-	private final DBFileStorageService dbFileStorageService;
+	
 
 	@Autowired
-	public DocumentController(DocumentService documentService, DBFileStorageService dbFileStorageService) {
+	public DocumentController(DocumentService documentService) {
 		this.documentService = documentService;
-		this.dbFileStorageService = dbFileStorageService;
+		
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -58,17 +54,6 @@ public class DocumentController {
 		return documentService.getDocumentForClientById(username, id);
 	}
 
-//	@RequestMapping(path = "/one-file", method = RequestMethod.POST)
-//	@ApiOperation(value = "Save document with one file", notes = "Creates document with one file")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public UploadFileResponse saveDocumentWithOneFile(
-//			@ApiParam(required = true) @Valid @ModelAttribute final NewDocument newDocument,
-//			@RequestParam("file") MultipartFile file) {
-//		DBFile dbFile = documentService.saveDocumentWithOneFile(newDocument, file);
-//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-//				.path(dbFile.getId()).toUriString();
-//		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
-//	}
 
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
@@ -140,28 +125,7 @@ public class DocumentController {
 		}
 		return list;
 	}
-	
-	
-//	@RequestMapping(method = RequestMethod.POST)
-//	@ApiOperation(value = "Save document", notes = "Creates document with data")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public void saveDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
-//		documentService.saveDocument(newDocument);
-//	}
 
-//	@RequestMapping(path = "/submit", method = RequestMethod.POST)
-//	@ApiOperation(value = "Submit document", notes = "Creates document with data. Status SUBMITTED")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public void submitDocument(@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument) {
-//		documentService.submitDocument(newDocument);
-//	}
-
-//	@RequestMapping(path = "/submit-after-save/{id}", method = RequestMethod.PUT)
-//	@ApiOperation(value = "Update document info after save for later")
-//	public void submitDocumentAfterSaveForLater(
-//			@ApiParam(required = true) @Valid @RequestBody final NewDocument newDocument, @PathVariable Long id) {
-//		documentService.submitDocumentAfterSaveForLater(newDocument, id);
-//	}
 
 	@RequestMapping(path = "/approve-document", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after approval", notes = "Update document info after approval")

@@ -1,12 +1,23 @@
 package it.akademija.model.document;
 
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 
 public class NewDocument {
 	
+	@NotNull
 	private String author;
+	
+	@NotNull
+	@Length(min = 1, max = 20)
 	private String docType;
+	
+	@NotNull
+	@Length(min = 5, max = 30)
 	private String title;
+	
+	@Length(max = 50)
 	private String description;
 	
 	public NewDocument() {}
