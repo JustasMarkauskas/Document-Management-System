@@ -49,134 +49,146 @@ const handleSubmit = values => {
   });
 };
 
-const NewDocumentFormComponent = props => {
-  return (
-    <Formik
-      initialValues={{
-        files: [],
-        docType: "",
-        title: "",
-        description: "",
-        author: props.author,
-        isSaveButton: false
-      }}
-      validationSchema={schema}
-      onSubmit={handleSubmit}
-    >
-      {({
-        handleSubmit,
-        handleChange,
-        setFieldValue,
-        values,
-        isValid,
-        errors,
-        handleBlur
-      }) => (
-        <div className="NewDocumentForm" id="userCreateDocumentForm">
-          <Form noValidate>
-            <Form.Group>
-              <Form.Control
-                size="lg"
-                className="NewDocumentForm"
-                type="text"
-                id="title"
-                name="title"
-                value={values.title}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Title"
-                isInvalid={!!errors.title}
-              />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                <p className="text-info">{errors.title}</p>
-              </Form.Control.Feedback>
-            </Form.Group>
+class NewDocumentFormComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.innerRef = React.createRef();
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.innerRef.current.focus();
+    }, 1);
+  }
+  render() {
+    return (
+      <Formik
+        initialValues={{
+          files: [],
+          docType: "",
+          title: "",
+          description: "",
+          author: this.props.author,
+          isSaveButton: false
+        }}
+        validationSchema={schema}
+        onSubmit={handleSubmit}
+      >
+        {({
+          handleSubmit,
+          handleChange,
+          setFieldValue,
+          values,
+          isValid,
+          errors,
+          handleBlur
+        }) => (
+          <div className="NewDocumentForm" id="userCreateDocumentForm">
+            <Form noValidate>
+              <Form.Group>
+                <Form.Control
+                  ref={this.innerRef}
+                  size="lg"
+                  className="NewDocumentForm"
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Title"
+                  isInvalid={!!errors.title}
+                />
+                <Form.Control.Feedback className="FeedBack" type="invalid">
+                  <p className="text-info">{errors.title}</p>
+                </Form.Control.Feedback>
+              </Form.Group>
 
-            <Form.Group>
-              <select
-                className="form-control"
-                id="docType"
-                value={values.docType}
+              <Form.Group>
+                <select
+                  className="form-control"
+                  id="docType"
+                  value={values.docType}
+                  onChange={event => {
+                    setFieldValue("docType", event.currentTarget.value);
+                  }}
+                >
+                  <option value="" disabled defaultValue>
+                    Select document type
+                  </option>
+                  {this.props.userDocTypes.map((option, index) => {
+                    return (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    );
+                  })}
+                </select>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Control
+                  as="textarea"
+                  rows="2"
+                  className="NewDocumentForm"
+                  size="lg"
+                  name="description"
+                  onChange={handleChange}
+                  type="description"
+                  id="description"
+                  value={values.description}
+                  placeholder="Description"
+                  isInvalid={!!errors.description}
+                />
+                <Form.Control.Feedback className="FeedBack" type="invalid">
+                  <p className="text-info">{errors.description}</p>
+                </Form.Control.Feedback>
+              </Form.Group>
+              <input
+                className="NewDocumentForm"
+                type="file"
+                multiple
                 onChange={event => {
-                  setFieldValue("docType", event.currentTarget.value);
+                  setFieldValue("files", event.currentTarget.files);
                 }}
-              >
-                <option value="" disabled defaultValue>
-                  Select document type
-                </option>
-                {props.userDocTypes.map((option, index) => {
-                  return (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  );
-                })}
-              </select>
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Control
-                as="textarea"
-                rows="2"
-                className="NewDocumentForm"
-                size="lg"
-                name="description"
-                onChange={handleChange}
-                type="description"
-                id="description"
-                value={values.description}
-                placeholder="Description"
-                isInvalid={!!errors.description}
               />
-              <Form.Control.Feedback className="FeedBack" type="invalid">
-                <p className="text-info">{errors.description}</p>
-              </Form.Control.Feedback>
-            </Form.Group>
-            <input
-              className="NewDocumentForm"
-              type="file"
-              multiple
-              onChange={event => {
-                setFieldValue("files", event.currentTarget.files);
-              }}
-            />
-            <div className="container mt-2">
-              <div className="row">
-                <Button
-                  disabled={!values.title || !isValid}
-                  onClick={() => {
-                    handleSubmit();
-                    props.onCloseModalAfterSubmit();
-                  }}
-                  variant="primary"
-                  className="SubmitButton mr-2"
-                  type="button"
-                >
-                  Submit
-                </Button>
-                <Button
-                  disabled={!values.title || !isValid}
-                  onClick={() => {
-                    setFieldValue("isSaveButton", true);
-                    handleSubmit();
-                    props.onCloseModalAfterSubmit();
-                  }}
-                  variant="primary"
-                  className="SubmitButton mr-2"
-                  type="button"
-                >
-                  Save for later
-                </Button>
-                <Button onClick={props.onHide} variant="primary">
-                  Cancel
-                </Button>
+              <div className="container mt-2">
+                <div className="row">
+                  <Button
+                    disabled={!values.title || !isValid}
+                    onClick={() => {
+                      handleSubmit();
+                      this.props.onCloseModalAfterSubmit();
+                    }}
+                    variant="primary"
+                    className="SubmitButton mr-2"
+                    type="button"
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    disabled={!values.title || !isValid}
+                    onClick={() => {
+                      setFieldValue("isSaveButton", true);
+                      handleSubmit();
+                      this.props.onCloseModalAfterSubmit();
+                    }}
+                    variant="primary"
+                    className="SubmitButton mr-2"
+                    type="button"
+                  >
+                    Save for later
+                  </Button>
+                  <Button onClick={this.props.onHide} variant="primary">
+                    Cancel
+                  </Button>
+                </div>
               </div>
-            </div>
-          </Form>
-        </div>
-      )}
-    </Formik>
-  );
-};
+            </Form>
+          </div>
+        )}
+      </Formik>
+    );
+  }
+}
 
 export default NewDocumentFormComponent;
