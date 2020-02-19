@@ -174,6 +174,20 @@ class SavedDocReviewComponent extends React.Component {
     return (
       <form className="container">
         <div className="form-group">
+          <label htmlFor="savedTitle">Title</label>
+          <input
+            type="text"
+            id="savedTitle"
+            className="form-control"
+            required
+            minLength="5"
+            maxLength="30"
+            onChange={this.handleTitleChange}
+            defaultValue={this.props.title}
+            placeholder="enter title"
+          />
+        </div>
+        <div className="form-group">
           <label htmlFor="savedDocType">Doc type</label>
 
           <select
@@ -191,23 +205,10 @@ class SavedDocReviewComponent extends React.Component {
             })}
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="savedTitle">Title</label>
-          <input
-            type="text"
-            id="savedTitle"
-            className="form-control"
-            required
-            minLength="5"
-            maxLength="30"
-            onChange={this.handleTitleChange}
-            defaultValue={this.props.title}
-            placeholder="enter title"
-          />
-        </div>
+
         <div className="form-group">
           <label htmlFor="savedDescription">Description</label>
-          <input
+          <textarea
             type="text"
             id="savedDescription"
             className="form-control"

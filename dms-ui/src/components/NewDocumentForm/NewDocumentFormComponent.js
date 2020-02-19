@@ -23,34 +23,6 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSaveForLater = values => {
-  const formData = new FormData();
-  formData.append("author", values.author);
-  formData.append("title", values.title);
-  formData.append("description", values.description);
-  formData.append("docType", values.docType);
-
-  var i;
-  for (i = 0; i <= values.files.length; i++) {
-    formData.append("files", values.files[i]);
-  }
-
-  axios({
-    method: "POST",
-    url: "http://localhost:8081/api/document/save",
-    data: formData,
-    headers: {
-      "content-type": "multipart/form-data"
-    }
-  })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
-
 const handleSubmit = values => {
   const formData = new FormData();
   formData.append("author", values.author);
@@ -63,20 +35,23 @@ const handleSubmit = values => {
     formData.append("files", values.files[i]);
   }
 
+  var url;
+  if (values.isSaveButton === true) {
+    url = "save";
+  } else {
+    url = "submit";
+  }
+
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/document/submit",
+    url: "http://localhost:8081/api/document/" + url,
     data: formData,
     headers: {
       "content-type": "multipart/form-data"
     }
-  })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  }).catch(error => {
+    console.log(error);
+  });
 };
 
 const NewDocumentFormComponent = props => {
@@ -87,7 +62,8 @@ const NewDocumentFormComponent = props => {
         docType: "",
         title: "",
         description: "",
-        author: props.author
+        author: props.author,
+        isSaveButton: false
       }}
       validationSchema={schema}
       onSubmit={handleSubmit}
@@ -110,6 +86,7 @@ const NewDocumentFormComponent = props => {
                 type="text"
                 id="title"
                 name="title"
+                maxLength="30"
                 value={values.title}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -150,6 +127,7 @@ const NewDocumentFormComponent = props => {
                 className="NewDocumentForm"
                 size="lg"
                 name="description"
+                maxLength="50"
                 onChange={handleChange}
                 type="description"
                 id="description"
@@ -186,7 +164,8 @@ const NewDocumentFormComponent = props => {
                 <Button
                   disabled={!values.title || !isValid}
                   onClick={() => {
-                    handleSaveForLater();
+                    setFieldValue("isSaveButton", true);
+                    handleSubmit();
                     props.onCloseModalAfterSubmit();
                   }}
                   variant="primary"
