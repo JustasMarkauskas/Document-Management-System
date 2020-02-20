@@ -13,4 +13,4 @@ const SumbittedDFAReviewFiles = ({ id, fileName }) => {
   );
 };
 
-export default SumbittedDocReviewFiles;
+export default SumbittedDFAReviewFiles;

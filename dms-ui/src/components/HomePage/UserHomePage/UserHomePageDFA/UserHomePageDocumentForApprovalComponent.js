@@ -1,7 +1,7 @@
 import React from "react";
-import SubmittedDocReviewContainer from "./../UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
 import { Modal } from "react-bootstrap";
 import ReviewedDFAReviewContainer from "./ReviewedDFAReviewPage/ReviewedDFAReviewContainer";
+import SubmittedDFAReviewContainer from "./SubmittedDFAReviewPage/SubmittedDFAReviewContainer";
 
 class UserHomePageDocumentForApprovalComponent extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
             ? "table-primary"
             : this.props.status === "APPROVED"
             ? "table-secondary"
-            : "table-error"
+            : "table-secondary"
         }
       >
         <th scope="row">{this.props.rowNr}</th>
@@ -71,9 +71,11 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
             <Modal.Title>Submitted document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SubmittedDocReviewContainer
+            <SubmittedDFAReviewContainer
               onHide={this.handleSubmittedModalClose}
               docId={this.props.id}
+              updateDocuments={this.props.updateDocuments}
+              username={this.props.username}
             />
           </Modal.Body>
         </Modal>

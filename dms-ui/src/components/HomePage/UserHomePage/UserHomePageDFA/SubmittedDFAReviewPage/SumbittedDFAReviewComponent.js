@@ -1,13 +1,29 @@
 import React from "react";
 import axios from "axios";
-import SumbittedDocReviewFiles from "./SumbittedDFAReviewFiles";
+import SubmittedDFAReviewFiles from "./SumbittedDFAReviewFiles";
 
-class SumbittedDFAReviewComponent extends React.Component {
+class SubmittedDFAReviewComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: []
+      files: [],
+      rejectionReason: "",
+      username: ""
     };
+  }
+
+  getUsername = () => {
+    axios
+      .get("http://localhost:8081/api/user/loggedUsername")
+      .then(response => {
+        this.setState({ username: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  componentDidMount() {
+    this.getUsername();
   }
 
   getDocumentFiles = () => {
@@ -27,13 +43,66 @@ class SumbittedDFAReviewComponent extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.getDocumentFiles();
-  // }
+  handleRejectionReasonChange = event => {
+    if (event.target.value.length > 50) {
+      document
+        .getElementById("rejectionReason")
+        .setAttribute("class", "form-control is-invalid");
+    } else {
+      document
+        .getElementById("rejectionReason")
+        .setAttribute("class", "form-control");
+    }
+    this.setState({ rejectionReason: event.target.value });
+  };
+
+  handleButtonValidation = () => {
+    var formIsValid = true;
+    if (this.state.rejectionReason.length > 50) {
+      formIsValid = false;
+    }
+    return formIsValid;
+  };
+
+  closeModal = this.props.onHide;
+  updateDocuments = this.props.updateDocuments;
+
+  onApproveClick = event => {
+    event.preventDefault();
+    axios
+      .put("http://localhost:8081/api/document/approve-document", {
+        documentReceiver: this.state.username,
+        id: this.props.id
+      })
+      .then(() => {
+        this.closeModal();
+        this.updateDocuments();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  onRejectClick = event => {
+    event.preventDefault();
+    axios
+      .put("http://localhost:8081/api/document/reject-document", {
+        documentReceiver: this.state.username,
+        id: this.props.id,
+        rejectionReason: this.state.rejectionReason
+      })
+      .then(() => {
+        this.closeModal();
+        this.updateDocuments();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   render() {
     const documentFiles = this.state.files.map((file, index) => (
-      <SumbittedDFAReviewFiles
+      <SubmittedDFAReviewFiles
         key={index}
         id={file.id}
         fileName={file.fileName}
@@ -50,6 +119,15 @@ class SumbittedDFAReviewComponent extends React.Component {
               id="disabledID"
               className="form-control"
               placeholder={this.props.id}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="disabledAuthor">Author</label>
+            <input
+              type="text"
+              id="disableAuthor"
+              className="form-control"
+              placeholder={this.props.author}
             />
           </div>
           <div className="form-group">
@@ -89,15 +167,6 @@ class SumbittedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledReviewDate">Review date</label>
-            <input
-              type="text"
-              id="disabledReviewDate"
-              className="form-control"
-              placeholder={this.props.reviewDate}
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="disabledStatus">Status</label>
             <input
               type="text"
@@ -106,37 +175,53 @@ class SumbittedDFAReviewComponent extends React.Component {
               placeholder={this.props.status}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="disabledDocumentReceiver">Document receiver</label>
-            <input
-              type="text"
-              id="disabledDocumentReceiver"
-              className="form-control"
-              placeholder={this.props.documentReceiver}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="disabledRejectionReason">Rejection Reason</label>
-            <input
-              type="text"
-              id="disabledRejectionReason"
-              className="form-control"
-              placeholder={this.props.rejectionReason}
-            />
-          </div>
         </fieldset>
+        <div className="form-group">
+          <label htmlFor="rejectionReason">Rejection Reason</label>
+          <textarea
+            className="form-control"
+            type="text"
+            id="rejectionReason"
+            onChange={this.handleRejectionReasonChange}
+            placeholder="Reason"
+          />
+          <div className="invalid-feedback text-info">
+            Must be 50 characters or less
+          </div>
+        </div>
         {documentFiles}
+        <div className="container mt-2">
+          <div className="row">
+            <button
+              disabled={!this.handleButtonValidation()}
+              onClick={this.onApproveClick}
+              type="button"
+              className="btn btn-primary mr-2"
+            >
+              Approve
+            </button>
 
-        <button
-          onClick={this.props.onHide}
-          type="button"
-          className="btn btn-primary col-lg-2 mb-2"
-        >
-          Cancel
-        </button>
+            <button
+              disabled={!this.handleButtonValidation()}
+              onClick={this.onRejectClick}
+              type="button"
+              className="btn btn-primary mr-2"
+            >
+              Reject
+            </button>
+
+            <button
+              onClick={this.props.onHide}
+              type="button"
+              className="btn btn-primary"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       </form>
     );
   }
 }
 
-export default SumbittedDFAReviewComponent;
+export default SubmittedDFAReviewComponent;
