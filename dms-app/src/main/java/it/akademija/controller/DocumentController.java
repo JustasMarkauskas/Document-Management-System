@@ -55,11 +55,16 @@ public class DocumentController {
 	}
 
 	@RequestMapping(path = "/{id}/{username}", method = RequestMethod.GET)
-	@ApiOperation(value = "Get document by document id", notes = "Returns document by document id")
-	public DocumentForClient getDocumentForClientById(@PathVariable String username, @PathVariable Long id) {
-		return documentService.getDocumentForClientById(username, id);
+	@ApiOperation(value = "Get document by document id and username", notes = "Returns document by document id and username")
+	public DocumentForClient getDocumentForClientByIdAndUsername(@PathVariable String username, @PathVariable Long id) {
+		return documentService.getDocumentForClientByIdAndUsername(username, id);
 	}
 
+	@RequestMapping(path = "/get/{id}/", method = RequestMethod.GET)
+	@ApiOperation(value = "Get document by document id", notes = "Returns document by document id")
+	public DocumentForClient getDocumentForClientById(@PathVariable Long id) {
+		return documentService.getDocumentForClientById(id);
+	}
 
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")

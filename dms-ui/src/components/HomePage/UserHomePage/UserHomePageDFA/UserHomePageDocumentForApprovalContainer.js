@@ -1,15 +1,16 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
+import UserHomePageDocumentForApprovalComponent from "./UserHomePageDocumentForApprovalComponent";
 import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
 import { Modal } from "react-bootstrap";
+import qs from "qs";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      //showModal: false,
       userDocTypesForApproval: [],
       documents: [],
       username: "",
@@ -24,16 +25,28 @@ class UserHomePageDocumentContainer extends React.Component {
         let username = response.data;
         this.setState({ username: response.data });
         axios
-          .get("http://localhost:8081/api/document/" + username)
+          .get(
+            "http://localhost:8081/api/user/user-doctypes-for-approval/" +
+              username
+          )
           .then(response => {
-            this.setState({ documents: response.data });
+            let docTypesFA = response.data;
+            this.setState({ userDocTypesForApproval: response.data });
+
             axios
               .get(
-                "http://localhost:8081/api/user/user-doctypes-for-approval/" +
-                  username
+                "http://localhost:8081/api/document/documents-for-approval",
+                {
+                  params: {
+                    documentForApprovalNames: docTypesFA
+                  },
+                  paramsSerializer: params => {
+                    return qs.stringify(params, { indices: false });
+                  }
+                }
               )
               .then(response => {
-                this.setState({ userDocTypesForApproval: response.data });
+                this.setState({ documents: response.data });
               });
           })
           .catch(error => {
@@ -46,28 +59,29 @@ class UserHomePageDocumentContainer extends React.Component {
     this.getDocuments();
   }
 
-  handleModalClose = () => {
-    this.setState({ showModal: false });
-  };
+  // handleModalClose = () => {
+  //   this.setState({ showModal: false });
+  // };
 
-  handleCloseModalAfterSubmit = () => {
-    this.setState({ showModal: false });
-    this.getDocuments();
-  };
+  // handleCloseModalAfterSubmit = () => {
+  //   this.setState({ showModal: false });
+  //   this.getDocuments();
+  // };
 
-  handleShowModal = () => {
-    this.setState({ showModal: true });
-  };
+  // handleShowModal = () => {
+  //   this.setState({ showModal: true });
+  // };
 
-  handleAddNewDocumentButton = () => {
-    this.handleShowModal();
-  };
+  // handleAddNewDocumentButton = () => {
+  //   this.handleShowModal();
+  // };
 
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
-      <UserHomePageDocumentComponent
+      <UserHomePageDocumentForApprovalComponent
         key={index}
         rowNr={index + 1}
+        author={document.author}
         id={document.id}
         title={document.title}
         docType={document.docType}
@@ -75,7 +89,7 @@ class UserHomePageDocumentContainer extends React.Component {
         submissionDate={document.submissionDate}
         reviewDate={document.reviewDate}
         updateDocuments={this.getDocuments}
-        userDocTypes={this.state.userDocTypes}
+        userDocTypesForApproval={this.state.userDocTypesForApproval}
       />
     ));
 
@@ -109,6 +123,7 @@ class UserHomePageDocumentContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
+              <th scope="col">Author</th>
               <th scope="col">Title</th>
               <th scope="col">Type</th>
               <th scope="col">Status</th>
@@ -119,7 +134,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </thead>
           <tbody>{documentInfo}</tbody>
         </table>
-        <Modal show={this.state.showModal} onHide={this.handleModalClose}>
+        {/* <Modal show={this.state.showModal} onHide={this.handleModalClose}>
           <Modal.Header closeButton>
             <Modal.Title>Create New Document</Modal.Title>
           </Modal.Header>
@@ -131,7 +146,7 @@ class UserHomePageDocumentContainer extends React.Component {
               userDocTypes={this.state.userDocTypes}
             />
           </Modal.Body>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }

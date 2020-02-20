@@ -67,9 +67,19 @@ public class DocumentService {
 	}
 	
 	@Transactional
-	public DocumentForClient getDocumentForClientById(String username, Long id) {
+	public DocumentForClient getDocumentForClientByIdAndUsername(String username, Long id) {
 		return getDocumentsForClientByAuthor(username).stream().filter(document -> document.getId().equals(id)).findFirst()
 				.orElseThrow(() -> new RuntimeException("Can't find document"));
+	}
+	
+	@Transactional
+	public DocumentForClient getDocumentForClientById(Long id) {
+		Document document = getDocument(id);
+		DocumentForClient documentForClient = new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
+				document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+				document.getReviewDate(), document.getDocumentReceiver(),
+				document.getRejectionReason(), document.getStatus(), document.generateDbFileIDs());	
+		return documentForClient;
 	}
 
 	
