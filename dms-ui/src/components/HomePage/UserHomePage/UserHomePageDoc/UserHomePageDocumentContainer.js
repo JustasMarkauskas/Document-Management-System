@@ -85,10 +85,10 @@ class UserHomePageDocumentContainer extends React.Component {
           <button
             onClick={this.handleAddNewDocumentButton}
             type="button"
-            className="btn btn-primary col-lg-2 mb-2"
+            className="btn btn-primary col-lg-3 mb-2"
             id="userAddNewDocumentButton"
           >
-            Create New Document
+            Add new document
           </button>
           <div className="input-group mb-3 col-lg-5">
             <input

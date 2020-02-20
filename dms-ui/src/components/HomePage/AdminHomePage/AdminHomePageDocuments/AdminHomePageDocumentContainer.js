@@ -11,7 +11,9 @@ class AdminHomePageDocumentContainer extends React.Component {
 
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
+      this
+    );
 
     this.state = {
       show: false,
@@ -20,23 +22,23 @@ class AdminHomePageDocumentContainer extends React.Component {
     };
   }
 
-  refresh(){
+  refresh() {
     this.getDocuments();
     window.location.reload();
   }
 
   handleCloseModal() {
-    this.setState({ show: false });     
-	}
+    this.setState({ show: false });
+  }
 
-  handleCloseModalAfterSubmit() {    
-    this.refresh();    
-    this.setState({ show: false });     
-	}
+  handleCloseModalAfterSubmit() {
+    this.refresh();
+    this.setState({ show: false });
+  }
 
-  handleShowModal() {  
-    this.setState({ show: true });    
-	}
+  handleShowModal() {
+    this.setState({ show: true });
+  }
 
   getDocuments = () => {
     axios
@@ -55,11 +57,6 @@ class AdminHomePageDocumentContainer extends React.Component {
   handleActionClick = event => {
     event.preventDefault();
     this.props.history.push("/document-info"); //navigacija teisinga padaryti
-  };
-
-  handleAddDocumentButton = event => {
-    event.preventDefault();
-    this.props.history.push("/new-document"); //navigacija teisinga padaryti
   };
 
   handleSearchChange = event => {
@@ -92,22 +89,27 @@ class AdminHomePageDocumentContainer extends React.Component {
 
     return (
       <div className="container">
-        <div className="row col-lg-12">
+        <div className="row">
           <button
             onClick={this.handleShowModal}
             type="button"
-            className="btn btn-primary col-lg-3 mb-2"
+            className="btn btn-primary col-lg-4 mb-2"
             id="adminAddNewDocumentButton"
           >
             Add new Document Type
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
             <Modal.Header closeButton>
-            <Modal.Title>Create New Document Type</Modal.Title>
+              <Modal.Title>Create New Document Type</Modal.Title>
             </Modal.Header>
-            <Modal.Body> <NewDocTypeFormComponent onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} onHide={this.handleCloseModal}/>             
-            </Modal.Body>  
-          </Modal>	 
+            <Modal.Body>
+              {" "}
+              <NewDocTypeFormComponent
+                onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+                onHide={this.handleCloseModal}
+              />
+            </Modal.Body>
+          </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
