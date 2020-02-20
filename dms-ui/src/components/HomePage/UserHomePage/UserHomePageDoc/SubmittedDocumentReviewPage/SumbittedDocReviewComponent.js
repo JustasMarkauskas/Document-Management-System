@@ -41,7 +41,7 @@ class SumbittedDocReviewComponent extends React.Component {
     ));
 
     return (
-      <form className="container">
+      <form className="container" id="submittedDocReview">
         <fieldset disabled>
           <div className="form-group">
             <label htmlFor="disabledID">Unique ID</label>

@@ -186,7 +186,7 @@ class SavedDocReviewComponent extends React.Component {
     ));
 
     return (
-      <form className="container">
+      <form className="container" id="SavedDocReview">
         <div className="form-group">
           <label htmlFor="savedTitle">Title</label>
           <input

@@ -110,7 +110,7 @@ class SubmittedDFAReviewComponent extends React.Component {
     ));
 
     return (
-      <form className="container">
+      <form className="container" id="SubmittedDFAReview">
         <fieldset disabled>
           <div className="form-group">
             <label htmlFor="disabledID">Unique ID</label>

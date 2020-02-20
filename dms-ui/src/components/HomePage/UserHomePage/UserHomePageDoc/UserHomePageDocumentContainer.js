@@ -121,7 +121,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </button>
         </div>
 
-        <table className="table">
+        <table className="table" id="userDocumentsTable">
           <thead>
             <tr>
               <th scope="col">#</th>

@@ -99,7 +99,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
 
-        <table className="table">
+        <table className="table" id="userDFATable">
           <thead>
             <tr>
               <th scope="col">#</th>
