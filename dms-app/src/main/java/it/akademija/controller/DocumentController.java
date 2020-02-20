@@ -47,6 +47,12 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForClientByAuthor(@PathVariable String username) {
 		return documentService.getDocumentsForClientByAuthor(username);
 	}
+	
+	@RequestMapping(path = "/documents-for-approval", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents for approval for user", notes = "Returns list of documents for approval by DFA names list. Status must not be equalto SAVED")
+	public List<DocumentForClient> getDocumentsForApprovalByDfaList(@RequestParam final List<String> documentForApprovalNames) {
+		return documentService.getDocumentsForApprovalByDfaList(documentForApprovalNames, "SAVED");
+	}
 
 	@RequestMapping(path = "/{id}/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get document by document id", notes = "Returns document by document id")

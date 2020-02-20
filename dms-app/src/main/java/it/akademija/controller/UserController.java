@@ -67,7 +67,12 @@ public class UserController {
 	public List<String> getUserGroups(@PathVariable String username) {
 		return userService.getUserGroups(username); 
 	}
-	
+		
+	@RequestMapping(path = "/user-doctypes-for-approval/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get User doc types for approval", notes = "Return names of all user doc types for approval")
+	public Set<String> getAllDocTypesForApproval(@PathVariable String username) {
+		return userService.getAllDocTypesForApproval(username); 
+	}
 	
 	@RequestMapping(path = "/user-doctypes-for-creation/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User doc types for creation", notes = "Return names of all user doc types for creation")
