@@ -1,6 +1,8 @@
 package it.akademija.model.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -61,6 +63,14 @@ public class User {
 	}
 
 
+	public List<String> getUserGroupNames() {
+		List<String> userGroupNames = new ArrayList<String>();
+		for(Group group: groups) {
+			userGroupNames.add(group.getId());
+		}	
+		return userGroupNames;
+	}
+	
 
 	public String getPassword() {
 		return password;

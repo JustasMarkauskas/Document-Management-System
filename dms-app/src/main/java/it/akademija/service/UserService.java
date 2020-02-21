@@ -116,7 +116,7 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public List<UserForClient> getUsersForClient() {
 		return userRepository.findAll().stream().map((user) -> new UserForClient(user.getFirstName(),
-				user.getLastName(), user.getUsername(), user.getComment())).collect(Collectors.toList());
+				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames())).collect(Collectors.toList());
 	}
 
 	@Transactional
