@@ -57,7 +57,7 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
           <button
             className="btn btn-primary"
             onClick={this.handleActionClick}
-            id={"userDocumentNr" + this.props.rowNr}
+            id={"userDFADocumentNr" + this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>
