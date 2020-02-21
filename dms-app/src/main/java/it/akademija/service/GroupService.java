@@ -3,17 +3,16 @@ package it.akademija.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import it.akademija.dao.DocTypeRepository;
 import it.akademija.dao.GroupRepository;
 import it.akademija.model.doctype.DocType;
 import it.akademija.model.group.Group;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
+
 
 @Service
 public class GroupService {
@@ -65,6 +64,13 @@ public class GroupService {
 		group.setId(newGroup.getId());
 		group.setComment(newGroup.getComment());
 		groupRepository.save(group);
+	}
+	
+	@Transactional
+	public void updateGroupComment(String groupName, NewGroup newGroup) {
+		Group existingGroup = findByGroupName(groupName);
+		existingGroup.setComment(newGroup.getComment());
+		
 	}
 
 	@Transactional

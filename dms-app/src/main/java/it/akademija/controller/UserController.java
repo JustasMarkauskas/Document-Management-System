@@ -107,7 +107,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/update-user-info/{username}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Update user password", notes = "Update user info")
+	@ApiOperation(value = "Update user info", notes = "Update user info")
 	public User updateUserInfo(@ApiParam(required = true) @PathVariable String username,
 			@Valid @RequestBody final NewUser newUser) {
 		return userService.updateUserInfo(username, newUser);

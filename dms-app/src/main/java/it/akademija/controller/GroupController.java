@@ -17,6 +17,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
+import it.akademija.model.user.NewUser;
+import it.akademija.model.user.User;
 import it.akademija.service.GroupService;
 
 
@@ -51,7 +53,12 @@ public class GroupController {
 		groupService.saveGroup(newGroup);
 	}
 	
-	
+	@RequestMapping(path = "/update-comment/{groupName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update group comment", notes = "Update group comment")
+	public void updateGroupComment(@ApiParam(required = true) @PathVariable String groupName,
+			@Valid @RequestBody final NewGroup newGroup) {
+		 groupService.updateGroupComment(groupName, newGroup);
+	}
 
 	
 	@RequestMapping(path = "/update-group-doctypes-for-approval/{groupName}", method = RequestMethod.PUT)
