@@ -55,6 +55,11 @@ public class UserController {
 		return userService.getUsersForClient(); 
 	}
 	
+	@RequestMapping(path = "/usernames/", method = RequestMethod.GET)
+	@ApiOperation(value = "Get all usernames", notes = "Returns list of all usernames")
+	public List<String> getAllUsernames() {
+		return userService.getAllUsernames(); 
+	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User", notes = "Returns user by username")

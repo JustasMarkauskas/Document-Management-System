@@ -15,6 +15,10 @@ public class UserForClient {
 	public UserForClient() {
 	}
 
+	public UserForClient(String username) {
+		this.username = username;
+	}
+	
 	public UserForClient(String firstName, String lastName,  String username, String comment, List<String> userGroups) {
 
 		this.firstName = firstName;

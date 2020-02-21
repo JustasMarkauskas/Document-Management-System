@@ -1,23 +1,12 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
-import AssignUserContainer from "./AssignUserPage/AssignUserContainer";
 
-class GroupReviewPageComponent extends React.Component {
+class AssignUserComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      assignUserModal: false
-    };
+    this.state = {};
   }
-
-  handleShowAssignUserModal = () => {
-    this.setState({ assignUserModal: true });
-  };
-
-  handleCloseAssignUserModal = () => {
-    this.setState({ assignUserModal: false });
-  };
 
   render() {
     return (
@@ -25,25 +14,25 @@ class GroupReviewPageComponent extends React.Component {
         <div className="row">
           <div className="col-4">
             <button
-              onClick={this.handleShowAssignUserModal}
+              onClick={this.props.onOKClick}
               type="button"
               className="btn btn-primary m-2"
             >
-              Assign member
+              TE
             </button>
             <button
               onClick={this.props.onOKClick}
               type="button"
               className="btn btn-primary m-2"
             >
-              Assign document type for approval
+              TEST
             </button>
             <button
               onClick={this.props.onOKClick}
               type="button"
               className="btn btn-primary m-2"
             >
-              Assign document type for creation
+              TESST
             </button>
           </div>
           <div className="col-7">
@@ -86,20 +75,9 @@ class GroupReviewPageComponent extends React.Component {
             </form>
           </div>
         </div>
-        <Modal
-          show={this.state.assignUserModal}
-          onHide={this.handleCloseAssignUserModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>AssignUser</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <AssignUserContainer onHide={this.handleCloseAssignUserModal} />
-          </Modal.Body>
-        </Modal>
       </div>
     );
   }
 }
 
-export default GroupReviewPageComponent;
+export default AssignUserComponent;

@@ -5,7 +5,9 @@ import GroupReviewPageContainer from "./GroupReviewPage/GroupReviewPageContainer
 class AdminHomePageGroupComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showGroupReviewModal: false
+    };
   }
 
   handleShowGroupReviewModal = () => {
