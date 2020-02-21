@@ -46,11 +46,12 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsValid.xml");
 	}
 
-	@Test(priority = 1, groups = { "documentCreation" }, dataProvider = "validDocuments") // , enabled = false)
+	@Test(priority = 1, groups = { "documentCreation" }, dataProvider = "validDocuments")
 	public void testToCreateNewDocument(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
-		adminDocuments.clickButtonAddNewDocType(); // aplikacijoj nebeveikia doc type kurimas
+		Thread.sleep(2000);
+		adminDocuments.clickButtonAddNewDocType();
 		// createGroup.fillAndSubmitForm(group);
 
 		// assertThat("success msg", containsString("success"));
