@@ -6,6 +6,7 @@ import { Formik } from "formik";
 import { Modal } from 'react-bootstrap';
 import * as yup from "yup";
 import axios from "axios";
+import PasswordChangeComponent from "../PasswordChange/PasswodChange";
 
 
 
@@ -169,9 +170,8 @@ class UserInfoComponent extends React.Component {
                       <Modal.Header closeButton>
                         <Modal.Title>Change password</Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>    
-                        <h1>bandymas</h1>                     
-                      {/* <UserInfoComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  /> */}
+                      <Modal.Body>                                           
+                      <PasswordChangeComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />
                       </Modal.Body>  
                     </Modal>
                     {/* Change password modal end */}
@@ -218,7 +218,7 @@ class UserInfoComponent extends React.Component {
         <div class="modal-footer d-flex shadow-sm  bg-light rounded justify-content-center align-items-center col-12">
           <Button
             disabled={!isValid}
-            // onClick={props.onCloseModal}
+            onClick={this.props.onCloseModal}
             variant="primary"
             className="SubmitButton mr-2 col-4"
             type="submit"
@@ -226,7 +226,7 @@ class UserInfoComponent extends React.Component {
             Submit
           </Button>
           <Button 
-          //  onClick={props.onCloseModal} 
+           onClick={this.props.onCloseModal} 
            variant="secondary" 
            className="col-4"
           >
