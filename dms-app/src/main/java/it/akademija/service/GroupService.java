@@ -15,7 +15,6 @@ import it.akademija.model.group.Group;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
 
-
 @Service
 public class GroupService {
 
@@ -24,7 +23,7 @@ public class GroupService {
 	private DocTypeRepository docTypeRepository;
 
 	@Autowired
-	public GroupService(GroupRepository groupRepository,  DocTypeRepository docTypeRepository) {
+	public GroupService(GroupRepository groupRepository, DocTypeRepository docTypeRepository) {
 		this.groupRepository = groupRepository;
 		this.docTypeRepository = docTypeRepository;
 	}
@@ -33,7 +32,7 @@ public class GroupService {
 	public Group findByGroupName(String groupName) {
 		return groupRepository.findById(groupName);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<Group> getGroups() {
 		return groupRepository.findAll();
@@ -41,19 +40,22 @@ public class GroupService {
 
 	@Transactional(readOnly = true)
 	public List<GroupForClient> getGroupsForClient() {
-		return groupRepository.findAll().stream().map((group) -> new GroupForClient(group.getId(), group.getComment(), group.getUsers().size()))
+		return groupRepository.findAll().stream()
+				.map((group) -> new GroupForClient(group.getId(), group.getComment(), group.getUsers().size(),
+						group.getGroupUsernames(), group.getGroupDocTypesForCreation(),
+						group.getGroupDocTypesForApproval()))
 				.collect(Collectors.toList());
-	}
-
-	@Transactional
-	public Group getGroup(String groupName) {
-		return getGroups().stream().filter(group -> group.getId().equals(groupName)).findFirst()
-				.orElseThrow(() -> new RuntimeException("Can't find group"));
 	}
 
 	@Transactional
 	public GroupForClient getGroupForClient(String groupName) {
 		return getGroupsForClient().stream().filter(group -> group.getId().equals(groupName)).findFirst()
+				.orElseThrow(() -> new RuntimeException("Can't find group"));
+	}
+
+	@Transactional
+	public Group getGroup(String groupName) {
+		return getGroups().stream().filter(group -> group.getId().equals(groupName)).findFirst()
 				.orElseThrow(() -> new RuntimeException("Can't find group"));
 	}
 
@@ -65,7 +67,6 @@ public class GroupService {
 		groupRepository.save(group);
 	}
 
-
 	@Transactional
 	public void updateDocTypesForCreation(String groupName, List<String> docTypesForCreationNames) {
 		Group group = groupRepository.findById(groupName);
@@ -75,7 +76,7 @@ public class GroupService {
 		}
 		group.setDocTypesForCreation(docTypesForCreation);
 	}
-	
+
 	@Transactional
 	public void updateDocTypesForApproval(String groupName, List<String> docTypesForApprovalNames) {
 		Group group = groupRepository.findById(groupName);
@@ -85,16 +86,15 @@ public class GroupService {
 		}
 		group.setDocTypesForApproval(docTypesForApproval);
 	}
-	
-	
+
 	@Transactional
 	public void deleteGroupByName(String groupName) {
 		groupRepository.deleteById(groupName);
 	}
-	
+
 	@Transactional
 	public void deleteGroupsByComment(String comment) {
 		groupRepository.deleteByComment(comment);
 	}
-	
+
 }

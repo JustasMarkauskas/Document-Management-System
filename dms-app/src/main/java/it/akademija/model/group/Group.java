@@ -1,6 +1,9 @@
 package it.akademija.model.group;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -44,6 +47,30 @@ public class Group {
 		this.docTypesForCreation = docTypesForCreation;
 	}
 
+	public List<String> getGroupUsernames() {
+		List<String> groupUsernames = new ArrayList<String>();
+		for(User user: users) {
+			groupUsernames.add(user.getUsername());
+		}	
+		return groupUsernames;
+	}
+	
+	public List<String> getGroupDocTypesForApproval() {
+		List<String> docTypesForApprovalNames = new ArrayList<String>();
+		for(DocType docType: docTypesForApproval) {
+			docTypesForApprovalNames.add(docType.getId());
+		}	
+		return docTypesForApprovalNames;
+	}
+	
+	public List<String> getGroupDocTypesForCreation() {
+		List<String> docTypesForCreationNames = new ArrayList<String>();
+		for(DocType docType: docTypesForCreation) {
+			docTypesForCreationNames.add(docType.getId());
+		}	
+		return docTypesForCreationNames;
+	}
+	
 	public Group(String id, String comment) {
 		this.id = id;
 		this.comment = comment;

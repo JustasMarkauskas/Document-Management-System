@@ -1,37 +1,34 @@
 package it.akademija.model.group;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
-import it.akademija.model.doctype.DocType;
-import it.akademija.model.user.User;
 
 public class GroupForClient {
 	
 	private String id;
 	private String comment;
-	private Collection<User> users;
-	private Collection<DocType> docTypesForApproval;
-	private Collection<DocType> docTypesForCreation;
 	private int groupSize;
-	
+	private List<String> groupUsers = new ArrayList<String>();
+	private List<String> docTypesForCreation = new ArrayList<String>();
+	private List<String> docTypesForApproval = new ArrayList<String>();
 
 	public GroupForClient() {
 	}
-
-	public GroupForClient(String id, String comment, Collection<User> users,  Collection<DocType> docTypesForApproval, Collection<DocType> docTypesForCreation) {
-		this.id = id;
-		this.comment = comment;
-		this.users = users;
-		this.docTypesForApproval = docTypesForApproval;
-		this.docTypesForCreation = docTypesForCreation;
-	
-	}
-
 	
 	public GroupForClient(String id, String comment, int groupSize) {
 		this.id = id;
 		this.comment = comment;
 		this.groupSize = groupSize;
+	}
+	
+	public GroupForClient(String id, String comment, int groupSize, List<String> groupUsers, List<String> docTypesForCreation, List<String> docTypesForApproval) {
+		this.id = id;
+		this.comment = comment;
+		this.groupSize = groupSize;
+		this.groupUsers = groupUsers;
+		this.docTypesForCreation = docTypesForCreation;
+		this.docTypesForApproval = docTypesForApproval;
 	}
 	
 	
@@ -43,13 +40,7 @@ public class GroupForClient {
 		this.id = id;
 	}
 
-	public Collection<User> getUsers() {
-		return users;
-	}
 
-	public void setUsers(Collection<User> users) {
-		this.users = users;
-	}
 
 
 	public String getComment() {
@@ -68,20 +59,42 @@ public class GroupForClient {
 		this.groupSize = groupSize;
 	}
 
-	public Collection<DocType> getDocTypesForApproval() {
-		return docTypesForApproval;
+
+
+	public List<String> getGroupUsers() {
+		return groupUsers;
 	}
 
-	public void setDocTypesForApproval(Collection<DocType> docTypesForApproval) {
-		this.docTypesForApproval = docTypesForApproval;
+	public void setGroupUsers(List<String> groupUsers) {
+		this.groupUsers = groupUsers;
 	}
 
-	public Collection<DocType> getDocTypesForCreation() {
+
+
+
+	public List<String> getDocTypesForCreation() {
 		return docTypesForCreation;
 	}
 
-	public void setDocTypesForCreation(Collection<DocType> docTypesForCreation) {
+
+
+
+	public void setDocTypesForCreation(List<String> docTypesForCreation) {
 		this.docTypesForCreation = docTypesForCreation;
+	}
+
+
+
+
+	public List<String> getDocTypesForApproval() {
+		return docTypesForApproval;
+	}
+
+
+
+
+	public void setDocTypesForApproval(List<String> docTypesForApproval) {
+		this.docTypesForApproval = docTypesForApproval;
 	}
 
 	

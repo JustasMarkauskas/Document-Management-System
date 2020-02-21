@@ -38,10 +38,11 @@ public class GroupController {
 	}
 
 	@RequestMapping(path = "/{groupName}", method = RequestMethod.GET)
-	@ApiOperation(value = "Get Group", notes = "Returns group and group users by group name")
+	@ApiOperation(value = "Get Group", notes = "Returns group, group users, group doc types by group name")
 	public GroupForClient getGroupForClient(@PathVariable String groupName) {
 		return groupService.getGroupForClient(groupName);
 	}
+	
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create group", notes = "Creates group with data")
