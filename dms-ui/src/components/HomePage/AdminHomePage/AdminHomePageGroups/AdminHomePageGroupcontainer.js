@@ -54,16 +54,6 @@ class AdminHomePageGroupContainer extends React.Component {
     this.getGroups();
   }
 
-  handleActionClick = event => {
-    event.preventDefault();
-    this.props.history.push("/group-info"); //navigacija teisinga padaryti
-  };
-
-  handleAddGroupButton = event => {
-    event.preventDefault();
-    this.props.history.push("/new-group"); //navigacija teisinga padaryti
-  };
-
   handleSearchChange = event => {
     this.setState({ groupName: event.target.value });
   };
@@ -89,7 +79,6 @@ class AdminHomePageGroupContainer extends React.Component {
         groupName={group.id}
         groupSize={group.groupSize}
         comment={group.comment}
-        handleActionClick={this.handleActionClick}
       />
     ));
 
