@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataDocument>docType_InvalidLength</testDataDocument>
+		<identificator>name_tooShort</identificator>
+		<documentTypeName>Acc7</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+	<Document>
+		<testDataDocument>docType_InvalidLength</testDataDocument>
+		<identificator>name_tooLong</identificator>
+		<documentTypeName>costManagementTeam451</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+		<Document>
+		<testDataDocument>docType_InvalidLength</testDataDocument>
+		<identificator>name_blank</identificator>
+		<documentTypeName></documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+</resources.models.DocumentData>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataDocument>docType_specChars</testDataDocument>
+		<identificator>name_underscore</identificator>
+		<documentTypeName>corp_Account</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+	<Document>
+		<testDataDocument>docType_specChars</testDataDocument>
+		<identificator>name_asterix</identificator>
+		<documentTypeName>*docType*</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+	<Document>
+		<testDataDocument>docType_specChars</testDataDocument>
+		<identificator>name_questionMark</identificator>
+		<documentTypeName>docType?</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+</resources.models.DocumentData>
