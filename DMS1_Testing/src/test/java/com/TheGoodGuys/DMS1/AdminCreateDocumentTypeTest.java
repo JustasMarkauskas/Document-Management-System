@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import resources.models.Document;
 import resources.models.Group;
+import resources.page.AdminCreateDocumentPage;
 import resources.page.AdminCreateGroupPage;
 import resources.page.AdminDocumentsPage;
 import resources.page.AdminGroupsPage;
@@ -26,7 +27,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 	private LoginUserPage login;
 	private AdminNavPage adminNav;
 	private AdminDocumentsPage adminDocuments;
-	// private AdminCreateGroupPage createGroup; sukurti page'a
+	private AdminCreateDocumentPage createDocumentType;
 
 	@BeforeClass
 	@Parameters({ "baseURL", "loginUsername", "loginPassword" })
@@ -36,7 +37,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		login = new LoginUserPage(driver);
 		adminNav = new AdminNavPage(driver);
 		adminDocuments = new AdminDocumentsPage(driver);
-		// createGroup = new AdminCreateGroupPage(driver);
+		createDocumentType = new AdminCreateDocumentPage(driver);
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
 	}
@@ -52,11 +53,9 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		adminNav.clickButtonDocuments();
 		Thread.sleep(2000);
 		adminDocuments.clickButtonAddNewDocType();
-		// createGroup.fillAndSubmitForm(group);
+		createDocumentType.fillAndSubmitForm(document);
 
-		// assertThat("success msg", containsString("success"));
-		// assertThat("Group name could not be found in the group list",
-		// adminGroups.checkIfGroupNameExists(group.getGroupName()));
+
 
 	}
 
