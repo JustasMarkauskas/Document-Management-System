@@ -1,21 +1,31 @@
 package it.akademija.model.user;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserForClient {
 	
 	private String firstName;
 	private String lastName;
 	private String username;
 	private String comment;
+	private List<String> userGroups = new ArrayList<String>();
+
 
 	public UserForClient() {
 	}
 
-	public UserForClient(String firstName, String lastName,  String username, String comment) {
+	public UserForClient(String username) {
+		this.username = username;
+	}
+	
+	public UserForClient(String firstName, String lastName,  String username, String comment, List<String> userGroups) {
 
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.comment = comment;
+		this.userGroups = userGroups;
 	}
 
 	public String getFirstName() {
@@ -48,6 +58,14 @@ public class UserForClient {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public List<String> getUserGroups() {
+		return userGroups;
+	}
+
+	public void setUserGroups(List<String> userGroups) {
+		this.userGroups = userGroups;
 	}
 
 

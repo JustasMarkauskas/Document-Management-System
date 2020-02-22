@@ -3,15 +3,18 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
-import NewGroupFormComponent from '../../../NewGroupForm/NewGroupFormComponent';
+import NewGroupFormComponent from "../../../NewGroupForm/NewGroupFormComponent";
 
 class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
+      this
+    );
+
     this.state = {
       show: false,
       groups: [],
@@ -19,18 +22,27 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
+  refresh() {
+    this.getGroups();
+    window.location.reload();
+  }
+
   handleCloseModal() {
-		this.setState({ show: false });
-	}
+    this.setState({ show: false });
+  }
 
-	handleShowModal() {
-		this.setState({ show: true });
-	}
+  handleCloseModalAfterSubmit() {
+    this.refresh();
+    this.setState({ show: false });
+  }
 
+  handleShowModal() {
+    this.setState({ show: true });
+  }
 
   getGroups = () => {
     axios
-      .get("http://localhost:8081/api/role")
+      .get("http://localhost:8081/api/group")
       .then(response => {
         this.setState({ groups: response.data });
       })
@@ -42,16 +54,6 @@ class AdminHomePageGroupContainer extends React.Component {
     this.getGroups();
   }
 
-  handleActionClick = event => {
-    event.preventDefault();
-    this.props.history.push("/group-info"); //navigacija teisinga padaryti
-  };
-
-  handleAddGroupButton = event => {
-    event.preventDefault();
-    this.props.history.push("/new-group"); //navigacija teisinga padaryti
-  };
-
   handleSearchChange = event => {
     this.setState({ groupName: event.target.value });
   };
@@ -59,7 +61,7 @@ class AdminHomePageGroupContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/role/" + this.state.groupName)
+      .get("http://localhost:8081/api/group/" + this.state.groupName)
       .then(response => {
         this.setState({ groups: [response.data] });
       })
@@ -77,7 +79,6 @@ class AdminHomePageGroupContainer extends React.Component {
         groupName={group.id}
         groupSize={group.groupSize}
         comment={group.comment}
-        handleActionClick={this.handleActionClick}
       />
     ));
 
@@ -92,13 +93,17 @@ class AdminHomePageGroupContainer extends React.Component {
           >
             Add new Group
           </button>
-	  <Modal show={this.state.show} onHide={this.handleCloseModal}>
-	    <Modal.Header closeButton>
-	    <Modal.Title>Create New Group</Modal.Title>
-	    </Modal.Header>
-	    <Modal.Body> <NewGroupFormComponent onCloseModal={this.handleCloseModal} />             
-            </Modal.Body>  
-		      </Modal>
+          <Modal show={this.state.show} onHide={this.handleCloseModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Create New Group</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <NewGroupFormComponent
+                onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+                onHide={this.handleCloseModal}
+              />
+            </Modal.Body>
+          </Modal>
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}

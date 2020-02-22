@@ -2,69 +2,76 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageDocumentForApprovalComponent from "./UserHomePageDocumentForApprovalComponent";
+import qs from "qs";
 
-class UserHomePageDocumentForApprovalContainer extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       users: [],
-  //       inputUsername: ""
-  //     };
-  //   }
+class UserHomePageDocumentContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userDocTypesForApproval: [],
+      documents: [],
+      username: "",
+      inputDocumentTitle: "" //paieskai skirtas
+    };
+  }
 
-  //   getUsers = () => {
-  //     axios
-  //       .get("http://localhost:8081/api/user")
-  //       .then(response => {
-  //         this.setState({ users: response.data });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   };
-  //   componentDidMount() {
-  //     this.getUsers();
-  //   }
+  getDocuments = () => {
+    axios
+      .get("http://localhost:8081/api/user/loggedUsername")
+      .then(response => {
+        let username = response.data;
+        this.setState({ username: response.data });
+        axios
+          .get(
+            "http://localhost:8081/api/user/user-doctypes-for-approval/" +
+              username
+          )
+          .then(response => {
+            let docTypesFA = response.data;
+            this.setState({ userDocTypesForApproval: response.data });
 
-  //   handleActionClick = event => {
-  //     event.preventDefault();
-  //     this.props.history.push("/user-info"); //navigacija teisinga padaryti
-  //   };
+            axios
+              .get(
+                "http://localhost:8081/api/document/documents-for-approval",
+                {
+                  params: {
+                    documentForApprovalNames: docTypesFA
+                  },
+                  paramsSerializer: params => {
+                    return qs.stringify(params, { indices: false });
+                  }
+                }
+              )
+              .then(response => {
+                this.setState({ documents: response.data });
+              });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      });
+  };
 
-  //   handleAddUserButton = event => {
-  //     event.preventDefault();
-  //     this.props.history.push("/new-user"); //navigacija teisinga padaryti
-  //   };
-
-  //   handleSearchChange = event => {
-  //     this.setState({ inputUsername: event.target.value });
-  //   };
-
-  //   handleSearchButton = event => {
-  //     event.preventDefault();
-  //     axios
-  //       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
-  //       .then(response => {
-  //         this.setState({ users: [response.data] });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //     document.getElementById("adminUserSearchInput").value = "";
-  //   };
+  componentDidMount() {
+    this.getDocuments();
+  }
 
   render() {
-    // const userInfo = this.state.users.map((user, index) => (
-    //   <UserHomePageDocumentForApprovalComponent
-    //     key={index}
-    //     rowNr={index + 1}
-    //     firstName={user.firstName}
-    //     lastName={user.lastName}
-    //     username={user.username}
-    //     comment={user.comment}
-    //     handleActionClick={this.handleActionClick}
-    //   />
-    // ));
+    const documentInfo = this.state.documents.map((document, index) => (
+      <UserHomePageDocumentForApprovalComponent
+        key={index}
+        rowNr={index + 1}
+        author={document.author}
+        id={document.id}
+        title={document.title}
+        docType={document.docType}
+        status={document.status}
+        submissionDate={document.submissionDate}
+        reviewDate={document.reviewDate}
+        updateDocuments={this.getDocuments}
+        userDocTypesForApproval={this.state.userDocTypesForApproval}
+      />
+    ));
 
     return (
       <div className="container">
@@ -75,15 +82,15 @@ class UserHomePageDocumentForApprovalContainer extends React.Component {
               type="text"
               className="form-control"
               placeholder="Document name"
-              aria-label="documentName"
+              aria-label="document"
               aria-describedby="button-addon2"
-              id="userSearchDFAInput"
+              id="userSearchDocumentInput"
             ></input>
             <div className="input-group-append">
               <button
                 className="btn btn-primary"
                 type="button"
-                id="userDFASearchButton"
+                id="userDocumentSearchButton"
                 onClick={this.handleSearchButton}
               >
                 Search
@@ -92,21 +99,24 @@ class UserHomePageDocumentForApprovalContainer extends React.Component {
           </div>
         </div>
 
-        <table className="table">
+        <table className="table" id="userDFATable">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Document Name</th>
+              <th scope="col">Author</th>
+              <th scope="col">Title</th>
+              <th scope="col">Type</th>
               <th scope="col">Status</th>
-              <th scope="col">Submited By</th>
-              <th scope="col">Actions</th>
+              <th scope="col">Submission date</th>
+              <th scope="col">Review date</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
-          {/* <tbody>{userInfo}</tbody> */}
+          <tbody>{documentInfo}</tbody>
         </table>
       </div>
     );
   }
 }
 
-export default withRouter(UserHomePageDocumentForApprovalContainer);
+export default withRouter(UserHomePageDocumentContainer);

@@ -1,7 +1,7 @@
 logs/
 bin/
 target/
-**/test-output/
+test-output/
 node_modules/
 build/
 yarn.lock
@@ -11,5 +11,4 @@ robots.txt
 .classpath
 .project
 .settings
-.metadata/
-
+.metadata

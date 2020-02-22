@@ -2,69 +2,82 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
+import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
+import { Modal } from "react-bootstrap";
 
 class UserHomePageDocumentContainer extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       users: [],
-  //       inputUsername: ""
-  //     };
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      userDocTypes: [],
+      documents: [],
+      username: "",
+      inputDocumentTitle: "" //paieskai skirtas
+    };
+  }
 
-  //   getUsers = () => {
-  //     axios
-  //       .get("http://localhost:8081/api/user")
-  //       .then(response => {
-  //         this.setState({ users: response.data });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   };
-  //   componentDidMount() {
-  //     this.getUsers();
-  //   }
+  getDocuments = () => {
+    axios
+      .get("http://localhost:8081/api/user/loggedUsername")
+      .then(response => {
+        let username = response.data;
+        this.setState({ username: response.data });
+        axios
+          .get("http://localhost:8081/api/document/" + username)
+          .then(response => {
+            this.setState({ documents: response.data });
+            axios
+              .get(
+                "http://localhost:8081/api/user/user-doctypes-for-creation/" +
+                  username
+              )
+              .then(response => {
+                this.setState({ userDocTypes: response.data });
+              });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      });
+  };
 
-  //   handleActionClick = event => {
-  //     event.preventDefault();
-  //     this.props.history.push("/user-info"); //navigacija teisinga padaryti
-  //   };
+  componentDidMount() {
+    this.getDocuments();
+  }
 
-  //   handleAddUserButton = event => {
-  //     event.preventDefault();
-  //     this.props.history.push("/new-user"); //navigacija teisinga padaryti
-  //   };
+  handleModalClose = () => {
+    this.setState({ showModal: false });
+  };
 
-  //   handleSearchChange = event => {
-  //     this.setState({ inputUsername: event.target.value });
-  //   };
+  handleCloseModalAfterSubmit = () => {
+    this.setState({ showModal: false });
+    this.getDocuments();
+  };
 
-  //   handleSearchButton = event => {
-  //     event.preventDefault();
-  //     axios
-  //       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
-  //       .then(response => {
-  //         this.setState({ users: [response.data] });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //     document.getElementById("adminUserSearchInput").value = "";
-  //   };
+  handleShowModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  handleAddNewDocumentButton = () => {
+    this.handleShowModal();
+  };
 
   render() {
-    // const userInfo = this.state.users.map((user, index) => (
-    //   <UserHomePageDocumentComponent
-    //     key={index}
-    //     rowNr={index + 1}
-    //     firstName={user.firstName}
-    //     lastName={user.lastName}
-    //     username={user.username}
-    //     comment={user.comment}
-    //     handleActionClick={this.handleActionClick}
-    //   />
-    // ));
+    const documentInfo = this.state.documents.map((document, index) => (
+      <UserHomePageDocumentComponent
+        key={index}
+        rowNr={index + 1}
+        id={document.id}
+        title={document.title}
+        docType={document.docType}
+        status={document.status}
+        submissionDate={document.submissionDate}
+        reviewDate={document.reviewDate}
+        updateDocuments={this.getDocuments}
+        userDocTypes={this.state.userDocTypes}
+      />
+    ));
 
     return (
       <div className="container">
@@ -72,10 +85,10 @@ class UserHomePageDocumentContainer extends React.Component {
           <button
             onClick={this.handleAddNewDocumentButton}
             type="button"
-            className="btn btn-primary col-lg-2 mb-2"
+            className="btn btn-primary col-lg-3 mb-2"
             id="userAddNewDocumentButton"
           >
-            Add New Document
+            Add new document
           </button>
           <div className="input-group mb-3 col-lg-5">
             <input
@@ -108,17 +121,33 @@ class UserHomePageDocumentContainer extends React.Component {
           </button>
         </div>
 
-        <table className="table">
+        <table className="table" id="userDocumentsTable">
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Document Name</th>
+              <th scope="col">Title</th>
+              <th scope="col">Type</th>
               <th scope="col">Status</th>
-              <th scope="col">Actions</th>
+              <th scope="col">Submission date</th>
+              <th scope="col">Review date</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
-          {/* <tbody>{userInfo}</tbody> */}
+          <tbody>{documentInfo}</tbody>
         </table>
+        <Modal show={this.state.showModal} onHide={this.handleModalClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create New Document</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <NewDocumentFormComponent
+              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+              onHide={this.handleModalClose}
+              author={this.state.username}
+              userDocTypes={this.state.userDocTypes}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }

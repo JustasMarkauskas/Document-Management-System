@@ -1,6 +1,23 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
+import GroupReviewPageContainer from "./GroupReviewPage/GroupReviewPageContainer";
 
 class AdminHomePageGroupComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showGroupReviewModal: false
+    };
+  }
+
+  handleShowGroupReviewModal = () => {
+    this.setState({ showGroupReviewModal: true });
+  };
+
+  handleCloseGroupReviewModal = () => {
+    this.setState({ showGroupReviewModal: false });
+  };
+
   render() {
     return (
       <tr>
@@ -11,12 +28,26 @@ class AdminHomePageGroupComponent extends React.Component {
         <td>
           <button
             className="btn btn-primary"
-            onClick={this.props.handleActionClick}
+            onClick={this.handleShowGroupReviewModal}
             id={"groupNr" + this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>
         </td>
+        <Modal
+          show={this.state.showGroupReviewModal}
+          onHide={this.handleCloseGroupReviewModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Group review</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <GroupReviewPageContainer
+              onHide={this.handleCloseGroupReviewModal}
+              groupName={this.props.groupName}
+            />
+          </Modal.Body>
+        </Modal>
       </tr>
     );
   }
