@@ -55,27 +55,87 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		adminNav.clickButtonDocuments();
 		adminDocuments.clickButtonAddNewDocType();
 		createDocumentType.fillAndSubmitForm(document);
-		assertThat("Document type could not be found in the document type list", adminDocuments.checkIfDocumentTypeNameExists(document.getDocumentTypeName()), is(true));
-
+		assertThat("Document type could not be found in the document type list",
+				adminDocuments.checkIfDocumentTypeNameExists(document.getDocumentTypeName()), is(true));
 
 	}
-	
+
 	@DataProvider(name = "documentsInvalidLength")
 	public static Object[] testDataDocumentsInvalidLength() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidLength.xml");
 	}
-	
-	
-	@Test (priority = 2, groups = { "documentCreation" } , dataProvider = "documentsInvalidLength")
+
+	@Test(priority = 2, groups = { "documentCreation" }, dataProvider = "documentsInvalidLength")
 	public void testToCheckLengthRestrictionsInCreateDocumentType(Document document) throws Exception {
-		
+
 		adminNav.clickButtonDocuments();
 		adminDocuments.clickButtonAddNewDocType();
 		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
 		createDocumentType.enterInputComment(document.getComment());
-		createDocumentType.clickButtonSubmit();				
-		//assertThat("Length restrictions msg for group name does not match", createDocumentType.getMsgInvalidGroupName().getText(), is(equalTo("Must be 5-20 characters long")));
+		createDocumentType.clickButtonSubmit();
+		assertThat("Length restrictions msg for group name does not match",
+				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
+				is(equalTo("Must be 5-20 characters long")));
 		createDocumentType.clickButtonCancel();
+	}
+
+	@DataProvider(name = "documentsBlankName")
+	public static Object[] testDataDocumentsBlankName() throws IOException {
+		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsBlankName.xml");
+	}
+
+	@Test(priority = 3, groups = { "documentCreation" }, dataProvider = "documentsBlankName")
+	public void testToCheckBlankRestrictionsInCreateDocumentType(Document document) throws Exception {
+
+		adminNav.clickButtonDocuments();
+		adminDocuments.clickButtonAddNewDocType();
+		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
+		createDocumentType.enterInputComment(document.getComment());
+		createDocumentType.clickButtonSubmit();
+		assertThat("Length restrictions msg for group name does not match",
+				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
+				is(equalTo("Please enter a document type name")));
+		createDocumentType.clickButtonCancel();
+	}
+
+	@DataProvider(name = "documentsInvalidCommentLength")
+	public static Object[] testDataDocumentsInvalidCommentLength() throws IOException {
+		return FileReaderUtils
+				.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidCommentLength.xml");
+	}
+
+	@Test(priority = 4, groups = { "documentCreation" }, dataProvider = "documentsInvalidCommentLength")
+	public void testToCheckCommentLengthRestrictionsInCreateDocumentType(Document document) throws Exception {
+
+		adminNav.clickButtonDocuments();
+		adminDocuments.clickButtonAddNewDocType();
+		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
+		createDocumentType.enterInputComment(document.getComment());
+		createDocumentType.clickButtonSubmit();
+
+		assertThat("Length restrictions msg for group comment does not match",
+				createDocumentType.getMsgInvalidComment().getText(), is(equalTo("Must be 50 characters or less")));
+		createDocumentType.clickButtonCancel();
+	}
+
+	@DataProvider(name = "documentsInvalidChars")
+	public static Object[] testDataDocumentsInvalidCharacters() throws IOException {
+		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsSpecChars.xml");
+	}
+
+	@Test(priority = 5, groups = { "documentCreation" }, dataProvider = "documentsInvalidChars")
+	public void testToCheckSpecialCharsRestrictionsInCreateDocumentType(Document document) throws Exception {
+
+		adminNav.clickButtonDocuments();
+		adminDocuments.clickButtonAddNewDocType();
+		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
+		createDocumentType.enterInputComment(document.getComment());
+		createDocumentType.clickButtonSubmit();
+		assertThat("Spec Chars restrictions msg for group name does not match",
+				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
+				is(equalTo("Only uppercase, lowercase letters, numbers and '-/.', space symbols are allowed")));
+		createDocumentType.clickButtonCancel();
+
 	}
 
 }

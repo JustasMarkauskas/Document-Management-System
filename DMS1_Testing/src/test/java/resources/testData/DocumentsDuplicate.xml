@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources.models.DocumentData>
 	<Document>
-		<testDataDocument>group_duplicate</testDataDocument>
+		<testDataDocument>document_duplicate</testDataDocument>
+		<identificator>name_duplicate</identificator>
+		<documentTypeName>DuplicateDocType</documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+	<Document>
+		<testDataDocument>document_duplicate</testDataDocument>
 		<identificator>name_duplicate</identificator>
 		<documentTypeName>DuplicateDocType</documentTypeName>
 		<comment>autotesting</comment>

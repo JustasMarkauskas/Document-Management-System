@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+		<Document>
+		<testDataDocument>docType_InvalidLength</testDataDocument>
+		<identificator>name_blank</identificator>
+		<documentTypeName></documentTypeName>
+		<comment>autotesting</comment>
+	</Document>
+</resources.models.DocumentData>

@@ -6,16 +6,15 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class Document {
 	@XStreamAlias("testDataDocument")
 	private String testDataDocument;
-	
+
 	@XStreamAlias("identificator")
 	private String identificator;
-	
+
 	@XStreamAlias("documentTypeName")
 	private String documentTypeName;
-	
+
 	@XStreamAlias("comment")
 	private String comment;
-	
 
 	public String getTestDataDocument() {
 		return testDataDocument;
@@ -34,7 +33,7 @@ public class Document {
 	}
 
 	public String getDocumentTypeName() {
-		return documentTypeName;
+		return documentTypeName.trim();
 	}
 
 	public void setGroupName(String documentTypeName) {
