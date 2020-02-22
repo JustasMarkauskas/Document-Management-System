@@ -13,7 +13,7 @@ class AssignUserComponent extends React.Component {
       <div className="container">
         <div className="checkbox">
           <label>
-            <input type="checkbox" value={this.props.username} />
+            <input type="checkbox" value={this.props.username} defaultChecked />
             {"  " + this.props.username}
           </label>
         </div>

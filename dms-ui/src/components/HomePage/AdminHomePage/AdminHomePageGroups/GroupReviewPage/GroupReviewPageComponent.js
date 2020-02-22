@@ -94,7 +94,11 @@ class GroupReviewPageComponent extends React.Component {
             <Modal.Title>AssignUser</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AssignUserContainer onHide={this.handleCloseAssignUserModal} />
+            <AssignUserContainer
+              onHide={this.handleCloseAssignUserModal}
+              groupUsers={this.props.groupUsers}
+              groupName={this.props.groupName}
+            />
           </Modal.Body>
         </Modal>
       </div>
