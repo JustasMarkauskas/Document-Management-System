@@ -24,6 +24,10 @@ public class AdminDocumentsPage extends AbstractPage {
 	@FindBy(id = "adminDocumentSearchInput")
 	private WebElement inputSearch;
 	
+	//labels
+	@FindBy(xpath = "//*[contains(@id,'documentNr')]//ancestor::tr/descendant::td[1]")
+	private List<WebElement> labelsDocumentTypeName;
+	
 		
 	
 	public AdminDocumentsPage(WebDriver driver) {
@@ -50,6 +54,17 @@ public class AdminDocumentsPage extends AbstractPage {
 	
 	public void clickButtonViewDocTypeByIndex(int index) {
 		buttonsViewDocType.get(index).click();
+	}
+	
+	public boolean checkIfDocumentTypeNameExists(String documentTypeName) {
+		boolean nameFound = false;
+		for (WebElement label : labelsDocumentTypeName) {
+			System.out.println(label.getText());
+			if (documentTypeName.equals(label.getText())) {
+				nameFound = true;
+				break;
+			} }
+		return nameFound;
 	}
 
 	

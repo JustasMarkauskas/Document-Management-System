@@ -29,6 +29,13 @@ public class AdminCreateDocumentPage extends AbstractPage{
 	@FindBy(xpath = "//button[text()='Cancel']")
 	private WebElement buttonCancel;
 	
+	//error messages
+	//@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group Name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	//private WebElement msgInvalidDocumentTypeName;
+	
+	//@FindBy(xpath = "//*[@id='adminCreateGroupForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	//private WebElement msgInvalidComment;
+	
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
