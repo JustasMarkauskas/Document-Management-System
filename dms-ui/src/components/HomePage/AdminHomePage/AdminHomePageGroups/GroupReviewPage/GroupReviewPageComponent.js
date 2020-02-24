@@ -1,13 +1,16 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import axios from "axios";
 import AssignUserContainer from "./AssignUserPage/AssignUserContainer";
+import AssignDFAContainer from "./AssignDFAPage/AssignDFAContainer";
+import AssignDFCContainer from "./AssignDFCPage/AssignDFCContainer";
 
 class GroupReviewPageComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      assignUserModal: false
+      assignUserModal: false,
+      assignDFAModal: false,
+      assignDFCModal: false
     };
   }
 
@@ -17,6 +20,39 @@ class GroupReviewPageComponent extends React.Component {
 
   handleCloseAssignUserModal = () => {
     this.setState({ assignUserModal: false });
+  };
+
+  handleCloseAssignUserModalAndUpdate = () => {
+    this.setState({ assignUserModal: false });
+    this.updateGroup();
+  };
+
+  handleShowAssignDFAModal = () => {
+    this.setState({ assignDFAModal: true });
+  };
+
+  handleCloseAssignDFAModal = () => {
+    this.setState({ assignDFAModal: false });
+  };
+
+  updateGroup = this.props.updateGroup;
+
+  handleCloseAssignDFAModalAndUpdate = () => {
+    this.setState({ assignDFAModal: false });
+    this.updateGroup();
+  };
+
+  handleShowAssignDFCModal = () => {
+    this.setState({ assignDFCModal: true });
+  };
+
+  handleCloseAssignDFCModal = () => {
+    this.setState({ assignDFCModal: false });
+  };
+
+  handleCloseAssignDFCModalAndUpdate = () => {
+    this.setState({ assignDFCModal: false });
+    this.updateGroup();
   };
 
   render() {
@@ -32,18 +68,18 @@ class GroupReviewPageComponent extends React.Component {
               Assign member
             </button>
             <button
-              onClick={this.props.onOKClick}
+              onClick={this.handleShowAssignDFAModal}
               type="button"
               className="btn btn-primary m-2"
             >
-              Assign document type for approval
+              Assign document types for approval
             </button>
             <button
-              onClick={this.props.onOKClick}
+              onClick={this.handleShowAssignDFCModal}
               type="button"
               className="btn btn-primary m-2"
             >
-              Assign document type for creation
+              Assign document types for creation
             </button>
           </div>
           <div className="col-7">
@@ -88,16 +124,50 @@ class GroupReviewPageComponent extends React.Component {
         </div>
         <Modal
           show={this.state.assignUserModal}
-          onHide={this.handleCloseAssignUserModal}
+          onHide={this.handleCloseAssignUserModalAndUpdate}
         >
           <Modal.Header closeButton>
             <Modal.Title>Assign user</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AssignUserContainer
-              onHide={this.handleCloseAssignUserModal}
+              onHide={this.handleCloseAssignUserModalAndUpdate}
               groupUsers={this.props.groupUsers}
               groupName={this.props.groupName}
+            />
+          </Modal.Body>
+        </Modal>
+        <Modal
+          show={this.state.assignDFAModal}
+          onHide={this.handleCloseAssignDFAModalAndUpdate}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Assign document types for approval</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <AssignDFAContainer
+              onHide={this.handleCloseAssignDFAModalAndUpdate}
+              groupUsers={this.props.groupUsers}
+              groupName={this.props.groupName}
+              docTypesForApproval={this.props.docTypesForApproval}
+              updateGroup={this.props.updateGroup}
+            />
+          </Modal.Body>
+        </Modal>
+        <Modal
+          show={this.state.assignDFCModal}
+          onHide={this.handleCloseAssignDFCModalAndUpdate}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Assign document types for creation</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <AssignDFCContainer
+              onHide={this.handleCloseAssignDFCModalAndUpdate}
+              groupUsers={this.props.groupUsers}
+              groupName={this.props.groupName}
+              docTypesForCreation={this.props.docTypesForCreation}
+              updateGroup={this.props.updateGroup}
             />
           </Modal.Body>
         </Modal>

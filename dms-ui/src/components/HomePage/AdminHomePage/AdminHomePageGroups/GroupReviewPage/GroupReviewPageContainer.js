@@ -70,6 +70,7 @@ class GroupReviewPageContainer extends React.Component {
         onOKClick={this.onOKClick}
         onHide={this.props.onHide}
         onCancelClick={this.onCancelClick}
+        updateGroup={this.getGroup}
       />
     );
   }
