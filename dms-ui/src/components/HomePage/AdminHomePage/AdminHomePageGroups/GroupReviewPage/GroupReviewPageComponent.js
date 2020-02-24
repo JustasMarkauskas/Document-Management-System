@@ -61,6 +61,7 @@ class GroupReviewPageComponent extends React.Component {
         <div className="row">
           <div className="col-4">
             <button
+              id="assignUserButton"
               onClick={this.handleShowAssignUserModal}
               type="button"
               className="btn btn-primary m-2"
@@ -68,6 +69,7 @@ class GroupReviewPageComponent extends React.Component {
               Assign member
             </button>
             <button
+              id="assignDFAButton"
               onClick={this.handleShowAssignDFAModal}
               type="button"
               className="btn btn-primary m-2"
@@ -75,6 +77,7 @@ class GroupReviewPageComponent extends React.Component {
               Assign document types for approval
             </button>
             <button
+              id="assignDFCButton"
               onClick={this.handleShowAssignDFCModal}
               type="button"
               className="btn btn-primary m-2"
