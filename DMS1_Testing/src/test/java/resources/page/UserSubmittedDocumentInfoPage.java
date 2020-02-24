@@ -11,7 +11,8 @@ public class UserSubmittedDocumentInfoPage extends AbstractPage {
 	}
 
 	// input
-	@FindBy(id = "rejectionReason")
+	//@FindBy(id = "rejectionReason")
+	@FindBy(xpath = "//*[@id='SubmittedDFAReview']//label[text()='Rejection Reason']/following::textarea")
 	private WebElement inputRejectionReason;
 
 	// buttons
@@ -21,7 +22,7 @@ public class UserSubmittedDocumentInfoPage extends AbstractPage {
 	@FindBy(xpath = "//button[@type, 'button' and text()='Reject']")
 	private WebElement buttonReject;
 
-	@FindBy(xpath = "//button[contains(text(),'Cancel')]")
+	@FindBy(xpath = "//*[@id='SubmittedDFAReview']//button[text()='Cancel']")
 	WebElement buttonCancel;
 	
 	//msg
