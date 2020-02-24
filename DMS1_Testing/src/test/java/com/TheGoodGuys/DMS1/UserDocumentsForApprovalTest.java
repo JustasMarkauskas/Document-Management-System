@@ -65,7 +65,7 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		assertFalse(userSubmitted.getButtonReject().isEnabled());
 		assertTrue(userSubmitted.getButtonApprove().isEnabled());
-		userSubmitted.enterInputSearch("Rejection Testing");
+		userSubmitted.enterInputRejection("Rejection Testing");
 		assertTrue(userSubmitted.getButtonReject().isEnabled());
 		assertFalse(userSubmitted.getButtonApprove().isEnabled());
 		userSubmitted.clickButtonReject();
@@ -79,7 +79,7 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		// Fade modal show on top of modal. Devai turi patvarkyt.
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
-
+		userSubmitted.enterInputRejection("autotesting autotesting autotesting autotesting aut");
 		assertThat("Length restrictions msg for rejection reason comment does not match",
 				userSubmitted.getMsgInvalidComment().getText(), is(equalTo("Must be 50 characters or less")));
 		userSubmitted.clickButtonCancel();

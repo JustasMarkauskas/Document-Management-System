@@ -40,7 +40,7 @@ public class UserSubmittedDocumentInfoPage extends AbstractPage {
 		buttonCancel.click();
 	}
 	
-	public void enterInputSearch(String reason) {
+	public void enterInputRejection(String reason) {
 		inputRejectionReason.sendKeys(reason);
 	}
 	
