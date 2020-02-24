@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="localDocumentsForApproval">
+	<test name="DocumentsForApprovalTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="SimpleUser1" />
+		<parameter name="loginPassword" value="SimpleUser1" />
+
+		<classes>
+			<class name="com.TheGoodGuys.DMS1.UserDocumentsForApprovalTest" />
+		</classes>
+	</test>
+
+
+</suite>
