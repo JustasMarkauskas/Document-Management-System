@@ -202,10 +202,23 @@ public class UserService implements UserDetailsService {
 			for (String username : usernames) {
 				User user = userRepository.findByUsername(username);
 				Collection<Group> userGroups = user.getGroups();
-				userGroups.add(group);
+				if(!userGroups.contains(group)) {
+					userGroups.add(group);
+				}
+				
 		}
 	}
 
+//	@Transactional
+//	public void assignListOfUsersToOneGroup(String groupName, String[] usernames) {
+//		Group group = groupRepository.findById(groupName);
+//			for (String username : usernames) {
+//				User user = userRepository.findByUsername(username);
+//				Collection<Group> userGroups = user.getGroups();
+//				userGroups.add(group);
+//		}
+//	}
+	
 	@Transactional
 	public void deleteUsersByComment(String comment) {
 		userRepository.deleteByComment(comment);

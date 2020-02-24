@@ -51,17 +51,21 @@ class AssignUserContainer extends React.Component {
 
   onSaveClick = event => {
     event.preventDefault();
-   // console.log(this.state.checkedUsers);
+
+    const userData = new FormData();
+    var i;
+    for (i = 0; i < this.state.checkedUsers.length; i++) {
+      userData.append("usernames", this.state.checkedUsers[i]);
+    }
+
     axios
       .put(
         "http://localhost:8081/api/user/add-users-to-group/" +
           this.props.groupName,
-        {
-          usernames: this.state.checkedUsers
-        }
+        userData
       )
-      .then(res => {
-        console.log(res);
+      .then(response => {
+        console.log(response);
         // this.closeModal();
         //  this.updateDocuments();
       })

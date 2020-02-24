@@ -131,6 +131,13 @@ public class UserController {
 			 @RequestParam final List<String> usernames) {
 		 userService.assignListOfUsersToOneGroup(groupName, usernames);
 	}
+	
+//	@RequestMapping(path = "/add-users-to-group/{groupName}", method = RequestMethod.PUT)
+//	@ApiOperation(value = "Add list of users to one group", notes = "Usernames must be passed in the list of users")
+//	public void assignListOfUsersToOneGroup(@ApiParam(required = true) @PathVariable String groupName,
+//			 @RequestParam("usernames") final String[] usernames) {
+//		 userService.assignListOfUsersToOneGroup(groupName, usernames);
+//	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes user by comment", notes = "Usefull for testing")
