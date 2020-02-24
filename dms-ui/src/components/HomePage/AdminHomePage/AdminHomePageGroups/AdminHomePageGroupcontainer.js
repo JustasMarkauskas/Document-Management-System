@@ -79,6 +79,7 @@ class AdminHomePageGroupContainer extends React.Component {
         groupName={group.id}
         groupSize={group.groupSize}
         comment={group.comment}
+        updateGroups={this.getGroups}
       />
     ));
 

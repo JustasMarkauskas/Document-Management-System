@@ -15,7 +15,7 @@ class GroupReviewPageContainer extends React.Component {
     axios
       .get("http://localhost:8081/api/group/" + this.props.groupName)
       .then(response => {
-        this.setState({ group: response.data });
+        this.setState({ group: response.data, comment: response.data.comment });
       })
       .catch(error => {
         console.log(error);
@@ -30,6 +30,9 @@ class GroupReviewPageContainer extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
+  closeModal = this.props.onHide;
+  updateGroups = this.props.updateGroups;
+
   onOKClick = event => {
     event.preventDefault();
     axios
@@ -40,10 +43,18 @@ class GroupReviewPageContainer extends React.Component {
           id: "not updated"
         }
       )
-      .then(() => {})
+      .then(() => {
+        this.closeModal();
+        this.updateGroups();
+      })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  onCancelClick = () => {
+    this.closeModal();
+    this.updateGroups();
   };
 
   render() {
@@ -58,6 +69,7 @@ class GroupReviewPageContainer extends React.Component {
         handleCommentChange={this.handleCommentChange}
         onOKClick={this.onOKClick}
         onHide={this.props.onHide}
+        onCancelClick={this.onCancelClick}
       />
     );
   }

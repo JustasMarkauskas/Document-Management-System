@@ -74,6 +74,7 @@ public class GroupController {
 			@Valid @RequestParam final List<String> docTypesForCreationlNames) {
 		groupService.updateDocTypesForCreation(groupName, docTypesForCreationlNames);
 	}
+
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes group by name", notes = "Usefull for testing")

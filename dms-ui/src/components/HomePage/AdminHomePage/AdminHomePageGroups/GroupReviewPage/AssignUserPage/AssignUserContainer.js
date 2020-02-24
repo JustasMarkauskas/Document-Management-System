@@ -49,13 +49,20 @@ class AssignUserContainer extends React.Component {
     this.setState({ checkedUsers: checkedUsers });
   };
 
+  closeModal = this.props.onHide;
+
   onSaveClick = event => {
     event.preventDefault();
 
     const userData = new FormData();
-    var i;
-    for (i = 0; i < this.state.checkedUsers.length; i++) {
-      userData.append("usernames", this.state.checkedUsers[i]);
+
+    if (this.state.checkedUsers.length > 0) {
+      var i;
+      for (i = 0; i < this.state.checkedUsers.length; i++) {
+        userData.append("usernames", this.state.checkedUsers[i]);
+      }
+    } else {
+      userData.append("usernames", "");
     }
 
     axios
@@ -64,10 +71,8 @@ class AssignUserContainer extends React.Component {
           this.props.groupName,
         userData
       )
-      .then(response => {
-        console.log(response);
-        // this.closeModal();
-        //  this.updateDocuments();
+      .then(() => {
+        this.closeModal();
       })
       .catch(error => {
         console.log(error);

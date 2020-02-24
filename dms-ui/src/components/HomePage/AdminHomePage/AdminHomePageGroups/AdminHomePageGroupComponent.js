@@ -45,6 +45,7 @@ class AdminHomePageGroupComponent extends React.Component {
             <GroupReviewPageContainer
               onHide={this.handleCloseGroupReviewModal}
               groupName={this.props.groupName}
+              updateGroups={this.props.updateGroups}
             />
           </Modal.Body>
         </Modal>

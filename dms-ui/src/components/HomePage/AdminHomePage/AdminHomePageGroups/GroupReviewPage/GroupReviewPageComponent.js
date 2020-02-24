@@ -75,7 +75,7 @@ class GroupReviewPageComponent extends React.Component {
                     OK
                   </button>
                   <button
-                    onClick={this.props.onHide}
+                    onClick={this.props.onCancelClick}
                     type="button"
                     className="btn btn-primary "
                   >
@@ -91,7 +91,7 @@ class GroupReviewPageComponent extends React.Component {
           onHide={this.handleCloseAssignUserModal}
         >
           <Modal.Header closeButton>
-            <Modal.Title>AssignUser</Modal.Title>
+            <Modal.Title>Assign user</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AssignUserContainer
