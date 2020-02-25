@@ -13,6 +13,7 @@ import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePa
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 import SubmittedDocReviewContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
+import GroupReviewPageContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewPageContainer";
 
 var AppContainer = props => {
   return <div>{props.children}</div>;
@@ -51,6 +52,10 @@ ReactDOM.render(
           <Route
             path="/userhomepage-groups"
             component={UserHomePageGroupsContainer}
+          />
+          <Route
+            path="/group-review/:groupName"
+            component={GroupReviewPageContainer}
           />
         </Switch>
       </AppContainer>

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import GroupReviewPageComponent from "./GroupReviewPageComponent";
+import { withRouter } from "react-router-dom";
 
 class GroupReviewPageContainer extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class GroupReviewPageContainer extends React.Component {
 
   getGroup = () => {
     axios
-      .get("http://localhost:8081/api/group/" + this.props.groupName)
+      .get(
+        "http://localhost:8081/api/group/" + this.props.match.params.groupName
+      )
       .then(response => {
         this.setState({ group: response.data, comment: response.data.comment });
       })
@@ -30,9 +33,6 @@ class GroupReviewPageContainer extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
-  closeModal = this.props.onHide;
-  updateGroups = this.props.updateGroups;
-
   onOKClick = event => {
     event.preventDefault();
     axios
@@ -44,17 +44,16 @@ class GroupReviewPageContainer extends React.Component {
         }
       )
       .then(() => {
-        this.closeModal();
-        this.updateGroups();
+        this.props.history.push("/adminhomepage-groups");
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  onCancelClick = () => {
-    this.closeModal();
-    this.updateGroups();
+  onCancelClick = event => {
+    event.preventDefault();
+    this.props.history.push("/adminhomepage-groups");
   };
 
   render() {
@@ -68,7 +67,6 @@ class GroupReviewPageContainer extends React.Component {
         docTypesForApproval={this.state.group.docTypesForApproval}
         handleCommentChange={this.handleCommentChange}
         onOKClick={this.onOKClick}
-        onHide={this.props.onHide}
         onCancelClick={this.onCancelClick}
         updateGroup={this.getGroup}
       />
@@ -76,4 +74,4 @@ class GroupReviewPageContainer extends React.Component {
   }
 }
 
-export default GroupReviewPageContainer;
+export default withRouter(GroupReviewPageContainer);
