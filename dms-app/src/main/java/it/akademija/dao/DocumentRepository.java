@@ -15,4 +15,5 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 	@Query("SELECT d FROM Document d WHERE d.docType IN(:names) and d.status != :status ")
 	List<Document> findDocumentsForApproval(@Param("names")List<String> names, @Param("status")String status);
 	
+	void deleteByDescription (String description);
 }

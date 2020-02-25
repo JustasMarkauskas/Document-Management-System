@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import it.akademija.dao.DBFileRepository;
+
 import it.akademija.dao.DocumentRepository;
 import it.akademija.file.exceptions.FileStorageException;
 import it.akademija.model.document.Document;
@@ -27,12 +27,12 @@ public class DocumentService {
 
 	private DocumentRepository documentRepository;
 
-	private DBFileRepository dbFileRepository;
+
 	
 	@Autowired
-	public DocumentService(DocumentRepository documentRepository, DBFileRepository dbFileRepository) {
+	public DocumentService(DocumentRepository documentRepository) {
 		this.documentRepository = documentRepository;
-		this.dbFileRepository = dbFileRepository;
+	
 	}
 
 	@Transactional
@@ -227,44 +227,7 @@ public class DocumentService {
 		return DBFiles;
 		  
 	}
-	
-	
-//	@Transactional
-//	public void saveDocument(NewDocument newDocument) {
-//		Document document = new Document();
-//		document.setAuthor(newDocument.getAuthor());
-//		document.setDescription(newDocument.getDescription());
-//		document.setDocType(newDocument.getDocType());
-//		document.setTitle(newDocument.getTitle());
-//		document.setStatus("SAVED");	
-//		documentRepository.save(document);
-//	}
-	
-//	@Transactional
-//	public void submitDocument(NewDocument newDocument) {
-//		Document document = new Document();
-//		document.setAuthor(newDocument.getAuthor());
-//		document.setDescription(newDocument.getDescription());
-//		document.setDocType(newDocument.getDocType());
-//		document.setTitle(newDocument.getTitle());
-//		document.setStatus("SUBMITTED");
-//		Date date = new Date();	 
-//		document.setSubmissionDate(date);	
-//		documentRepository.save(document);
-//	}
-	
-//	@Transactional
-//	public void submitDocumentAfterSaveForLater(NewDocument newDocument, Long id) {
-//		Document document = getDocument(id);
-//		document.setDescription(newDocument.getDescription());
-//		document.setDocType(newDocument.getDocType());
-//		document.setTitle(newDocument.getTitle());
-//		document.setStatus("SUBMITTED");
-//		Date date = new Date();	 
-//		document.setSubmissionDate(date);	
-//		documentRepository.save(document);
-//	}
-	
+		
 	
 	@Transactional
 	public void approveDocument(DocumentInfoAfterReview documentInfoAfterReview) {
@@ -292,4 +255,8 @@ public class DocumentService {
 		documentRepository.deleteById(id);
 	}
 	
+	@Transactional
+	public void deleteDocumentByDescription(String description) {
+		documentRepository.deleteByDescription(description);
+	}
 }

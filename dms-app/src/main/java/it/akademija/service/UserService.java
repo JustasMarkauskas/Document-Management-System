@@ -21,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.akademija.dao.DocTypeRepository;
+import it.akademija.dao.DocumentRepository;
 import it.akademija.dao.GroupRepository;
 import it.akademija.dao.RoleRepository;
 import it.akademija.dao.UserRepository;
@@ -38,6 +40,11 @@ public class UserService implements UserDetailsService {
 	private GroupRepository groupRepository;
 	private RoleRepository roleRepository;
 
+	@Autowired
+	private DocumentRepository documentRepository;
+	@Autowired
+	private DocTypeRepository docTypeRepository;
+	
 	@Autowired
 	public UserService(UserRepository userRepository, GroupRepository groupRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
