@@ -1,10 +1,6 @@
 import React from "react";
 
 class AdminHomePageGroupComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <tr id={"groupNr" + this.props.rowNr}>

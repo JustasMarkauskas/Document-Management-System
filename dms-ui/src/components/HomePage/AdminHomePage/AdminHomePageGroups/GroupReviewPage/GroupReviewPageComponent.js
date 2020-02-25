@@ -10,7 +10,10 @@ class GroupReviewPageComponent extends React.Component {
     this.state = {
       assignUserModal: false,
       assignDFAModal: false,
-      assignDFCModal: false
+      assignDFCModal: false,
+      groupUsers: [],
+      docTypesForApproval: [],
+      docTypesForCreation: []
     };
   }
 
@@ -55,44 +58,21 @@ class GroupReviewPageComponent extends React.Component {
     this.updateGroup();
   };
 
-  //test = Array.from(this.props.groupUsers);
+  componentDidUpdate(prevProps) {
+    if (this.props.groupUsers !== prevProps.groupUsers) {
+      this.setState({
+        groupUsers: this.props.groupUsers,
+        docTypesForApproval: this.props.docTypesForApproval,
+        docTypesForCreation: this.props.docTypesForCreation
+      });
+    }
+  }
 
   render() {
-    // const groupUsers = this.props.groupUsers.map((user, index) => (
-    //   <div key={index}>
-    //     <li className="list-group-item">{user}</li>
-    //   </div>
-    // ));
-
     return (
-      <div className="container my-3">
+      <div className="container my-5">
         <div className="row">
-          <div className="col-4">
-            <button
-              id="assignUserButton"
-              onClick={this.handleShowAssignUserModal}
-              type="button"
-              className="btn btn-primary m-2"
-            >
-              Assign member
-            </button>
-            <button
-              id="assignDFAButton"
-              onClick={this.handleShowAssignDFAModal}
-              type="button"
-              className="btn btn-primary m-2"
-            >
-              Assign document types for approval
-            </button>
-            <button
-              id="assignDFCButton"
-              onClick={this.handleShowAssignDFCModal}
-              type="button"
-              className="btn btn-primary m-2"
-            >
-              Assign document types for creation
-            </button>
-
+          <div className="col-3">
             <form id="groupReviewPageId">
               <div className="form-group">
                 <input
@@ -131,45 +111,81 @@ class GroupReviewPageComponent extends React.Component {
               </div>
             </form>
           </div>
-          <div className="col-7">
+          <div className="col-3">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Users</h5>
                 <div className="card-text scroll">
                   <ul className="list-group mb-2">
-                    {/* {this.props.group.map((user, index) => {
+                    {this.state.groupUsers.map((user, index) => {
                       return (
                         <div key={index}>
                           <li className="list-group-item">{user}</li>
                         </div>
                       );
-                    })} */}
-                    {/* {this.props.groupUsers.map((user, index) => (
-                      <div key={index}>
-                        <li className="list-group-item">{user}</li>
-                      </div>
-                    ))} */}
-
-                    {/* <li className="list-group-item">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Morbi leo risus</li>
-                    <li className="list-group-item">Porta ac consectetur ac</li>
-                    <li className="list-group-item">Vestibulum at eros</li>
-                    <li className="list-group-item ">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Morbi leo risus</li>
-                    <li className="list-group-item">Porta ac consectetur ac</li>
-                    <li className="list-group-item">Vestibulum at eros</li>
-                    <li className="list-group-item ">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Morbi leo risus</li>
-                    <li className="list-group-item">Porta ac consectetur ac</li>
-                    <li className="list-group-item">Vestibulum at eros</li> */}
+                    })}
                   </ul>
                 </div>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
+                <button
+                  id="assignUserButton"
+                  onClick={this.handleShowAssignUserModal}
+                  type="button"
+                  className="btn btn-info m-2"
+                >
+                  Assign member
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Document types for approval</h5>
+                <div className="card-text scroll">
+                  <ul className="list-group mb-2">
+                    {this.state.docTypesForApproval.map((docType, index) => {
+                      return (
+                        <div key={index}>
+                          <li className="list-group-item">{docType}</li>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+                <button
+                  id="assignDFAButton"
+                  onClick={this.handleShowAssignDFAModal}
+                  type="button"
+                  className="btn btn-info m-2"
+                >
+                  Assign document types for approval
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="col-3">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Document types for creation</h5>
+                <div className="card-text scroll">
+                  <ul className="list-group mb-2">
+                    {this.state.docTypesForCreation.map((docType, index) => {
+                      return (
+                        <div key={index}>
+                          <li className="list-group-item">{docType}</li>
+                        </div>
+                      );
+                    })}
+                  </ul>
+                </div>
+                <button
+                  id="assignDFCButton"
+                  onClick={this.handleShowAssignDFCModal}
+                  type="button"
+                  className="btn btn-info m-2"
+                >
+                  Assign document types for creation
+                </button>
               </div>
             </div>
           </div>

@@ -57,12 +57,6 @@ class GroupReviewPageContainer extends React.Component {
   };
 
   render() {
-    // const groupUsers = this.state.group.groupUsers.map((user, index) => (
-    //   <div key={index}>
-    //     <li className="list-group-item">{user}</li>
-    //   </div>
-    // ));
-
     return (
       <GroupReviewPageComponent
         groupName={this.state.group.id}
