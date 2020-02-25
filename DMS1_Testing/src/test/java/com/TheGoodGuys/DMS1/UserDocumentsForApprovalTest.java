@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
@@ -48,7 +49,6 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
-		// Fade modal show on top of modal. Devai turi patvarkyt.
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		userSubmitted.clickButtonCancel();
 		//assertTrue(userSubmitted.getButtonApprove().isEnabled());
@@ -61,9 +61,10 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
-		userDFA.checkIfStatusIsSubmittedAndClickAction();
-		// Fade modal show on top of modal. Devai turi patvarkyt.
-		//wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
+		driver.findElement(By.id("userDFADocumentNr4")).click();
+		//Sita metoda editint!!!
+		//userDFA.checkIfStatusIsSubmittedAndClickAction();
+		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		//assertFalse(userSubmitted.getButtonReject().isEnabled());
 		//assertTrue(userSubmitted.getButtonApprove().isEnabled());
 		userSubmitted.enterInputRejection("Rejection Testing");
@@ -78,7 +79,6 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
-		// Fade modal show on top of modal. Devai turi patvarkyt.
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		userSubmitted.enterInputRejection("autotesting autotesting autotesting autotesting aut");
 		assertThat("Length restrictions msg for rejection reason comment does not match",
