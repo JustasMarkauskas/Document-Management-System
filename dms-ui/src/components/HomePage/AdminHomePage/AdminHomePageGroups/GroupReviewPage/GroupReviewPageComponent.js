@@ -55,9 +55,17 @@ class GroupReviewPageComponent extends React.Component {
     this.updateGroup();
   };
 
+  //test = Array.from(this.props.groupUsers);
+
   render() {
+    // const groupUsers = this.props.groupUsers.map((user, index) => (
+    //   <div key={index}>
+    //     <li className="list-group-item">{user}</li>
+    //   </div>
+    // ));
+
     return (
-      <div className="container">
+      <div className="container my-3">
         <div className="row">
           <div className="col-4">
             <button
@@ -84,8 +92,7 @@ class GroupReviewPageComponent extends React.Component {
             >
               Assign document types for creation
             </button>
-          </div>
-          <div className="col-7">
+
             <form id="groupReviewPageId">
               <div className="form-group">
                 <input
@@ -123,6 +130,48 @@ class GroupReviewPageComponent extends React.Component {
                 </div>
               </div>
             </form>
+          </div>
+          <div className="col-7">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Users</h5>
+                <div className="card-text scroll">
+                  <ul className="list-group mb-2">
+                    {/* {this.props.group.map((user, index) => {
+                      return (
+                        <div key={index}>
+                          <li className="list-group-item">{user}</li>
+                        </div>
+                      );
+                    })} */}
+                    {/* {this.props.groupUsers.map((user, index) => (
+                      <div key={index}>
+                        <li className="list-group-item">{user}</li>
+                      </div>
+                    ))} */}
+
+                    {/* <li className="list-group-item">Cras justo odio</li>
+                    <li className="list-group-item">Dapibus ac facilisis in</li>
+                    <li className="list-group-item">Morbi leo risus</li>
+                    <li className="list-group-item">Porta ac consectetur ac</li>
+                    <li className="list-group-item">Vestibulum at eros</li>
+                    <li className="list-group-item ">Cras justo odio</li>
+                    <li className="list-group-item">Dapibus ac facilisis in</li>
+                    <li className="list-group-item">Morbi leo risus</li>
+                    <li className="list-group-item">Porta ac consectetur ac</li>
+                    <li className="list-group-item">Vestibulum at eros</li>
+                    <li className="list-group-item ">Cras justo odio</li>
+                    <li className="list-group-item">Dapibus ac facilisis in</li>
+                    <li className="list-group-item">Morbi leo risus</li>
+                    <li className="list-group-item">Porta ac consectetur ac</li>
+                    <li className="list-group-item">Vestibulum at eros</li> */}
+                  </ul>
+                </div>
+                <a href="#" className="btn btn-primary">
+                  Go somewhere
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         <Modal
