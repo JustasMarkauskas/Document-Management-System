@@ -17,7 +17,7 @@ const schema = yup.object().shape({
     .string()
     .trim()
     .min(5, "Must be 5-50 characters long")
-    .max(50, "Must be 1-50 characters long")
+    .max(50, "Must be 5-50 characters long")
 });
 
 const handleSubmit = values => {
