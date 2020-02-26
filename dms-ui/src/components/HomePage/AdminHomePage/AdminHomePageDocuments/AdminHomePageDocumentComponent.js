@@ -3,16 +3,16 @@ import React from "react";
 class AdminHomePageDocumentComponent extends React.Component {
   render() {
     return (
-      <tr>
+      <tr id={"documentNr" + this.props.rowNr}>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.documentName}</td>
-        <td>{this.props.comment}</td>        
+        <td>{this.props.comment}</td>
         <td>
           <button
             className="btn btn-primary"
             onClick={this.props.handleActionClick}
-            id={"documentNr"+this.props.rowNr}>
-              <i className="fas fa-cog"></i>
+          >
+            <i className="fas fa-cog"></i>
           </button>
         </td>
       </tr>
