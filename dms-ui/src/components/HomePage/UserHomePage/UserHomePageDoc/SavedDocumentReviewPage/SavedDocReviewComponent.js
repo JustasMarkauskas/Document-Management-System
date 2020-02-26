@@ -38,10 +38,10 @@ class SavedDocReviewComponent extends React.Component {
   handleButtonValidation = () => {
     var formIsValid = true;
     if (
-      this.state.title.length < 5 ||
-      this.state.title.length > 30 ||
-      this.state.description.length < 1 ||
-      this.state.description.length > 50
+      this.state.title.trim().length < 5 ||
+      this.state.title.trim().length > 30 ||
+      this.state.description.trim().length < 1 ||
+      this.state.description.trim().length > 50
     ) {
       formIsValid = false;
     }
@@ -54,7 +54,10 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleTitleChange = event => {
-    if (event.target.value.length < 5 || event.target.value.length > 30) {
+    if (
+      event.target.value.trim().length < 5 ||
+      event.target.value.trim().length > 30
+    ) {
       document
         .getElementById("savedTitle")
         .setAttribute("class", "form-control is-invalid");
@@ -67,7 +70,10 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleDescriptionChange = event => {
-    if (event.target.value.length < 1 || event.target.value.length > 50) {
+    if (
+      event.target.value.trim().length < 1 ||
+      event.target.value.trim().length > 50
+    ) {
       document
         .getElementById("savedDescription")
         .setAttribute("class", "form-control is-invalid");
@@ -125,9 +131,9 @@ class SavedDocReviewComponent extends React.Component {
     for (i = 0; i <= files.length; i++) {
       formData.append("files", files[i]);
     }
-    formData.append("description", this.state.description);
+    formData.append("description", this.state.description.trim());
     formData.append("docType", this.state.docType);
-    formData.append("title", this.state.title);
+    formData.append("title", this.state.title.trim());
     const config = {
       headers: {
         "content-type": "multipart/form-data"

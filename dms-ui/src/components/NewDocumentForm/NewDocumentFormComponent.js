@@ -9,9 +9,11 @@ const schema = yup.object().shape({
   docType: yup.string().required("Please select document type"),
   title: yup
     .string()
+    .trim()
     .min(5, "Must be 5-30 characters long")
     .max(30, "Must be 5-30 characters long")
     .required("Please enter a title"),
+
   description: yup
     .string()
     .trim()
@@ -22,8 +24,8 @@ const schema = yup.object().shape({
 const handleSubmit = values => {
   const formData = new FormData();
   formData.append("author", values.author);
-  formData.append("title", values.title);
-  formData.append("description", values.description);
+  formData.append("title", values.title.trim());
+  formData.append("description", values.description.trim());
   formData.append("docType", values.docType);
 
   var i;
