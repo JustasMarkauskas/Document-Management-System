@@ -9,10 +9,6 @@ import axios from "axios";
 import PasswordChangeComponent from "../PasswordChange/PasswodChange";
 
 
-
-
-
-
 const schema = yup.object({
   firstName: yup
     .string()
@@ -27,70 +23,108 @@ const schema = yup.object({
     .min(1, "Must be 1 characters or more")
     .max(30, "Must be 30 characters or less")
     .required("Please enter a last name")
-    .matches(/^[A-Za-z\s-]+$/, "Only uppercases And lowercases"),
+    .matches(/^[A-Za-z\s-]+$/, "Only uppercase, lowercase letters and '-', space symbols are allowed"),
   comment: yup
     .string()
     .trim()
     .max(50, "Must be 50 characters or less")
 });
 
-// const handleSubmit = values => {
-//   axios({
-//     method: "POST",
-//     url: "http://localhost:8081/api/user/",
-//     data: values
-//   })
-//     .then(response => {
-//       console.log(response);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// };
-
 class UserInfoComponent extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    // this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
+   
+    
 
     this.state = {
       show: false,
       users: [],
-      inputUsername: ""
+      inputUsername: "",
+      firstName: "",
+      lastName: "",
+      comment:""
     };
   }
 
-  handleCloseModal() {
-    this.setState({ show: false });     
+  refresh(){
+    this.getUsers();
+    window.location.reload();
+  }
+
+  handleCloseModal=()=> {
+    this.setState({ show: false });
+    this.refresh();       
 	}
 
-  handleCloseModalAfterSubmit() {    
-    this.refresh();    
-    this.setState({ show: false });     
-	}
+  handleFirstNameChange = event => {      
+    this.setState({ show: false }); 
+    this.refresh();      
+  }
+  
+  
+  
 
-    handleShowModal() {
+
+
+
+  handleShowModal=()=> {
 	this.setState({ show: true });
 	}
+// situs padarom kad nusiustu i state
+  handleFirstNameChange = event => {
+    this.setState({firstName: event.target.value });
+  };
+
+
+  handleLastNameChange = event =>{
+    this.setState({lastName: event.target.value});
+  };
+
+  handleCommentChange = event =>{
+    this.setState({comment: event.target.value});
+  };
+
+closeModal = this.props.onCloseModalAfterSubmit;
+ 
+
+  updateUser = event => {
+    event.preventDefault();
+    axios
+      .put(
+        "http://localhost:8081/api/user/update-user-info/" + this.props.username,
+        {
+          comment: this.state.comment,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          password: "Stingaaa1",
+          username: "String"
+  
+        }
+      )
+      .then(() => {
+        this.closeModal();
+         
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+
+
 
   render(){
     return(
       <Formik
       validationSchema={schema}
       // onSubmit={handleSubmit}
-      initialValues={{
-        username: "",
+      initialValues={{        
         firstName: "",
         lastName: "",
-        comment: "",
-        password: "",
-        confirmPassword: ""
+        comment: ""       
       }}
     >
-      {({ handleSubmit, handleChange, values, isValid, errors }) => (
+      {({ handleSubmit, handleChange, handleFirstNameChange, values, isValid, errors }) => (
         <div className="NewUserForm">
           <Form noValidate onSubmit={handleSubmit}>
           {/* User info */}
@@ -98,7 +132,7 @@ class UserInfoComponent extends React.Component {
 
           <div className="row" >
             <div className="d-flex  mb-2 justify-content-center  col-12">
-              <h2>User Name:(User Name Is DB)</h2>
+              <h2>User Name:{this.props.username}</h2>
             </div>
             <div className="row d-flex justify-content-center  col-12  m-0">                            
               <div className="col-5 d-flex flex-column col-6">
@@ -106,10 +140,9 @@ class UserInfoComponent extends React.Component {
                 <Form.Group>
                 <label for="input">First Name</label>
                   <Form.Control
-                    type="firstname"
-                    placeholder="Info from DB"
-                    value={values.firstName}
-                    onChange={handleChange}
+                    type="firstname"                    
+                    defaultValue={this.props.firstName}                    
+                    onChange={this.handleFirstNameChange} 
                     name="firstName"
                     id="firstName"
                     className="NewUserForm"
@@ -123,10 +156,9 @@ class UserInfoComponent extends React.Component {
                 <Form.Group>
                   <label for="input">Last Name</label>
                   <Form.Control
-                    type="lastname"
-                    placeholder="Last Name from DB"
-                    value={values.lastName}
-                    onChange={handleChange}
+                    type="lastname"                    
+                    defaultValue={this.props.lastName}                    
+                    onChange={this.handleLastNameChange}
                     name="lastName"
                     id="lastName"
                     className="NewUserForm"
@@ -164,14 +196,14 @@ class UserInfoComponent extends React.Component {
                   >
                     Change password
                   </button>
-
+                      {/* Pasikeisti show modala nes kita */}
                     {/* Change password modal begining */}
-                    <Modal show={this.state.show} onHide={this.handleCloseModal}>
+                    <Modal show={this.state.show} onHide={this.handleCloseModal}> 
                       <Modal.Header closeButton>
                         <Modal.Title>Change password</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>                                           
-                      <PasswordChangeComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />
+                      <PasswordChangeComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} username={this.props.username} />
                       </Modal.Body>  
                     </Modal>
                     {/* Change password modal end */}
@@ -202,10 +234,10 @@ class UserInfoComponent extends React.Component {
                   className="NewUserForm col-12"
                   size="lg"
                   name="comment"
-                  onChange={handleChange}
+                  onChange={this.handleCommentChange}
                   type="comment"
                   id="comment"
-                  value={values.comment}
+                  defaultValue={this.props.comment}
                   placeholder="Comment"
                   isInvalid={!!errors.comment}
                 />
@@ -218,10 +250,10 @@ class UserInfoComponent extends React.Component {
         <div class="modal-footer d-flex shadow-sm  bg-light rounded justify-content-center align-items-center col-12">
           <Button
             disabled={!isValid}
-            onClick={this.props.onCloseModal}
+            onClick={this.updateUser}
             variant="primary"
             className="SubmitButton mr-2 col-4"
-            type="submit"
+            type="button"
           >
             Submit
           </Button>

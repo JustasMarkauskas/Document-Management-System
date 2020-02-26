@@ -35,7 +35,7 @@ const schema = yup.object({
 //       console.log(error);
 //     });
 // };
-
+// Pasikeisti i classe kad galima butu pasiduoti state parametrus.
 const PasswordChangeComponent = props => {
   return (
     <Formik

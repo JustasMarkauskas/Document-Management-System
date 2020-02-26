@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from 'react-bootstrap';
 import UserInfoComponent from '../../../UserInfo/UserInfoComponent';
+import axios from "axios";
 
 class AdminHomePageUsersComponent extends React.Component {
   // Svarbus sitas
@@ -9,7 +10,7 @@ class AdminHomePageUsersComponent extends React.Component {
 
     this.handleShowModal = this.handleShowModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    // this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
+    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(this);
 
     this.state = {
       show: false,
@@ -18,6 +19,16 @@ class AdminHomePageUsersComponent extends React.Component {
     };
   }
 
+  getUsers = () => {
+    axios
+      .get("http://localhost:8081/api/user")
+      .then(response => {
+        this.setState({ users: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   refresh(){
     this.getUsers();
@@ -28,10 +39,10 @@ class AdminHomePageUsersComponent extends React.Component {
     this.setState({ show: false });     
 	}
 
-  // handleCloseModalAfterSubmit() {    
-  //   this.refresh();    
-  //   this.setState({ show: false });     
-	// }
+  handleCloseModalAfterSubmit() {    
+    this.refresh();    
+    this.setState({ show: false });     
+	}
 
   handleShowModal() {
 	this.setState({ show: true });
@@ -62,7 +73,7 @@ class AdminHomePageUsersComponent extends React.Component {
 		          <Modal.Title>User Infomation</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body>                         
-            <UserInfoComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />
+            <UserInfoComponent onCloseModal={this.handleCloseModal} refresh={this.refresh} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} username={this.props.username} firstName={this.props.firstName} lastName={this.props.lastName} comment={this.props.comment}/>
             </Modal.Body>  
 	        </Modal>          
         </td>
