@@ -45,6 +45,11 @@ public class GroupController {
 		return groupService.getGroupForClient(groupName);
 	}
 	
+	@RequestMapping(path = "/group-names", method = RequestMethod.GET)
+	@ApiOperation(value = "Get all group names", notes = "Returns list of all group names")
+	public List<String> getAllGroupNames() {
+		return groupService.getAllGroupNames();
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create group", notes = "Creates group with data")

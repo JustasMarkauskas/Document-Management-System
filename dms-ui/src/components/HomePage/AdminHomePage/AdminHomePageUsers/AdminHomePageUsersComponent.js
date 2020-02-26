@@ -3,7 +3,7 @@ import React from "react";
 class AdminHomePageUsersComponent extends React.Component {
   render() {
     return (
-      <tr>
+      <tr id={"userNr" + this.props.rowNr}>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.firstName}</td>
         <td>{this.props.lastName}</td>
@@ -13,7 +13,6 @@ class AdminHomePageUsersComponent extends React.Component {
           <button
             className="btn btn-primary"
             onClick={this.props.handleActionClick}
-            id={"userNr"+this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>

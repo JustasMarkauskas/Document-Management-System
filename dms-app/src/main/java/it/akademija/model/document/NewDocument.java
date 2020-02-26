@@ -17,7 +17,8 @@ public class NewDocument {
 	@Length(min = 5, max = 30)
 	private String title;
 	
-	@Length(max = 50)
+	@NotNull
+	@Length(min = 1, max = 50)
 	private String description;
 	
 	public NewDocument() {}
