@@ -38,7 +38,6 @@ const handleSubmit = values => {
   } else {
     url = "submit";
   }
-
   axios({
     method: "POST",
     url: "http://localhost:8081/api/document/" + url,

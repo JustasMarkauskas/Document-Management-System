@@ -59,7 +59,7 @@ class SavedDocReviewComponent extends React.Component {
     return formIsValid;
   };
 
-  handleButtonValidation = () => {
+  handleSaveButtonValidation = () => {
     var formIsValid = true;
     if (
       this.state.title.trim().length < 5 ||
@@ -298,7 +298,7 @@ class SavedDocReviewComponent extends React.Component {
             </div>
             <div className="mr-2 ">
               <button
-                disabled={!this.handleButtonValidation()}
+                disabled={!this.handleSaveButtonValidation()}
                 onClick={this.onSaveClick}
                 type="button"
                 className="btn btn-primary"
