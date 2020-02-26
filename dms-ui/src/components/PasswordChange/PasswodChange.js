@@ -48,7 +48,8 @@ class PasswordChangeComponent extends React.Component {
       inputUsername: "",
       firstName: "",
       lastName: "",
-      comment:""
+      comment:"",
+      password: "",
     };
   }
   
@@ -57,7 +58,7 @@ class PasswordChangeComponent extends React.Component {
 
  
   
-  handleChange=event=>{
+  handlePassChange=event=>{
     this.setState({password: event.target.value});
   };
 
@@ -68,15 +69,16 @@ class PasswordChangeComponent extends React.Component {
 
   updatePassword = event => {
     event.preventDefault();
+    
     axios
       .put(
-        "http://localhost:8081/api/user/update-user-info/" + this.props.username,
+        "http://localhost:8081/api/user/update-password/" + this.props.username,
         {          
           username: "String",          
           firstName: "String",
           lastName: "String",
           password: this.state.password,
-          comment: "String",
+          comment: "String"
   
         }
       )
@@ -118,8 +120,8 @@ class PasswordChangeComponent extends React.Component {
                                   type="password"
                                   name="password"
                                   id="password"
-                                  value={values.password}
-                                  onChange={handleChange}
+                                  // value={values.password}
+                                  onChange={this.handlePassChange}
                                   placeholder="Password"
                                   isInvalid={!!errors.password}
                               />
@@ -141,8 +143,8 @@ class PasswordChangeComponent extends React.Component {
                               name="confirmPassword"
                               type="password"
                               id="confirmPassword"
-                              value={values.confirmPassword}
-                              onChange={handleChange}
+                              // value={values.confirmPassword}
+                              onChange={this.handlePassChange}
                               placeholder="Confirm Password"
                               isInvalid={!!errors.confirmPassword}
                           />
