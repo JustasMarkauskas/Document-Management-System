@@ -29,6 +29,9 @@ public class UserDFAPage extends AbstractPage {
 	// labels
 	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]//ancestor::tr/descendant::td[4]")
 	private List<WebElement> labelsStatus;
+	
+	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]//ancestor::tr/descendant::td[2]")
+	private List<WebElement> labelsTitle;
 
 	public void clickButtonSearch() {
 		buttonSearch.click();
@@ -46,21 +49,82 @@ public class UserDFAPage extends AbstractPage {
 	public void clickButtonActionByIndex(int index) {
 		buttonsAction.get(index).click();
 	}
+	
+	public String getTextLabelsTitleByIndex(int index) {
+		return labelsTitle.get(index).getText();
+	}
+	
+	public String getTextLabelsStatusByIndex(int index) {
+		return labelsStatus.get(index).getText();
+	}
 
 	public void checkIfStatusIsSubmittedAndClickAction() {
 		int buttonIndex = 0;
 		for (WebElement label : labelsStatus) {
-			System.out.println(label.getText());
-			System.out.println(buttonIndex);
+			//System.out.println(label.getText());
+			//System.out.println(buttonIndex);
 			if (label.getText().equals("SUBMITTED")) {
 				clickButtonActionByIndex(buttonIndex);
 				break;
 			} else
 				buttonIndex = buttonIndex + 1;
-			System.out.println(buttonIndex);
+			//System.out.println(buttonIndex);
 
 		}
 	}
+	//sitas ok
+	public String checkIfStatusIsSubmittedAndGetTitle() {
+		int titleIndex = 0;
+		for (WebElement label : labelsStatus) {
+			if (label.getText().equals("SUBMITTED")) {
+				return getTextLabelsTitleByIndex(titleIndex);
+			} else
+				titleIndex = titleIndex + 1;
+		}
+		return null;
+	}
+	//paims pirma approved, jei bus kitu docu su approved netiks
+	//imk titla, eik per titlus ir gettink jo statusa
+	
+	String title = checkIfStatusIsSubmittedAndGetTitle();
+	
+	public String checkIfTitleIsCorrectAndGetStatus() {
+		int titleIndex = 0;
+		for (WebElement label : labelsTitle) {
+			if (label.getText().equals(title)) {
+				return getTextLabelsStatusByIndex(titleIndex);
+			} else
+				titleIndex = titleIndex + 1;
+		}
+		return null;
+	}
+	
+//	public String checkIfStatusIsApprovedAndGetTitle() {
+//		int titleIndex = 0;
+//		for (WebElement label : labelsStatus) {
+//			if (label.getText().equals("APPROVED")) {
+//				return getTextLabelsTitleByIndex(titleIndex);
+//			} else
+//				titleIndex = titleIndex + 1;
+//		}
+//		return null;
+//	}
+	
+	//
+//	public boolean checkIfTitleHasStatusApproved() {
+//		int buttonIndex = 0;
+//		for (WebElement label : labelsTitle) {
+//			System.out.println(label.getText());
+//			if (label.getText().equals(checkIfStatusIsSubmittedAndGetTitle())) {
+//				return true;
+//			} else
+//				buttonIndex = buttonIndex + 1;
+//
+//		}
+//		return false;
+//	}
+	
+	
 	
 	//getters
 

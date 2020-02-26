@@ -50,7 +50,9 @@ public class ValidLoginLogoutTest extends AbstractTest {
 
 		login.enterDetailsAndLogin(validUser.getUserName(), validUser.getPassword());
 		Thread.sleep(2000);
+		//AdminNavPage ir UserNavPage du skirtingi PAge'ai todel ieskau tiesiai cia:
 		Assert.assertTrue(driver.findElement(By.tagName("h1")).getText().contains(validUser.getUserName()));
+		//AdminNavPage ir UserNavPage logout buttonai turi skirtingus ID, ten neredagavau, ieskau tiesiai cia:
 		driver.findElement(By.xpath("//button[text()='Log Out']")).click();
 	}
 

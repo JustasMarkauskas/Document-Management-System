@@ -27,7 +27,7 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 	private UserDFAPage userDFA;
 	private UserSubmittedDocumentInfoPage userSubmitted;
 
-	// PRECONDITIONS!!! AT LEAST ONE DOC WITH STATUS SUBMITTED MUST BE PRESENT
+	// PRECONDITIONS!!! AT LEAST 3 DOCS WITH STATUS SUBMITTED MUST BE PRESENT FOR ALL TESTs TO RUN
 
 	@BeforeClass
 	@Parameters({ "baseURL", "loginUsername", "loginPassword" })
@@ -48,15 +48,21 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
+		System.out.println(userDFA.checkIfStatusIsSubmittedAndGetTitle());
+		String title = userDFA.checkIfStatusIsSubmittedAndGetTitle();//sita naudosim assert'e
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		assertTrue(userSubmitted.getButtonApprove().isEnabled());
+		//userSubmitted.clickButtonCancel();//sita po to istrinsim, cia kad nereiktu pastoviai kurti docu
 		userSubmitted.clickButtonApprove();
+		System.out.println(userDFA.checkIfTitleIsCorrectAndGetStatus());
 		//gal reik kazkaip paasertint, kad tas docas tikrai approvintas?
+		//asserEquals(pirmas title su statusu approve = String title)
+		//assertTrue(userDFA.checkIfTitleHasStatusApproved());
 
 	}
 
-	@Test(priority = 2, groups = { "documentsForApproval" })
+	@Test(priority = 2, groups = { "documentsForApproval" }, enabled = false)
 	public void testToRejectSubmittedDocument() throws InterruptedException {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
@@ -73,7 +79,7 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 
 	}
 
-	@Test(priority = 3, groups = { "documentsForApproval" })
+	@Test(priority = 3, groups = { "documentsForApproval" }, enabled = false)
 	public void testToCheckCommentLengthRestrictionsInRejectSubmittedDocument() throws Exception {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
