@@ -1,20 +1,20 @@
 import React from "react";
 import axios from "axios";
 
-class AssignUserContainer extends React.Component {
+class AssignDFAContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
-      checkedUsers: []
+      docTypes: [],
+      checkedDFA: []
     };
   }
 
   getUsers = () => {
     axios
-      .get("http://localhost:8081/api/user/usernames/")
+      .get("http://localhost:8081/api/doctype/doc-types")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState({ docTypes: response.data });
       })
       .catch(error => {
         console.log(error);
@@ -23,13 +23,13 @@ class AssignUserContainer extends React.Component {
 
   componentDidMount() {
     this.getUsers();
-    this.setState({ checkedUsers: this.props.groupUsers });
+    this.setState({ checkedDFA: this.props.docTypesForApproval });
   }
 
-  contains(users, groupUser) {
-    var i = users.length;
+  contains(docTypes, docType) {
+    var i = docTypes.length;
     while (i--) {
-      if (users[i] === groupUser) {
+      if (docTypes[i] === docType) {
         return true;
       }
     }
@@ -37,42 +37,47 @@ class AssignUserContainer extends React.Component {
   }
 
   onCheckboxClick = e => {
-    const checkedUsers = this.state.checkedUsers;
+    const checkedDFA = this.state.checkedDFA;
     let index;
 
     if (e.target.checked) {
-      checkedUsers.push(e.target.value);
+      checkedDFA.push(e.target.value);
     } else {
-      index = checkedUsers.indexOf(e.target.value);
-      checkedUsers.splice(index, 1);
+      index = checkedDFA.indexOf(e.target.value);
+      checkedDFA.splice(index, 1);
     }
-    this.setState({ checkedUsers: checkedUsers });
+    this.setState({ checkedDFA: checkedDFA });
   };
 
   closeModal = this.props.onHide;
+  updateGroup = this.props.updateGroup;
 
   onSaveClick = event => {
     event.preventDefault();
 
-    const userData = new FormData();
+    const docTypeData = new FormData();
 
-    if (this.state.checkedUsers.length > 0) {
+    if (this.state.checkedDFA.length > 0) {
       var i;
-      for (i = 0; i < this.state.checkedUsers.length; i++) {
-        userData.append("usernames", this.state.checkedUsers[i]);
+      for (i = 0; i < this.state.checkedDFA.length; i++) {
+        docTypeData.append(
+          "docTypesForApprovalNames",
+          this.state.checkedDFA[i]
+        );
       }
     } else {
-      userData.append("usernames", "");
+      docTypeData.append("docTypesForApprovalNames", "");
     }
 
     axios
       .put(
-        "http://localhost:8081/api/user/add-users-to-group/" +
+        "http://localhost:8081/api/group/update-group-doctypes-for-approval/" +
           this.props.groupName,
-        userData
+        docTypeData
       )
       .then(() => {
         this.closeModal();
+        this.updateGroup();
       })
       .catch(error => {
         console.log(error);
@@ -80,20 +85,20 @@ class AssignUserContainer extends React.Component {
   };
 
   render() {
-    const allUsernames = this.state.users.map((user, index) =>
-      this.contains(this.props.groupUsers, user) ? (
+    const allDocTypes = this.state.docTypes.map((docType, index) =>
+      this.contains(this.props.docTypesForApproval, docType) ? (
         <div className="form-check" key={index}>
           <input
             className="form-check-input"
             type="checkbox"
-            value={user}
+            value={docType}
             defaultChecked
             onClick={this.onCheckboxClick}
-            id={"user" + index}
+            id={"docType" + index}
           />
 
-          <label className="form-check-label" htmlFor={"user" + index}>
-            {user}
+          <label className="form-check-label" htmlFor={"docType" + index}>
+            {docType}
           </label>
         </div>
       ) : (
@@ -101,13 +106,13 @@ class AssignUserContainer extends React.Component {
           <input
             className="form-check-input"
             type="checkbox"
-            value={user}
+            value={docType}
             onClick={this.onCheckboxClick}
-            id={"user" + index}
+            id={"docType" + index}
           />
 
-          <label className="form-check-label" htmlFor={"user" + index}>
-            {user}
+          <label className="form-check-label" htmlFor={"docType" + index}>
+            {docType}
           </label>
         </div>
       )
@@ -115,7 +120,7 @@ class AssignUserContainer extends React.Component {
 
     return (
       <div className="container">
-        {allUsernames}
+        {allDocTypes}
         <div className="container mt-2">
           <div className="row">
             <button
@@ -139,4 +144,4 @@ class AssignUserContainer extends React.Component {
   }
 }
 
-export default AssignUserContainer;
+export default AssignDFAContainer;

@@ -71,9 +71,10 @@ public class GroupController {
 	@RequestMapping(path = "/update-group-doctypes-for-creation/{groupName}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update group doc types for creation", notes = "Add/update doc types for creation to group")
 	public void updateDocTypeForCreation(@ApiParam(required = true) @PathVariable String groupName,
-			@Valid @RequestParam final List<String> docTypesForCreationlNames) {
-		groupService.updateDocTypesForCreation(groupName, docTypesForCreationlNames);
+			@Valid @RequestParam final List<String> docTypesForCreationNames) {
+		groupService.updateDocTypesForCreation(groupName, docTypesForCreationNames);
 	}
+
 	
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes group by name", notes = "Usefull for testing")

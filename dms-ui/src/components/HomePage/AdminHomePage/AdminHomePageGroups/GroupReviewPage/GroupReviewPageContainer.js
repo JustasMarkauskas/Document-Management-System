@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import GroupReviewPageComponent from "./GroupReviewPageComponent";
+import { withRouter } from "react-router-dom";
 
 class GroupReviewPageContainer extends React.Component {
   constructor(props) {
@@ -13,9 +14,11 @@ class GroupReviewPageContainer extends React.Component {
 
   getGroup = () => {
     axios
-      .get("http://localhost:8081/api/group/" + this.props.groupName)
+      .get(
+        "http://localhost:8081/api/group/" + this.props.match.params.groupName
+      )
       .then(response => {
-        this.setState({ group: response.data });
+        this.setState({ group: response.data, comment: response.data.comment });
       })
       .catch(error => {
         console.log(error);
@@ -26,11 +29,28 @@ class GroupReviewPageContainer extends React.Component {
     this.getGroup();
   }
 
+  handleButtonValidation = () => {
+    var formIsValid = true;
+    if (this.state.comment.length > 50) {
+      formIsValid = false;
+    }
+    return formIsValid;
+  };
+
   handleCommentChange = event => {
+    if (event.target.value.length > 50) {
+      document
+        .getElementById("groupCommentId")
+        .setAttribute("class", "form-control is-invalid");
+    } else {
+      document
+        .getElementById("groupCommentId")
+        .setAttribute("class", "form-control");
+    }
     this.setState({ comment: event.target.value });
   };
 
-  onOKClick = event => {
+  onSaveClick = event => {
     event.preventDefault();
     axios
       .put(
@@ -40,10 +60,17 @@ class GroupReviewPageContainer extends React.Component {
           id: "not updated"
         }
       )
-      .then(() => {})
+      .then(() => {
+        this.props.history.push("/adminhomepage-groups");
+      })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  onCancelClick = event => {
+    event.preventDefault();
+    this.props.history.push("/adminhomepage-groups");
   };
 
   render() {
@@ -56,11 +83,14 @@ class GroupReviewPageContainer extends React.Component {
         docTypesForCreation={this.state.group.docTypesForCreation}
         docTypesForApproval={this.state.group.docTypesForApproval}
         handleCommentChange={this.handleCommentChange}
-        onOKClick={this.onOKClick}
-        onHide={this.props.onHide}
+        handleButtonValidation={this.handleButtonValidation}
+        onSaveClick={this.onSaveClick}
+        onCancelClick={this.onCancelClick}
+        updateGroup={this.getGroup}
+        group={this.state.group}
       />
     );
   }
 }
 
-export default GroupReviewPageContainer;
+export default withRouter(GroupReviewPageContainer);

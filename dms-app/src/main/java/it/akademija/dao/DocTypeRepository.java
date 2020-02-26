@@ -9,6 +9,6 @@ public interface DocTypeRepository extends JpaRepository<DocType, Long>  {
 	
 	DocType findById(String docTypeName);
 	void deleteById(String docTypeName);
-	void deleteByComment (String docTypeName);
+	void deleteByComment (String comment);
 
 }

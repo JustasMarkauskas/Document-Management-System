@@ -204,7 +204,7 @@ class SavedDocReviewComponent extends React.Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="savedDocType">Doc type</label>
+          <label htmlFor="savedDocType">Document type</label>
 
           <select
             className="form-control"

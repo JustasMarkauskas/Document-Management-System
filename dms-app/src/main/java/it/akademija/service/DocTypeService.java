@@ -1,5 +1,6 @@
 package it.akademija.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,7 @@ import it.akademija.dao.DocTypeRepository;
 import it.akademija.model.doctype.DocType;
 import it.akademija.model.doctype.DocTypeForClient;
 import it.akademija.model.doctype.NewDocType;
-import it.akademija.model.group.GroupForClient;
+
 
 
 
@@ -54,6 +55,15 @@ public class DocTypeService {
 				.orElseThrow(() -> new RuntimeException("Can't find group"));
 	}
 	
+	
+	@Transactional(readOnly = true)
+	public List<String> getAllDocTypeNames() {
+		List<String> allDocTypeNames = new ArrayList<String>();
+		for (int i = 0; i < getDocTypes().size(); i++) {
+			allDocTypeNames.add(getDocTypes().get(i).getId());
+		}
+		return allDocTypeNames;
+	}
 	
 	@Transactional
 	public void saveDocType(NewDocType newDocType) {

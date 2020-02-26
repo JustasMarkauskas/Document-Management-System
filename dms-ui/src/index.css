@@ -16,4 +16,9 @@ code {
   list-style: none;
 }
 
+.scroll {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
 

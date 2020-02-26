@@ -14,6 +14,7 @@ import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
 
 
+
 @Service
 public class GroupService {
 
@@ -21,10 +22,12 @@ public class GroupService {
 
 	private DocTypeRepository docTypeRepository;
 
+
 	@Autowired
 	public GroupService(GroupRepository groupRepository, DocTypeRepository docTypeRepository) {
 		this.groupRepository = groupRepository;
 		this.docTypeRepository = docTypeRepository;
+
 	}
 
 	@Transactional(readOnly = true)
@@ -93,6 +96,8 @@ public class GroupService {
 		group.setDocTypesForApproval(docTypesForApproval);
 	}
 
+	
+	
 	@Transactional
 	public void deleteGroupByName(String groupName) {
 		groupRepository.deleteById(groupName);

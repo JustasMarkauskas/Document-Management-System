@@ -41,9 +41,9 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
         className={
           this.props.status === "SUBMITTED"
             ? "table-primary"
-            : this.props.status === "APPROVED"
+            : this.props.status === "REJECTED"
             ? "table-secondary"
-            : "table-secondary"
+            : "table-success"
         }
       >
         <th scope="row">{this.props.rowNr}</th>
