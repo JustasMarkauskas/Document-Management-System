@@ -51,10 +51,13 @@ public class UserDFAPage extends AbstractPage {
 		int buttonIndex = 0;
 		for (WebElement label : labelsStatus) {
 			System.out.println(label.getText());
+			System.out.println(buttonIndex);
 			if (label.getText().equals("SUBMITTED")) {
 				clickButtonActionByIndex(buttonIndex);
+				break;
 			} else
 				buttonIndex = buttonIndex + 1;
+			System.out.println(buttonIndex);
 
 		}
 	}

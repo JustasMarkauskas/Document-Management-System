@@ -43,16 +43,16 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
 	}
 
-	@Test(priority = 1, groups = { "documentsForApproval" }, enabled = false)
+	@Test(priority = 1, groups = { "documentsForApproval" })
 	public void testToApproveSubmittedDocument() throws InterruptedException {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
-		userSubmitted.clickButtonCancel();
-		//assertTrue(userSubmitted.getButtonApprove().isEnabled());
-		//userSubmitted.clickButtonApprove();
+		assertTrue(userSubmitted.getButtonApprove().isEnabled());
+		userSubmitted.clickButtonApprove();
+		//gal reik kazkaip paasertint, kad tas docas tikrai approvintas?
 
 	}
 
@@ -61,19 +61,19 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
 		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
-		driver.findElement(By.id("userDFADocumentNr4")).click();
-		//Sita metoda editint!!!
-		//userDFA.checkIfStatusIsSubmittedAndClickAction();
+		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
-		//assertFalse(userSubmitted.getButtonReject().isEnabled());
-		//assertTrue(userSubmitted.getButtonApprove().isEnabled());
+		//assertFalse(userSubmitted.getButtonReject().isEnabled()); Kai disablins mygtukus - veiks.
+		assertTrue(userSubmitted.getButtonApprove().isEnabled());
 		userSubmitted.enterInputRejection("Rejection Testing");
-		//assertTrue(userSubmitted.getButtonReject().isEnabled());
-		//assertFalse(userSubmitted.getButtonApprove().isEnabled());
-		//userSubmitted.clickButtonReject();
+		assertTrue(userSubmitted.getButtonReject().isEnabled());
+		//assertFalse(userSubmitted.getButtonApprove().isEnabled()); Kai disablins mygtukus - veiks.
+		userSubmitted.clickButtonReject();
+		//gal reik kazkaip paasertint, kad tas docas tikrai rejectintas?
+
 	}
 
-	@Test(priority = 3, groups = { "documentsForApproval" }, enabled = false)
+	@Test(priority = 3, groups = { "documentsForApproval" })
 	public void testToCheckCommentLengthRestrictionsInRejectSubmittedDocument() throws Exception {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();

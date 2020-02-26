@@ -16,10 +16,10 @@ public class UserSubmittedDocumentInfoPage extends AbstractPage {
 	private WebElement inputRejectionReason;
 
 	// buttons
-	@FindBy(xpath = "//button[@type, 'button' and text()='Approve']")
+	@FindBy(xpath = "//button[text()='Approve']")
 	private WebElement buttonApprove;
 
-	@FindBy(xpath = "//button[@type, 'button' and text()='Reject']")
+	@FindBy(xpath = "//button[text()='Reject']")
 	private WebElement buttonReject;
 
 	@FindBy(xpath = "//*[@id='SubmittedDFAReview']//button[text()='Cancel']")
