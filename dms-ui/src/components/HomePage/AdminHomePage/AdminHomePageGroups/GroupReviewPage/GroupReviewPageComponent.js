@@ -75,7 +75,9 @@ class GroupReviewPageComponent extends React.Component {
           <div className="col-3">
             <form id="groupReviewPageId">
               <div className="form-group">
+                <label htmlFor="groupName">Group name</label>
                 <input
+                  id="groupName"
                   disabled
                   type="text"
                   className="form-control"
@@ -83,22 +85,29 @@ class GroupReviewPageComponent extends React.Component {
                 />
               </div>
               <div className="form-group">
+                <label htmlFor="groupCommentId">Comment</label>
                 <input
+                  id="groupCommentId"
                   type="text"
                   defaultValue={this.props.comment}
                   onChange={this.props.handleCommentChange}
                   className="form-control"
                   placeholder="Comment"
                 />
+                <div className="invalid-feedback text-info">
+                  Must be 50 characters or less
+                </div>
               </div>
+
               <div className="container mt-2">
                 <div className="row">
                   <button
-                    onClick={this.props.onOKClick}
+                    disabled={!this.props.handleButtonValidation()}
+                    onClick={this.props.onSaveClick}
                     type="button"
                     className="btn btn-primary mr-2"
                   >
-                    OK
+                    Save
                   </button>
                   <button
                     onClick={this.props.onCancelClick}

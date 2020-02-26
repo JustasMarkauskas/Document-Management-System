@@ -142,7 +142,7 @@ class SubmittedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledDocType">Doc type</label>
+            <label htmlFor="disabledDocType">Document type</label>
             <input
               type="text"
               id="disabledDocType"

@@ -29,11 +29,28 @@ class GroupReviewPageContainer extends React.Component {
     this.getGroup();
   }
 
+  handleButtonValidation = () => {
+    var formIsValid = true;
+    if (this.state.comment.length > 50) {
+      formIsValid = false;
+    }
+    return formIsValid;
+  };
+
   handleCommentChange = event => {
+    if (event.target.value.length > 50) {
+      document
+        .getElementById("groupCommentId")
+        .setAttribute("class", "form-control is-invalid");
+    } else {
+      document
+        .getElementById("groupCommentId")
+        .setAttribute("class", "form-control");
+    }
     this.setState({ comment: event.target.value });
   };
 
-  onOKClick = event => {
+  onSaveClick = event => {
     event.preventDefault();
     axios
       .put(
@@ -66,7 +83,8 @@ class GroupReviewPageContainer extends React.Component {
         docTypesForCreation={this.state.group.docTypesForCreation}
         docTypesForApproval={this.state.group.docTypesForApproval}
         handleCommentChange={this.handleCommentChange}
-        onOKClick={this.onOKClick}
+        handleButtonValidation={this.handleButtonValidation}
+        onSaveClick={this.onSaveClick}
         onCancelClick={this.onCancelClick}
         updateGroup={this.getGroup}
         group={this.state.group}
