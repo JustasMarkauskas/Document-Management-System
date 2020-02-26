@@ -43,6 +43,8 @@ class UserHomePageDocumentComponent extends React.Component {
             ? "table-warning"
             : this.props.status === "SUBMITTED"
             ? "table-primary"
+            : this.props.status === "APPROVED"
+            ? "table-success"
             : "table-secondary"
         }
       >
