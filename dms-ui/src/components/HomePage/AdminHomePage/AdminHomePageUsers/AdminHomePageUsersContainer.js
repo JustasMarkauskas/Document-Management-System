@@ -111,7 +111,9 @@ class AdminHomePageUsersContainer extends React.Component {
 		          <Modal.Title>Create New User</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body> 
-              <NewUserFormComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />             
+              <NewUserFormComponent 
+                onCloseModal={this.handleCloseModal} 
+                onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}  />             
             </Modal.Body>  
 	        </Modal>
           <div className="input-group mb-3 col-lg-5">

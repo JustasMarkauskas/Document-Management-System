@@ -8,7 +8,7 @@ import * as yup from "yup";
 import axios from "axios";
 import PasswordChangeComponent from "../PasswordChange/PasswodChange";
 
-
+// Kolkas neveikia, issiaiskinti kodel...
 const schema = yup.object({
   firstName: yup
     .string()
@@ -33,9 +33,6 @@ const schema = yup.object({
 class UserInfoComponent extends React.Component {
   constructor(props) {
     super(props);
-   
-    
-
     this.state = {
       show: false,
       users: [],
@@ -45,36 +42,53 @@ class UserInfoComponent extends React.Component {
       comment:""
     };
   }
+  // Priskiriam state reiksmes jei keisim tik viena elementa, priesingu atveju meta klaida, reiksmes ateina is
+  // AdminHomePageUsersComponent.js
 
-  refresh(){
-    this.getUsers();
-    window.location.reload();
+  componentDidMount(){
+    this.setState({ 
+      firstName: this.props.firstName, 
+      lastName: this.props.lastName, 
+      comment: this.props.comment
+    })
   }
 
+  // Funkcija atrefreshinti tinklapi po nauju duomenu pateikimo.
+  // refresh(){
+  //   this.getUsers();
+  //   window.location.reload();
+  // }
+
+  //Funkcija uzdaryti modala be saugojimo ir atrefreshinti puslapi.
   handleCloseModal=()=> {
     this.setState({ show: false });
     this.refresh();       
-	}
-
-  handleFirstNameChange = event => {      
-    this.setState({ show: false }); 
-    this.refresh();      
   }
+
+
+
   
+  // Password change modalo cancel
+  handlePassCloseModal=()=>{
+    this.setState({ show: false });
+  }
+  // Password change modalo save
+  handlePassSaveCloseModal=()=>{
+    this.setState({ show: false });
+  }
+
+
+
+
   
-  
-
-
-
-
-  handleShowModal=()=> {
+//Funkcija parodyti modala  
+  handleShowPasswordChangeModal=()=> {
 	this.setState({ show: true });
 	}
 // situs padarom kad nusiustu i state
   handleFirstNameChange = event => {
     this.setState({firstName: event.target.value });
   };
-
 
   handleLastNameChange = event =>{
     this.setState({lastName: event.target.value});
@@ -83,10 +97,13 @@ class UserInfoComponent extends React.Component {
   handleCommentChange = event =>{
     this.setState({comment: event.target.value});
   };
+//
 
+// onCloseModalAfterSubmit funkcija ateina is AdminHomePageUsersComponent.js jinai dedama i updateUser funkcija,
+// kur po informacijos nusiuntimo i DB modalas uzdaromas ir perkraunamas pagrindinis langas atsinaujinti informacijai
 closeModal = this.props.onCloseModalAfterSubmit;
  
-
+// duomenu nusiuntimas i DB pagal username.
   updateUser = event => {
     event.preventDefault();
     axios
@@ -192,18 +209,20 @@ closeModal = this.props.onCloseModalAfterSubmit;
                   <button 
                     type="button" 
                     className="col-12 btn btn-primary btn-sm"
-                    onClick={this.handleShowModal}
+                    onClick={this.handleShowPasswordChangeModal}
                   >
                     Change password
-                  </button>
-                      {/* Pasikeisti show modala nes kita */}
+                  </button>                      
                     {/* Change password modal begining */}
                     <Modal show={this.state.show} onHide={this.handleCloseModal}> 
                       <Modal.Header closeButton>
                         <Modal.Title>Change password</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>                                           
-                      <PasswordChangeComponent onCloseModal={this.handleCloseModal} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} username={this.props.username} />
+                      <PasswordChangeComponent 
+                        onCloseModal={this.handlePassCloseModal} 
+                        onCloseModalAfterSubmit={this.handlePassSaveCloseModal} 
+                        username={this.props.username} />
                       </Modal.Body>  
                     </Modal>
                     {/* Change password modal end */}

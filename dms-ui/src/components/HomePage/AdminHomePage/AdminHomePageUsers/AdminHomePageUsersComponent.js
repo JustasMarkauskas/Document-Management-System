@@ -73,7 +73,15 @@ class AdminHomePageUsersComponent extends React.Component {
 		          <Modal.Title>User Infomation</Modal.Title>
 		        </Modal.Header>
 		        <Modal.Body>                         
-            <UserInfoComponent onCloseModal={this.handleCloseModal} refresh={this.refresh} onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} username={this.props.username} firstName={this.props.firstName} lastName={this.props.lastName} comment={this.props.comment}/>
+            <UserInfoComponent 
+              onCloseModal={this.handleCloseModal} 
+              refresh={this.refresh} 
+              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit} 
+              username={this.props.username} 
+              firstName={this.props.firstName} 
+              lastName={this.props.lastName} 
+              comment={this.props.comment}
+            />
             </Modal.Body>  
 	        </Modal>          
         </td>
