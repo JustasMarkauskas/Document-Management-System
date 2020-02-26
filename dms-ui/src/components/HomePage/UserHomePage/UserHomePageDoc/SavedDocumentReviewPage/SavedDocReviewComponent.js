@@ -40,6 +40,7 @@ class SavedDocReviewComponent extends React.Component {
     if (
       this.state.title.length < 5 ||
       this.state.title.length > 30 ||
+      this.state.description.length < 1 ||
       this.state.description.length > 50
     ) {
       formIsValid = false;
@@ -66,7 +67,7 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleDescriptionChange = event => {
-    if (event.target.value.length > 50) {
+    if (event.target.value.length < 1 || event.target.value.length > 50) {
       document
         .getElementById("savedDescription")
         .setAttribute("class", "form-control is-invalid");
@@ -233,7 +234,7 @@ class SavedDocReviewComponent extends React.Component {
             placeholder="Description"
           />
           <div className="invalid-feedback text-info">
-            Must be 50 characters or less
+            Must be 1-50 characters long
           </div>
         </div>
         <input type="file" multiple onChange={this.onFileChange} />

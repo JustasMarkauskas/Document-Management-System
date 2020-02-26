@@ -15,7 +15,8 @@ const schema = yup.object().shape({
   description: yup
     .string()
     .trim()
-    .max(50, "Must be 50 characters or less")
+    .min(1, "Must be 1-50 characters long")
+    .max(50, "Must be 1-50 characters long")
 });
 
 const handleSubmit = values => {
@@ -154,7 +155,7 @@ class NewDocumentFormComponent extends React.Component {
               <div className="container mt-2">
                 <div className="row">
                   <Button
-                    disabled={!values.title || !isValid}
+                    disabled={!values.title || !values.description || !isValid}
                     onClick={() => {
                       handleSubmit();
                       this.props.onCloseModalAfterSubmit();
@@ -166,7 +167,7 @@ class NewDocumentFormComponent extends React.Component {
                     Submit
                   </Button>
                   <Button
-                    disabled={!values.title || !isValid}
+                    disabled={!values.title || !values.description || !isValid}
                     onClick={() => {
                       setFieldValue("isSaveButton", true);
                       handleSubmit();
