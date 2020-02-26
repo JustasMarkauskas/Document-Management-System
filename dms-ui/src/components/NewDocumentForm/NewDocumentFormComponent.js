@@ -155,7 +155,12 @@ class NewDocumentFormComponent extends React.Component {
               <div className="container mt-2">
                 <div className="row">
                   <Button
-                    disabled={!values.title || !values.description || !isValid}
+                    disabled={
+                      !values.title ||
+                      !values.description ||
+                      !isValid ||
+                      !values.files.length > 0
+                    }
                     onClick={() => {
                       handleSubmit();
                       this.props.onCloseModalAfterSubmit();

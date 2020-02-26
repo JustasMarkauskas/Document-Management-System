@@ -245,7 +245,9 @@ class SavedDocReviewComponent extends React.Component {
           <div className="row">
             <div className="mr-2">
               <button
-                disabled={!this.handleButtonValidation()}
+                disabled={
+                  !this.handleButtonValidation() || !this.state.files.length > 0
+                }
                 onClick={this.onSubmitClick}
                 type="button"
                 className="btn btn-primary"
