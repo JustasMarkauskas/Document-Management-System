@@ -13,11 +13,10 @@ const schema = yup.object().shape({
     .min(5, "Must be 5-30 characters long")
     .max(30, "Must be 5-30 characters long")
     .required("Please enter a title"),
-
   description: yup
     .string()
     .trim()
-    .min(1, "Must be 1-50 characters long")
+    .min(5, "Must be 5-50 characters long")
     .max(50, "Must be 1-50 characters long")
 });
 
@@ -62,6 +61,7 @@ class NewDocumentFormComponent extends React.Component {
       this.innerRef.current.focus();
     }, 1);
   }
+
   render() {
     return (
       <Formik
@@ -146,14 +146,29 @@ class NewDocumentFormComponent extends React.Component {
                   <p className="text-info">{errors.description}</p>
                 </Form.Control.Feedback>
               </Form.Group>
-              <input
-                className="NewDocumentForm"
-                type="file"
-                multiple
-                onChange={event => {
-                  setFieldValue("files", event.currentTarget.files);
-                }}
-              />
+              <Form.Group>
+                <input
+                  className="NewDocumentForm"
+                  type="file"
+                  multiple
+                  onChange={event => {
+                    setFieldValue("files", event.currentTarget.files);
+                    if (event.target.files.length > 0) {
+                      document
+                        .getElementById("uploadFileInfo")
+                        .setAttribute("class", "text-info small d-none");
+                    } else {
+                      document
+                        .getElementById("uploadFileInfo")
+                        .setAttribute("class", "text-info small");
+                    }
+                  }}
+                />
+                <div id="uploadFileInfo" className="text-info small">
+                  At least one file has to be selected to Submit the form
+                </div>
+              </Form.Group>
+
               <div className="container mt-2">
                 <div className="row">
                   <Button

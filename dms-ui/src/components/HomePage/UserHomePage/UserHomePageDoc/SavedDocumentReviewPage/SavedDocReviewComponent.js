@@ -23,6 +23,15 @@ class SavedDocReviewComponent extends React.Component {
           title: this.props.title,
           description: this.props.description
         });
+        if (this.state.downloadFiles.length > 0) {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small d-none");
+        } else {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small");
+        }
       })
       .catch(error => {
         console.log(error);
@@ -35,12 +44,27 @@ class SavedDocReviewComponent extends React.Component {
     }
   }
 
+  handleSubmitButtonValidation = () => {
+    var formIsValid = true;
+    if (
+      this.state.title.trim().length < 5 ||
+      this.state.title.trim().length > 30 ||
+      this.state.description.trim().length < 5 ||
+      this.state.description.trim().length > 50 ||
+      (this.state.downloadFiles < 1 && this.state.files < 1)
+    ) {
+      formIsValid = false;
+    }
+
+    return formIsValid;
+  };
+
   handleButtonValidation = () => {
     var formIsValid = true;
     if (
       this.state.title.trim().length < 5 ||
       this.state.title.trim().length > 30 ||
-      this.state.description.trim().length < 1 ||
+      this.state.description.trim().length < 5 ||
       this.state.description.trim().length > 50
     ) {
       formIsValid = false;
@@ -71,7 +95,7 @@ class SavedDocReviewComponent extends React.Component {
 
   handleDescriptionChange = event => {
     if (
-      event.target.value.trim().length < 1 ||
+      event.target.value.trim().length < 5 ||
       event.target.value.trim().length > 50
     ) {
       document
@@ -87,6 +111,15 @@ class SavedDocReviewComponent extends React.Component {
 
   onFileChange = event => {
     this.setState({ files: event.target.files });
+    if (event.target.files.length > 0) {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small d-none");
+    } else {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small");
+    }
   };
 
   closeModal = this.props.onHide;
@@ -239,21 +272,23 @@ class SavedDocReviewComponent extends React.Component {
             defaultValue={this.props.description}
             placeholder="Description"
           />
-          <div className="invalid-feedback text-info">
-            Must be 1-50 characters long
+          <div className="invalid-feedback text-info small">
+            Must be 5-50 characters long
           </div>
         </div>
-        <input type="file" multiple onChange={this.onFileChange} />
-
+        <div className="form-group">
+          <input type="file" multiple onChange={this.onFileChange} />
+          <div id="uploadFileInfo" className="text-info small d-none">
+            At least one file has to be selected to Submit the form
+          </div>
+        </div>
         {documentFiles}
 
         <div className="container mt-2">
           <div className="row">
             <div className="mr-2">
               <button
-                disabled={
-                  !this.handleButtonValidation() || !this.state.files.length > 0
-                }
+                disabled={!this.handleSubmitButtonValidation()}
                 onClick={this.onSubmitClick}
                 type="button"
                 className="btn btn-primary"
