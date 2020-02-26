@@ -6,21 +6,26 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 
-
 const schema = yup.object().shape({
   username: yup
     .string()
     .min(5, "Must be 5-20 characters long")
     .max(20, "Must be 5-20 characters long")
     .required("Please enter a username")
-    .matches(/^[A-Za-z\d]+$/, "Only uppercase, lowercase letters and numbers are allowed"),
+    .matches(
+      /^[A-Za-z\d]+$/,
+      "Only uppercase, lowercase letters and numbers are allowed"
+    ),
   firstName: yup
     .string()
     .trim()
     .min(1, "Must be 1-30 characters long")
     .max(30, "Must be 1-30 characters long")
     .required("Please enter a first name")
-    .matches(/^[A-Za-z\s-]+$/, "Only uppercase, lowercase letters and '-', space symbols are allowed"),
+    .matches(
+      /^[A-Za-z\s-]+$/,
+      "Only uppercase, lowercase letters and '-', space symbols are allowed"
+    ),
   lastName: yup
     .string()
     .trim()
@@ -55,12 +60,10 @@ const handleSubmit = values => {
   })
     .then(response => {
       console.log(response);
-
     })
     .catch(error => {
       console.log(error);
     });
-
 };
 
 class NewUserFormComponent extends React.Component {
@@ -85,11 +88,16 @@ class NewUserFormComponent extends React.Component {
           confirmPassword: ""
         }}
         validationSchema={schema}
-
         onSubmit={handleSubmit}
-
       >
-        {({ handleSubmit, handleChange, values, isValid, errors, handleBlur }) => (
+        {({
+          handleSubmit,
+          handleChange,
+          values,
+          isValid,
+          errors,
+          handleBlur
+        }) => (
           <div className="NewUserForm" id="adminCreateUserForm">
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
@@ -198,23 +206,30 @@ class NewUserFormComponent extends React.Component {
                 </Form.Control.Feedback>
               </Form.Group>
               <Button
-                disabled={!values.username || !values.firstName || !values.lastName || !values.password || !values.confirmPassword || !isValid}
+                disabled={
+                  !values.username ||
+                  !values.firstName ||
+                  !values.lastName ||
+                  !values.password ||
+                  !values.confirmPassword ||
+                  !isValid
+                }
                 onClick={this.props.onCloseModalAfterSubmit}
                 variant="primary"
                 className="SubmitButton mr-2"
                 type="submit"
               >
                 Submit
-            </Button>
+              </Button>
               <Button onClick={this.props.onCloseModal} variant="primary">
                 Cancel
-            </Button>
+              </Button>
             </Form>
           </div>
         )}
       </Formik>
     );
   }
-};
+}
 
 export default withRouter(NewUserFormComponent);
