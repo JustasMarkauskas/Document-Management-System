@@ -61,14 +61,14 @@ class AdminHomePageUsersComponent extends React.Component {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this.handleShowModal}
+            onClick={this.props.handleActionClick}
             data-toggle="modal"
             data-target="#userInfoModal"
             id={"userNr" + this.props.rowNr}
           >
             <i className="fas fa-cog"></i>
           </button>
-          <Modal show={this.state.show} onHide={this.handleCloseModal}>
+          {/* <Modal show={this.state.show} onHide={this.handleCloseModal}>
             <Modal.Header closeButton>
               <Modal.Title>User Infomation</Modal.Title>
             </Modal.Header>
@@ -84,7 +84,7 @@ class AdminHomePageUsersComponent extends React.Component {
                 comment={this.props.comment}
               />
             </Modal.Body>
-          </Modal>
+          </Modal> */}
         </td>
       </tr>
     );

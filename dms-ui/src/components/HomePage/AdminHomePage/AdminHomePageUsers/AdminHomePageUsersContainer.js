@@ -53,14 +53,9 @@ class AdminHomePageUsersContainer extends React.Component {
     this.getUsers();
   }
 
-  handleActionClick = event => {
+  handleActionClick = (event, username) => {
     event.preventDefault();
-    this.props.history.push("/user-info"); //navigacija teisinga padaryti
-  };
-
-  handleAddUserButton = event => {
-    event.preventDefault();
-    this.props.history.push("/new-user"); //navigacija teisinga padaryti
+    this.props.history.push("/user-review/" + username);
   };
 
   handleSearchChange = event => {
@@ -90,7 +85,9 @@ class AdminHomePageUsersContainer extends React.Component {
         username={user.username}
         comment={user.comment}
         userGroups={user.userGroups}
-        handleActionClick={this.handleActionClick}
+        handleActionClick={event =>
+          this.handleActionClick(event, user.username)
+        }
       />
     ));
 

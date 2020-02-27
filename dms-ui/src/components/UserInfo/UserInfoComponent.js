@@ -48,32 +48,30 @@ class UserInfoComponent extends React.Component {
       firstName: "",
       lastName: "",
       comment: "",
-      userGroups: []
+      userGroups: [],
+      user: []
     };
   }
   // Priskiriam state reiksmes jei keisim tik viena elementa, priesingu atveju meta klaida, reiksmes ateina is
   // AdminHomePageUsersComponent.js
 
-  componentDidMount() {
-    this.setState({
-      firstName: this.props.firstName,
-      lastName: this.props.lastName,
-      comment: this.props.comment
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.userGroups !== prevProps.userGroups) {
-      this.setState({
-        userGroups: this.props.userGroups
+  getUser = () => {
+    axios
+      .get("http://localhost:8081/api/user/" + this.props.match.params.username)
+      .then(response => {
+        this.setState({
+          user: response.data,
+          userGroups: response.data.userGroups
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    }
+  };
+
+  componentDidMount() {
+    this.getUser();
   }
-  // Funkcija atrefreshinti tinklapi po nauju duomenu pateikimo.
-  // refresh(){
-  //   this.getUsers();
-  //   window.location.reload();
-  // }
 
   //Funkcija uzdaryti modala be saugojimo ir atrefreshinti puslapi.
   handleCloseModal = () => {
@@ -117,9 +115,10 @@ class UserInfoComponent extends React.Component {
   };
   //
 
-  // onCloseModalAfterSubmit funkcija ateina is AdminHomePageUsersComponent.js jinai dedama i updateUser funkcija,
-  // kur po informacijos nusiuntimo i DB modalas uzdaromas ir perkraunamas pagrindinis langas atsinaujinti informacijai
-  closeModal = this.props.onCloseModalAfterSubmit;
+  onCancelClick = event => {
+    event.preventDefault();
+    this.props.history.push("/adminhomepage-users");
+  };
 
   // duomenu nusiuntimas i DB pagal username.
   updateUser = event => {
@@ -146,6 +145,7 @@ class UserInfoComponent extends React.Component {
 
   render() {
     return (
+      <div className = "container">
       <Formik
         validationSchema={schema}
         // onSubmit={handleSubmit}
@@ -169,7 +169,7 @@ class UserInfoComponent extends React.Component {
 
               <div className="row">
                 <div className="d-flex  mb-2 justify-content-center  col-12">
-                  <h2>User Name:{this.props.username}</h2>
+                  <h2>User Name:{this.state.user.username}</h2>
                 </div>
                 <div className="row d-flex justify-content-center  col-12  m-0">
                   <div className="col-5 d-flex flex-column col-6">
@@ -178,7 +178,7 @@ class UserInfoComponent extends React.Component {
                         <label htmlFor="input">First Name</label>
                         <Form.Control
                           type="firstname"
-                          defaultValue={this.props.firstName}
+                          defaultValue={this.state.user.firstName}
                           onChange={this.handleFirstNameChange}
                           name="firstName"
                           id="firstName"
@@ -197,7 +197,7 @@ class UserInfoComponent extends React.Component {
                         <label htmlFor="input">Last Name</label>
                         <Form.Control
                           type="lastname"
-                          defaultValue={this.props.lastName}
+                          defaultValue={this.state.user.lastName}
                           onChange={this.handleLastNameChange}
                           name="lastName"
                           id="lastName"
@@ -231,8 +231,8 @@ class UserInfoComponent extends React.Component {
                         <Modal.Body>
                           <AssignGroupsContainer
                             onHide={this.handleCloseAssignToGroupsModal}
-                            userGroups={this.props.userGroups}
-                            username={this.props.username}
+                            userGroups={this.state.user.userGroups}
+                            username={this.state.user.username}
                           />
                         </Modal.Body>
                       </Modal>
@@ -259,7 +259,7 @@ class UserInfoComponent extends React.Component {
                             onCloseModalAfterSubmit={
                               this.handlePassSaveCloseModal
                             }
-                            username={this.props.username}
+                            username={this.state.user.username}
                           />
                         </Modal.Body>
                       </Modal>
@@ -272,7 +272,7 @@ class UserInfoComponent extends React.Component {
                         <h5 className="card-title">User groups</h5>
                         <div className="card-text scroll">
                           <ul className="list-group mb-2">
-                            {this.props.userGroups.map((group, index) => {
+                            {this.state.userGroups.map((group, index) => {
                               return (
                                 <div key={index}>
                                   <li className="list-group-item">{group}</li>
@@ -307,7 +307,7 @@ class UserInfoComponent extends React.Component {
                       onChange={this.handleCommentChange}
                       type="comment"
                       id="comment"
-                      defaultValue={this.props.comment}
+                      defaultValue={this.state.user.comment}
                       placeholder="Comment"
                       isInvalid={!!errors.comment}
                     />
@@ -328,7 +328,7 @@ class UserInfoComponent extends React.Component {
                   Submit
                 </Button>
                 <Button
-                  onClick={this.props.onCloseModal}
+                  onClick={this.onCancelClick}
                   variant="secondary"
                   className="col-4"
                 >
@@ -340,6 +340,7 @@ class UserInfoComponent extends React.Component {
           </div>
         )}
       </Formik>
+      </div>
     );
   }
 }
