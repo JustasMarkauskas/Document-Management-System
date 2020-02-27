@@ -52,8 +52,6 @@ class UserInfoComponent extends React.Component {
       user: []
     };
   }
-  // Priskiriam state reiksmes jei keisim tik viena elementa, priesingu atveju meta klaida, reiksmes ateina is
-  // AdminHomePageUsersComponent.js
 
   getUser = () => {
     axios
@@ -61,7 +59,10 @@ class UserInfoComponent extends React.Component {
       .then(response => {
         this.setState({
           user: response.data,
-          userGroups: response.data.userGroups
+          userGroups: response.data.userGroups,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          comment: response.data.comment
         });
       })
       .catch(error => {
@@ -131,7 +132,7 @@ class UserInfoComponent extends React.Component {
     axios
       .put(
         "http://localhost:8081/api/user/update-user-info/" +
-          this.props.username,
+          this.state.user.username,
         {
           comment: this.state.comment,
           firstName: this.state.firstName,
@@ -141,7 +142,7 @@ class UserInfoComponent extends React.Component {
         }
       )
       .then(() => {
-        this.closeModal();
+        this.props.history.push("/adminhomepage-users");
       })
       .catch(error => {
         console.log(error);
@@ -153,7 +154,7 @@ class UserInfoComponent extends React.Component {
       <div className="container">
         <Formik
           validationSchema={schema}
-          // onSubmit={handleSubmit}
+          //  onSubmit={handleSubmit}
           initialValues={{
             firstName: "",
             lastName: "",
@@ -163,7 +164,7 @@ class UserInfoComponent extends React.Component {
           {({
             handleSubmit,
             handleChange,
-            handleFirstNameChange,
+            setFieldValue,
             values,
             isValid,
             errors
@@ -188,6 +189,7 @@ class UserInfoComponent extends React.Component {
                             name="firstName"
                             id="firstName"
                             className="NewUserForm"
+                            placeholder="First name"
                             size="lg"
                             isInvalid={!!errors.firstName}
                           />
@@ -201,12 +203,13 @@ class UserInfoComponent extends React.Component {
                         <Form.Group>
                           <label htmlFor="input">Last Name</label>
                           <Form.Control
-                            type="lastname"
-                            defaultValue={this.state.user.lastName}
-                            onChange={this.handleLastNameChange}
-                            name="lastName"
-                            id="lastName"
                             className="NewUserForm"
+                            name="lastName"
+                            onChange={this.handleLastNameChange}
+                            type="lastname"
+                            id="lastName"
+                            defaultValue={this.state.user.lastName}
+                            placeholder="Last name"
                             size="lg"
                             isInvalid={!!errors.lastName}
                           />
