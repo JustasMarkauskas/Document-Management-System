@@ -56,9 +56,20 @@ class SubmittedDFAReviewComponent extends React.Component {
     this.setState({ rejectionReason: event.target.value });
   };
 
-  handleButtonValidation = () => {
+  handleRejectButton = () => {
     var formIsValid = true;
-    if (this.state.rejectionReason.length > 50) {
+    if (
+      this.state.rejectionReason.length === 0 ||
+      this.state.rejectionReason.length > 50
+    ) {
+      formIsValid = false;
+    }
+    return formIsValid;
+  };
+
+  handleApproveButton = () => {
+    var formIsValid = true;
+    if (this.state.rejectionReason.length > 0) {
       formIsValid = false;
     }
     return formIsValid;
@@ -131,7 +142,7 @@ class SubmittedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledDocType">Doc type</label>
+            <label htmlFor="disabledDocType">Document type</label>
             <input
               type="text"
               id="disabledDocType"
@@ -193,7 +204,7 @@ class SubmittedDFAReviewComponent extends React.Component {
         <div className="container mt-2">
           <div className="row">
             <button
-              disabled={!this.handleButtonValidation()}
+              disabled={!this.handleApproveButton()}
               onClick={this.onApproveClick}
               type="button"
               className="btn btn-primary mr-2"
@@ -202,7 +213,7 @@ class SubmittedDFAReviewComponent extends React.Component {
             </button>
 
             <button
-              disabled={!this.handleButtonValidation()}
+              disabled={!this.handleRejectButton()}
               onClick={this.onRejectClick}
               type="button"
               className="btn btn-primary mr-2"

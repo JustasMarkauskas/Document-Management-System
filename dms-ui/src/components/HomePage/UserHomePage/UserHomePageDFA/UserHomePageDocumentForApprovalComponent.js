@@ -38,12 +38,13 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
   render() {
     return (
       <tr
+        id={"userDFADocumentNr" + this.props.rowNr}
         className={
           this.props.status === "SUBMITTED"
             ? "table-primary"
-            : this.props.status === "APPROVED"
+            : this.props.status === "REJECTED"
             ? "table-secondary"
-            : "table-secondary"
+            : "table-success"
         }
       >
         <th scope="row">{this.props.rowNr}</th>
@@ -54,11 +55,7 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
         <td>{this.props.submissionDate}</td>
         <td>{this.props.reviewDate}</td>
         <td>
-          <button
-            className="btn btn-primary"
-            onClick={this.handleActionClick}
-            id={"userDFADocumentNr" + this.props.rowNr}
-          >
+          <button className="btn btn-primary" onClick={this.handleActionClick}>
             <i className="fas fa-cog"></i>
           </button>
         </td>

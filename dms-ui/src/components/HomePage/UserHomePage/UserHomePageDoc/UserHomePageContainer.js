@@ -1,9 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import user from "../../../User/User";
 import UserHomepageComponents from "./UserHomePageComponents";
-import LogInUserContainer from "../../../LogInPage/LogInUserContainer";
 
 class UserHomePageContainer extends React.Component {
   constructor(props) {

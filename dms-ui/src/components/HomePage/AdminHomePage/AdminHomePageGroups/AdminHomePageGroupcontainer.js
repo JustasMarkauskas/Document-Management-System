@@ -58,6 +58,11 @@ class AdminHomePageGroupContainer extends React.Component {
     this.setState({ groupName: event.target.value });
   };
 
+  handleActionClick = (event, groupName) => {
+    event.preventDefault();
+    this.props.history.push("/group-review/" + groupName);
+  };
+
   handleSearchButton = event => {
     event.preventDefault();
     axios
@@ -79,6 +84,8 @@ class AdminHomePageGroupContainer extends React.Component {
         groupName={group.id}
         groupSize={group.groupSize}
         comment={group.comment}
+        updateGroups={this.getGroups}
+        handleActionClick={event => this.handleActionClick(event, group.id)}
       />
     ));
 

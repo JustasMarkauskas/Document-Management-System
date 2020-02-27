@@ -14,6 +14,7 @@ import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
 
 
+
 @Service
 public class GroupService {
 
@@ -21,10 +22,12 @@ public class GroupService {
 
 	private DocTypeRepository docTypeRepository;
 
+
 	@Autowired
 	public GroupService(GroupRepository groupRepository, DocTypeRepository docTypeRepository) {
 		this.groupRepository = groupRepository;
 		this.docTypeRepository = docTypeRepository;
+
 	}
 
 	@Transactional(readOnly = true)
@@ -56,6 +59,15 @@ public class GroupService {
 	public Group getGroup(String groupName) {
 		return getGroups().stream().filter(group -> group.getId().equals(groupName)).findFirst()
 				.orElseThrow(() -> new RuntimeException("Can't find group"));
+	}
+	
+	@Transactional(readOnly = true)
+	public List<String> getAllGroupNames() {
+		List<String> allGroupNames = new ArrayList<String>();
+		for (int i = 0; i < getGroups().size(); i++) {
+			allGroupNames.add(getGroups().get(i).getId());
+		}
+		return allGroupNames;
 	}
 
 	@Transactional
@@ -93,6 +105,8 @@ public class GroupService {
 		group.setDocTypesForApproval(docTypesForApproval);
 	}
 
+	
+	
 	@Transactional
 	public void deleteGroupByName(String groupName) {
 		groupRepository.deleteById(groupName);

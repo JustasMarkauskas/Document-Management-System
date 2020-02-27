@@ -38,11 +38,14 @@ class UserHomePageDocumentComponent extends React.Component {
   render() {
     return (
       <tr
+        id={"userDocumentNr" + this.props.rowNr}
         className={
           this.props.status === "SAVED"
             ? "table-warning"
             : this.props.status === "SUBMITTED"
             ? "table-primary"
+            : this.props.status === "APPROVED"
+            ? "table-success"
             : "table-secondary"
         }
       >
@@ -53,11 +56,7 @@ class UserHomePageDocumentComponent extends React.Component {
         <td>{this.props.submissionDate}</td>
         <td>{this.props.reviewDate}</td>
         <td>
-          <button
-            className="btn btn-primary"
-            onClick={this.handleActionClick}
-            id={"userDocumentNr" + this.props.rowNr}
-          >
+          <button className="btn btn-primary" onClick={this.handleActionClick}>
             <i className="fas fa-cog"></i>
           </button>
         </td>

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.print.Doc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.akademija.dao.DocTypeRepository;
+import it.akademija.dao.DocumentRepository;
 import it.akademija.dao.GroupRepository;
 import it.akademija.dao.RoleRepository;
 import it.akademija.dao.UserRepository;
@@ -40,6 +41,7 @@ public class UserService implements UserDetailsService {
 	private RoleRepository roleRepository;
 
 
+	
 	@Autowired
 	public UserService(UserRepository userRepository, GroupRepository groupRepository, RoleRepository roleRepository) {
 		this.userRepository = userRepository;
@@ -89,7 +91,7 @@ public class UserService implements UserDetailsService {
 
 		return allDocTypesForCreation;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Set<String> getAllDocTypesForApproval(String username) {
 		User user = findByUsername(username);
@@ -101,7 +103,6 @@ public class UserService implements UserDetailsService {
 		}
 		return allDocTypesForApproval;
 	}
-
 
 	@Transactional(readOnly = true)
 	public User findByUsername(String username) {
@@ -116,16 +117,17 @@ public class UserService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public List<UserForClient> getUsersForClient() {
 		return userRepository.findAll().stream().map((user) -> new UserForClient(user.getFirstName(),
-				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames())).collect(Collectors.toList());
+				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames()))
+				.collect(Collectors.toList());
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<String> getAllUsernames() {
 		List<String> allUsernames = new ArrayList<String>();
-		for (int i =0; i<getUsers().size(); i++) {
+		for (int i = 0; i < getUsers().size(); i++) {
 			allUsernames.add(getUsers().get(i).getUsername());
-		}	
-		return  allUsernames;
+		}
+		return allUsernames;
 	}
 
 	@Transactional
@@ -152,7 +154,7 @@ public class UserService implements UserDetailsService {
 		User saved = userRepository.save(user);
 		return saved;
 	}
-	
+
 	@Transactional
 	public User saveAdmin(NewUser newUser) {
 		User user = new User();
@@ -176,7 +178,7 @@ public class UserService implements UserDetailsService {
 		existingUser.setPassword(encoder.encode(newUser.getPassword()));
 		return existingUser;
 	}
-	
+
 	@Transactional
 	public User updateUserInfo(String username, NewUser newUser) {
 		User existingUser = findByUsername(username);
@@ -199,10 +201,19 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	public void assignListOfUsersToOneGroup(String groupName, List<String> usernames) {
 		Group group = groupRepository.findById(groupName);
-			for (String username : usernames) {
-				User user = userRepository.findByUsername(username);
-				Collection<Group> userGroups = user.getGroups();
+
+		for (int i = 0; i < getUsers().size(); i++) {
+			User user = userRepository.findByUsername(getUsers().get(i).getUsername());
+			Collection<Group> userGroups = user.getGroups();
+			userGroups.remove(group);
+		}
+
+		for (String username : usernames) {
+			User user = userRepository.findByUsername(username);
+			Collection<Group> userGroups = user.getGroups();
+			if (!userGroups.contains(group)) {
 				userGroups.add(group);
+			}
 		}
 	}
 

@@ -1,20 +1,20 @@
 import React from "react";
 import axios from "axios";
 
-class AssignUserContainer extends React.Component {
+class AssignGroupsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
-      checkedUsers: []
+      groups: [],
+      checkedGroups: []
     };
   }
 
-  getUsers = () => {
+  getGroups = () => {
     axios
-      .get("http://localhost:8081/api/user/usernames/")
+      .get("http://localhost:8081/api/user/group-names")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState({ groups: response.data });
       })
       .catch(error => {
         console.log(error);
@@ -22,14 +22,14 @@ class AssignUserContainer extends React.Component {
   };
 
   componentDidMount() {
-    this.getUsers();
-    this.setState({ checkedUsers: this.props.groupUsers });
+    this.getGroups();
+    this.setState({ checkedGroups: this.props.userGroups });
   }
 
-  contains(users, groupUser) {
-    var i = users.length;
+  contains(groups, userGroups) {
+    var i = groups.length;
     while (i--) {
-      if (users[i] === groupUser) {
+      if (groups[i] === userGroups) {
         return true;
       }
     }
@@ -37,16 +37,16 @@ class AssignUserContainer extends React.Component {
   }
 
   onCheckboxClick = e => {
-    const checkedUsers = this.state.checkedUsers;
+    const checkedGroups = this.state.checkedGroups;
     let index;
 
     if (e.target.checked) {
-      checkedUsers.push(e.target.value);
+      checkedGroups.push(e.target.value);
     } else {
-      index = checkedUsers.indexOf(e.target.value);
-      checkedUsers.splice(index, 1);
+      index = checkedGroups.indexOf(e.target.value);
+      checkedGroups.splice(index, 1);
     }
-    this.setState({ checkedUsers: checkedUsers });
+    this.setState({ checkedGroups: checkedGroups });
   };
 
   closeModal = this.props.onHide;
@@ -56,19 +56,19 @@ class AssignUserContainer extends React.Component {
 
     const userData = new FormData();
 
-    if (this.state.checkedUsers.length > 0) {
+    if (this.state.checkedGroups.length > 0) {
       var i;
-      for (i = 0; i < this.state.checkedUsers.length; i++) {
-        userData.append("usernames", this.state.checkedUsers[i]);
+      for (i = 0; i < this.state.checkedGroups.length; i++) {
+        userData.append("groups", this.state.checkedGroups[i]);
       }
     } else {
-      userData.append("usernames", "");
+      userData.append("groups", "");
     }
 
     axios
       .put(
-        "http://localhost:8081/api/user/add-users-to-group/" +
-          this.props.groupName,
+        "http://localhost:8081/api/user/update-user-groups/" +
+          this.props.username,
         userData
       )
       .then(() => {
@@ -80,20 +80,20 @@ class AssignUserContainer extends React.Component {
   };
 
   render() {
-    const allUsernames = this.state.users.map((user, index) =>
-      this.contains(this.props.groupUsers, user) ? (
+    const allUsernames = this.state.groups.map((group, index) =>
+      this.contains(this.props.userGroups, group) ? (
         <div className="form-check" key={index}>
           <input
             className="form-check-input"
             type="checkbox"
-            value={user}
+            value={group}
             defaultChecked
             onClick={this.onCheckboxClick}
-            id={"user" + index}
+            id={"group" + index}
           />
 
-          <label className="form-check-label" htmlFor={"user" + index}>
-            {user}
+          <label className="form-check-label" htmlFor={"group" + index}>
+            {group}
           </label>
         </div>
       ) : (
@@ -101,13 +101,13 @@ class AssignUserContainer extends React.Component {
           <input
             className="form-check-input"
             type="checkbox"
-            value={user}
+            value={group}
             onClick={this.onCheckboxClick}
-            id={"user" + index}
+            id={"group" + index}
           />
 
-          <label className="form-check-label" htmlFor={"user" + index}>
-            {user}
+          <label className="form-check-label" htmlFor={"group" + index}>
+            {group}
           </label>
         </div>
       )
@@ -139,4 +139,4 @@ class AssignUserContainer extends React.Component {
   }
 }
 
-export default AssignUserContainer;
+export default AssignGroupsContainer;

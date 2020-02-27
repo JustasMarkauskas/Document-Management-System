@@ -1,0 +1,128 @@
+package resources.page;
+
+import java.util.List;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class UserDFAPage extends AbstractPage {
+	
+	public String title = checkIfStatusIsSubmittedAndGetTitle();
+	public UserDFAPage(WebDriver driver) {
+		super(driver);
+	}
+
+	// buttons
+	@FindBy(id = "userDocumentSearchButton")
+	private WebElement buttonSearch;
+
+	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]")
+	private WebElement buttonAction;
+	
+	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]//button")
+	private List<WebElement> buttonsAction;
+
+	// inputs
+	@FindBy(id = "userSearchDocumentInput")
+	private WebElement inputSearch;
+
+	// labels
+	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]//ancestor::tr/descendant::td[4]")
+	private List<WebElement> labelsStatus;
+	
+	@FindBy(xpath = "//*[contains(@id,'userDFADocument')]//ancestor::tr/descendant::td[2]")
+	private List<WebElement> labelsTitle;
+
+	public void clickButtonSearch() {
+		buttonSearch.click();
+	}
+
+	public void enterInputSearch(String searchword) {
+		inputSearch.sendKeys(searchword);
+	}
+
+	public void enterSearchwordAndSearch(String searchword) {
+		inputSearch.sendKeys(searchword);
+		buttonSearch.click();
+	}
+
+	public void clickButtonActionByIndex(int index) {
+		buttonsAction.get(index).click();
+	}
+	
+	public String getTextLabelsTitleByIndex(int index) {
+		return labelsTitle.get(index).getText();
+	}
+	
+	public String getTextLabelsStatusByIndex(int index) {
+		return labelsStatus.get(index).getText();
+	}
+	
+	//sitas ok
+	public void checkIfStatusIsSubmittedAndClickAction() {
+		int buttonIndex = 0;
+		for (WebElement label : labelsStatus) {
+			if (label.getText().equals("SUBMITTED")) {
+				clickButtonActionByIndex(buttonIndex);
+				break;
+			} else
+				buttonIndex = buttonIndex + 1;
+		}
+	}
+	//sitas ok
+	public String checkIfStatusIsSubmittedAndGetTitle() {
+		int titleIndex = 0;
+		for (WebElement label : labelsStatus) {
+			if (label.getText().equals("SUBMITTED")) {
+				return getTextLabelsTitleByIndex(titleIndex);
+			} else
+				titleIndex = titleIndex + 1;
+		}
+		return null;
+	}
+	
+	//imk titla, eik per titlus ir gettink jo statusa:
+	public void checkIfTitleIsCorrectAndGetStatus() {
+		int titleIndex = -1;
+		for (WebElement label : labelsTitle) {
+			//System.out.println(label.getText());
+			//System.out.println(checkIfStatusIsSubmittedAndGetTitle());
+			if (label.getText().equals(checkIfStatusIsSubmittedAndGetTitle())) {
+				System.out.println(getTextLabelsStatusByIndex(titleIndex));
+				System.out.println(label.getText());
+			} else
+				titleIndex = titleIndex + 1;
+		}
+	}
+	
+	
+	
+	//getters
+
+	public WebElement getButtonSearch() {
+		return buttonSearch;
+	}
+
+	public List<WebElement> getButtonsAction() {
+		return buttonsAction;
+	}
+	
+	public WebElement getButtonAction() {
+		return buttonAction;
+	}
+
+	public WebElement getInputSearch() {
+		return inputSearch;
+	}
+
+	public List<WebElement> getLabelsStatus() {
+		return labelsStatus;
+	}
+	
+
+	
+	
+
+
+}

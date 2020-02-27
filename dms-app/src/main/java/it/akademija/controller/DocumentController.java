@@ -158,5 +158,13 @@ public class DocumentController {
 	public void deleteSavedDocumentById(@PathVariable Long documentId) {
 		documentService.deleteSavedDocumentById(documentId);
 	}
+	
+	@RequestMapping(path= "/comment", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Deletes document by comment", notes = "Usefull for testing")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUsersByDescription(@RequestParam final String description) {
+		documentService.deleteDocumentByDescription(description);
+	
+	}
 
 }

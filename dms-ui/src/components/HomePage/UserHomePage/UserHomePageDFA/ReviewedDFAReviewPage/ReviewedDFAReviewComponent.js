@@ -58,7 +58,7 @@ class ReviewedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledDocType">Doc type</label>
+            <label htmlFor="disabledDocType">Document type</label>
             <input
               type="text"
               id="disabledDocType"
@@ -112,7 +112,7 @@ class ReviewedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledDocumentReceiver">Document receiver</label>
+            <label htmlFor="disabledDocumentReceiver">Document reviewer</label>
             <input
               type="text"
               id="disabledDocumentReceiver"

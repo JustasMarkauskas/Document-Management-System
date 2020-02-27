@@ -138,4 +138,30 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 
 	}
 
+	@DataProvider(name = "documentsDuplicate")
+	public static Object[] testDataDocumentsDuplicate() throws IOException {
+		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsDuplicate.xml");
+	}
+
+	@Test(priority = 6, groups = { "documentCreation" }, dataProvider = "documentsDuplicate", enabled = false)
+	public void testToCheckDuplicatesInCreateDocumentType(Document document) throws Exception {
+
+		adminNav.clickButtonDocuments();
+		adminDocuments.clickButtonAddNewDocType();
+		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
+		createDocumentType.enterInputComment(document.getComment());
+		createDocumentType.clickButtonSubmit();
+		adminDocuments.clickButtonAddNewDocType();
+		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
+		createDocumentType.enterInputComment(document.getComment());
+		createDocumentType.clickButtonSubmit();
+		// assert for future error msg
+		// assertThat("Duplicate restrictions msg for document type name does not
+		// match",
+		// createDocumentType.getMsgInvalidDocumentTypeName().getText(),
+		// is(equalTo("Duplicate document type is not allowed")));
+		createDocumentType.clickButtonCancel();
+
+	}
+
 }

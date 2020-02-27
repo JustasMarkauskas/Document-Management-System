@@ -23,6 +23,15 @@ class SavedDocReviewComponent extends React.Component {
           title: this.props.title,
           description: this.props.description
         });
+        if (this.state.downloadFiles.length > 0) {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small d-none");
+        } else {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small");
+        }
       })
       .catch(error => {
         console.log(error);
@@ -35,12 +44,28 @@ class SavedDocReviewComponent extends React.Component {
     }
   }
 
-  handleButtonValidation = () => {
+  handleSubmitButtonValidation = () => {
     var formIsValid = true;
     if (
-      this.state.title.length < 5 ||
-      this.state.title.length > 30 ||
-      this.state.description.length > 50
+      this.state.title.trim().length < 5 ||
+      this.state.title.trim().length > 30 ||
+      this.state.description.trim().length < 5 ||
+      this.state.description.trim().length > 50 ||
+      (this.state.downloadFiles < 1 && this.state.files < 1)
+    ) {
+      formIsValid = false;
+    }
+
+    return formIsValid;
+  };
+
+  handleSaveButtonValidation = () => {
+    var formIsValid = true;
+    if (
+      this.state.title.trim().length < 5 ||
+      this.state.title.trim().length > 30 ||
+      this.state.description.trim().length < 5 ||
+      this.state.description.trim().length > 50
     ) {
       formIsValid = false;
     }
@@ -53,7 +78,10 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleTitleChange = event => {
-    if (event.target.value.length < 5 || event.target.value.length > 30) {
+    if (
+      event.target.value.trim().length < 5 ||
+      event.target.value.trim().length > 30
+    ) {
       document
         .getElementById("savedTitle")
         .setAttribute("class", "form-control is-invalid");
@@ -66,7 +94,10 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   handleDescriptionChange = event => {
-    if (event.target.value.length > 50) {
+    if (
+      event.target.value.trim().length < 5 ||
+      event.target.value.trim().length > 50
+    ) {
       document
         .getElementById("savedDescription")
         .setAttribute("class", "form-control is-invalid");
@@ -80,6 +111,15 @@ class SavedDocReviewComponent extends React.Component {
 
   onFileChange = event => {
     this.setState({ files: event.target.files });
+    if (event.target.files.length > 0) {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small d-none");
+    } else {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small");
+    }
   };
 
   closeModal = this.props.onHide;
@@ -124,9 +164,9 @@ class SavedDocReviewComponent extends React.Component {
     for (i = 0; i <= files.length; i++) {
       formData.append("files", files[i]);
     }
-    formData.append("description", this.state.description);
+    formData.append("description", this.state.description.trim());
     formData.append("docType", this.state.docType);
-    formData.append("title", this.state.title);
+    formData.append("title", this.state.title.trim());
     const config = {
       headers: {
         "content-type": "multipart/form-data"
@@ -204,7 +244,7 @@ class SavedDocReviewComponent extends React.Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="savedDocType">Doc type</label>
+          <label htmlFor="savedDocType">Document type</label>
 
           <select
             className="form-control"
@@ -232,19 +272,23 @@ class SavedDocReviewComponent extends React.Component {
             defaultValue={this.props.description}
             placeholder="Description"
           />
-          <div className="invalid-feedback text-info">
-            Must be 50 characters or less
+          <div className="invalid-feedback text-info small">
+            Must be 5-50 characters long
           </div>
         </div>
-        <input type="file" multiple onChange={this.onFileChange} />
-
+        <div className="form-group">
+          <input type="file" multiple onChange={this.onFileChange} />
+          <div id="uploadFileInfo" className="text-info small d-none">
+            At least one file has to be selected to Submit the form
+          </div>
+        </div>
         {documentFiles}
 
         <div className="container mt-2">
           <div className="row">
             <div className="mr-2">
               <button
-                disabled={!this.handleButtonValidation()}
+                disabled={!this.handleSubmitButtonValidation()}
                 onClick={this.onSubmitClick}
                 type="button"
                 className="btn btn-primary"
@@ -254,7 +298,7 @@ class SavedDocReviewComponent extends React.Component {
             </div>
             <div className="mr-2 ">
               <button
-                disabled={!this.handleButtonValidation()}
+                disabled={!this.handleSaveButtonValidation()}
                 onClick={this.onSaveClick}
                 type="button"
                 className="btn btn-primary"
