@@ -3,8 +3,8 @@
 <suite name="localCreateDocumentType">
 	<test name="DocumentTypeCreationTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="DemoUser1" />
-		<parameter name="loginPassword" value="DemoUser1" />
+		<parameter name="loginUsername" value="admin1" />
+		<parameter name="loginPassword" value="Password1" />
 
 		<classes>
 			<class name="com.TheGoodGuys.DMS1.AdminCreateDocumentTypeTest" />

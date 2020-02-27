@@ -41,6 +41,7 @@ public class AdminCreateUserTest extends AbstractTest {
 		
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
+		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonUsers()));
 	}
 
 	@DataProvider(name = "validUsers")
@@ -49,7 +50,7 @@ public class AdminCreateUserTest extends AbstractTest {
 	}
 
 
-	@Test (priority = 1, groups = { "userCreation" } , dataProvider = "validUsers", enabled = false)
+	@Test (priority = 1, groups = { "userCreation" } , dataProvider = "validUsers")//, enabled = false)
 	public void testToCreateNewUser(User user) throws Exception {
 		
 		adminNav.clickButtonUsers();
@@ -66,7 +67,7 @@ public class AdminCreateUserTest extends AbstractTest {
 	}
 
 
-	@Test (priority = 2, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordLength")
+	@Test (priority = 2, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordLength", enabled = false)
 	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) throws Exception {
 		
 		adminNav.clickButtonUsers();

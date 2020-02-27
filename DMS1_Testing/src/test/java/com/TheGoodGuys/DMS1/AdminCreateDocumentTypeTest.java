@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -42,6 +43,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		createDocumentType = new AdminCreateDocumentPage(driver);
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
+		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonDocuments()));
 	}
 
 	@DataProvider(name = "validDocuments")

@@ -43,6 +43,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 		
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
+		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonGroups()));
 	}
 
 	@DataProvider(name = "validGroups")
@@ -59,7 +60,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.fillAndSubmitForm(group);
 		
 //		assertThat("success msg", containsString("success"));
-		
+		wait.until(ExpectedConditions.visibilityOfAllElements(adminGroups.getLabelsGroupName()));
 		assertThat("Group name could not be found in the group list", adminGroups.checkIfGroupNameExists(group.getGroupName()), is(true));
 		
 		

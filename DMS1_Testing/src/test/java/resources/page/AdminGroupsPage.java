@@ -24,7 +24,7 @@ public class AdminGroupsPage extends AbstractPage {
 	private List<WebElement> buttonsViewGroup;
 
 	//labels
-	@FindBy(xpath = "//*[contains(@id,'groupNr')]//ancestor::tr/descendant::td[1]")
+	@FindBy(xpath = "//tr[contains(@id,'groupNr')]/descendant::td[1]")
 	private List<WebElement> labelsGroupName;
 
 

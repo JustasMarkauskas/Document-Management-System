@@ -9,6 +9,8 @@
 		<classes>
 			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest" />
 			<class name="com.TheGoodGuys.DMS1.InvalidLoginTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateDocumentTypeTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateUserTest" />
 		</classes>
 	</test>
 
