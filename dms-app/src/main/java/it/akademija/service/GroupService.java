@@ -60,6 +60,15 @@ public class GroupService {
 		return getGroups().stream().filter(group -> group.getId().equals(groupName)).findFirst()
 				.orElseThrow(() -> new RuntimeException("Can't find group"));
 	}
+	
+	@Transactional(readOnly = true)
+	public List<String> getAllGroupNames() {
+		List<String> allGroupNames = new ArrayList<String>();
+		for (int i = 0; i < getGroups().size(); i++) {
+			allGroupNames.add(getGroups().get(i).getId());
+		}
+		return allGroupNames;
+	}
 
 	@Transactional
 	public void saveGroup(NewGroup newGroup) {

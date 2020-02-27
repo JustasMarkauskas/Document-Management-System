@@ -40,10 +40,7 @@ public class UserService implements UserDetailsService {
 	private GroupRepository groupRepository;
 	private RoleRepository roleRepository;
 
-	@Autowired
-	private DocumentRepository documentRepository;
-	@Autowired
-	private DocTypeRepository docTypeRepository;
+
 	
 	@Autowired
 	public UserService(UserRepository userRepository, GroupRepository groupRepository, RoleRepository roleRepository) {
