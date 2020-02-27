@@ -65,15 +65,26 @@ class AdminHomePageGroupContainer extends React.Component {
 
   handleSearchButton = event => {
     event.preventDefault();
-    axios
-      .get("http://localhost:8081/api/group/" + this.state.groupName)
-      .then(response => {
-        this.setState({ groups: [response.data] });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    document.getElementById("adminGroupSearchInput").value = "";
+    if (this.state.groupName.length < 1) {
+      this.getGroups();
+    } else {
+      axios
+        .get(
+          "http://localhost:8081/api/group/starting-with/" +
+            this.state.groupName
+        )
+        .then(response => {
+          if (response.data.length > 0) {
+            this.setState({ groups: response.data, groupName: "" });
+          } else {
+            this.getGroups();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      document.getElementById("adminGroupSearchInput").value = "";
+    }
   };
 
   render() {

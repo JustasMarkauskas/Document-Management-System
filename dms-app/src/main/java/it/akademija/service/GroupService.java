@@ -34,6 +34,11 @@ public class GroupService {
 	public Group findByGroupName(String groupName) {
 		return groupRepository.findById(groupName);
 	}
+	
+//	@Transactional(readOnly = true)
+//	public List<Group> findByGroupNameStartingWith(String groupName) {
+//		return groupRepository.findByIdStartingWith(groupName);
+//	}
 
 	@Transactional(readOnly = true)
 	public List<Group> getGroups() {
@@ -49,6 +54,15 @@ public class GroupService {
 				.collect(Collectors.toList());
 	}
 
+	@Transactional(readOnly = true)
+	public List<GroupForClient> getGroupsForClientStartingWith(String groupNameText) {
+		return groupRepository.findByIdStartingWith(groupNameText).stream()
+				.map((group) -> new GroupForClient(group.getId(), group.getComment(), group.getUsers().size(),
+						group.getGroupUsernames(), group.getGroupDocTypesForCreation(),
+						group.getGroupDocTypesForApproval()))
+				.collect(Collectors.toList());
+	}
+	
 	@Transactional
 	public GroupForClient getGroupForClient(String groupName) {
 		return getGroupsForClient().stream().filter(group -> group.getId().equals(groupName)).findFirst()

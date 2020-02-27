@@ -17,8 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.group.GroupForClient;
 import it.akademija.model.group.NewGroup;
-import it.akademija.model.user.NewUser;
-import it.akademija.model.user.User;
 import it.akademija.service.GroupService;
 
 
@@ -37,6 +35,12 @@ public class GroupController {
 	@ApiOperation(value = "Get Groups", notes = "Returns list of all groups")
 	public List<GroupForClient> getGroupsForClient() {
 		return groupService.getGroupsForClient();
+	}
+	
+	@RequestMapping(path = "/starting-with/{groupNameText}",method = RequestMethod.GET)
+	@ApiOperation(value = "Get Groups starting with", notes = "Returns list of groups starting with passed String")
+	public List<GroupForClient> getGroupsForClient(@PathVariable String groupNameText) {
+		return groupService.getGroupsForClientStartingWith(groupNameText);
 	}
 
 	@RequestMapping(path = "/{groupName}", method = RequestMethod.GET)
