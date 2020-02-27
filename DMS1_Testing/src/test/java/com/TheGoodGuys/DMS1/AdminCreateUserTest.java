@@ -74,7 +74,8 @@ public class AdminCreateUserTest extends AbstractTest {
 		createUser.fillUserCreationForm(user);
 		createUser.clickButtonSubmit();
 		
-		assertThat("Length restrictions msg for user password does not match", createUser.getMsgInvalidPassword().getText(), is(equalTo("Must be 8-20 characters long")));
+		assertThat("Length restrictions msg for user password does not match", createUser.getMsgInvalidPassword().getText(),
+				is(equalTo("Must be 8-20 characters long")));
 		createUser.clickButtonCancel();
 	}
 	
@@ -93,7 +94,8 @@ public class AdminCreateUserTest extends AbstractTest {
 		createUser.fillUserCreationForm(user);
 		createUser.clickButtonSubmit();
 		
-		assertThat("Spec Chars restrictions msg for password does not match", createUser.getMsgInvalidPassword().getText(), is(equalTo("Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present.")));
+		assertThat("Spec Chars restrictions msg for password does not match", createUser.getMsgInvalidPassword().getText(),
+				is(equalTo("Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present.")));
 		createUser.clickButtonCancel();
 	}
 }
