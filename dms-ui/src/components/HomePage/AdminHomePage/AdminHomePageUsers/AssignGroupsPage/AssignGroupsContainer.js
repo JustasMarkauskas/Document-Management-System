@@ -12,7 +12,7 @@ class AssignGroupsContainer extends React.Component {
 
   getGroups = () => {
     axios
-      .get("http://localhost:8081/api/user/group-names")
+      .get("http://localhost:8081/api/group/group-names")
       .then(response => {
         this.setState({ groups: response.data });
       })
@@ -53,7 +53,6 @@ class AssignGroupsContainer extends React.Component {
 
   onSaveClick = event => {
     event.preventDefault();
-
     const userData = new FormData();
 
     if (this.state.checkedGroups.length > 0) {
