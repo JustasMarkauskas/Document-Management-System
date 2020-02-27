@@ -38,6 +38,28 @@ class SavedDocReviewComponent extends React.Component {
       });
   };
 
+  updateFileInfoAfterDelete = () => {
+    axios
+      .get("http://localhost:8081/api/file/" + this.props.id)
+      .then(response => {
+        this.setState({
+          downloadFiles: response.data
+        });
+        if (this.state.downloadFiles.length > 0) {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small d-none");
+        } else {
+          document
+            .getElementById("uploadFileInfo")
+            .setAttribute("class", "text-info small");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.id !== prevProps.id) {
       this.getDocumentFiles();
@@ -199,7 +221,7 @@ class SavedDocReviewComponent extends React.Component {
     axios
       .delete("http://localhost:8081/api/file/" + fileId)
       .then(() => {
-        this.getDocumentFiles();
+        this.updateFileInfoAfterDelete();
       })
       .catch(error => {
         console.log(error);
