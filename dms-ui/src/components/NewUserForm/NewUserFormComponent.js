@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import serverUrl from "../URL/ServerUrl";
 
 const schema = yup.object().shape({
   username: yup
@@ -55,7 +56,7 @@ const schema = yup.object().shape({
 const handleSubmit = values => {
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/user/",
+    url: serverUrl + "api/user/",
     data: values
   })
     .then(response => {

@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import serverUrl from "../URL/ServerUrl";
 
 const schema = yup.object({
   password: yup
@@ -25,7 +26,7 @@ const schema = yup.object({
 const handleSubmit = values => {
   axios({
     method: "PUT",
-    url: "http://localhost:8081/api/user/update-password/" + values.username,
+    url: serverUrl + "api/user/update-password/" + values.username,
     data: values
   }).catch(error => {
     console.log(error);
@@ -157,4 +158,3 @@ class PasswordChangeComponent extends React.Component {
 }
 
 export default withRouter(PasswordChangeComponent);
-

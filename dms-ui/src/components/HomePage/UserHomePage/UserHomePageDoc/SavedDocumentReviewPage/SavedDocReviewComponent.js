@@ -1,5 +1,6 @@
 import React from "react";
 import axios, { put } from "axios";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class SavedDocReviewComponent extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class SavedDocReviewComponent extends React.Component {
 
   getDocumentFiles = () => {
     axios
-      .get("http://localhost:8081/api/file/" + this.props.id)
+      .get(serverUrl + "api/file/" + this.props.id)
       .then(response => {
         this.setState({
           downloadFiles: response.data,
@@ -40,7 +41,7 @@ class SavedDocReviewComponent extends React.Component {
 
   updateFileInfoAfterDelete = () => {
     axios
-      .get("http://localhost:8081/api/file/" + this.props.id)
+      .get(serverUrl + "api/file/" + this.props.id)
       .then(response => {
         this.setState({
           downloadFiles: response.data
@@ -167,7 +168,7 @@ class SavedDocReviewComponent extends React.Component {
   onDeleteDocumentClick = event => {
     event.preventDefault();
     axios
-      .delete("http://localhost:8081/api/document/" + this.props.id)
+      .delete(serverUrl + "api/document/" + this.props.id)
       .then(() => {
         this.closeModal();
         this.updateDocuments();
@@ -178,8 +179,7 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   fileSaveUpload = files => {
-    const url =
-      "http://localhost:8081/api/document/save-after-save/" + this.props.id;
+    const url = serverUrl + "api/document/save-after-save/" + this.props.id;
     const formData = new FormData();
 
     var i;
@@ -198,8 +198,7 @@ class SavedDocReviewComponent extends React.Component {
   };
 
   fileSubmitUpload = files => {
-    const url =
-      "http://localhost:8081/api/document/submit-after-save/" + this.props.id;
+    const url = serverUrl + "api/document/submit-after-save/" + this.props.id;
     const formData = new FormData();
 
     var i;
@@ -219,7 +218,7 @@ class SavedDocReviewComponent extends React.Component {
 
   deleteFile(fileId) {
     axios
-      .delete("http://localhost:8081/api/file/" + fileId)
+      .delete(serverUrl + "api/file/" + fileId)
       .then(() => {
         this.updateFileInfoAfterDelete();
       })
@@ -232,7 +231,7 @@ class SavedDocReviewComponent extends React.Component {
     const documentFiles = this.state.downloadFiles.map((file, index) => (
       <div key={index}>
         <a
-          href={"http://localhost:8081/api/file/downloadFile/" + file.id}
+          href={serverUrl + "api/file/downloadFile/" + file.id}
           className="text-decoration-none mr-2"
         >
           {file.fileName}

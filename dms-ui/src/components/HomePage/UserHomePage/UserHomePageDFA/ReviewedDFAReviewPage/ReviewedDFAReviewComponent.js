@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ReviewedDFAReviewFiles from "./ReviewedDFAReviewFiles";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class ReviewedDFAReviewComponent extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class ReviewedDFAReviewComponent extends React.Component {
 
   getDocumentFiles = () => {
     axios
-      .get("http://localhost:8081/api/file/" + this.props.id)
+      .get(serverUrl + "api/file/" + this.props.id)
       .then(response => {
         this.setState({ files: response.data });
       })

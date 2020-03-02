@@ -3,6 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageDocumentForApprovalComponent from "./UserHomePageDocumentForApprovalComponent";
 import qs from "qs";
+import serverUrl from "../../../URL/ServerUrl";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -16,40 +17,32 @@ class UserHomePageDocumentContainer extends React.Component {
   }
 
   getDocuments = () => {
-    axios
-      .get("http://localhost:8081/api/user/loggedUsername")
-      .then(response => {
-        let username = response.data;
-        this.setState({ username: response.data });
-        axios
-          .get(
-            "http://localhost:8081/api/user/user-doctypes-for-approval/" +
-              username
-          )
-          .then(response => {
-            let docTypesFA = response.data;
-            this.setState({ userDocTypesForApproval: response.data });
+    axios.get(serverUrl + "api/user/loggedUsername").then(response => {
+      let username = response.data;
+      this.setState({ username: response.data });
+      axios
+        .get(serverUrl + "api/user/user-doctypes-for-approval/" + username)
+        .then(response => {
+          let docTypesFA = response.data;
+          this.setState({ userDocTypesForApproval: response.data });
 
-            axios
-              .get(
-                "http://localhost:8081/api/document/documents-for-approval",
-                {
-                  params: {
-                    documentForApprovalNames: docTypesFA
-                  },
-                  paramsSerializer: params => {
-                    return qs.stringify(params, { indices: false });
-                  }
-                }
-              )
-              .then(response => {
-                this.setState({ documents: response.data });
-              });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      });
+          axios
+            .get(serverUrl + "api/document/documents-for-approval", {
+              params: {
+                documentForApprovalNames: docTypesFA
+              },
+              paramsSerializer: params => {
+                return qs.stringify(params, { indices: false });
+              }
+            })
+            .then(response => {
+              this.setState({ documents: response.data });
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   };
 
   componentDidMount() {

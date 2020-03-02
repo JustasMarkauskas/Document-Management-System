@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
 import NewGroupFormComponent from "../../../NewGroupForm/NewGroupFormComponent";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class AdminHomePageGroupContainer extends React.Component {
 
   getGroups = () => {
     axios
-      .get("http://localhost:8081/api/group")
+      .get(serverUrl + "api/group")
       .then(response => {
         this.setState({ groups: response.data });
       })
@@ -69,10 +70,7 @@ class AdminHomePageGroupContainer extends React.Component {
       this.getGroups();
     } else {
       axios
-        .get(
-          "http://localhost:8081/api/group/starting-with/" +
-            this.state.groupName
-        )
+        .get(serverUrl + "api/group/starting-with/" + this.state.groupName)
         .then(response => {
           if (response.data.length > 0) {
             this.setState({ groups: response.data, groupName: "" });

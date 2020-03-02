@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import AdminHomePageComponent from "./AdminHomePageComponents";
+import serverUrl from "./../../URL/ServerUrl";
 
 class AdminHomePageContainer extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class AdminHomePageContainer extends React.Component {
 
   getUsername = () => {
     axios
-      .get("http://localhost:8081/api/user/loggedUsername")
+      .get(serverUrl + "api/user/loggedUsername")
       .then(response => {
         this.setState({ username: response.data });
       })

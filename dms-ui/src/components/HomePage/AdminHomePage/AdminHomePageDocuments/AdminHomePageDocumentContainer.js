@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import AdminHomePageDocumentComponent from "./AdminHomePageDocumentComponent";
 import NewDocTypeFormComponent from "../../../NewDocTypeForm/NewDocTypeFormComponent";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class AdminHomePageDocumentContainer extends React.Component {
 
   getDocuments = () => {
     axios
-      .get("http://localhost:8081/api/doctype/names-comments")
+      .get(serverUrl + "api/doctype/names-comments")
       .then(response => {
         this.setState({ documents: response.data });
       })
@@ -66,7 +67,7 @@ class AdminHomePageDocumentContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/doctype/" + this.state.documentName)
+      .get(serverUrl + "api/doctype/" + this.state.documentName)
       .then(response => {
         this.setState({ documents: [response.data] });
       })

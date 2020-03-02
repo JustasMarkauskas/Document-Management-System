@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageUsersComponent extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class AdminHomePageUsersComponent extends React.Component {
 
   getUsers = () => {
     axios
-      .get("http://localhost:8081/api/user")
+      .get(serverUrl + "api/user")
       .then(response => {
         this.setState({ users: response.data });
       })

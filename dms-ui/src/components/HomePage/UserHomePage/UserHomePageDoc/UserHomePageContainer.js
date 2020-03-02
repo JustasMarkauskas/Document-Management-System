@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import UserHomepageComponents from "./UserHomePageComponents";
+import serverUrl from "../../../URL/ServerUrl";
 
 class UserHomePageContainer extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class UserHomePageContainer extends React.Component {
 
   getUsername = () => {
     axios
-      .get("http://localhost:8081/api/user/loggedUsername")
+      .get(serverUrl + "api/user/loggedUsername")
       .then(response => {
         this.setState({ username: response.data });
       })

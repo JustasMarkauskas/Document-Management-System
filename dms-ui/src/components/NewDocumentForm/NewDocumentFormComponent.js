@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import serverUrl from "../URL/ServerUrl";
 
 const schema = yup.object().shape({
   docType: yup.string().required("Please select document type"),
@@ -40,7 +41,7 @@ const handleSubmit = values => {
   }
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/document/" + url,
+    url: serverUrl + "api/document/" + url,
     data: formData,
     headers: {
       "content-type": "multipart/form-data"

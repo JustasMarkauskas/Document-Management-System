@@ -2,11 +2,12 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import AdminHomePageUserNavComponent from "./AdminHomePageUserNavComponent";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageUserNavContainer extends React.Component {
   handleLogoutButton = event => {
     axios
-      .post("http://localhost:8081/logout")
+      .post(serverUrl + "logout")
       .then(() => {
         this.props.history.push("/");
       })

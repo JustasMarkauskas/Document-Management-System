@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import SubmittedDFAReviewComponent from "./SumbittedDFAReviewComponent";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class SubmittedDFAReviewContainer extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class SubmittedDFAReviewContainer extends React.Component {
 
   getDocument = () => {
     axios
-      .get("http://localhost:8081/api/document/get/" + this.props.docId + "/")
+      .get(serverUrl + "api/document/get/" + this.props.docId + "/")
       .then(response => {
         this.setState({ document: response.data });
       })

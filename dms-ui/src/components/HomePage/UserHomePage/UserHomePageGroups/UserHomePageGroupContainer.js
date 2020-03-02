@@ -3,6 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import UserHomePageGroupComponent from "./UserHomePageGroupComponent";
 import user from "./../../../User/User";
+import serverUrl from "../../../URL/ServerUrl";
 
 class UserHomePageGroupContainer extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class UserHomePageGroupContainer extends React.Component {
 
   getGroupNames = () => {
     axios
-      .get("http://localhost:8081/api/user/user-roles/" + user.username)
+      .get(serverUrl + "api/user/user-roles/" + user.username)
       .then(response => {
         this.setState({ groupNames: response.data });
       })
@@ -39,7 +40,7 @@ class UserHomePageGroupContainer extends React.Component {
   //   handleSearchButton = event => {
   //     event.preventDefault();
   //     axios
-  //       .get("http://localhost:8081/api/user/" + this.state.inputUsername)
+  //       .get(serverUrl+"api/user/" + this.state.inputUsername)
   //       .then(response => {
   //         this.setState({ users: [response.data] });
   //       })

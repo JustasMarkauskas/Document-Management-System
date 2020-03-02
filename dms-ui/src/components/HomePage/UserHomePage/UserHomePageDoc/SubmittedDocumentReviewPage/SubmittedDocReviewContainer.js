@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import SumbittedDocReviewComponent from "./SumbittedDocReviewComponent";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class SubmittedDocReviewContainer extends React.Component {
   constructor(props) {
@@ -13,25 +14,18 @@ class SubmittedDocReviewContainer extends React.Component {
   }
 
   getDocument = () => {
-    axios
-      .get("http://localhost:8081/api/user/loggedUsername")
-      .then(response => {
-        let username = response.data;
-        axios
-          .get(
-            "http://localhost:8081/api/document/" +
-              this.props.docId +
-              "/" +
-              username
-          )
+    axios.get(serverUrl + "api/user/loggedUsername").then(response => {
+      let username = response.data;
+      axios
+        .get(serverUrl + "api/document/" + this.props.docId + "/" + username)
 
-          .then(response => {
-            this.setState({ document: response.data });
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      });
+        .then(response => {
+          this.setState({ document: response.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   };
 
   componentDidMount() {

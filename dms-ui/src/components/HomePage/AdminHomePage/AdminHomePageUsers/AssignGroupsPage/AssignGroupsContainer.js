@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class AssignGroupsContainer extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class AssignGroupsContainer extends React.Component {
 
   getGroups = () => {
     axios
-      .get("http://localhost:8081/api/group/group-names")
+      .get(serverUrl + "api/group/group-names")
       .then(response => {
         this.setState({ groups: response.data });
       })
@@ -66,8 +67,7 @@ class AssignGroupsContainer extends React.Component {
 
     axios
       .put(
-        "http://localhost:8081/api/user/update-user-groups/" +
-          this.props.username,
+        serverUrl + "api/user/update-user-groups/" + this.props.username,
         userData
       )
       .then(() => {

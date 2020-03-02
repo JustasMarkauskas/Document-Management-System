@@ -1,10 +1,11 @@
 import React from "react";
+import serverUrl from "../../../../URL/ServerUrl";
 
 const SumbittedDFAReviewFiles = ({ id, fileName }) => {
   return (
     <p>
       <a
-        href={"http://localhost:8081/api/file/downloadFile/" + id}
+        href={serverUrl + "api/file/downloadFile/" + id}
         className="text-decoration-none"
       >
         {fileName}

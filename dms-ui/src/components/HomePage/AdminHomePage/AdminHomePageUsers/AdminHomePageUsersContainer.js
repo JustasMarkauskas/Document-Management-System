@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
 import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class AdminHomePageUsersContainer extends React.Component {
 
   getUsers = () => {
     axios
-      .get("http://localhost:8081/api/user")
+      .get(serverUrl + "api/user")
       .then(response => {
         this.setState({ users: response.data });
       })
@@ -65,7 +66,7 @@ class AdminHomePageUsersContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     axios
-      .get("http://localhost:8081/api/user/" + this.state.inputUsername)
+      .get(serverUrl + "api/user/" + this.state.inputUsername)
       .then(response => {
         this.setState({ users: [response.data] });
       })

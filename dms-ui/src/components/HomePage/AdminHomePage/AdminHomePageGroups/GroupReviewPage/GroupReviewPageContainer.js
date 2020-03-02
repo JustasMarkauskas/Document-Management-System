@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import GroupReviewPageComponent from "./GroupReviewPageComponent";
 import { withRouter } from "react-router-dom";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class GroupReviewPageContainer extends React.Component {
   constructor(props) {
@@ -14,9 +15,7 @@ class GroupReviewPageContainer extends React.Component {
 
   getGroup = () => {
     axios
-      .get(
-        "http://localhost:8081/api/group/" + this.props.match.params.groupName
-      )
+      .get(serverUrl + "api/group/" + this.props.match.params.groupName)
       .then(response => {
         this.setState({ group: response.data, comment: response.data.comment });
       })
@@ -53,13 +52,10 @@ class GroupReviewPageContainer extends React.Component {
   onSaveClick = event => {
     event.preventDefault();
     axios
-      .put(
-        "http://localhost:8081/api/group/update-comment/" + this.state.group.id,
-        {
-          comment: this.state.comment,
-          id: "not updated"
-        }
-      )
+      .put(serverUrl + "api/group/update-comment/" + this.state.group.id, {
+        comment: this.state.comment,
+        id: "not updated"
+      })
       .then(() => {
         this.props.history.push("/adminhomepage-groups");
       })

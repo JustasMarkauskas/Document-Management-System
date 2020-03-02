@@ -8,6 +8,7 @@ import * as yup from "yup";
 import axios from "axios";
 import PasswordChangeComponent from "../PasswordChange/PasswodChange";
 import AssignGroupsContainer from "../HomePage/AdminHomePage/AdminHomePageUsers/AssignGroupsPage/AssignGroupsContainer";
+import serverUrl from "../URL/ServerUrl";
 
 // Kolkas neveikia, issiaiskinti kodel...
 const schema = yup.object({
@@ -55,7 +56,7 @@ class UserInfoComponent extends React.Component {
 
   getUser = () => {
     axios
-      .get("http://localhost:8081/api/user/" + this.props.match.params.username)
+      .get(serverUrl + "api/user/" + this.props.match.params.username)
       .then(response => {
         this.setState({
           user: response.data,
@@ -131,8 +132,7 @@ class UserInfoComponent extends React.Component {
     event.preventDefault();
     axios
       .put(
-        "http://localhost:8081/api/user/update-user-info/" +
-          this.state.user.username,
+        serverUrl + "api/user/update-user-info/" + this.state.user.username,
         {
           comment: this.state.comment,
           firstName: this.state.firstName,

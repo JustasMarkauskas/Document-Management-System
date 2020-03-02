@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import SumbittedDocReviewFiles from "./SumbittedDocReviewFiles";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class SumbittedDocReviewComponent extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class SumbittedDocReviewComponent extends React.Component {
 
   getDocumentFiles = () => {
     axios
-      .get("http://localhost:8081/api/file/" + this.props.id)
+      .get(serverUrl + "api/file/" + this.props.id)
       .then(response => {
         this.setState({ files: response.data });
       })

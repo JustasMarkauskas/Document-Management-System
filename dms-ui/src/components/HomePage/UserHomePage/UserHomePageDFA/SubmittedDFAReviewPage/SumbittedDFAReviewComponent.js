@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import SubmittedDFAReviewFiles from "./SumbittedDFAReviewFiles";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class SubmittedDFAReviewComponent extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class SubmittedDFAReviewComponent extends React.Component {
 
   getUsername = () => {
     axios
-      .get("http://localhost:8081/api/user/loggedUsername")
+      .get(serverUrl + "api/user/loggedUsername")
       .then(response => {
         this.setState({ username: response.data });
       })
@@ -28,7 +29,7 @@ class SubmittedDFAReviewComponent extends React.Component {
 
   getDocumentFiles = () => {
     axios
-      .get("http://localhost:8081/api/file/" + this.props.id)
+      .get(serverUrl + "api/file/" + this.props.id)
       .then(response => {
         this.setState({ files: response.data });
       })
@@ -81,7 +82,7 @@ class SubmittedDFAReviewComponent extends React.Component {
   onApproveClick = event => {
     event.preventDefault();
     axios
-      .put("http://localhost:8081/api/document/approve-document", {
+      .put(serverUrl + "api/document/approve-document", {
         documentReceiver: this.state.username,
         id: this.props.id
       })
@@ -97,7 +98,7 @@ class SubmittedDFAReviewComponent extends React.Component {
   onRejectClick = event => {
     event.preventDefault();
     axios
-      .put("http://localhost:8081/api/document/reject-document", {
+      .put(serverUrl + "api/document/reject-document", {
         documentReceiver: this.state.username,
         id: this.props.id,
         rejectionReason: this.state.rejectionReason

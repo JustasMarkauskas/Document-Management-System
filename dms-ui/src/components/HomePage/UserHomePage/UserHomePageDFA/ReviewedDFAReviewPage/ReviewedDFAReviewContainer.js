@@ -2,6 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import ReviewedDFAReviewComponent from "./ReviewedDFAReviewComponent";
+import serverURl from "../../../../URL/ServerUrl";
+import serverUrl from "../../../../URL/ServerUrl";
 
 class ReviewedDFAReviewContainer extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class ReviewedDFAReviewContainer extends React.Component {
 
   getDocument = () => {
     axios
-      .get("http://localhost:8081/api/document/get/" + this.props.docId + "/")
+      .get(serverUrl + "api/document/get/" + this.props.docId + "/")
       .then(response => {
         this.setState({ document: response.data });
       })

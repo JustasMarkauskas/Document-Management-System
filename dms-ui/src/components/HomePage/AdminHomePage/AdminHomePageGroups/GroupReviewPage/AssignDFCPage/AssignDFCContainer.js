@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import serverUrl from "../../../../../URL/ServerUrl";
 
 class AssignDFCContainer extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class AssignDFCContainer extends React.Component {
 
   getUsers = () => {
     axios
-      .get("http://localhost:8081/api/doctype/doc-types")
+      .get(serverUrl + "api/doctype/doc-types")
       .then(response => {
         this.setState({ docTypes: response.data });
       })
@@ -71,7 +72,8 @@ class AssignDFCContainer extends React.Component {
 
     axios
       .put(
-        "http://localhost:8081/api/group/update-group-doctypes-for-creation/" +
+        serverUrl +
+          "api/group/update-group-doctypes-for-creation/" +
           this.props.groupName,
         docTypeData
       )

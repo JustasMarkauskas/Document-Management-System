@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import serverUrl from "../URL/ServerUrl";
 
 const schema = yup.object().shape({
   id: yup
@@ -12,7 +13,10 @@ const schema = yup.object().shape({
     .min(5, "Must be 5-20 characters long")
     .max(20, "Must be 5-20 characters long")
     .required("Please enter a group name")
-    .matches(/^[A-Za-z\d]+$/, "Only uppercase, lowercase letters and numbers are allowed"),
+    .matches(
+      /^[A-Za-z\d]+$/,
+      "Only uppercase, lowercase letters and numbers are allowed"
+    ),
   comment: yup
     .string()
     .trim()
@@ -22,14 +26,14 @@ const schema = yup.object().shape({
 const handleSubmit = values => {
   axios({
     method: "POST",
-    url: "http://localhost:8081/api/group/",
+    url: serverUrl + "api/group/",
     data: values
   })
     .then(response => {
-      console.log(response)
+      console.log(response);
     })
     .catch(error => {
-      console.log(error)
+      console.log(error);
     });
 };
 
@@ -101,16 +105,16 @@ class NewGroupFormComponent extends React.Component {
                 type="submit"
               >
                 Submit
-            </Button>
+              </Button>
               <Button onClick={this.props.onHide} variant="primary">
                 Cancel
-            </Button>
+              </Button>
             </Form>
           </div>
         )}
       </Formik>
     );
   }
-};
+}
 
 export default withRouter(NewGroupFormComponent);

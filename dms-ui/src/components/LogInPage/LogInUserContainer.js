@@ -3,6 +3,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInUserComponent from "./LogInUserComponents";
 import user from "../User/User";
+import serverUrl from "../URL/ServerUrl";
 
 axios.defaults.withCredentials = true;
 class LoginUserContainer extends React.Component {
@@ -30,7 +31,7 @@ class LoginUserContainer extends React.Component {
     userData.append("username", this.state.userName);
     userData.append("password", this.state.userPassword);
     axios
-      .post("http://localhost:8081/login", userData, {
+      .post(serverUrl + "login", userData, {
         headers: {
           "Content-type": "application/x-www-form-urlencoded"
         }

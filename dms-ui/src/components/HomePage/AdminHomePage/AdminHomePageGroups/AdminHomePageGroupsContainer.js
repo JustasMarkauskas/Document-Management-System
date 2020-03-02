@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import AdminHomePageGroupsComponent from "./AdminHomePageGroupsComponent";
+import serverUrl from "../../../URL/ServerUrl";
 
 class AdminHomePageGroupsContainer extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class AdminHomePageGroupsContainer extends React.Component {
 
   getUsername = () => {
     axios
-      .get("http://localhost:8081/api/user/loggedUsername")
+      .get(serverUrl + "api/user/loggedUsername")
       .then(response => {
         this.setState({ username: response.data });
       })
