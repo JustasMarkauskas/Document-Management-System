@@ -15,6 +15,7 @@ import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/User
 import SubmittedDocReviewContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
 import GroupReviewPageContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewPageContainer";
 import UserInfoComponent from "./components/UserInfo/UserInfoComponent";
+import GroupReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewMainPage";
 
 var AppContainer = props => {
   return <div>{props.children}</div>;
@@ -56,7 +57,7 @@ ReactDOM.render(
           />
           <Route
             path="/group-review/:groupName"
-            component={GroupReviewPageContainer}
+            component={GroupReviewMainPage}
           />
           <Route path="/user-review/:username" component={UserInfoComponent} />
         </Switch>

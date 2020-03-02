@@ -70,9 +70,9 @@ class GroupReviewPageComponent extends React.Component {
 
   render() {
     return (
-      <div className="container my-5">
+      <div className="my-2">
         <div className="row">
-          <div className="col-3">
+          <div className="col-lg-3 col-sm-12 my-2 pr-1">
             <form id="groupReviewPageId">
               <div className="form-group">
                 <label htmlFor="groupName">Group name</label>
@@ -120,7 +120,7 @@ class GroupReviewPageComponent extends React.Component {
               </div>
             </form>
           </div>
-          <div className="col-3">
+          <div className="col-lg-3 col-sm-12 my-2 px-1">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Users</h5>
@@ -141,12 +141,12 @@ class GroupReviewPageComponent extends React.Component {
                   type="button"
                   className="btn btn-info m-2"
                 >
-                  Assign member
+                  Assign
                 </button>
               </div>
             </div>
           </div>
-          <div className="col-3">
+          <div className="col-lg-3 col-sm-12 my-2 px-1">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Document types for approval</h5>
@@ -167,12 +167,12 @@ class GroupReviewPageComponent extends React.Component {
                   type="button"
                   className="btn btn-info m-2"
                 >
-                  Assign document types for approval
+                  Assign
                 </button>
               </div>
             </div>
           </div>
-          <div className="col-3">
+          <div className="col-lg-3 col-sm-12 my-2 px-1">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Document types for creation</h5>
@@ -193,7 +193,7 @@ class GroupReviewPageComponent extends React.Component {
                   type="button"
                   className="btn btn-info m-2"
                 >
-                  Assign document types for creation
+                  Assign
                 </button>
               </div>
             </div>
