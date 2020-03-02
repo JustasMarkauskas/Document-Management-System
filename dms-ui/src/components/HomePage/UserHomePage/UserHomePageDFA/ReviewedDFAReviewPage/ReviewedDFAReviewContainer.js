@@ -2,7 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import ReviewedDFAReviewComponent from "./ReviewedDFAReviewComponent";
-import serverURl from "../../../../URL/ServerUrl";
 import serverUrl from "../../../../URL/ServerUrl";
 
 class ReviewedDFAReviewContainer extends React.Component {

@@ -13,9 +13,9 @@ import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePa
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 import SubmittedDocReviewContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
-import GroupReviewPageContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewPageContainer";
 import UserInfoComponent from "./components/UserInfo/UserInfoComponent";
 import GroupReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewMainPage";
+import DFAStatisticsMainPage from "./components/HomePage/UserHomePage/UserHomePageDFA/DFAStatisticsPage/DFAStatisticsMainPage";
 
 var AppContainer = props => {
   return <div>{props.children}</div>;
@@ -60,6 +60,10 @@ ReactDOM.render(
             component={GroupReviewMainPage}
           />
           <Route path="/user-review/:username" component={UserInfoComponent} />
+          <Route
+            path="/dfa-statistics/:username"
+            component={DFAStatisticsMainPage}
+          />
         </Switch>
       </AppContainer>
     </Router>

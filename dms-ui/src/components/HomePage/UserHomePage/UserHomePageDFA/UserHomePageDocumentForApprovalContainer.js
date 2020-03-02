@@ -79,6 +79,11 @@ class UserHomePageDocumentContainer extends React.Component {
     }
   };
 
+  handleStatisticsClick = event => {
+    event.preventDefault();
+    this.props.history.push("/dfa-statistics/" + this.state.username);
+  };
+
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
       <UserHomePageDocumentForApprovalComponent
@@ -119,6 +124,16 @@ class UserHomePageDocumentContainer extends React.Component {
                 Search
               </button>
             </div>
+          </div>
+          <div className="col-lg-7">
+            <button
+              className="btn btn-primary float-right"
+              type="button"
+              id="statisticsButton"
+              onClick={this.handleStatisticsClick}
+            >
+              Statistics
+            </button>
           </div>
         </div>
 
