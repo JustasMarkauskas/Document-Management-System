@@ -49,6 +49,36 @@ class UserHomePageDocumentContainer extends React.Component {
     this.getDocuments();
   }
 
+  getDFAByStatus = status => {
+    if (status === "ALL") {
+      axios
+        .get(serverUrl + "api/document/documents-for-approval", {
+          params: {
+            documentForApprovalNames: this.state.userDocTypesForApproval
+          },
+          paramsSerializer: params => {
+            return qs.stringify(params, { indices: false });
+          }
+        })
+        .then(response => {
+          this.setState({ documents: response.data });
+        });
+    } else {
+      axios
+        .get(serverUrl + "api/document/documents-for-approval/" + status, {
+          params: {
+            documentForApprovalNames: this.state.userDocTypesForApproval
+          },
+          paramsSerializer: params => {
+            return qs.stringify(params, { indices: false });
+          }
+        })
+        .then(response => {
+          this.setState({ documents: response.data });
+        });
+    }
+  };
+
   render() {
     const documentInfo = this.state.documents.map((document, index) => (
       <UserHomePageDocumentForApprovalComponent
@@ -67,7 +97,7 @@ class UserHomePageDocumentContainer extends React.Component {
     ));
 
     return (
-      <div className="container">
+      <div>
         <div className="row ">
           <div className="input-group mb-3 col-lg-5">
             <input
@@ -96,30 +126,30 @@ class UserHomePageDocumentContainer extends React.Component {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("ALL")}
+            onClick={() => this.getDFAByStatus("ALL")}
           >
             All
           </button>
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("SUBMITTED")}
+            onClick={() => this.getDFAByStatus("SUBMITTED")}
           >
             Submitted
           </button>
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("REJECTED")}
+            onClick={() => this.getDFAByStatus("REJECTED")}
           >
             Rejected
           </button>
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("ACCEPTED")}
+            onClick={() => this.getDFAByStatus("APPROVED")}
           >
-            Accepted
+            Approved
           </button>
         </div>
         <table className="table" id="userDFATable">

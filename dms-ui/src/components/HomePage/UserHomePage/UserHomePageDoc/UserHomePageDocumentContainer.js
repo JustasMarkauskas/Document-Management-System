@@ -105,46 +105,44 @@ class UserHomePageDocumentContainer extends React.Component {
     ));
 
     return (
-      <div className="container">
-        <div className="row ">
-          <button
-            onClick={this.handleAddNewDocumentButton}
-            type="button"
-            className="btn btn-primary col-lg-3 mb-2"
-            id="userAddNewDocumentButton"
-          >
-            Add new document
-          </button>
-          <div className="input-group mb-3 col-lg-5">
-            <input
-              onChange={this.handleSearchChange}
-              type="text"
-              className="form-control"
-              placeholder="Document name"
-              aria-label="document"
-              aria-describedby="button-addon2"
-              id="userSearchDocumentInput"
-            ></input>
-            <div className="input-group-append">
-              <button
-                className="btn btn-primary"
-                type="button"
-                id="userDocumentSearchButton"
-                onClick={this.handleSearchButton}
-              >
-                Search
-              </button>
-            </div>
+      <div className="row ">
+        <button
+          onClick={this.handleAddNewDocumentButton}
+          type="button"
+          className="btn btn-primary col-lg-3 mb-2"
+          id="userAddNewDocumentButton"
+        >
+          Add new document
+        </button>
+        <div className="input-group mb-3 col-lg-5">
+          <input
+            onChange={this.handleSearchChange}
+            type="text"
+            className="form-control"
+            placeholder="Document name"
+            aria-label="document"
+            aria-describedby="button-addon2"
+            id="userSearchDocumentInput"
+          ></input>
+          <div className="input-group-append">
+            <button
+              className="btn btn-primary"
+              type="button"
+              id="userDocumentSearchButton"
+              onClick={this.handleSearchButton}
+            >
+              Search
+            </button>
           </div>
-          <button
-            onClick={this.handleDownloadDocumentButton}
-            type="button"
-            className="btn btn-primary col-lg-2 mb-2"
-            id="downloadDocumentsButton"
-          >
-            Download
-          </button>
         </div>
+        <button
+          onClick={this.handleDownloadDocumentButton}
+          type="button"
+          className="btn btn-primary col-lg-2 mb-2"
+          id="downloadDocumentsButton"
+        >
+          Download
+        </button>
 
         <div className="btn-group" role="group">
           <button
@@ -178,9 +176,9 @@ class UserHomePageDocumentContainer extends React.Component {
           <button
             type="button"
             className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("ACCEPTED")}
+            onClick={() => this.getDocumentsByStatus("APPROVED")}
           >
-            Accepted
+            Approved
           </button>
         </div>
 

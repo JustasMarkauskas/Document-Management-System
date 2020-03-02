@@ -57,8 +57,18 @@ public class DocumentService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<DocumentForClient> getDocumentsForApprovalByDfaListAndStatus(List<String> documentForApprovalNames, String status) {
+		return documentRepository.findDocumentsForApprovalByStatus(documentForApprovalNames, status).stream()
+				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(),
+						document.getRejectionReason(), document.getStatus(), document.generateDbFileIDs()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForClientByAuthor(String username) {
-		return documentRepository.findByAuthor(username).stream()
+		return documentRepository.findByAuthorOrderByIdDesc(username).stream()
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(),
