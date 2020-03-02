@@ -66,6 +66,16 @@ public class DocumentService {
 				.collect(Collectors.toList());
 	}
 	
+	@Transactional(readOnly = true)
+	public List<DocumentForClient> getDocumentsForClientByAuthorAndStatus(String username, String status) {
+		return documentRepository.findByAuthorAndStatusOrderByIdDesc(username, status).stream()
+				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(),
+						document.getRejectionReason(), document.getStatus(), document.generateDbFileIDs()))
+				.collect(Collectors.toList());
+	}
+	
 	@Transactional
 	public DocumentForClient getDocumentForClientByIdAndUsername(String username, Long id) {
 		return getDocumentsForClientByAuthor(username).stream().filter(document -> document.getId().equals(id)).findFirst()

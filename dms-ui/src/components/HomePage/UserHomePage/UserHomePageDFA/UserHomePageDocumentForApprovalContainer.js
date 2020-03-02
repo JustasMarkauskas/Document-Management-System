@@ -92,6 +92,36 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
 
+        <div className="btn-group" role="group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("ALL")}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("SUBMITTED")}
+          >
+            Submitted
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("REJECTED")}
+          >
+            Rejected
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("ACCEPTED")}
+          >
+            Accepted
+          </button>
+        </div>
         <table className="table" id="userDFATable">
           <thead>
             <tr>

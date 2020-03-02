@@ -14,6 +14,7 @@ class UserHomePageDocumentContainer extends React.Component {
       userDocTypes: [],
       documents: [],
       username: "",
+      documentStatus: "ALL",
       inputDocumentTitle: "" //paieskai skirtas
     };
   }
@@ -41,6 +42,34 @@ class UserHomePageDocumentContainer extends React.Component {
   componentDidMount() {
     this.getDocuments();
   }
+
+  getDocumentsByStatus = status => {
+    if (status === "ALL") {
+      axios
+        .get(serverUrl + "api/document/" + this.state.username)
+        .then(response => {
+          this.setState({ documents: response.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .get(
+          serverUrl +
+            "api/document/status/" +
+            status +
+            "/" +
+            this.state.username
+        )
+        .then(response => {
+          this.setState({ documents: response.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 
   handleModalClose = () => {
     this.setState({ showModal: false });
@@ -114,6 +143,44 @@ class UserHomePageDocumentContainer extends React.Component {
             id="downloadDocumentsButton"
           >
             Download
+          </button>
+        </div>
+
+        <div className="btn-group" role="group">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("ALL")}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("SAVED")}
+          >
+            Saved
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("SUBMITTED")}
+          >
+            Submitted
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("REJECTED")}
+          >
+            Rejected
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => this.getDocumentsByStatus("ACCEPTED")}
+          >
+            Accepted
           </button>
         </div>
 
