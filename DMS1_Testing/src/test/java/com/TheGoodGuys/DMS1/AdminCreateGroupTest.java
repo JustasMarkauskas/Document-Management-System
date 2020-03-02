@@ -8,18 +8,23 @@ import java.io.IOException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import resources.models.Group;
 import resources.page.AdminCreateGroupPage;
 import resources.page.AdminGroupsPage;
 import resources.page.AdminNavPage;
+import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
+import resources.utils.DeleteAutotestingData;
 import resources.utils.FileReaderUtils;
 import resources.utils.ScreenshotUtils;
 
@@ -30,6 +35,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 	private AdminNavPage adminNav;
 	private AdminGroupsPage adminGroups;
 	private AdminCreateGroupPage createGroup;
+	private HeaderPage header;
 
 	@BeforeClass
 	@Parameters({"baseURL", "loginUsername", "loginPassword"})
@@ -40,11 +46,25 @@ public class AdminCreateGroupTest extends AbstractTest {
 		adminNav = new AdminNavPage(driver);
 		adminGroups = new AdminGroupsPage(driver);
 		createGroup = new AdminCreateGroupPage(driver);
-		
+		header = new HeaderPage(driver);
+	}
+	
+	
+	@BeforeGroups("groupCreation")
+	@Parameters({"baseURL", "loginUsername", "loginPassword"})
+	public void navigateToPage(String baseURL, String loginUsername, String loginPassword) {
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
-		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonGroups()));
+		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 	}
+	
+//	@AfterGroups("groupCreation")
+//	@Parameters({"apiURL"})
+//	public void deleteTestData(String apiURL) throws UnirestException {
+//		
+//		DeleteAutotestingData.deleteGroupDataByComment("autotesting", apiURL);
+//		DeleteAutotestingData.deleteGroupDataByComment("autotesting autotesting autotesting autotesting au", apiURL);
+//	}
 
 	@DataProvider(name = "validGroups")
 	public static Object[] testDataValidGroups() throws IOException {
@@ -59,13 +79,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 		adminGroups.clickButtonAddNewGroup();
 		createGroup.fillAndSubmitForm(group);
 		
-//		assertThat("success msg", containsString("success"));
-		wait.until(ExpectedConditions.visibilityOfAllElements(adminGroups.getLabelsGroupName()));
 		assertThat("Group name could not be found in the group list", adminGroups.checkIfGroupNameExists(group.getGroupName()), is(true));
-		
-		
-		//Call take screenshot function
-//		ScreenshotUtils.takeScreenshot(driver, "resources/screenshots/test1.png");
 
 	}
 	
@@ -84,9 +98,10 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.enterInputGroupName(group.getGroupName());
 		createGroup.enterInputComment(group.getComment());
 		createGroup.clickButtonSubmit();
-				
-		assertThat("Length restrictions msg for group name does not match", createGroup.getMsgInvalidGroupName().getText(), is(equalTo("Must be 5-20 characters long")));
+		
+		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
 		createGroup.clickButtonCancel();
+		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Must be 5-20 characters long")));
 	}
 	
 	@DataProvider(name = "groupsBlankName")
@@ -103,9 +118,10 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.enterInputGroupName(group.getGroupName());
 		createGroup.enterInputComment(group.getComment());
 		createGroup.clickButtonSubmit();
-				
-		assertThat("Length restrictions msg for group name does not match", createGroup.getMsgInvalidGroupName().getText(), is(equalTo("Please enter a group name")));
+			
+		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
 		createGroup.clickButtonCancel();
+		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Please enter a group name")));
 	}
 	
 	@DataProvider(name = "groupsInvalidCommentLength")
@@ -123,8 +139,9 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.enterInputComment(group.getComment());
 		createGroup.clickButtonSubmit();
 				
-		assertThat("Length restrictions msg for group comment does not match", createGroup.getMsgInvalidComment().getText(), is(equalTo("Must be 50 characters or less")));
+		String errorMsgText = createGroup.getMsgInvalidComment().getText();
 		createGroup.clickButtonCancel();
+		assertThat("Length restrictions msg for group comment does not match", errorMsgText, is(equalTo("Must be 50 characters or less")));
 	}
 	
 	@DataProvider(name = "groupsInvalidChars")
@@ -141,9 +158,10 @@ public class AdminCreateGroupTest extends AbstractTest {
 		createGroup.enterInputGroupName(group.getGroupName());
 		createGroup.enterInputComment(group.getComment());
 		createGroup.clickButtonSubmit();
-				
-		assertThat("Spec Chars restrictions msg for group name does not match", createGroup.getMsgInvalidGroupName().getText(), is(equalTo("Only uppercase, lowercase letters and numbers are allowed")));
+			
+		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
 		createGroup.clickButtonCancel();
+		assertThat("Spec Chars restrictions msg for group name does not match", errorMsgText, is(equalTo("Only uppercase, lowercase letters and numbers are allowed")));
 	}
 
 	
@@ -153,8 +171,13 @@ public class AdminCreateGroupTest extends AbstractTest {
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
 		createGroup.clickButtonSubmit();
-				
-		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
+			
+		Boolean btnDisabled = createGroup.getButtonSubmit().isEnabled();
 		createGroup.clickButtonCancel();
+		assertThat("Submit button is not disabled", btnDisabled, is(false));
 	}
+	
+	
+	
+	
 }

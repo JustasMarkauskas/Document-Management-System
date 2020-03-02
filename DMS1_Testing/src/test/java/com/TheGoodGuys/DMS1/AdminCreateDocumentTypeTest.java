@@ -9,17 +9,19 @@ import java.io.IOException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.models.Document;
 import resources.models.Group;
-import resources.page.AdminCreateDocumentPage;
+import resources.page.AdminCreateDocTypePage;
 import resources.page.AdminCreateGroupPage;
-import resources.page.AdminDocumentsPage;
+import resources.page.AdminDocTypesPage;
 import resources.page.AdminGroupsPage;
 import resources.page.AdminNavPage;
+import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
@@ -29,8 +31,9 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 	private WebDriverWait wait;
 	private LoginUserPage login;
 	private AdminNavPage adminNav;
-	private AdminDocumentsPage adminDocuments;
-	private AdminCreateDocumentPage createDocumentType;
+	private AdminDocTypesPage adminDocuments;
+	private AdminCreateDocTypePage createDocumentType;
+	private HeaderPage header;
 
 	@BeforeClass
 	@Parameters({ "baseURL", "loginUsername", "loginPassword" })
@@ -39,11 +42,18 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		wait = new WebDriverWait(driver, 10);
 		login = new LoginUserPage(driver);
 		adminNav = new AdminNavPage(driver);
-		adminDocuments = new AdminDocumentsPage(driver);
-		createDocumentType = new AdminCreateDocumentPage(driver);
+		adminDocuments = new AdminDocTypesPage(driver);
+		createDocumentType = new AdminCreateDocTypePage(driver);
+		header = new HeaderPage(driver);
+	}
+	
+	
+	@BeforeGroups("documentTypeCreation")
+	@Parameters({"baseURL", "loginUsername", "loginPassword"})
+	public void navigateToPage(String baseURL, String loginUsername, String loginPassword) {
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
-		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonDocuments()));
+		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 	}
 
 	@DataProvider(name = "validDocuments")
@@ -51,15 +61,15 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsValid.xml");
 	}
 
-	@Test(priority = 1, groups = { "documentCreation" }, dataProvider = "validDocuments")
+	@Test(priority = 1, groups = { "documentTypeCreation" }, dataProvider = "validDocuments")
 	public void testToCreateNewDocument(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
 		adminDocuments.clickButtonAddNewDocType();
 		createDocumentType.fillAndSubmitForm(document);
+		
 		assertThat("Document type could not be found in the document type list",
 				adminDocuments.checkIfDocumentTypeNameExists(document.getDocumentTypeName()), is(true));
-
 	}
 
 	@DataProvider(name = "documentsInvalidLength")
@@ -67,7 +77,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidLength.xml");
 	}
 
-	@Test(priority = 2, groups = { "documentCreation" }, dataProvider = "documentsInvalidLength")
+	@Test(priority = 2, groups = { "documentTypeCreation" }, dataProvider = "documentsInvalidLength")
 	public void testToCheckLengthRestrictionsInCreateDocumentType(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
@@ -75,10 +85,11 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
 		createDocumentType.enterInputComment(document.getComment());
 		createDocumentType.clickButtonSubmit();
-		assertThat("Length restrictions msg for group name does not match",
-				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
-				is(equalTo("Must be 5-20 characters long")));
+		
+		String errorMsgText = createDocumentType.getMsgInvalidDocumentTypeName().getText();
 		createDocumentType.clickButtonCancel();
+		assertThat("Length restrictions msg for group name does not match",
+				errorMsgText, is(equalTo("Must be 5-20 characters long")));
 	}
 
 	@DataProvider(name = "documentsBlankName")
@@ -86,7 +97,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsBlankName.xml");
 	}
 
-	@Test(priority = 3, groups = { "documentCreation" }, dataProvider = "documentsBlankName")
+	@Test(priority = 3, groups = { "documentTypeCreation" }, dataProvider = "documentsBlankName")
 	public void testToCheckBlankRestrictionsInCreateDocumentType(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
@@ -94,10 +105,11 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
 		createDocumentType.enterInputComment(document.getComment());
 		createDocumentType.clickButtonSubmit();
-		assertThat("Length restrictions msg for group name does not match",
-				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
-				is(equalTo("Please enter a document type name")));
+		
+		String errorMsgText = createDocumentType.getMsgInvalidDocumentTypeName().getText();
 		createDocumentType.clickButtonCancel();
+		assertThat("Length restrictions msg for group name does not match",
+				errorMsgText, is(equalTo("Please enter a document type name")));
 	}
 
 	@DataProvider(name = "documentsInvalidCommentLength")
@@ -106,7 +118,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 				.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidCommentLength.xml");
 	}
 
-	@Test(priority = 4, groups = { "documentCreation" }, dataProvider = "documentsInvalidCommentLength")
+	@Test(priority = 4, groups = { "documentTypeCreation" }, dataProvider = "documentsInvalidCommentLength")
 	public void testToCheckCommentLengthRestrictionsInCreateDocumentType(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
@@ -115,9 +127,10 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		createDocumentType.enterInputComment(document.getComment());
 		createDocumentType.clickButtonSubmit();
 
-		assertThat("Length restrictions msg for group comment does not match",
-				createDocumentType.getMsgInvalidComment().getText(), is(equalTo("Must be 50 characters or less")));
+		String errorMsgText = createDocumentType.getMsgInvalidComment().getText();
 		createDocumentType.clickButtonCancel();
+		assertThat("Length restrictions msg for group comment does not match",
+				errorMsgText, is(equalTo("Must be 50 characters or less")));
 	}
 
 	@DataProvider(name = "documentsInvalidChars")
@@ -125,7 +138,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsSpecChars.xml");
 	}
 
-	@Test(priority = 5, groups = { "documentCreation" }, dataProvider = "documentsInvalidChars")
+	@Test(priority = 5, groups = { "documentTypeCreation" }, dataProvider = "documentsInvalidChars")
 	public void testToCheckSpecialCharsRestrictionsInCreateDocumentType(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();
@@ -133,11 +146,11 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		createDocumentType.enterInputDocumentTypeName(document.getDocumentTypeName());
 		createDocumentType.enterInputComment(document.getComment());
 		createDocumentType.clickButtonSubmit();
-		assertThat("Spec Chars restrictions msg for group name does not match",
-				createDocumentType.getMsgInvalidDocumentTypeName().getText(),
-				is(equalTo("Only uppercase, lowercase letters, numbers and '-/.', space symbols are allowed")));
+		
+		String errorMsgText = createDocumentType.getMsgInvalidDocumentTypeName().getText();
 		createDocumentType.clickButtonCancel();
-
+		assertThat("Spec Chars restrictions msg for group name does not match",
+				errorMsgText, is(equalTo("Only uppercase, lowercase letters, numbers and '-/.', space symbols are allowed")));
 	}
 
 	@DataProvider(name = "documentsDuplicate")
@@ -145,7 +158,7 @@ public class AdminCreateDocumentTypeTest extends AbstractTest {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsDuplicate.xml");
 	}
 
-	@Test(priority = 6, groups = { "documentCreation" }, dataProvider = "documentsDuplicate", enabled = false)
+	@Test(priority = 6, groups = { "documentTypeCreation" }, dataProvider = "documentsDuplicate", enabled = false)
 	public void testToCheckDuplicatesInCreateDocumentType(Document document) throws Exception {
 
 		adminNav.clickButtonDocuments();

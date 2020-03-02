@@ -5,6 +5,8 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AdminGroupsPage extends AbstractPage {
 
@@ -33,33 +35,47 @@ public class AdminGroupsPage extends AbstractPage {
 	public AdminGroupsPage(WebDriver driver) {
 		super(driver);
 	}
+	
+	private void waitForClickable(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+	}
+	private void waitForMultipleElementVisibility(List<WebElement> elements) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
+	}
+	private void waitForSingleElementVisibility(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
+	}
 
 
 	public void clickButtonAddNewGroup() {
+		waitForClickable(buttonAddNewGroup);
 		buttonAddNewGroup.click();
 	}
 
 	public void clickButtonSearch() {
+		waitForClickable(buttonSearch);
 		buttonSearch.click();
 	}
 
 	public void enterInputSearch(String searchword) {
+		waitForSingleElementVisibility(inputSearch);
 		inputSearch.sendKeys(searchword);
 	}
 
 	public void enterSearchwordAndSearch(String searchword) {
-		inputSearch.sendKeys(searchword);
-		buttonSearch.click();
+		enterInputSearch(searchword);
+		clickButtonSearch();
 	}
 
 	public void clickButtonViewGroupByIndex(int index) {
+		waitForClickable(buttonsViewGroup.get(index));
 		buttonsViewGroup.get(index).click();
 	}
 
 	public boolean checkIfGroupNameExists(String groupName) {
+		waitForMultipleElementVisibility(labelsGroupName);
 		boolean nameFound = false;
 		for (WebElement label : labelsGroupName) {
-			System.out.println(label.getText());
 			if (groupName.equals(label.getText())) {
 				nameFound = true;
 				break;

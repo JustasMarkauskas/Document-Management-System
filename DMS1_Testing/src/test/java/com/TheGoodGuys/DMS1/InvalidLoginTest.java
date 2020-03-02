@@ -33,13 +33,7 @@ public class InvalidLoginTest extends AbstractTest {
 
 	@DataProvider(name = "invalidUser")
 	public static Object[] testData() throws IOException {
-
-		XStream xstream = new XStream();
-		xstream.processAnnotations(UserData.class);
-		xstream.processAnnotations(User.class);
-		UserData data = (UserData) xstream
-				.fromXML(FileUtils.readFileToString(new File("src/test/java/resources/testData/UsersInvalid.xml")));
-		return data.getUsers().toArray();
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/UsersInvalid.xml");
 	}
 
 	@Test(priority = 1, groups = { "invalidUserLogin" }, dataProvider = "invalidUser")

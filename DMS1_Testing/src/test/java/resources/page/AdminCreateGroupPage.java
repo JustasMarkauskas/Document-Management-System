@@ -1,7 +1,5 @@
 package resources.page;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.models.Group;
-import resources.utils.CustomWaits;
 
 public class AdminCreateGroupPage extends AbstractPage {
 	
@@ -66,7 +63,6 @@ public class AdminCreateGroupPage extends AbstractPage {
 		inputComment.sendKeys(group.getComment());
 		waitForClickable(buttonSubmit);
 
-//		Thread.sleep(1000);
 		buttonSubmit.submit();
 		buttonSubmit.click();
 

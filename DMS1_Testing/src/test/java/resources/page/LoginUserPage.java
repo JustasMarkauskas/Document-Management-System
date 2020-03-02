@@ -67,6 +67,12 @@ public class LoginUserPage extends AbstractPage {
 		return inputUserPassword;
 	}
 
+	public static WebElement getAlertMessage() {
+		return alertMessage;
+	}
+	
+	
+
 
 
 

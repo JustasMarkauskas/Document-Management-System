@@ -3,6 +3,8 @@ package resources.page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class UserNavPage extends AbstractPage {
 
@@ -14,8 +16,8 @@ public class UserNavPage extends AbstractPage {
 	@FindBy(id = "userDFANav")
 	private WebElement buttonDFA;
 
-	@FindBy(id = "userGroupsNav")
-	private WebElement buttonGroups;
+//	@FindBy(id = "userGroupsNav")
+//	private WebElement buttonGroups;
 
 	@FindBy(id = "userLogoutNav")
 	private WebElement buttonLogout;
@@ -23,20 +25,28 @@ public class UserNavPage extends AbstractPage {
 	public UserNavPage(WebDriver driver) {
 		super(driver);
 	}
+	
+	
+	private void waitForClickable(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+	}
 
 	public void clickButtonDocuments() {
+		waitForClickable(buttonDocuments);
 		buttonDocuments.click();
 	}
 
-	public void clickButtonGroups() {
-		buttonGroups.click();
-	}
+//	public void clickButtonGroups() {
+//		buttonGroups.click();
+//	}
 
 	public void clickButtonLogout() {
+		waitForClickable(buttonLogout);
 		buttonLogout.click();
 	}
 
 	public void clickButtonDFA() {
+		waitForClickable(buttonDFA);
 		buttonDFA.click();
 	}
 
@@ -50,9 +60,9 @@ public class UserNavPage extends AbstractPage {
 		return buttonDFA;
 	}
 
-	public WebElement getButtonGroups() {
-		return buttonGroups;
-	}
+//	public WebElement getButtonGroups() {
+//		return buttonGroups;
+//	}
 
 	public WebElement getButtonLogout() {
 		return buttonLogout;

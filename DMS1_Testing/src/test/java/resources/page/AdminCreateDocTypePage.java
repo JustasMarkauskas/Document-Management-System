@@ -9,11 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.models.Document;
 import resources.models.Group;
 
-public class AdminCreateDocumentPage extends AbstractPage {
-
-	public AdminCreateDocumentPage(WebDriver driver) {
-		super(driver);
-	}
+public class AdminCreateDocTypePage extends AbstractPage {
 
 	// inputs
 	@FindBy(id = "id")
@@ -35,6 +31,11 @@ public class AdminCreateDocumentPage extends AbstractPage {
 
 	@FindBy(xpath = "//*[@id='adminCreateDocTypeForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
 	private WebElement msgInvalidComment;
+	
+	
+	public AdminCreateDocTypePage(WebDriver driver) {
+		super(driver);
+	}
 
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));

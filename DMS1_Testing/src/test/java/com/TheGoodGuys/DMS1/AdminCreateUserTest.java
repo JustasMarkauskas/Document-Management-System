@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -17,6 +18,7 @@ import resources.models.User;
 import resources.page.AdminCreateUserPage;
 import resources.page.AdminNavPage;
 import resources.page.AdminUsersPage;
+import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
@@ -28,20 +30,25 @@ public class AdminCreateUserTest extends AbstractTest {
 	private AdminNavPage adminNav;
 	private AdminUsersPage adminUsers;
 	private AdminCreateUserPage createUser;
+	private HeaderPage header;
 
 	@BeforeClass
-	@Parameters({"baseURL", "loginUsername", "loginPassword"})
-	public void preconditions(String baseURL, String loginUsername, String loginPassword) {
+	public void preconditions() {
 
 		wait = new WebDriverWait(driver, 10);
 		login = new LoginUserPage(driver);
 		adminNav = new AdminNavPage(driver);
 		adminUsers = new AdminUsersPage(driver);
 		createUser = new AdminCreateUserPage(driver);
-		
+		header = new HeaderPage(driver);
+	}
+	
+	@BeforeGroups("userCreation")
+	@Parameters({"baseURL", "loginUsername", "loginPassword"})
+	public void navigateToPage(String baseURL, String loginUsername, String loginPassword) {
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
-		wait.until(ExpectedConditions.elementToBeClickable(adminNav.getButtonUsers()));
+		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 	}
 
 	@DataProvider(name = "validUsers")
@@ -67,7 +74,7 @@ public class AdminCreateUserTest extends AbstractTest {
 	}
 
 
-	@Test (priority = 2, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordLength", enabled = false)
+	@Test (priority = 2, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordLength")//, enabled = false)
 	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) throws Exception {
 		
 		adminNav.clickButtonUsers();
@@ -75,9 +82,10 @@ public class AdminCreateUserTest extends AbstractTest {
 		createUser.fillUserCreationForm(user);
 		createUser.clickButtonSubmit();
 		
-		assertThat("Length restrictions msg for user password does not match", createUser.getMsgInvalidPassword().getText(),
-				is(equalTo("Must be 8-20 characters long")));
+		String errorMsgText = createUser.getMsgInvalidPassword().getText();
 		createUser.clickButtonCancel();
+		assertThat("Length restrictions msg for user password does not match", errorMsgText,
+				is(equalTo("Must be 8-20 characters long")));
 	}
 	
 
@@ -95,8 +103,9 @@ public class AdminCreateUserTest extends AbstractTest {
 		createUser.fillUserCreationForm(user);
 		createUser.clickButtonSubmit();
 		
-		assertThat("Spec Chars restrictions msg for password does not match", createUser.getMsgInvalidPassword().getText(),
-				is(equalTo("Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present.")));
+		String errorMsgText = createUser.getMsgInvalidPassword().getText();
 		createUser.clickButtonCancel();
+		assertThat("Spec Chars restrictions msg for password does not match", errorMsgText,
+				is(equalTo("Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present.")));
 	}
 }
