@@ -24,7 +24,7 @@ import resources.page.AdminNavPage;
 import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
-import resources.utils.DeleteAutotestingData;
+import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;
 import resources.utils.ScreenshotUtils;
 
