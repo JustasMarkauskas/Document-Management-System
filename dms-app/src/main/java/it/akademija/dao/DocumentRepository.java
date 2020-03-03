@@ -1,5 +1,6 @@
 package it.akademija.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,8 @@ public interface DocumentRepository extends JpaRepository<Document, Long> {
 	void deleteByDescription (String description);
 	
 	List<Document> findByAuthorAndStatusOrderByIdDesc(String username, String status);
+	
+	
+	@Query("SELECT COUNT(d) FROM Document d WHERE d.docType =:docType and d.status =:status and d.submissionDate BETWEEN :startDate AND :endDate")
+	Long countByDocTypeAndStatusAndDate(@Param("docType")String docType, @Param("status")String status,  @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 }

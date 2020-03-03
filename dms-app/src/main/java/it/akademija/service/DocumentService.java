@@ -47,6 +47,11 @@ public class DocumentService {
 	}
 
 	@Transactional(readOnly = true)
+	public Long countByDocTypeAndStatus(String docType, String status, Date startDate, Date endDate) {
+		return documentRepository.countByDocTypeAndStatusAndDate(docType, status, startDate, endDate);
+	}
+	
+	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForApprovalByDfaList(List<String> documentForApprovalNames, String status) {
 		return documentRepository.findDocumentsForApproval(documentForApprovalNames, status).stream()
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),

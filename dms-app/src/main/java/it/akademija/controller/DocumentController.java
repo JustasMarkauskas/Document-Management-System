@@ -1,12 +1,14 @@
 package it.akademija.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,6 +80,13 @@ public class DocumentController {
 		return documentService.getDocumentForClientById(id);
 	}
 
+	
+	@RequestMapping(path = "/count/{docType}/{status}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get count by doc type and status", notes = "Returns number of documents by doc type and status")
+	public Long countByDocTypeAndStatus(@PathVariable String docType, @PathVariable String status, @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date startDate, @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date endDate) {
+		return documentService.countByDocTypeAndStatus(docType, status,  startDate,  endDate);
+	}
+	
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
 	@ResponseStatus(HttpStatus.CREATED)
