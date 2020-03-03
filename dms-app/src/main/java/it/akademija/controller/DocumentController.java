@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +23,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.document.DocumentForClient;
+import it.akademija.model.document.DocumentForStatistics;
 import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
 import it.akademija.model.file.DBFile;
 import it.akademija.model.file.UploadFileResponse;
 import it.akademija.service.DocumentService;
 
-
 @RestController
 @RequestMapping(value = "/api/document")
 public class DocumentController {
 
 	private final DocumentService documentService;
-	
 
 	@Autowired
 	public DocumentController(DocumentService documentService) {
 		this.documentService = documentService;
-		
+
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -49,22 +47,25 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForClientByAuthor(@PathVariable String username) {
 		return documentService.getDocumentsForClientByAuthor(username);
 	}
-	
+
 	@RequestMapping(path = "/status/{status}/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents by author and status", notes = "Returns list of documents by author and status (descending order)")
-	public List<DocumentForClient> getDocumentsForClientByAuthorAndStatus(@PathVariable String username, @PathVariable String status) {
+	public List<DocumentForClient> getDocumentsForClientByAuthorAndStatus(@PathVariable String username,
+			@PathVariable String status) {
 		return documentService.getDocumentsForClientByAuthorAndStatus(username, status);
 	}
-	
+
 	@RequestMapping(path = "/documents-for-approval", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents for approval for user", notes = "Returns list of documents for approval by DFA names list. Status must not be equalto SAVED")
-	public List<DocumentForClient> getDocumentsForApprovalByDfaList(@RequestParam final List<String> documentForApprovalNames) {
+	public List<DocumentForClient> getDocumentsForApprovalByDfaList(
+			@RequestParam final List<String> documentForApprovalNames) {
 		return documentService.getDocumentsForApprovalByDfaList(documentForApprovalNames, "SAVED");
 	}
-	
+
 	@RequestMapping(path = "/documents-for-approval/{status}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents for approval for user by status", notes = "Returns list of documents for approval by DFA names list and status")
-	public List<DocumentForClient> getDocumentsForApprovalByDfaListAndStatus(@RequestParam final List<String> documentForApprovalNames, @PathVariable String status) {
+	public List<DocumentForClient> getDocumentsForApprovalByDfaListAndStatus(
+			@RequestParam final List<String> documentForApprovalNames, @PathVariable String status) {
 		return documentService.getDocumentsForApprovalByDfaListAndStatus(documentForApprovalNames, status);
 	}
 
@@ -80,13 +81,22 @@ public class DocumentController {
 		return documentService.getDocumentForClientById(id);
 	}
 
-	
 	@RequestMapping(path = "/count/{docType}/{status}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get count by doc type and status", notes = "Returns number of documents by doc type and status")
-	public Long countByDocTypeAndStatus(@PathVariable String docType, @PathVariable String status, @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date startDate, @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date endDate) {
-		return documentService.countByDocTypeAndStatus(docType, status,  startDate,  endDate);
+	public Long countByDocTypeAndStatus(@PathVariable String docType, @PathVariable String status,
+			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+			@RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+		return documentService.countByDocTypeAndStatus(docType, status, startDate, endDate);
 	}
-	
+
+	@RequestMapping(path = "/topAuthors/{docType}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get top 5 authors by docType", notes = "Returns top 5 authors by submitted document and doc type")
+	public List<DocumentForStatistics> findTopAuthors(@PathVariable String docType,
+			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+			@RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+		return documentService.findTopAuthors(docType, startDate, endDate, 5);
+	}
+
 	@RequestMapping(path = "/save", method = RequestMethod.POST)
 	@ApiOperation(value = "Save document with multiple files", notes = "Creates document with multiple files")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -105,7 +115,6 @@ public class DocumentController {
 		return list;
 	}
 
-	
 	@RequestMapping(path = "/submit", method = RequestMethod.POST)
 	@ApiOperation(value = "Submit document with multiple files", notes = "Submit document with multiple files")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -123,7 +132,7 @@ public class DocumentController {
 		}
 		return list;
 	}
-	
+
 	@RequestMapping(path = "/submit-after-save/{id}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after save for later")
 	public List<UploadFileResponse> submitDocumentAfterSaveForLater(
@@ -140,7 +149,7 @@ public class DocumentController {
 		}
 		return list;
 	}
-	
+
 	@RequestMapping(path = "/save-after-save/{id}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after save for later")
 	public List<UploadFileResponse> saveDocumentAfterSaveForLater(
@@ -158,7 +167,6 @@ public class DocumentController {
 		return list;
 	}
 
-
 	@RequestMapping(path = "/approve-document", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update document info after approval", notes = "Update document info after approval")
 	public void approveDocument(
@@ -172,20 +180,20 @@ public class DocumentController {
 			@ApiParam(required = true) @Valid @RequestBody final DocumentInfoAfterReview documentInfoAfterReview) {
 		documentService.rejectDocument(documentInfoAfterReview);
 	}
-	
+
 	@RequestMapping(path = "/{documentId}", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes saved document by id")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteSavedDocumentById(@PathVariable Long documentId) {
 		documentService.deleteSavedDocumentById(documentId);
 	}
-	
-	@RequestMapping(path= "/comment", method = RequestMethod.DELETE)
+
+	@RequestMapping(path = "/comment", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes document by comment", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUsersByDescription(@RequestParam final String description) {
 		documentService.deleteDocumentByDescription(description);
-	
+
 	}
 
 }
