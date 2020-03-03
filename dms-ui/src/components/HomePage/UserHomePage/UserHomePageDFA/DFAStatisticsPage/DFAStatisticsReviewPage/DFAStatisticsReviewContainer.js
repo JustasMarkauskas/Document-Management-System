@@ -5,24 +5,47 @@ import serverUrl from "../../../../../URL/ServerUrl";
 class DFAStatisticsReviewContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { documentCount: [], topAuthors: [] };
   }
 
-  //   getDocument = () => {
-  //     axios
-  //       .get(serverUrl + "api/document/get/" + this.props.docId + "/")
-  //       .then(response => {
-  //         this.setState({ document: response.data });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   };
+  getDocumentStatistics = () => {
+    axios
+      .get(serverUrl + "api/document/count/" + this.props.docType, {
+        params: {
+          startDate: this.props.startDate,
+          endDate: this.props.endDate
+        }
+      })
+      .then(response => {
+        this.setState({ documentCount: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-  //   componentDidMount() {
-  //     this.getDocument();
-  //   }
+  getTopAuthors = () => {
+    axios
+      .get(serverUrl + "api/document/topAuthors/" + this.props.docType, {
+        params: {
+          startDate: this.props.startDate,
+          endDate: this.props.endDate
+        }
+      })
+      .then(response => {
+        this.setState({ topAuthors: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
+  componentDidMount() {
+    this.getDocumentStatistics();
+    this.getTopAuthors();
+  }
+
+  //this.props.docType
   render() {
     return (
       <form className="container" id="DFAStatisticsReview">
@@ -33,7 +56,7 @@ class DFAStatisticsReviewContainer extends React.Component {
               type="text"
               id="submittedDocs"
               className="form-control"
-              placeholder="{this.props.id}"
+              placeholder={this.state.documentCount.submittedCount}
             />
           </div>
           <div className="form-group">
@@ -42,7 +65,7 @@ class DFAStatisticsReviewContainer extends React.Component {
               type="text"
               id="approvedDocs"
               className="form-control"
-              placeholder="{this.props.author}"
+              placeholder={this.state.documentCount.approvedCount}
             />
           </div>
           <div className="form-group">
@@ -51,23 +74,24 @@ class DFAStatisticsReviewContainer extends React.Component {
               type="text"
               id="rejectedDocs"
               className="form-control"
-              placeholder="{this.props.docType}"
+              placeholder={this.state.documentCount.rejectedCount}
             />
           </div>
         </fieldset>
         <ul className="list-group">
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Cras justo odio
-            <span className="badge badge-primary badge-pill">14</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Dapibus ac facilisis in
-            <span className="badge badge-primary badge-pill">2</span>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
-            Morbi leo risus
-            <span className="badge badge-primary badge-pill">1</span>
-          </li>
+          {this.state.topAuthors.map((author, index) => {
+            return (
+              <li
+                key={index}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {author.author}
+                <span className="badge badge-primary badge-pill">
+                  {author.authorSubmittedDocuments}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       </form>
     );

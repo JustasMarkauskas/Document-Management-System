@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.model.document.DocumentCountForStatistics;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentForStatistics;
 import it.akademija.model.document.DocumentInfoAfterReview;
@@ -81,12 +82,12 @@ public class DocumentController {
 		return documentService.getDocumentForClientById(id);
 	}
 
-	@RequestMapping(path = "/count/{docType}/{status}", method = RequestMethod.GET)
+	@RequestMapping(path = "/count/{docType}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get count by doc type and status", notes = "Returns number of documents by doc type and status")
-	public Long countByDocTypeAndStatus(@PathVariable String docType, @PathVariable String status,
+	public DocumentCountForStatistics getDocumentCountForStatistics(@PathVariable String docType,
 			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
 			@RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
-		return documentService.countByDocTypeAndStatus(docType, status, startDate, endDate);
+		return documentService.findDocumentCountForStatistics(docType, startDate, endDate);
 	}
 
 	@RequestMapping(path = "/topAuthors/{docType}", method = RequestMethod.GET)

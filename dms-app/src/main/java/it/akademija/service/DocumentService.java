@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.akademija.dao.DocumentRepository;
 import it.akademija.file.exceptions.FileStorageException;
 import it.akademija.model.document.Document;
+import it.akademija.model.document.DocumentCountForStatistics;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentForStatistics;
 import it.akademija.model.document.DocumentInfoAfterReview;
@@ -42,8 +43,16 @@ public class DocumentService {
 	}
 
 	@Transactional(readOnly = true)
-	public Long countByDocTypeAndStatus(String docType, String status, Date startDate, Date endDate) {
-		return documentRepository.countByDocTypeAndStatusAndDate(docType, status, startDate, endDate);
+	public DocumentCountForStatistics findDocumentCountForStatistics(String docType,  Date startDate,
+			Date endDate) {
+		DocumentCountForStatistics dcfs = new DocumentCountForStatistics();
+		dcfs.setSubmittedCount(
+				documentRepository.countByDocTypeAndStatusAndDate(docType, "SUBMITTED", startDate, endDate));
+		dcfs.setRejectedCount(
+				documentRepository.countByDocTypeAndStatusAndDate(docType, "REJECTED", startDate, endDate));
+		dcfs.setApprovedCount(
+				documentRepository.countByDocTypeAndStatusAndDate(docType, "APPROVED", startDate, endDate));
+		return dcfs;
 	}
 
 	@Transactional(readOnly = true)
