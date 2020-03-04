@@ -1,9 +1,11 @@
 package it.akademija.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,6 +46,33 @@ public class DocumentController {
 	public DocumentController(DocumentService documentService) {
 		this.documentService = documentService;
 
+	}
+
+	@RequestMapping(value = "/downloadCSV/{username}", method = RequestMethod.GET)
+	public void downloadCSV(HttpServletResponse response, @PathVariable String username) throws IOException {
+
+		String csvFileName = username+"_documents.csv";
+
+		response.setContentType("text/csv");
+
+		String headerKey = "Content-Disposition";
+		String headerValue = String.format("attachment; filename=\"%s\"", csvFileName);
+		response.setHeader(headerKey, headerValue);
+
+		List<DocumentForClient> documents = documentService.getDocumentsForClientByAuthor(username);
+
+		ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+
+		String[] header = { "id", "author", "docType", "title", "description", "submissionDate", "reviewDate",
+				"documentReceiver", "rejectionReason", "status" };
+
+		csvWriter.writeHeader(header);
+
+		for (DocumentForClient doc : documents) {
+			csvWriter.write(doc, header);
+		}
+
+		csvWriter.close();
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
