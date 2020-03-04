@@ -65,58 +65,98 @@ public class AdminCreateUserPage extends AbstractPage {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
 	
+	private void waitForSingleElementVisibility(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
+	}
+	
 	public void enterInputUsername(String username) {
+		waitForSingleElementVisibility(inputUsername);
 		inputUsername.sendKeys(username);
 	}
 	
 	public void enterInputFirstName(String firstName) {
+		waitForSingleElementVisibility(inputFirstName);
 		inputFirstName.sendKeys(firstName);
 	}
 	
 	public void enterInputLastName(String lastName) {
+		waitForSingleElementVisibility(inputLastName);
 		inputLastName.sendKeys(lastName);
 	}
 	
 	public void enterInputPassword(String password) {
+		waitForSingleElementVisibility(inputPassword);
 		inputPassword.sendKeys(password);
 	}
 	
 	public void enterInputConfirmPassword(String password) {
+		waitForSingleElementVisibility(inputConfirmPassword);
 		inputConfirmPassword.sendKeys(password);
 	}
 	
 	public void enterInputComment(String comment) {
+		waitForSingleElementVisibility(inputComment);
 		inputComment.sendKeys(comment);
 	}
 	
 	public void clickButtonSubmit() {
+		waitForClickable(getButtonSubmit());
 		buttonSubmit.submit();
 		buttonSubmit.click();
 	}
 	
 	public void clickButtonCancel() {
+		waitForClickable(buttonCancel);
 		buttonCancel.click();
 	}
 	
 	public void fillAndSubmitUserCreationForm(User user) {
-		inputUsername.sendKeys(user.getUserName());
-		inputFirstName.sendKeys(user.getName());
-		inputLastName.sendKeys(user.getSurname());
-		inputPassword.sendKeys(user.getPassword());
-		inputConfirmPassword.sendKeys(user.getConfirmPassword());
-		inputComment.sendKeys(user.getComment());
-		waitForClickable(buttonSubmit);
-		buttonSubmit.submit();
-		buttonSubmit.click();
+		enterInputUsername(user.getUserName());
+		enterInputFirstName(user.getName());
+		enterInputLastName(user.getSurname());
+		enterInputPassword(user.getPassword());
+		enterInputConfirmPassword(user.getConfirmPassword());
+		enterInputComment(user.getComment());
+		clickButtonSubmit();
 	}
 	
 	public void fillUserCreationForm(User user) {
-		inputUsername.sendKeys(user.getUserName());
-		inputFirstName.sendKeys(user.getName());
-		inputLastName.sendKeys(user.getSurname());
-		inputPassword.sendKeys(user.getPassword());
-		inputConfirmPassword.sendKeys(user.getConfirmPassword());
-		inputComment.sendKeys(user.getComment());
+		enterInputUsername(user.getUserName());
+		enterInputFirstName(user.getName());
+		enterInputLastName(user.getSurname());
+		enterInputPassword(user.getPassword());
+		enterInputConfirmPassword(user.getConfirmPassword());
+		enterInputComment(user.getComment());
+	}
+	
+	public String getTextFromMsgInvalidUsername() {
+		waitForSingleElementVisibility(getMsgInvalidUsername());
+		return getMsgInvalidUsername().getText();
+	}
+	
+	public String getTextFromMsgInvalidFirstName() {
+		waitForSingleElementVisibility(getMsgInvalidFirstName());
+		return getMsgInvalidFirstName().getText();
+	}
+	
+	public String getTextFromMsgInvalidLastName() {
+		waitForSingleElementVisibility(getMsgInvalidLastName());
+		return getMsgInvalidLastName().getText();
+	}
+	
+	public String getTextFromMsgInvalidPassword() {
+		waitForSingleElementVisibility(getMsgInvalidPassword());
+		return getMsgInvalidPassword().getText();
+	}
+	
+	public String getTextFromMsgInvalidConfirmPassword() {
+		waitForSingleElementVisibility(getMsgInvalidCondirmPassword());
+		return getMsgInvalidCondirmPassword().getText();
+	}
+	
+	public String getTextFromMsgInvalidComment() {
+		waitForSingleElementVisibility(getMsgInvalidComment());
+		return getMsgInvalidComment().getText();
 	}
 	
 	//getters

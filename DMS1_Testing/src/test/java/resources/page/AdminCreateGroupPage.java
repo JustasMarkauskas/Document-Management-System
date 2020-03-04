@@ -40,33 +40,52 @@ public class AdminCreateGroupPage extends AbstractPage {
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
+	private void waitForSingleElementVisibility(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
+	}
 	
 	public void enterInputGroupName(String groupName) {
+		waitForSingleElementVisibility(inputGroupName);
 		inputGroupName.sendKeys(groupName);
 	}
 		
 	public void enterInputComment(String comment) {
+		waitForSingleElementVisibility(inputComment);
 		inputComment.sendKeys(comment);
 	}
 	
 	public void clickButtonSubmit() {
+		waitForClickable(buttonSubmit);
 		buttonSubmit.submit();
 		buttonSubmit.click();
 	}
 	
 	public void clickButtonCancel() {
+		waitForClickable(buttonCancel);
 		buttonCancel.click();
 	}
 	
-	public void fillAndSubmitForm(Group group) throws InterruptedException {
-		inputGroupName.sendKeys(group.getGroupName());
-		inputComment.sendKeys(group.getComment());
-		waitForClickable(buttonSubmit);
-
-		buttonSubmit.submit();
-		buttonSubmit.click();
-
+	public void fillGroupCreationForm(Group group) {
+		enterInputGroupName(group.getGroupName());
+		enterInputComment(group.getComment());
 	}
+	
+	public void fillAndSubmitGroupCreationForm(Group group) {
+		enterInputGroupName(group.getGroupName());
+		enterInputComment(group.getComment());
+		clickButtonSubmit();
+	}
+	
+	public String getTextFromMsgInvalidGroupName() {
+		waitForSingleElementVisibility(getMsgInvalidGroupName());
+		return getMsgInvalidGroupName().getText();
+	}
+	
+	public String getTextFromMsgInvalidComment() {
+		waitForSingleElementVisibility(getMsgInvalidComment());
+		return getMsgInvalidComment().getText();
+	}
+
 	
 	//getters
 
@@ -86,12 +105,16 @@ public class AdminCreateGroupPage extends AbstractPage {
 		return buttonCancel;
 	}
 
-	public WebElement getMsgInvalidGroupName() {
-		return msgInvalidGroupName;
-	}
-
 	public WebElement getMsgInvalidComment() {
 		return msgInvalidComment;
 	}
+
+	public WebElement getMsgInvalidGroupName() {
+		return msgInvalidGroupName;
+	}
+	
+	
+	
+	
 
 }

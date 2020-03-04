@@ -1,19 +1,19 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="localCreateGroup">
+<suite name="localMainSuite">
 
 	<listeners>
 		<listener class-name="resources.utils.ListenerTest" />
 	</listeners>
-	
-	<test name="GroupCreationTest">
+
+	<test name="ElementCreationTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin1" />
 		<parameter name="loginPassword" value="Password1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateUserTest" />
+			<class name="com.TheGoodGuys.DMS1.MainScenarioAdminCreateElementsTest" />
 		</classes>
 	</test>
 

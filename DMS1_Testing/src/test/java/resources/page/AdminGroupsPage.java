@@ -2,6 +2,7 @@ package resources.page;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,11 +26,12 @@ public class AdminGroupsPage extends AbstractPage {
 	@FindBy(xpath = "//*[contains(@id,'groupNr')]")
 	private List<WebElement> buttonsViewGroup;
 
-	//labels
+	//lists
 	@FindBy(xpath = "//tr[contains(@id,'groupNr')]/descendant::td[1]")
 	private List<WebElement> labelsGroupName;
 
-
+	@FindBy(xpath = "//tr[contains(@id,'groupNr')]")
+	private List<WebElement> dataRows;
 
 
 	public AdminGroupsPage(WebDriver driver) {
@@ -72,17 +74,32 @@ public class AdminGroupsPage extends AbstractPage {
 		buttonsViewGroup.get(index).click();
 	}
 
-	public boolean checkIfGroupNameExists(String groupName) {
+	public int findRowNumberByGroupName(String groupName) {
 		waitForMultipleElementVisibility(labelsGroupName);
-		boolean nameFound = false;
-		for (WebElement label : labelsGroupName) {
-			if (groupName.equals(label.getText())) {
-				nameFound = true;
-				break;
-			} }
-		return nameFound;
+		for (int i = 0; i < labelsGroupName.size(); i++) {
+			if (groupName.equals(labelsGroupName.get(i).getText())) {
+				return i + 1;
+			}
+		}
+		return 0;
 	}
-
+	
+	public WebElement getRowByRowNumber(int rowNumber) {
+		return dataRows.get(rowNumber - 1);
+	}
+	
+	public String[] getTextFromRowFieldsByGroupName(String groupName) {
+		String[] rowFields = new String[4];
+		int rowNumber = findRowNumberByGroupName(groupName);
+		if (rowNumber > 0) {
+			WebElement row = getRowByRowNumber(rowNumber);
+			rowFields[0] = row.findElement(By.xpath("./th")).getText();
+			rowFields[1] = row.findElement(By.xpath("./td[1]")).getText();
+			rowFields[2] = row.findElement(By.xpath("./td[2]")).getText();
+			rowFields[3] = row.findElement(By.xpath("./td[3]")).getText();
+		}
+		return rowFields;
+	}
 
 
 	//getters

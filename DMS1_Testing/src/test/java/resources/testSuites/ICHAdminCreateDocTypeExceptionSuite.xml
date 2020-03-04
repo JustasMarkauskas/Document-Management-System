@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="localCreateDocumentType">
+<suite name="localCreateDocTypeExceptionSuite">
 
 	<listeners>
 		<listener class-name="resources.utils.ListenerTest" />
@@ -13,7 +13,7 @@
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateDocumentTypeTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateDocTypeExceptionTest" />
 		</classes>
 	</test>
 

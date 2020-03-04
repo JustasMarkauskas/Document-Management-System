@@ -8,11 +8,16 @@ import java.io.IOException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterGroups;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
 import resources.page.AdminCreateUserPage;
@@ -22,8 +27,9 @@ import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
+import resources.utils.ManageAutotestingData;
 
-public class AdminCreateUserTest extends AbstractTest {
+public class AdminCreateUserExceptionTest extends AbstractTest {
 
 	private WebDriverWait wait;
 	private LoginUserPage login;
@@ -43,29 +49,28 @@ public class AdminCreateUserTest extends AbstractTest {
 		header = new HeaderPage(driver);
 	}
 	
-	@BeforeGroups("userCreation")
+	@BeforeGroups("userCreationInvalidData")
 	@Parameters({"baseURL", "loginUsername", "loginPassword"})
 	public void navigateToPage(String baseURL, String loginUsername, String loginPassword) {
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);
 		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 	}
+	
+	
 
-	@DataProvider(name = "validUsers")
-	public static Object[] testDataValidUsers() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/UsersValid.xml");
+	@AfterGroups("userCreationInvalidData")
+	@Parameters({"apiURL"})
+	public void deleteTestDataLogout(String apiURL) throws UnirestException {
+		
+		ManageAutotestingData.deleteUserDataByComment(apiURL, "autotesting");
+		ManageAutotestingData.deleteUserDataByComment(apiURL, "autotesting autotesting autotesting autotesting au");
+		adminNav.clickButtonLogout();
 	}
-
-
-	@Test (priority = 1, groups = { "userCreation" } , dataProvider = "validUsers")//, enabled = false)
-	public void testToCreateNewUser(User user) throws Exception {
-		
-		adminNav.clickButtonUsers();
-		adminUsers.clickButtonAddNewUser();
-		createUser.fillAndSubmitUserCreationForm(user);
-		
-		assertThat("Username could not be found in the user list", adminUsers.checkIfUsernameExists(user.getUserName()), is(true));
-
+	
+	@AfterMethod
+	public void closeModalWindow() {
+		createUser.clickButtonCancel();
 	}
 	
 	@DataProvider(name = "usersInvalidPasswordLength")
@@ -74,18 +79,17 @@ public class AdminCreateUserTest extends AbstractTest {
 	}
 
 
-	@Test (priority = 2, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordLength")//, enabled = false)
-	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) throws Exception {
+	@Test (priority = 1, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordLength")
+	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) {
 		
 		adminNav.clickButtonUsers();
 		adminUsers.clickButtonAddNewUser();
 		createUser.fillUserCreationForm(user);
-		createUser.clickButtonSubmit();
 		
-		String errorMsgText = createUser.getMsgInvalidPassword().getText();
-		createUser.clickButtonCancel();
+		String errorMsgText = createUser.getTextFromMsgInvalidPassword();
 		assertThat("Length restrictions msg for user password does not match", errorMsgText,
 				is(equalTo("Must be 8-20 characters long")));
+		assertThat("Submit button is not disabled", createUser.getButtonSubmit().isEnabled(), is(false));
 	}
 	
 
@@ -95,17 +99,16 @@ public class AdminCreateUserTest extends AbstractTest {
 	}
 
 
-	@Test (priority = 3, groups = { "userCreation" } , dataProvider = "usersInvalidPasswordChars")
-	public void testToCheckPasswordSpecialCharsRestrictionsInCreateUser(User user) throws Exception {
+	@Test (priority = 2, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordChars")
+	public void testToCheckPasswordSpecialCharsRestrictionsInCreateUser(User user) {
 		
 		adminNav.clickButtonUsers();
 		adminUsers.clickButtonAddNewUser();
 		createUser.fillUserCreationForm(user);
-		createUser.clickButtonSubmit();
 		
 		String errorMsgText = createUser.getMsgInvalidPassword().getText();
-		createUser.clickButtonCancel();
 		assertThat("Spec Chars restrictions msg for password does not match", errorMsgText,
 				is(equalTo("Only uppercase, lowercase letters and numbers are allowed. At least one of each must be present.")));
+		assertThat("Submit button is not disabled", createUser.getButtonSubmit().isEnabled(), is(false));
 	}
 }

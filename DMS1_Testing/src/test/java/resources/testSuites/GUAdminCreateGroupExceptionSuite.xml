@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="localCreateGroup">
+<suite name="localCreateGroupExceptionSuite">
 
 	<listeners>
 		<listener class-name="resources.utils.ListenerTest" />
@@ -13,7 +13,7 @@
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupExceptionTest" />
 		</classes>
 	</test>
 

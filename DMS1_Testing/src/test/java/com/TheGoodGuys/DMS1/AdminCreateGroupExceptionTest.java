@@ -7,13 +7,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -26,9 +20,8 @@ import resources.page.LoginUserPage;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;
-import resources.utils.ScreenshotUtils;
 
-public class AdminCreateGroupTest extends AbstractTest {
+public class AdminCreateGroupExceptionTest extends AbstractTest {
 
 	private WebDriverWait wait;
 	private LoginUserPage login;
@@ -38,8 +31,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 	private HeaderPage header;
 
 	@BeforeClass
-	@Parameters({"baseURL", "loginUsername", "loginPassword"})
-	public void preconditions(String baseURL, String loginUsername, String loginPassword) {
+	public void preconditions() {
 
 		wait = new WebDriverWait(driver, 10);
 		login = new LoginUserPage(driver);
@@ -50,7 +42,7 @@ public class AdminCreateGroupTest extends AbstractTest {
 	}
 	
 	
-	@BeforeGroups("groupCreation")
+	@BeforeGroups("groupCreationInvalidData")
 	@Parameters({"baseURL", "loginUsername", "loginPassword"})
 	public void navigateToPage(String baseURL, String loginUsername, String loginPassword) {
 		driver.get(baseURL);
@@ -58,29 +50,18 @@ public class AdminCreateGroupTest extends AbstractTest {
 		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 	}
 	
-//	@AfterGroups("groupCreation")
-//	@Parameters({"apiURL"})
-//	public void deleteTestData(String apiURL) throws UnirestException {
-//		
-//		DeleteAutotestingData.deleteGroupDataByComment("autotesting", apiURL);
-//		DeleteAutotestingData.deleteGroupDataByComment("autotesting autotesting autotesting autotesting au", apiURL);
-//	}
-
-	@DataProvider(name = "validGroups")
-	public static Object[] testDataValidGroups() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsValid.xml");
+	@AfterGroups("groupCreationInvalidData")
+	@Parameters({"apiURL"})
+	public void deleteTestDataLogout(String apiURL) throws UnirestException {
+		
+		ManageAutotestingData.deleteGroupDataByComment(apiURL, "autotesting");
+		ManageAutotestingData.deleteGroupDataByComment(apiURL, "autotesting autotesting autotesting autotesting au");
+		adminNav.clickButtonLogout();
 	}
-
-
-	@Test (priority = 1, groups = { "groupCreation" } , dataProvider = "validGroups")//, enabled = false)
-	public void testToCreateNewGroup(Group group) throws Exception {
-		
-		adminNav.clickButtonGroups();
-		adminGroups.clickButtonAddNewGroup();
-		createGroup.fillAndSubmitForm(group);
-		
-		assertThat("Group name could not be found in the group list", adminGroups.checkIfGroupNameExists(group.getGroupName()), is(true));
-
+	
+	@AfterMethod
+	public void closeModalWindow() {
+		createGroup.clickButtonCancel();
 	}
 	
 	
@@ -90,18 +71,16 @@ public class AdminCreateGroupTest extends AbstractTest {
 	}
 	
 	
-	@Test (priority = 2, groups = { "groupCreation" } , dataProvider = "groupsInvalidLength")
-	public void testToCheckLengthRestrictionsInCreateGroup(Group group) throws Exception {
+	@Test (priority = 1, groups = { "groupCreationInvalidData" } , dataProvider = "groupsInvalidLength")
+	public void testToCheckLengthRestrictionsInCreateGroup(Group group) {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.enterInputGroupName(group.getGroupName());
-		createGroup.enterInputComment(group.getComment());
-		createGroup.clickButtonSubmit();
+		createGroup.fillGroupCreationForm(group);
 		
-		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
-		createGroup.clickButtonCancel();
+		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Must be 5-20 characters long")));
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 	}
 	
 	@DataProvider(name = "groupsBlankName")
@@ -110,18 +89,16 @@ public class AdminCreateGroupTest extends AbstractTest {
 	}
 	
 	
-	@Test (priority = 3, groups = { "groupCreation" } , dataProvider = "groupsBlankName")
-	public void testToCheckBlankRestrictionsInCreateGroup(Group group) throws Exception {
+	@Test (priority = 2, groups = { "groupCreationInvalidData" } , dataProvider = "groupsBlankName")
+	public void testToCheckBlankRestrictionsInCreateGroup(Group group) {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.enterInputGroupName(group.getGroupName());
-		createGroup.enterInputComment(group.getComment());
-		createGroup.clickButtonSubmit();
+		createGroup.fillGroupCreationForm(group);
 			
-		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
-		createGroup.clickButtonCancel();
+		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Please enter a group name")));
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 	}
 	
 	@DataProvider(name = "groupsInvalidCommentLength")
@@ -130,18 +107,16 @@ public class AdminCreateGroupTest extends AbstractTest {
 	}
 	
 	
-	@Test (priority = 4, groups = { "groupCreation" } , dataProvider = "groupsInvalidCommentLength")
-	public void testToCheckCommentLengthRestrictionsInCreateGroup(Group group) throws Exception {
+	@Test (priority = 3, groups = { "groupCreationInvalidData" } , dataProvider = "groupsInvalidCommentLength")
+	public void testToCheckCommentLengthRestrictionsInCreateGroup(Group group) {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.enterInputGroupName(group.getGroupName());
-		createGroup.enterInputComment(group.getComment());
-		createGroup.clickButtonSubmit();
+		createGroup.fillGroupCreationForm(group);
 				
-		String errorMsgText = createGroup.getMsgInvalidComment().getText();
-		createGroup.clickButtonCancel();
+		String errorMsgText = createGroup.getTextFromMsgInvalidComment();
 		assertThat("Length restrictions msg for group comment does not match", errorMsgText, is(equalTo("Must be 50 characters or less")));
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 	}
 	
 	@DataProvider(name = "groupsInvalidChars")
@@ -150,30 +125,26 @@ public class AdminCreateGroupTest extends AbstractTest {
 	}
 	
 	
-	@Test (priority = 5, groups = { "groupCreation" } , dataProvider = "groupsInvalidChars")
-	public void testToCheckSpecialCharsRestrictionsInCreateGroup(Group group) throws Exception {
+	@Test (priority = 4, groups = { "groupCreationInvalidData" } , dataProvider = "groupsInvalidChars")
+	public void testToCheckSpecialCharsRestrictionsInCreateGroup(Group group) {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.enterInputGroupName(group.getGroupName());
-		createGroup.enterInputComment(group.getComment());
-		createGroup.clickButtonSubmit();
+		createGroup.fillGroupCreationForm(group);
 			
-		String errorMsgText = createGroup.getMsgInvalidGroupName().getText();
-		createGroup.clickButtonCancel();
+		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Spec Chars restrictions msg for group name does not match", errorMsgText, is(equalTo("Only uppercase, lowercase letters and numbers are allowed")));
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 	}
 
 	
-	@Test (priority = 6, groups = { "groupCreation" } )
-	public void testToSubmitBlankFormInCreateGroup() throws Exception {
+	@Test (priority = 5, groups = { "groupCreationInvalidData" } )
+	public void testToSubmitBlankFormInCreateGroup() {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.clickButtonSubmit();
 			
 		Boolean btnDisabled = createGroup.getButtonSubmit().isEnabled();
-		createGroup.clickButtonCancel();
 		assertThat("Submit button is not disabled", btnDisabled, is(false));
 	}
 	
