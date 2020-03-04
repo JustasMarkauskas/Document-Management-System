@@ -10,6 +10,8 @@ import it.akademija.model.document.Document;
 public interface DocumentRepository extends JpaRepository<Document, Long> {
 
 	List<Document> findByAuthorOrderByIdDesc(String username);
+	
+	List<Document> findByAuthor(String username);
 
 	@Query("SELECT d FROM Document d WHERE d.docType IN(:names) and d.status != :status ORDER BY d.id DESC")
 	List<Document> findDocumentsForApproval(@Param("names") List<String> names, @Param("status") String status);

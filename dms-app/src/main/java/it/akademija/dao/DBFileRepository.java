@@ -12,4 +12,5 @@ public interface DBFileRepository extends JpaRepository<DBFile, String> {
 
 	void deleteById(String id);
 	List<DBFile> findByDocumentId(Long id);
+	
 }
