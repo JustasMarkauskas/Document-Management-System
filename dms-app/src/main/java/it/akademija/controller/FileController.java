@@ -35,8 +35,18 @@ public class FileController {
 	}
 
 
-	@RequestMapping(value = "/download-zip/{username}", method = RequestMethod.GET, produces = "application/zip")
+	@RequestMapping(value = "/download-files-zip/{username}", method = RequestMethod.GET, produces = "application/zip")
 	public byte[] downloadFiles(HttpServletResponse response, @PathVariable("username") String username)
+			throws IOException {
+		response.setContentType("application/zip");
+		response.setStatus(HttpServletResponse.SC_OK);
+		String headerValue = String.format("attachment; filename=\"%s_files.zip\"", username);
+		response.addHeader("Content-Disposition", headerValue);
+		return dbFileStorageService.zipFiles(dbFileStorageService.getAllFilesByUsername(username));
+	}
+	
+	@RequestMapping(value = "/download-files-csv-zip/{username}", method = RequestMethod.GET, produces = "application/zip")
+	public byte[] downloadFilesAndCsv(HttpServletResponse response, @PathVariable("username") String username)
 			throws IOException {
 		response.setContentType("application/zip");
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -44,7 +54,7 @@ public class FileController {
 		String headerValue = String.format("attachment; filename=\"%s_files.zip\"", username);
 		response.addHeader("Content-Disposition", headerValue);
 		
-		return dbFileStorageService.zipFiles(dbFileStorageService.findAllFilesByUsername(username));
+		return dbFileStorageService.zipFiles(dbFileStorageService.getAllFilesAndCsvByUsername(username));
 	}
 	
 	@RequestMapping(path = "/uploadFile", method = RequestMethod.POST)

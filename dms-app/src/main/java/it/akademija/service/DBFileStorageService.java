@@ -29,7 +29,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,14 +44,14 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class DBFileStorageService {
 
-	
 	private final DocumentService documentService;
 
 	private final DBFileRepository dbFileRepository;
 	private final DocumentRepository documentRepository;
 
 	@Autowired
-	public DBFileStorageService(DBFileRepository dbFileRepository, DocumentRepository documentRepository, DocumentService documentService) {
+	public DBFileStorageService(DBFileRepository dbFileRepository, DocumentRepository documentRepository,
+			DocumentService documentService) {
 		this.dbFileRepository = dbFileRepository;
 		this.documentRepository = documentRepository;
 		this.documentService = documentService;
@@ -104,55 +106,52 @@ public class DBFileStorageService {
 		return fileDetailsList;
 	}
 
-	public File getCSV(String username) {
+	public String formatDate(Date date) {
+		String dateToString = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		if (!(date == null)) {
+			dateToString = formatter.format(date);
+		}
+		return dateToString;
+	}
+
+	public File getCsvFile(String username) {
 		File csvFile = new File(username);
 
-	//	List<DocumentForClient> documents = documentService.getDocumentsForClientByAuthor(username);
+		List<DocumentForClient> documents = documentService.getDocumentsForClientByAuthor(username);
 
 		try {
-			// create FileWriter object with file as parameter
 			FileWriter outputfile = new FileWriter(csvFile);
-
-			// create CSVWriter object filewriter object as parameter
 			CSVWriter writer = new CSVWriter(outputfile);
+			String[] header = { "id", "author", "docType", "title", "description", "submissionDate", "reviewDate",
+					"documentReceiver", "rejectionReason", "status" };
+			writer.writeNext(header);
 
-			// adding header to csv
-			String[] header = { "Name", "Class", "Marks" }; 
-	        writer.writeNext(header); 
-			
-			
-			
-//			String[] header = { "id", "author", "docType", "title", "description", "submissionDate", "reviewDate",
-//					"documentReceiver", "rejectionReason", "status" };
-//			writer.writeNext(header);
-//
-//			for (DocumentForClient doc : documents) {
-//				String[] data = { doc.getId().toString(), doc.getAuthor(), doc.getDocType(), doc.getTitle(),
-//						doc.getDescription(), doc.getSubmissionDate().toString(), doc.getReviewDate().toString(),
-//						doc.getDocumentReceiver(), doc.getRejectionReason(), doc.getStatus() };
-//				writer.writeNext(data);
-//			}
-
-//			// add data to csv
-			
-			
-			String[] data1 = { "Aman", "10", "620" };
-			writer.writeNext(data1);
-			String[] data2 = { "Suraj", "10", "630" };
-			writer.writeNext(data2);
-
-			// closing writer connection
+			for (DocumentForClient doc : documents) {
+				String[] data = { Long.toString(doc.getId()), doc.getAuthor(), doc.getDocType(), doc.getTitle(),
+						doc.getDescription(), formatDate(doc.getSubmissionDate()), formatDate(doc.getReviewDate()),
+						doc.getDocumentReceiver(), doc.getRejectionReason(), doc.getStatus() };
+				writer.writeNext(data);
+			}
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return csvFile;
 	}
 
-	// add CSV
-	public Map<String, ByteArrayResource> findAllFilesByUsername(String username) {
+	public Map<String, ByteArrayResource> getAllFilesByUsername(String username) {
+		List<FileDetails> usersFilesDetails = findAllFileDetailsByUsername(username);
+		Map<String, ByteArrayResource> filesAsBytes = new HashMap<>();
+		for (FileDetails file : usersFilesDetails) {
+			filesAsBytes.put(file.getFileName(),
+					new ByteArrayResource(dbFileRepository.findById(file.getId()).get().getData()));
+		}
+		return filesAsBytes;
+	}
+
+	public Map<String, ByteArrayResource> getAllFilesAndCsvByUsername(String username) throws IOException {
 		List<FileDetails> usersFilesDetails = findAllFileDetailsByUsername(username);
 		Map<String, ByteArrayResource> filesAsBytes = new HashMap<>();
 		for (FileDetails file : usersFilesDetails) {
@@ -160,35 +159,17 @@ public class DBFileStorageService {
 					new ByteArrayResource(dbFileRepository.findById(file.getId()).get().getData()));
 		}
 
-		
-		
-		File file = getCSV(username);
-		// init array with file length
+		File file = getCsvFile(username);
 		byte[] bytesArray = new byte[(int) file.length()];
-
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(file);
-			try {
-				fis.read(bytesArray);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			try {
-				fis.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			fis.read(bytesArray);
+			fis.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		filesAsBytes.put("pavadinimas.csv", new ByteArrayResource(bytesArray));
-
+		filesAsBytes.put(username + "_documents.csv", new ByteArrayResource(bytesArray));
 		return filesAsBytes;
 	}
 
