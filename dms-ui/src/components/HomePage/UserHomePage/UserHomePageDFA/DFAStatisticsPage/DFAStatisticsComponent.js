@@ -37,23 +37,40 @@ class DFAStatisticsComponent extends React.Component {
     });
   };
 
+  handleButtonValidation = () => {
+    var formIsValid = true;
+    if (
+      this.state.startDate === "" ||
+      this.state.endDate === "" ||
+      this.state.startDate === null ||
+      this.state.endDate === null ||
+      this.state.endDate < this.state.startDate
+    ) {
+      formIsValid = false;
+    }
+    return formIsValid;
+  };
+
   render() {
     return (
       <div className="container">
-        <div>
-          selectkk
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label>Start date: </label>
-              <DatePicker
-                value={this.state.startDate}
-                selected={this.state.startDate}
-                onChange={this.handleStartDateChange}
-                name="startDate"
-                dateFormat="yyyy-MM-dd"
-              />
-            </div>
-            <div className="form-group">
+        <div className="alert alert-warning " role="alert">
+          You need to select a period of statistics and then choose a document
+          type
+        </div>
+        <div className="row">
+          <div className="col-lg-6 col-sm-12">
+            <label>Start date: </label>
+            <DatePicker
+              value={this.state.startDate}
+              selected={this.state.startDate}
+              onChange={this.handleStartDateChange}
+              name="startDate"
+              dateFormat="yyyy-MM-dd"
+            />
+          </div>
+          <div className="col-lg-6 col-sm-12">
+            <div className="float-lg-right">
               <label>End date: </label>
               <DatePicker
                 value={this.state.endDate}
@@ -63,7 +80,7 @@ class DFAStatisticsComponent extends React.Component {
                 dateFormat="yyyy-MM-dd"
               />
             </div>
-          </form>
+          </div>
         </div>
         <div className="card">
           <div className="card-body">
@@ -79,6 +96,7 @@ class DFAStatisticsComponent extends React.Component {
                         onClick={event =>
                           this.handleShowStatisticsModal(docType)
                         }
+                        disabled={!this.handleButtonValidation()}
                       >
                         {docType}
                       </button>

@@ -78,6 +78,13 @@ class DFAStatisticsReviewContainer extends React.Component {
             />
           </div>
         </fieldset>
+
+        {this.state.topAuthors.length > 0 ? (
+          <div className="text-center">Most active users</div>
+        ) : (
+          <div></div>
+        )}
+
         <ul className="list-group">
           {this.state.topAuthors.map((author, index) => {
             return (
