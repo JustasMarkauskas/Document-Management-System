@@ -85,6 +85,7 @@ class AdminHomePageDocumentContainer extends React.Component {
         documentName={document.id}
         comment={document.comment}
         handleActionClick={this.handleActionClick}
+        updateDocTypes={this.getDocuments}
       />
     ));
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import it.akademija.model.doctype.DocTypeComment;
 import it.akademija.model.doctype.DocTypeForClient;
 import it.akademija.model.doctype.NewDocType;
 import it.akademija.service.DocTypeService;
@@ -60,6 +61,13 @@ public class DocTypeController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewDocType newDocType) {
 		docTypeService.saveDocType(newDocType);
+	}
+	
+	@RequestMapping(path = "/update-comment/{docTypeName}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Update document type comment", notes = "Update document type comment")
+	public void updateDocTypeComment(@ApiParam(required = true) @PathVariable String docTypeName,
+			@Valid @RequestBody final DocTypeComment docTypeComment) {
+		 docTypeService.updateDocTypeComment(docTypeName, docTypeComment);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.dao.DocTypeRepository;
 import it.akademija.model.doctype.DocType;
+import it.akademija.model.doctype.DocTypeComment;
 import it.akademija.model.doctype.DocTypeForClient;
 import it.akademija.model.doctype.NewDocType;
+
 
 
 
@@ -71,6 +73,12 @@ public class DocTypeService {
 		docType.setId(newDocType.getId());
 		docType.setComment(newDocType.getComment());
 		docTypeRepository.save(docType);
+	}
+	
+	@Transactional
+	public void updateDocTypeComment(String docTypeName, DocTypeComment docTypeComment) {
+		DocType existingDocType = findByDocTypeName(docTypeName);
+		existingDocType.setComment(docTypeComment.getComment());		
 	}
 	
 	@Transactional
