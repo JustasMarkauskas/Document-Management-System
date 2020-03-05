@@ -45,19 +45,6 @@ class DFAStatisticsReviewContainer extends React.Component {
     this.getTopAuthors();
   }
 
-  // handleTest = event => {
-  //   event.preventDefault();
-  //   axios
-  //     .get(serverUrl + "api/document/downloadCSV/aaaaaaaa" )
-  //     .then(response => {
-  //     console.log(response)
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-
-  // };
-
   render() {
     return (
       <form className="container" id="DFAStatisticsReview">

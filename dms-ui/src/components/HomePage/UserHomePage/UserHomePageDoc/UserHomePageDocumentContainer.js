@@ -71,6 +71,25 @@ class UserHomePageDocumentContainer extends React.Component {
     }
   };
 
+  handleDownloadButton = () => {
+    axios
+      .request({
+        url:
+          serverUrl + "api/file/download-files-csv-zip/" + this.state.username,
+        method: "GET",
+        responseType: "blob"
+      })
+      .then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", this.state.username + "_files.zip");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      });
+  };
+
   handleModalClose = () => {
     this.setState({ showModal: false });
   };
@@ -136,7 +155,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
         <button
-          onClick={this.handleDownloadDocumentButton}
+          onClick={this.handleDownloadButton}
           type="button"
           className="btn btn-primary col-lg-2 mb-2"
           id="downloadDocumentsButton"
