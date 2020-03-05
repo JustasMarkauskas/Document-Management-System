@@ -13,9 +13,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.page.LoginUserPage;
-import resources.page.UserDFAPage;
-import resources.page.UserNavPage;
-import resources.page.UserSubmittedDocumentInfoPage;
+import resources.page.UserPages.UserDFAPage;
+import resources.page.UserPages.UserNavPage;
+import resources.page.UserPages.UserSubmittedDocumentInfoPage;
 import resources.test.AbstractTest;
 
 public class UserDocumentsForApprovalTest extends AbstractTest {

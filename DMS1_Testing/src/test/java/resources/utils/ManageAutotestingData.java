@@ -11,13 +11,13 @@ public class ManageAutotestingData {
 
 	public static void main(String[] args) throws UnirestException {
 
-		deleteUserDataByComment("http://localhost:8081", "autotesting");
-		deleteUserDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-		deleteGroupDataByComment("http://localhost:8081", "autotesting");
-		deleteGroupDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
-		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
+//		deleteUserDataByComment("http://localhost:8081", "autotesting");
+//		deleteUserDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+//		deleteGroupDataByComment("http://localhost:8081", "autotesting");
+//		deleteGroupDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
+//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+//		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
 //		createUser("http://localhost:8081", "testUser101", "test", "test", "Password1", "autotesting");
 //		createGroup("http://localhost:8081", "testGroup101", "autotesting");
 //		createGroup("http://localhost:8081", "testGroup102", "autotesting");
@@ -25,6 +25,7 @@ public class ManageAutotestingData {
 //		updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "testGroup102");
 //		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
 //		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
+//		updateGroupUsers("http://localhost:8081", "testGroup200", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5");
 		
 	}
 
@@ -98,6 +99,20 @@ public class ManageAutotestingData {
 			.routeParam("username", username)
 			.routeParam("groupName1", group1)
 			.routeParam("groupName2", group2)
+			.asString();
+	}
+	
+	public static void updateGroupUsers(String baseUrl, String groupName, String user1, String user2, String user3,
+			String user4, String user5) throws UnirestException {
+		String editApi = baseUrl + "/api/user/add-users-to-group/{groupName}?usernames={user1}&usernames={user2}"
+				+ "&usernames={user3}&usernames={user4}&usernames={user5}";
+		Unirest.put(editApi)
+			.routeParam("groupName", groupName)
+			.routeParam("user1", user1)
+			.routeParam("user2", user2)
+			.routeParam("user3", user3)
+			.routeParam("user4", user4)
+			.routeParam("user5", user5)
 			.asString();
 	}
 	

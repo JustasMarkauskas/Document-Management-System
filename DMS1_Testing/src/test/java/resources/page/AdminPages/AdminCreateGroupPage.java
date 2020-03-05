@@ -1,4 +1,4 @@
-package resources.page;
+package resources.page.AdminPages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.models.Group;
+import resources.page.AbstractPage;
 
 public class AdminCreateGroupPage extends AbstractPage {
 	
@@ -65,12 +66,12 @@ public class AdminCreateGroupPage extends AbstractPage {
 		buttonCancel.click();
 	}
 	
-	public void fillGroupCreationForm(Group group) {
+	public void fillFormGroupCreation(Group group) {
 		enterInputGroupName(group.getGroupName());
 		enterInputComment(group.getComment());
 	}
 	
-	public void fillAndSubmitGroupCreationForm(Group group) {
+	public void fillAndSubmitFormGroupCreation(Group group) {
 		enterInputGroupName(group.getGroupName());
 		enterInputComment(group.getComment());
 		clickButtonSubmit();

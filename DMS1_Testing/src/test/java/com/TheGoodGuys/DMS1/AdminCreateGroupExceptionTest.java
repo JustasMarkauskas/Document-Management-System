@@ -12,11 +12,11 @@ import org.testng.annotations.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.Group;
-import resources.page.AdminCreateGroupPage;
-import resources.page.AdminGroupsPage;
-import resources.page.AdminNavPage;
 import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
+import resources.page.AdminPages.AdminCreateGroupPage;
+import resources.page.AdminPages.AdminGroupsPage;
+import resources.page.AdminPages.AdminNavPage;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;
@@ -76,7 +76,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.fillGroupCreationForm(group);
+		createGroup.fillFormGroupCreation(group);
 		
 		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Must be 5-20 characters long")));
@@ -94,7 +94,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.fillGroupCreationForm(group);
+		createGroup.fillFormGroupCreation(group);
 			
 		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Length restrictions msg for group name does not match", errorMsgText, is(equalTo("Please enter a group name")));
@@ -112,7 +112,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.fillGroupCreationForm(group);
+		createGroup.fillFormGroupCreation(group);
 				
 		String errorMsgText = createGroup.getTextFromMsgInvalidComment();
 		assertThat("Length restrictions msg for group comment does not match", errorMsgText, is(equalTo("Must be 50 characters or less")));
@@ -130,7 +130,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 		
 		adminNav.clickButtonGroups();
 		adminGroups.clickButtonAddNewGroup();
-		createGroup.fillGroupCreationForm(group);
+		createGroup.fillFormGroupCreation(group);
 			
 		String errorMsgText = createGroup.getTextFromMsgInvalidGroupName();
 		assertThat("Spec Chars restrictions msg for group name does not match", errorMsgText, is(equalTo("Only uppercase, lowercase letters and numbers are allowed")));

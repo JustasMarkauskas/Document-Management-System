@@ -1,12 +1,15 @@
-package resources.page;
+package resources.page.AdminPages;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import resources.page.AbstractPage;
 
 public class AdminDocTypesPage extends AbstractPage {
 
@@ -24,9 +27,15 @@ public class AdminDocTypesPage extends AbstractPage {
 	@FindBy(id = "adminDocumentSearchInput")
 	private WebElement inputSearch;
 
-	// labels
+	// lists
 	@FindBy(xpath = "//tr[contains(@id,'documentNr')]/descendant::td[1]")
 	private List<WebElement> labelsDocTypeName;
+	
+	@FindBy(xpath = "//tr[contains(@id,'documentNr')]")
+	private List<WebElement> dataRows;
+	
+	@FindBy(xpath = "//tr[contains(@id,'documentNr')]//button")
+	private List<WebElement> buttonsDocTypeActions;
 
 	public AdminDocTypesPage(WebDriver driver) {
 		super(driver);
@@ -66,18 +75,39 @@ public class AdminDocTypesPage extends AbstractPage {
 		waitForClickable(buttonsViewDocType.get(index));
 		buttonsViewDocType.get(index).click();
 	}
-
-	public boolean checkIfDocumentTypeNameExists(String documentTypeName) {
+	
+	public int findRowNumberByDocTypeName(String docTypeName) {
 		waitForMultipleElementVisibility(labelsDocTypeName);
-		boolean nameFound = false;
-		for (WebElement label : labelsDocTypeName) {
-			if (documentTypeName.equals(label.getText())) {
-				nameFound = true;
-				break;
+		for (int i = 0; i < labelsDocTypeName.size(); i++) {
+			if (docTypeName.equals(labelsDocTypeName.get(i).getText())) {
+				return i + 1;
 			}
 		}
-		return nameFound;
+		return 0;
 	}
+	
+	public WebElement getRowByRowNumber(int rowNumber) {
+		return dataRows.get(rowNumber - 1);
+	}
+	
+	public String[] getTextFromRowFieldsByDocTypeName(String docTypeName) {
+		String[] rowFields = new String[3];
+		int rowNumber = findRowNumberByDocTypeName(docTypeName);
+		if (rowNumber > 0) {
+			WebElement row = getRowByRowNumber(rowNumber);
+			rowFields[0] = row.findElement(By.xpath("./th")).getText();
+			rowFields[1] = row.findElement(By.xpath("./td[1]")).getText();
+			rowFields[2] = row.findElement(By.xpath("./td[2]")).getText();
+		}
+		return rowFields;
+	}
+	
+	public void clickActionButtonByRowNumber(int rowNumber) {
+		WebElement actionButton = buttonsDocTypeActions.get(rowNumber - 1);
+		waitForClickable(actionButton);
+		actionButton.click();
+	}
+
 	
 	// getters
 
@@ -101,7 +131,15 @@ public class AdminDocTypesPage extends AbstractPage {
 		return labelsDocTypeName;
 	}
 
+	public List<WebElement> getDataRows() {
+		return dataRows;
+	}
 
+	public List<WebElement> getButtonsDocTypeActions() {
+		return buttonsDocTypeActions;
+	}
+
+	
 
 
 }

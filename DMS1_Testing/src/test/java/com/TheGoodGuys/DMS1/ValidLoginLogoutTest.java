@@ -19,7 +19,7 @@ import resources.models.User;
 import resources.models.UserData;
 import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
-import resources.page.UserNavPage;
+import resources.page.UserPages.UserNavPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
 

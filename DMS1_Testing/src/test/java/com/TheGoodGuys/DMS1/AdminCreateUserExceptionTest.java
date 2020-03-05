@@ -20,11 +20,11 @@ import org.testng.annotations.Test;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
-import resources.page.AdminCreateUserPage;
-import resources.page.AdminNavPage;
-import resources.page.AdminUsersPage;
 import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
+import resources.page.AdminPages.AdminCreateUserPage;
+import resources.page.AdminPages.AdminNavPage;
+import resources.page.AdminPages.AdminUsersPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
 import resources.utils.ManageAutotestingData;

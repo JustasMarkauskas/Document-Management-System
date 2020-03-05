@@ -20,13 +20,13 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.Document;
 import resources.models.Group;
-import resources.page.AdminCreateDocTypePage;
-import resources.page.AdminCreateGroupPage;
-import resources.page.AdminDocTypesPage;
-import resources.page.AdminGroupsPage;
-import resources.page.AdminNavPage;
 import resources.page.HeaderPage;
 import resources.page.LoginUserPage;
+import resources.page.AdminPages.AdminCreateDocTypePage;
+import resources.page.AdminPages.AdminCreateGroupPage;
+import resources.page.AdminPages.AdminDocTypesPage;
+import resources.page.AdminPages.AdminGroupsPage;
+import resources.page.AdminPages.AdminNavPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
 import resources.utils.ManageAutotestingData;

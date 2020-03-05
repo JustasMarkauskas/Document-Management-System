@@ -13,9 +13,13 @@
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.MainScenarioAdminCreateElementsTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.MainScenarioAdminCreateElementsTest" />
 		</classes>
 	</test>
+
+	
+	
 
 
 </suite>

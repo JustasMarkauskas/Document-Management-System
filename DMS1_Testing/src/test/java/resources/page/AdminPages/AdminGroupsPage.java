@@ -1,4 +1,4 @@
-package resources.page;
+package resources.page.AdminPages;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import resources.page.AbstractPage;
 
 public class AdminGroupsPage extends AbstractPage {
 
@@ -29,6 +31,9 @@ public class AdminGroupsPage extends AbstractPage {
 	//lists
 	@FindBy(xpath = "//tr[contains(@id,'groupNr')]/descendant::td[1]")
 	private List<WebElement> labelsGroupName;
+	
+	@FindBy(xpath = "//tr[contains(@id,'groupNr')]//button")
+	private List<WebElement> buttonsGroupActions;
 
 	@FindBy(xpath = "//tr[contains(@id,'groupNr')]")
 	private List<WebElement> dataRows;
@@ -100,6 +105,12 @@ public class AdminGroupsPage extends AbstractPage {
 		}
 		return rowFields;
 	}
+	
+	public void clickActionButtonByRowNumber(int rowNumber) {
+		WebElement actionButton = buttonsGroupActions.get(rowNumber - 1);
+		waitForClickable(actionButton);
+		actionButton.click();
+	}
 
 
 	//getters
@@ -127,7 +138,15 @@ public class AdminGroupsPage extends AbstractPage {
 		return labelsGroupName;
 	}
 
+	public List<WebElement> getButtonsGroupActions() {
+		return buttonsGroupActions;
+	}
 
+	public List<WebElement> getDataRows() {
+		return dataRows;
+	}
+
+	
 
 
 }
