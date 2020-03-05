@@ -114,7 +114,7 @@ class AssignUserContainer extends React.Component {
     );
 
     return (
-      <div className="container">
+      <div className="container" id="assignUserContainer">
         {allUsernames}
         <div className="container mt-2">
           <div className="row">

@@ -121,7 +121,7 @@ class AssignDFAContainer extends React.Component {
     );
 
     return (
-      <div className="container">
+      <div className="container" id="assignDFAContainer">
         {allDocTypes}
         <div className="container mt-2">
           <div className="row">
