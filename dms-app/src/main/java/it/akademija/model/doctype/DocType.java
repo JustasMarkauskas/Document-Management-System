@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import it.akademija.model.group.Group;
-import it.akademija.model.role.Role;
+
 
 @Entity
 public class DocType {

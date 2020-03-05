@@ -117,7 +117,6 @@ public class DBFileStorageService {
 
 	public File getCsvFile(String username) {
 		File csvFile = new File(username);
-
 		List<DocumentForClient> documents = documentService.getDocumentsForClientByAuthor(username);
 
 		try {
@@ -137,7 +136,6 @@ public class DBFileStorageService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return csvFile;
 	}
 
@@ -160,16 +158,18 @@ public class DBFileStorageService {
 		}
 
 		File file = getCsvFile(username);
-		byte[] bytesArray = new byte[(int) file.length()];
+		byte[] csvFileBytesArray = new byte[(int) file.length()];
 		FileInputStream fis;
 		try {
 			fis = new FileInputStream(file);
-			fis.read(bytesArray);
+			fis.read(csvFileBytesArray);
 			fis.close();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		filesAsBytes.put(username + "_documents.csv", new ByteArrayResource(bytesArray));
+		filesAsBytes.put(username + "_documents.csv", new ByteArrayResource(csvFileBytesArray));
+		file.delete();
 		return filesAsBytes;
 	}
 

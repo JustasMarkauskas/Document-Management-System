@@ -2,9 +2,7 @@ package it.akademija.model.document;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import it.akademija.model.file.DBFile;
 
 
 public class DocumentForClient {
@@ -19,7 +17,6 @@ public class DocumentForClient {
 	private String documentReceiver;
 	private String rejectionReason;
 	private String status;
-	//private Map<String, String> dbFileIDs;
 	private List<String> dbFileIDs;
 	
 	

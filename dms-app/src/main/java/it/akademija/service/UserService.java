@@ -21,8 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.dao.DocTypeRepository;
-import it.akademija.dao.DocumentRepository;
 import it.akademija.dao.GroupRepository;
 import it.akademija.dao.RoleRepository;
 import it.akademija.dao.UserRepository;
