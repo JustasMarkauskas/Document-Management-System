@@ -46,9 +46,11 @@ const handleSubmit = values => {
     headers: {
       "content-type": "multipart/form-data"
     }
-  }).catch(error => {
-    console.log(error);
-  });
+  })
+    .then(window.location.reload())
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 class NewDocumentFormComponent extends React.Component {
@@ -180,7 +182,7 @@ class NewDocumentFormComponent extends React.Component {
                     }
                     onClick={() => {
                       handleSubmit();
-                      this.props.onCloseModalAfterSubmit();
+                      //   this.props.onCloseModalAfterSubmit();
                     }}
                     variant="primary"
                     className="SubmitButton mr-2"
@@ -193,7 +195,7 @@ class NewDocumentFormComponent extends React.Component {
                     onClick={() => {
                       setFieldValue("isSaveButton", true);
                       handleSubmit();
-                      this.props.onCloseModalAfterSubmit();
+                      // this.props.onCloseModalAfterSubmit();
                     }}
                     variant="primary"
                     className="SubmitButton mr-2"

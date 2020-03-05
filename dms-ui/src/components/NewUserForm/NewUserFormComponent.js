@@ -56,12 +56,10 @@ const schema = yup.object().shape({
 const handleSubmit = values => {
   axios({
     method: "POST",
-    url: serverUrl + "api/user/",
+    url: serverUrl + "api/user",
     data: values
   })
-    .then(response => {
-      console.log(response);
-    })
+    .then(window.location.reload())
     .catch(error => {
       console.log(error);
     });
@@ -215,7 +213,7 @@ class NewUserFormComponent extends React.Component {
                   !values.confirmPassword ||
                   !isValid
                 }
-                onClick={this.props.onCloseModalAfterSubmit}
+                onClick={handleSubmit}
                 variant="primary"
                 className="SubmitButton mr-2"
                 type="submit"
