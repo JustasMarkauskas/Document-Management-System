@@ -201,7 +201,7 @@ class NewDocumentFormComponent extends React.Component {
                   >
                     Save for later
                   </Button>
-                  <Button onClick={this.props.onHide} variant="primary">
+                  <Button onClick={this.props.onHide} variant="secondary">
                     Cancel
                   </Button>
                 </div>

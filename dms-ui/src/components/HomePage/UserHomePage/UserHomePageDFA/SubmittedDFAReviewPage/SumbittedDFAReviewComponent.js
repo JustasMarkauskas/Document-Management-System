@@ -225,7 +225,7 @@ class SubmittedDFAReviewComponent extends React.Component {
             <button
               onClick={this.props.onHide}
               type="button"
-              className="btn btn-primary"
+              className="btn btn-secondary"
             >
               Cancel
             </button>

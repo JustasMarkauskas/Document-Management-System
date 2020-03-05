@@ -136,7 +136,7 @@ class ReviewedDFAReviewComponent extends React.Component {
         <button
           onClick={this.props.onHide}
           type="button"
-          className="btn btn-primary col-lg-2 mb-2"
+          className="btn btn-secondary col-lg-2 mb-2"
         >
           Cancel
         </button>

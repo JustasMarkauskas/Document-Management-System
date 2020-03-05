@@ -112,7 +112,7 @@ class GroupReviewPageComponent extends React.Component {
                   <button
                     onClick={this.props.onCancelClick}
                     type="button"
-                    className="btn btn-primary "
+                    className="btn btn-secondary "
                   >
                     Cancel
                   </button>

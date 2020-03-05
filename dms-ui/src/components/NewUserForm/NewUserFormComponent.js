@@ -222,7 +222,7 @@ class NewUserFormComponent extends React.Component {
               >
                 Submit
               </Button>
-              <Button onClick={this.props.onCloseModal} variant="primary">
+              <Button onClick={this.props.onCloseModal} variant="secondary">
                 Cancel
               </Button>
             </Form>

@@ -104,7 +104,7 @@ class NewDocTypeFormComponent extends React.Component {
               >
                 Submit
               </Button>
-              <Button onClick={this.props.onHide} variant="primary">
+              <Button onClick={this.props.onHide} variant="secondary">
                 Cancel
               </Button>
             </Form>
