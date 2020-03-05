@@ -255,7 +255,7 @@ class SavedDocReviewComponent extends React.Component {
             id="savedTitle"
             className="form-control"
             required
-            onChange={this.handleTitleChange}
+            onKeyUp={this.handleTitleChange}
             defaultValue={this.props.title}
             placeholder="Title"
           />
@@ -289,7 +289,7 @@ class SavedDocReviewComponent extends React.Component {
             type="text"
             id="savedDescription"
             className="form-control"
-            onChange={this.handleDescriptionChange}
+            onKeyUp={this.handleDescriptionChange}
             defaultValue={this.props.description}
             placeholder="Description"
           />
