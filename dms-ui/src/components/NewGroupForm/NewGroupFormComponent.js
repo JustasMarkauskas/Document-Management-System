@@ -70,7 +70,7 @@ class NewGroupFormComponent extends React.Component {
                   name="id"
                   value={values.id}
                   onChange={handleChange}
-                  placeholder="Group Name"
+                  placeholder="Group name"
                   isInvalid={!!errors.id}
                 />
                 <Form.Control.Feedback className="FeedBack" type="invalid">

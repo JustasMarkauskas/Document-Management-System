@@ -97,11 +97,11 @@ class AdminHomePageDocumentContainer extends React.Component {
             className="btn btn-primary col-lg-4 mb-2"
             id="adminAddNewDocumentButton"
           >
-            Add new Document Type
+            Add new document type
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Create New Document Type</Modal.Title>
+              <Modal.Title>Create new document type</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               {" "}
@@ -137,7 +137,7 @@ class AdminHomePageDocumentContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Document Name</th>
+              <th scope="col">Document type name</th>
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
             </tr>

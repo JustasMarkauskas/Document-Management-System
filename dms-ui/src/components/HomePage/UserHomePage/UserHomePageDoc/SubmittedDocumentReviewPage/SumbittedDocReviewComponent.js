@@ -54,15 +54,6 @@ class SumbittedDocReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledDocType">Document type</label>
-            <input
-              type="text"
-              id="disabledDocType"
-              className="form-control"
-              placeholder={this.props.docType}
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="disabledTitle">Title</label>
             <input
               type="text"
@@ -72,12 +63,31 @@ class SumbittedDocReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
+            <label htmlFor="disabledDocType">Type</label>
+            <input
+              type="text"
+              id="disabledDocType"
+              className="form-control"
+              placeholder={this.props.docType}
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="disabledDescription">Description</label>
             <input
               type="text"
               id="disabledDescription"
               className="form-control"
               placeholder={this.props.description}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="disabledStatus">Status</label>
+            <input
+              type="text"
+              id="disabledStatus"
+              className="form-control"
+              placeholder={this.props.status}
             />
           </div>
           <div className="form-group">
@@ -98,15 +108,7 @@ class SumbittedDocReviewComponent extends React.Component {
               placeholder={this.props.reviewDate}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="disabledStatus">Status</label>
-            <input
-              type="text"
-              id="disabledStatus"
-              className="form-control"
-              placeholder={this.props.status}
-            />
-          </div>
+
           <div className="form-group">
             <label htmlFor="disabledDocumentReceiver">Document reviewer</label>
             <input
@@ -117,7 +119,7 @@ class SumbittedDocReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledRejectionReason">Rejection Reason</label>
+            <label htmlFor="disabledRejectionReason">Rejection reason</label>
             <input
               type="text"
               id="disabledRejectionReason"

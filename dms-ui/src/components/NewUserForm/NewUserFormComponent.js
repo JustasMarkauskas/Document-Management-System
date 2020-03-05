@@ -121,7 +121,7 @@ class NewUserFormComponent extends React.Component {
               <Form.Group>
                 <Form.Control
                   type="firstname"
-                  placeholder="First Name"
+                  placeholder="First name"
                   value={values.firstName}
                   onChange={handleChange}
                   name="firstName"
@@ -138,7 +138,7 @@ class NewUserFormComponent extends React.Component {
               <Form.Group>
                 <Form.Control
                   type="lastname"
-                  placeholder="Last Name"
+                  placeholder="Last name"
                   value={values.lastName}
                   onChange={handleChange}
                   name="lastName"
@@ -178,7 +178,7 @@ class NewUserFormComponent extends React.Component {
                   id="confirmPassword"
                   value={values.confirmPassword}
                   onChange={handleChange}
-                  placeholder="Confirm Password"
+                  placeholder="Confirm password"
                   isInvalid={!!errors.confirmPassword}
                 />
                 <Form.Control.Feedback className="FeedBack" type="invalid">

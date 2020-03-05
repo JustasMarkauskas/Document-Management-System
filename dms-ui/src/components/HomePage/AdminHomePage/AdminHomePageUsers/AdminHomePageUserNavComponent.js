@@ -46,7 +46,7 @@ const AdminHomePageUserNavComponent = ({ handleLogoutButton }) => {
             className="btn btn-outline-dark"
             id="adminLogoutNav"
           >
-            Log Out
+            Log out
           </button>
         </Link>
       </li>

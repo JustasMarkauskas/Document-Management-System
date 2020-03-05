@@ -90,7 +90,7 @@ class UserHomePageGroupContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Group Name</th>
+              <th scope="col">Group name</th>
               {/* <th scope="col">Size</th> */}
               <th scope="col">Actions</th>
             </tr>

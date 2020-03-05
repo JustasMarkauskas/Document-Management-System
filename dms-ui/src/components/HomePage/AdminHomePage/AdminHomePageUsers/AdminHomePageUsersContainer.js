@@ -142,9 +142,9 @@ class AdminHomePageUsersContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Surname</th>
               <th scope="col">Username</th>
+              <th scope="col">First name</th>
+              <th scope="col">Last name</th>
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
             </tr>

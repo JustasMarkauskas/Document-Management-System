@@ -107,7 +107,7 @@ class PasswordChangeComponent extends React.Component {
                             id="confirmPassword"
                             value={values.confirmPassword}
                             onChange={handleChange}
-                            placeholder="Confirm Password"
+                            placeholder="Confirm password"
                             isInvalid={!!errors.confirmPassword}
                           />
                           <Form.Control.Feedback

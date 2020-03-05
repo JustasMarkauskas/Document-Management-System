@@ -142,15 +142,7 @@ class SubmittedDFAReviewComponent extends React.Component {
               placeholder={this.props.author}
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="disabledDocType">Document type</label>
-            <input
-              type="text"
-              id="disabledDocType"
-              className="form-control"
-              placeholder={this.props.docType}
-            />
-          </div>
+
           <div className="form-group">
             <label htmlFor="disabledTitle">Title</label>
             <input
@@ -158,6 +150,15 @@ class SubmittedDFAReviewComponent extends React.Component {
               id="disabledTitle"
               className="form-control"
               placeholder={this.props.title}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="disabledDocType">Type</label>
+            <input
+              type="text"
+              id="disabledDocType"
+              className="form-control"
+              placeholder={this.props.docType}
             />
           </div>
           <div className="form-group">
@@ -170,15 +171,6 @@ class SubmittedDFAReviewComponent extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="disabledSubmissionDate">Submission date</label>
-            <input
-              type="text"
-              id="disabledSubmissionDate"
-              className="form-control"
-              placeholder={this.props.submissionDate}
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="disabledStatus">Status</label>
             <input
               type="text"
@@ -187,9 +179,18 @@ class SubmittedDFAReviewComponent extends React.Component {
               placeholder={this.props.status}
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="disabledSubmissionDate">Submission date</label>
+            <input
+              type="text"
+              id="disabledSubmissionDate"
+              className="form-control"
+              placeholder={this.props.submissionDate}
+            />
+          </div>
         </fieldset>
         <div className="form-group">
-          <label htmlFor="rejectionReason">Rejection Reason</label>
+          <label htmlFor="rejectionReason">Rejection reason</label>
           <textarea
             className="form-control"
             type="text"

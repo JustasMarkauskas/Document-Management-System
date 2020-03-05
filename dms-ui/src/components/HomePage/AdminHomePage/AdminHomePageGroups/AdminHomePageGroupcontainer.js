@@ -107,11 +107,11 @@ class AdminHomePageGroupContainer extends React.Component {
             className="btn btn-primary col-lg-3 mb-2"
             id="adminAddNewGroupButton"
           >
-            Add new Group
+            Add new group
           </button>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
             <Modal.Header closeButton>
-              <Modal.Title>Create New Group</Modal.Title>
+              <Modal.Title>Create new group</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <NewGroupFormComponent
@@ -147,8 +147,8 @@ class AdminHomePageGroupContainer extends React.Component {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Group Name</th>
-              <th scope="col">Group Size</th>
+              <th scope="col">Group name</th>
+              <th scope="col">Group size</th>
               <th scope="col">Comment</th>
               <th scope="col">Actions</th>
             </tr>

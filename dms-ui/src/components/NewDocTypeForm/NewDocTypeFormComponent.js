@@ -69,7 +69,7 @@ class NewDocTypeFormComponent extends React.Component {
                   name="id"
                   value={values.id}
                   onChange={handleChange}
-                  placeholder="Document Type Name"
+                  placeholder="Document type name"
                   isInvalid={!!errors.id}
                 />
                 <Form.Control.Feedback className="FeedBack" type="invalid">
