@@ -113,7 +113,7 @@ class AssignGroupsContainer extends React.Component {
     );
 
     return (
-      <div className="container">
+      <div className="container" id="assignGroupsContainer">
         {allUsernames}
         <div className="container mt-2">
           <div className="row">
