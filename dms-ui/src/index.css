@@ -12,13 +12,11 @@ code {
     monospace;
 }
 
-.logNav{
+.logNav {
   list-style: none;
 }
 
 .scroll {
-    max-height: 300px;
-    overflow-y: auto;
+  max-height: 300px;
+  overflow-y: auto;
 }
-
-

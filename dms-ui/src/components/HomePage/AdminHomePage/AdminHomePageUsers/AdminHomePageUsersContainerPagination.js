@@ -5,8 +5,9 @@ import { Modal } from "react-bootstrap";
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
 import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
-class AdminHomePageUsersContainerPag extends React.Component {
+class AdminHomePageUsersContainerPagination extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,18 +21,14 @@ class AdminHomePageUsersContainerPag extends React.Component {
       show: false,
       users: [],
       inputUsername: "",
-      currentPage: 1,
-      todosPerPage: 3,
-      todos: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]
+      offset: 0,
+      data: [],
+      elements: [],
+      perPage: 3,
+      currentPage: 0,
+      pageCount: 0
     };
   }
-
-  handleClick = event => {
-    this.setState({
-      currentPage: Number(event.target.id)
-    });
-  };
-
   refresh() {
     this.getUsers();
     window.location.reload();
@@ -54,12 +51,36 @@ class AdminHomePageUsersContainerPag extends React.Component {
     axios
       .get(serverUrl + "api/user")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState(
+          {
+            users: response.data,
+            pageCount: Math.ceil(response.data.length / this.state.perPage)
+          },
+          () => this.setElementsForCurrentPage()
+        );
       })
       .catch(error => {
         console.log(error);
       });
   };
+
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.users.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
+
   componentDidMount() {
     this.getUsers();
   }
@@ -87,56 +108,44 @@ class AdminHomePageUsersContainerPag extends React.Component {
   };
 
   render() {
-    const userInfo = this.state.users.map((user, index) => (
-      <AdminHomePageUsersComponent
-        key={index}
-        rowNr={index + 1}
-        firstName={user.firstName}
-        lastName={user.lastName}
-        username={user.username}
-        comment={user.comment}
-        userGroups={user.userGroups}
-        handleActionClick={event =>
-          this.handleActionClick(event, user.username)
-        }
-      />
-    ));
-
-    const { users, currentPage, todosPerPage } = this.state;
-
-    // Logic for displaying todos
-    const indexOfLastTodo = currentPage * todosPerPage;
-    const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-    const currentTodos = users.slice(indexOfFirstTodo, indexOfLastTodo);
-
-    const renderTodos = currentTodos.map((user, index) => (
-      <AdminHomePageUsersComponent
-        key={index}
-        rowNr={index + 1}
-        firstName={user.firstName}
-        lastName={user.lastName}
-        username={user.username}
-        comment={user.comment}
-        userGroups={user.userGroups}
-        handleActionClick={event =>
-          this.handleActionClick(event, user.username)
-        }
-      />
-    ));
-
-    // Logic for displaying page numbers
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(users.length / todosPerPage); i++) {
-      pageNumbers.push(i);
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
     }
 
-    const renderPageNumbers = pageNumbers.map(number => {
-      return (
-        <button key={number} id={number} onClick={this.handleClick}>
-          {number}
-        </button>
-      );
-    });
+    const userInfo = this.state.elements.map((user, index) => (
+      <AdminHomePageUsersComponent
+        key={index}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
+        firstName={user.firstName}
+        lastName={user.lastName}
+        username={user.username}
+        comment={user.comment}
+        userGroups={user.userGroups}
+        handleActionClick={event =>
+          this.handleActionClick(event, user.username)
+        }
+      />
+    ));
 
     return (
       <div className="container">
@@ -183,7 +192,7 @@ class AdminHomePageUsersContainerPag extends React.Component {
             </div>
           </div>
         </div>
-
+        {paginationElement}
         <table className="table">
           <thead>
             <tr>
@@ -195,15 +204,11 @@ class AdminHomePageUsersContainerPag extends React.Component {
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>{renderTodos}</tbody>
+          <tbody>{userInfo}</tbody>
         </table>
-        <div>
-          <ul>{renderTodos}</ul>
-          <ul id="page-numbers">{renderPageNumbers}</ul>
-        </div>
       </div>
     );
   }
 }
 
-export default withRouter(AdminHomePageUsersContainerPag);
+export default withRouter(AdminHomePageUsersContainerPagination);
