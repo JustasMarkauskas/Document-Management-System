@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginUserPage extends AbstractPage {
+public class LoginPage extends AbstractPage {
 
 
 	//inputs
@@ -23,7 +23,7 @@ public class LoginUserPage extends AbstractPage {
 	public static WebElement alertMessage;
 
 
-	public LoginUserPage(WebDriver driver) {
+	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
 

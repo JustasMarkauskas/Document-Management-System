@@ -21,7 +21,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
 import resources.page.HeaderPage;
-import resources.page.LoginUserPage;
+import resources.page.LoginPage;
 import resources.page.AdminPages.AdminCreateUserPage;
 import resources.page.AdminPages.AdminNavPage;
 import resources.page.AdminPages.AdminUsersPage;
@@ -32,7 +32,7 @@ import resources.utils.ManageAutotestingData;
 public class AdminCreateUserExceptionTest extends AbstractTest {
 
 	private WebDriverWait wait;
-	private LoginUserPage login;
+	private LoginPage login;
 	private AdminNavPage adminNav;
 	private AdminUsersPage adminUsers;
 	private AdminCreateUserPage createUser;
@@ -42,7 +42,7 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 	public void preconditions() {
 
 		wait = new WebDriverWait(driver, 10);
-		login = new LoginUserPage(driver);
+		login = new LoginPage(driver);
 		adminNav = new AdminNavPage(driver);
 		adminUsers = new AdminUsersPage(driver);
 		createUser = new AdminCreateUserPage(driver);

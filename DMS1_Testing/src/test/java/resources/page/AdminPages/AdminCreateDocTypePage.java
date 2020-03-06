@@ -26,7 +26,7 @@ public class AdminCreateDocTypePage extends AbstractPage {
 	private WebElement buttonCancel;
 
 	// error messages
-	@FindBy(xpath = "//*[@id='adminCreateDocTypeForm']//input[@placeholder='Document Type Name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	@FindBy(xpath = "//*[@id='adminCreateDocTypeForm']//input[@placeholder='Document type name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
 	private WebElement msgInvalidDocTypeName;
 
 	@FindBy(xpath = "//*[@id='adminCreateDocTypeForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]/p")

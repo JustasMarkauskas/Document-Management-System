@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.XStream;
 import resources.models.User;
 import resources.models.UserData;
 import resources.page.HeaderPage;
-import resources.page.LoginUserPage;
+import resources.page.LoginPage;
 import resources.page.UserPages.UserNavPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
@@ -26,7 +26,7 @@ import resources.utils.FileReaderUtils;
 public class ValidLoginLogoutTest extends AbstractTest {
 
 	private WebDriverWait wait;
-	private LoginUserPage login;
+	private LoginPage login;
 	private HeaderPage header;
 	private UserNavPage userNav;
 
@@ -34,7 +34,7 @@ public class ValidLoginLogoutTest extends AbstractTest {
 	@Parameters({ "baseURL" })
 	public void preconditions(String baseURL) {
 		wait = new WebDriverWait(driver, 10);
-		login = new LoginUserPage(driver);
+		login = new LoginPage(driver);
 		header = new HeaderPage(driver);
 		userNav = new UserNavPage(driver);
 		driver.get(baseURL);

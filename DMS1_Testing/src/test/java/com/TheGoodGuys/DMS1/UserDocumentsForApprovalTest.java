@@ -12,19 +12,19 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import resources.page.LoginUserPage;
+import resources.page.LoginPage;
 import resources.page.UserPages.UserDFAPage;
 import resources.page.UserPages.UserNavPage;
-import resources.page.UserPages.UserSubmittedDocumentInfoPage;
+import resources.page.UserPages.UserSubmittedDFAReviewPage;
 import resources.test.AbstractTest;
 
 public class UserDocumentsForApprovalTest extends AbstractTest {
 
 	private WebDriverWait wait;
-	private LoginUserPage login;
+	private LoginPage login;
 	private UserNavPage userNav;
 	private UserDFAPage userDFA;
-	private UserSubmittedDocumentInfoPage userSubmitted;
+	private UserSubmittedDFAReviewPage userSubmitted;
 	
 
 	// PRECONDITIONS!!! AT LEAST 3 DOCS WITH STATUS SUBMITTED MUST BE PRESENT FOR ALL TESTs TO RUN
@@ -34,10 +34,10 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 	public void preconditions(String baseURL, String loginUsername, String loginPassword) {
 
 		wait = new WebDriverWait(driver, 10);
-		login = new LoginUserPage(driver);
+		login = new LoginPage(driver);
 		userNav = new UserNavPage(driver);
 		userDFA = new UserDFAPage(driver);
-		userSubmitted = new UserSubmittedDocumentInfoPage(driver);
+		userSubmitted = new UserSubmittedDFAReviewPage(driver);
 		
 		driver.get(baseURL);
 		login.enterDetailsAndLogin(loginUsername, loginPassword);

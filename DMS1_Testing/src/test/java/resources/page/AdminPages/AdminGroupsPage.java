@@ -25,9 +25,6 @@ public class AdminGroupsPage extends AbstractPage {
 	@FindBy(id = "adminGroupSearchButton")
 	private WebElement buttonSearch;
 
-	@FindBy(xpath = "//*[contains(@id,'groupNr')]")
-	private List<WebElement> buttonsViewGroup;
-
 	//lists
 	@FindBy(xpath = "//tr[contains(@id,'groupNr')]/descendant::td[1]")
 	private List<WebElement> labelsGroupName;
@@ -74,11 +71,6 @@ public class AdminGroupsPage extends AbstractPage {
 		clickButtonSearch();
 	}
 
-	public void clickButtonViewGroupByIndex(int index) {
-		waitForClickable(buttonsViewGroup.get(index));
-		buttonsViewGroup.get(index).click();
-	}
-
 	public int findRowNumberByGroupName(String groupName) {
 		waitForMultipleElementVisibility(labelsGroupName);
 		for (int i = 0; i < labelsGroupName.size(); i++) {
@@ -122,12 +114,6 @@ public class AdminGroupsPage extends AbstractPage {
 	public WebElement getButtonSearch() {
 		return buttonSearch;
 	}
-
-
-	public List<WebElement> getButtonsViewGroup() {
-		return buttonsViewGroup;
-	}
-
 
 	public WebElement getInputSearch() {
 		return inputSearch;

@@ -12,7 +12,7 @@ import resources.page.AbstractPage;
 public class AdminCreateGroupPage extends AbstractPage {
 	
 	//inputs
-	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group Name']")
+	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group name']")
 	private WebElement inputGroupName;
 	
 	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//textarea[@placeholder='Comment']")
@@ -26,7 +26,7 @@ public class AdminCreateGroupPage extends AbstractPage {
 	private WebElement buttonCancel;
 	
 	//error messages
-	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group Name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//input[@placeholder='Group name']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
 	private WebElement msgInvalidGroupName;
 	
 	@FindBy(xpath = "//*[@id='adminCreateGroupForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]/p")

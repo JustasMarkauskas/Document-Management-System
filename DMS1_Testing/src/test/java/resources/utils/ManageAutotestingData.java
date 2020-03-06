@@ -1,5 +1,7 @@
 package resources.utils;
 
+import java.io.File;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -11,22 +13,25 @@ public class ManageAutotestingData {
 
 	public static void main(String[] args) throws UnirestException {
 
-//		deleteUserDataByComment("http://localhost:8081", "autotesting");
-//		deleteUserDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-//		deleteGroupDataByComment("http://localhost:8081", "autotesting");
-//		deleteGroupDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
-//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
-//		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
-//		createUser("http://localhost:8081", "testUser101", "test", "test", "Password1", "autotesting");
-//		createGroup("http://localhost:8081", "testGroup101", "autotesting");
-//		createGroup("http://localhost:8081", "testGroup102", "autotesting");
-//		createDocType("http://localhost:8081", "testDocType101", "autotesting");
-//		updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "testGroup102");
-//		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
-//		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
-//		updateGroupUsers("http://localhost:8081", "testGroup200", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5");
-		
+		//		deleteUserDataByComment("http://localhost:8081", "autotesting");
+		//		deleteUserDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+		//		deleteGroupDataByComment("http://localhost:8081", "autotesting");
+		//		deleteGroupDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
+		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
+		//		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
+		//		createUser("http://localhost:8081", "testUser101", "test", "test", "Password1", "autotesting");
+		//		createGroup("http://localhost:8081", "testGroup101", "autotesting");
+		//		createGroup("http://localhost:8081", "testGroup102", "autotesting");
+		//		createDocType("http://localhost:8081", "testDocType101", "autotesting");
+		//		updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "testGroup102");
+		//		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
+		//		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
+		//		updateGroupUsers("http://localhost:8081", "testGroup200", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5");
+		//		removeAssignedElementsFromGroup("http://localhost:8081", "testGroup101");
+//		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+//		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");
+//		deleteDocumentsByComment("http://localhost:8081", "autotesting");
 	}
 
 	public static void deleteGroupDataByComment(String baseUrl, String comment) throws UnirestException {
@@ -49,12 +54,43 @@ public class ManageAutotestingData {
 		.routeParam("comment", comment)
 		.asString();
 	}
+	
+	public static void deleteDocumentsByComment(String baseUrl, String comment) throws UnirestException {
+		String editApi = baseUrl + "/api/document/comment?description={description}";
+		HttpResponse<String> response = Unirest.delete(editApi)
+		.routeParam("description", comment)
+		.asString();
+		System.out.println("delete documents status code: " + response.getStatus());
+	}
 
 	public static void deleteDocTypeDataByName(String baseUrl, String name) throws UnirestException {
 		String editApi = baseUrl + "/api/doctype?docTypeName={name}";
 		Unirest.delete(editApi)
 		.routeParam("name", name)
 		.asString();
+	}
+
+	public static void saveDocument(String baseUrl, String author, String title, String docType, String description, String filePath) throws UnirestException {
+		String editApi = baseUrl + "/api/document/save";
+		HttpResponse<String> response = Unirest.post(editApi)
+		.field("author", author)
+		.field("description", description)
+		.field("docType", docType)
+		.field("files", new File(filePath))
+		.field("title", title).asString();
+		System.out.println("save document status code: " + response.getStatus());
+		
+	}
+
+	public static void submitDocument(String baseUrl, String author, String title, String docType, String description, String filePath) throws UnirestException {
+		String editApi = baseUrl + "/api/document/submit";
+		HttpResponse<String> response = Unirest.post(editApi)
+		.field("author", author)
+		.field("description", description)
+		.field("docType", docType)
+		.field("files", new File(filePath))
+		.field("title", title).asString();
+		System.out.println("submit document status code: " + response.getStatus());
 	}
 
 	public static void createUser(String baseUrl, String username, String firstName, String lastName, String password, String comment) throws UnirestException {
@@ -92,58 +128,86 @@ public class ManageAutotestingData {
 				.asJson();
 		System.out.println("createDocType status code: " + jsonResponse.getStatus());
 	}
-	
+
 	public static void updateUserGroups(String baseUrl, String username, String group1, String group2) throws UnirestException {
 		String editApi = baseUrl + "/api/user/update-user-groups/{username}?groups={groupName1}&groups={groupName2}";
 		Unirest.put(editApi)
-			.routeParam("username", username)
-			.routeParam("groupName1", group1)
-			.routeParam("groupName2", group2)
-			.asString();
+		.routeParam("username", username)
+		.routeParam("groupName1", group1)
+		.routeParam("groupName2", group2)
+		.asString();
 	}
-	
+
 	public static void updateGroupUsers(String baseUrl, String groupName, String user1, String user2, String user3,
 			String user4, String user5) throws UnirestException {
 		String editApi = baseUrl + "/api/user/add-users-to-group/{groupName}?usernames={user1}&usernames={user2}"
 				+ "&usernames={user3}&usernames={user4}&usernames={user5}";
 		Unirest.put(editApi)
-			.routeParam("groupName", groupName)
-			.routeParam("user1", user1)
-			.routeParam("user2", user2)
-			.routeParam("user3", user3)
-			.routeParam("user4", user4)
-			.routeParam("user5", user5)
-			.asString();
+		.routeParam("groupName", groupName)
+		.routeParam("user1", user1)
+		.routeParam("user2", user2)
+		.routeParam("user3", user3)
+		.routeParam("user4", user4)
+		.routeParam("user5", user5)
+		.asString();
 	}
-	
+
+	public static void removeAssignedUsersFromGroup(String baseUrl, String groupName) throws UnirestException {
+		String updateUsersApi = baseUrl + "/api/user/add-users-to-group/{groupName}?usernames=";
+		Unirest.put(updateUsersApi)
+		.routeParam("groupName", groupName)
+		.asString();
+	}
+
+	public static void removeAssignedDFAFromGroup(String baseUrl, String groupName) throws UnirestException {
+		String updateDFAApi = baseUrl + "/api/group/update-group-doctypes-for-approval/{groupName}?docTypesForApprovalNames=";
+		Unirest.put(updateDFAApi)
+		.routeParam("groupName", groupName)
+		.asString();
+	}
+
+	public static void removeAssignedDFCFromGroup(String baseUrl, String groupName) throws UnirestException {
+		String updateDFCApi = baseUrl + "/api/group/update-group-doctypes-for-creation/{groupName}?docTypesForCreationNames=";
+		Unirest.put(updateDFCApi)
+		.routeParam("groupName", groupName)
+		.asString();
+	}
+
+	public static void removeAssignedElementsFromGroup(String baseUrl, String groupName) throws UnirestException {
+		removeAssignedUsersFromGroup(baseUrl, groupName);
+		removeAssignedDFAFromGroup(baseUrl, groupName);
+		removeAssignedDFCFromGroup(baseUrl, groupName);
+	}
+
+
 	public static void updateGroupsDocTypesForApproval(String baseUrl, String groupName, String docType1, 
 			String docType2, String docType3, String docType4, String docType5) throws UnirestException {
 		String editApi = baseUrl + "/api/group/update-group-doctypes-for-approval/{groupName}?docTypesForApprovalNames={docType1}"
 				+ "&docTypesForApprovalNames={docType2}&docTypesForApprovalNames={docType3}&docTypesForApprovalNames={docType4}"
 				+ "&docTypesForApprovalNames={docType5}";
 		Unirest.put(editApi)
-			.routeParam("groupName", groupName)
-			.routeParam("docType1", docType1)
-			.routeParam("docType2", docType2)
-			.routeParam("docType3", docType3)
-			.routeParam("docType4", docType4)
-			.routeParam("docType5", docType5)
-			.asString();
+		.routeParam("groupName", groupName)
+		.routeParam("docType1", docType1)
+		.routeParam("docType2", docType2)
+		.routeParam("docType3", docType3)
+		.routeParam("docType4", docType4)
+		.routeParam("docType5", docType5)
+		.asString();
 	}
-	
+
 	public static void updateGroupsDocTypesForCreation(String baseUrl, String groupName, String docType1, 
 			String docType2, String docType3, String docType4, String docType5) throws UnirestException {
 		String editApi = baseUrl + "/api/group/update-group-doctypes-for-creation/{groupName}?docTypesForCreationNames={docType1}"
 				+ "&docTypesForCreationNames={docType2}&docTypesForCreationNames={docType3}&docTypesForCreationNames={docType4}"
 				+ "&docTypesForCreationNames={docType5}";
 		Unirest.put(editApi)
-			.routeParam("groupName", groupName)
-			.routeParam("docType1", docType1)
-			.routeParam("docType2", docType2)
-			.routeParam("docType3", docType3)
-			.routeParam("docType4", docType4)
-			.routeParam("docType5", docType5)
-			.asString();
+		.routeParam("groupName", groupName)
+		.routeParam("docType1", docType1)
+		.routeParam("docType2", docType2)
+		.routeParam("docType3", docType3)
+		.routeParam("docType4", docType4)
+		.routeParam("docType5", docType5)
+		.asString();
 	}
 
 

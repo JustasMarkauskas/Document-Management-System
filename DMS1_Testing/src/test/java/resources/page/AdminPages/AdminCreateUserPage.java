@@ -15,16 +15,16 @@ public class AdminCreateUserPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Username']")
 	private WebElement inputUsername;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='First Name']")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='First name']")
 	private WebElement inputFirstName;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Last Name']")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Last name']")
 	private WebElement inputLastName;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Password']")
 	private WebElement inputPassword;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Confirm Password']")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Confirm password']")
 	private WebElement inputConfirmPassword;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//textarea[@placeholder='Comment']")
@@ -44,13 +44,13 @@ public class AdminCreateUserPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Username']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidFirstName;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Last Name']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Last name']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidLastName;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Password']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidPassword;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Confirm Password']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Confirm password']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidCondirmPassword;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]")
@@ -103,7 +103,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	public void clickButtonSubmit() {
 		waitForClickable(getButtonSubmit());
 		buttonSubmit.submit();
-		buttonSubmit.click();
+//		buttonSubmit.click();
 	}
 	
 	public void clickButtonCancel() {

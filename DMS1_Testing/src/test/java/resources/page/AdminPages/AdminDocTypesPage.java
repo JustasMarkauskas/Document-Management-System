@@ -20,9 +20,6 @@ public class AdminDocTypesPage extends AbstractPage {
 	@FindBy(id = "adminDocumentSearchButton")
 	private WebElement buttonSearch;
 
-	@FindBy(xpath = "//*[contains(@id,'documentNr')]")
-	private List<WebElement> buttonsViewDocType;
-
 	// inputs
 	@FindBy(id = "adminDocumentSearchInput")
 	private WebElement inputSearch;
@@ -70,11 +67,6 @@ public class AdminDocTypesPage extends AbstractPage {
 		enterInputSearch(searchword);
 		clickButtonSearch();
 	}
-
-	public void clickButtonViewDocTypeByIndex(int index) {
-		waitForClickable(buttonsViewDocType.get(index));
-		buttonsViewDocType.get(index).click();
-	}
 	
 	public int findRowNumberByDocTypeName(String docTypeName) {
 		waitForMultipleElementVisibility(labelsDocTypeName);
@@ -117,10 +109,6 @@ public class AdminDocTypesPage extends AbstractPage {
 
 	public WebElement getButtonSearch() {
 		return buttonSearch;
-	}
-
-	public List<WebElement> getButtonsViewDocType() {
-		return buttonsViewDocType;
 	}
 
 	public WebElement getInputSearch() {

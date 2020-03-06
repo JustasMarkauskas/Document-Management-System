@@ -21,16 +21,13 @@ public class AdminUsersPage extends AbstractPage {
 	@FindBy(id = "adminUserSearchButton")
 	private WebElement buttonSearch;
 
-	@FindBy(xpath = "//*[contains(@id,'userNr')]")
-	private List<WebElement> buttonsViewUser;
-
 
 	//inputs
 	@FindBy(id = "adminUserSearchInput")
 	private WebElement inputSearch;
 
 	//labels
-	@FindBy(xpath = "//tr[contains(@id,'userNr')]/descendant::td[3]")
+	@FindBy(xpath = "//tr[contains(@id,'userNr')]/descendant::td[1]")
 	private List<WebElement> labelsUsername;
 
 	@FindBy(xpath = "//tr[contains(@id,'userNr')]")
@@ -73,11 +70,6 @@ public class AdminUsersPage extends AbstractPage {
 	public void enterSearchwordAndSearch(String searchword) {
 		enterInputSearch(searchword);
 		clickButtonSearch();
-	}
-
-	public void clickButtonViewUserByIndex(int index) {
-		waitForClickable(buttonsViewUser.get(index));
-		buttonsViewUser.get(index).click();
 	}
 	
 	public boolean checkIfUsernameExists(String username) {
@@ -131,16 +123,9 @@ public class AdminUsersPage extends AbstractPage {
 		return buttonAddNewUser;
 	}
 
-
 	public WebElement getButtonSearch() {
 		return buttonSearch;
 	}
-
-
-	public List<WebElement> getButtonsViewUser() {
-		return buttonsViewUser;
-	}
-
 
 	public WebElement getInputSearch() {
 		return inputSearch;

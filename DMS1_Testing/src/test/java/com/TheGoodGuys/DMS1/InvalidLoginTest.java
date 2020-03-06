@@ -14,20 +14,20 @@ import org.testng.annotations.Test;
 import com.thoughtworks.xstream.XStream;
 import resources.models.User;
 import resources.models.UserData;
-import resources.page.LoginUserPage;
+import resources.page.LoginPage;
 import resources.test.AbstractTest;
 import resources.utils.*;
 
 public class InvalidLoginTest extends AbstractTest {
 
 	private WebDriverWait wait;
-	private LoginUserPage login;
+	private LoginPage login;
 
 	@BeforeClass
 	@Parameters({ "baseURL" })
 	public void preconditions(String baseURL) {
 		wait = new WebDriverWait(driver, 10);
-		login = new LoginUserPage(driver);
+		login = new LoginPage(driver);
 		driver.get(baseURL);
 	}
 
@@ -41,7 +41,7 @@ public class InvalidLoginTest extends AbstractTest {
 	public void testInvalidUserLogin(User invalidUser) throws Exception {
 
 		login.enterDetailsAndLogin(invalidUser.getUserName(), invalidUser.getPassword());
-		wait.until(ExpectedConditions.textToBePresentInElement(LoginUserPage.alertMessage, "Login failed"));
+		wait.until(ExpectedConditions.textToBePresentInElement(LoginPage.alertMessage, "Login failed"));
 		Assert.assertTrue(login.alertMessageContainsLoginFailed());
 		driver.navigate().refresh();
 

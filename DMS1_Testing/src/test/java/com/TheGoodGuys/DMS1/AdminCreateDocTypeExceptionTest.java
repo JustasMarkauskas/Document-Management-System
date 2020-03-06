@@ -21,7 +21,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import resources.models.Document;
 import resources.models.Group;
 import resources.page.HeaderPage;
-import resources.page.LoginUserPage;
+import resources.page.LoginPage;
 import resources.page.AdminPages.AdminCreateDocTypePage;
 import resources.page.AdminPages.AdminCreateGroupPage;
 import resources.page.AdminPages.AdminDocTypesPage;
@@ -34,7 +34,7 @@ import resources.utils.ManageAutotestingData;
 public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	private WebDriverWait wait;
-	private LoginUserPage login;
+	private LoginPage login;
 	private AdminNavPage adminNav;
 	private AdminDocTypesPage adminDocTypes;
 	private AdminCreateDocTypePage createDocType;
@@ -45,7 +45,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	public void preconditions(String baseURL, String loginUsername, String loginPassword) {
 
 		wait = new WebDriverWait(driver, 10);
-		login = new LoginUserPage(driver);
+		login = new LoginPage(driver);
 		adminNav = new AdminNavPage(driver);
 		adminDocTypes = new AdminDocTypesPage(driver);
 		createDocType = new AdminCreateDocTypePage(driver);
