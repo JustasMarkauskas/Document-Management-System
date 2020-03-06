@@ -30,7 +30,7 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
             className="btn btn-outline-primary"
             id="userGroupsNav"
           >
-            Groups
+            Profile
           </button>
         </Link>
       </li>

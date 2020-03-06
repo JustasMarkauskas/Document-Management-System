@@ -30,7 +30,7 @@ const UserHomePageGroupsNavComponent = ({ handleLogoutButton }) => {
       <li className="nav-item mb-2">
         <Link className="col-2" to="/userhomepage-groups">
           <button type="button" className="btn btn-primary" id="userGroupsNav">
-            Groups
+            Profile
           </button>
         </Link>
       </li>
