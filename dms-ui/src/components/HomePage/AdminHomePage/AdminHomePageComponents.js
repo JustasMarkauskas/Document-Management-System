@@ -1,7 +1,6 @@
 import React from "react";
 import AdminHomePageUserNavContainer from "./AdminHomePageUsers/AdminHomePageUserNavContainer";
 import AdminHomePageUsersContainer from "./AdminHomePageUsers/AdminHomePageUsersContainer";
-import AdminHomePageUsersContainerPagination from "./AdminHomePageUsers/AdminHomePageUsersContainerPagination";
 
 const AdminHomePageComponent = ({ username }) => {
   return (
@@ -15,7 +14,7 @@ const AdminHomePageComponent = ({ username }) => {
         </div>
         <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
           <div className="col-12">
-            <AdminHomePageUsersContainerPagination />
+            <AdminHomePageUsersContainer />
           </div>
         </div>
       </div>

@@ -5,21 +5,20 @@ import { Modal } from "react-bootstrap";
 import AdminHomePageDocumentComponent from "./AdminHomePageDocumentComponent";
 import NewDocTypeFormComponent from "../../../NewDocTypeForm/NewDocTypeFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
 class AdminHomePageDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
-      this
-    );
-
     this.state = {
       show: false,
       documents: [],
-      documentName: ""
+      documentName: "",
+      offset: 0,
+      elements: [],
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0
     };
   }
 
@@ -28,32 +27,56 @@ class AdminHomePageDocumentContainer extends React.Component {
     window.location.reload();
   }
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     this.setState({ show: false });
-  }
+  };
 
-  handleCloseModalAfterSubmit() {
+  handleCloseModalAfterSubmit = () => {
     this.refresh();
     this.setState({ show: false });
-  }
+  };
 
-  handleShowModal() {
+  handleShowModal = () => {
     this.setState({ show: true });
+  };
+
+  componentDidMount() {
+    this.getDocuments();
   }
 
   getDocuments = () => {
     axios
       .get(serverUrl + "api/doctype/names-comments")
       .then(response => {
-        this.setState({ documents: response.data });
+        this.setState(
+          {
+            documents: response.data,
+            pageCount: Math.ceil(response.data.length / this.state.perPage)
+          },
+          () => this.setElementsForCurrentPage()
+        );
       })
       .catch(error => {
         console.log(error);
       });
   };
-  componentDidMount() {
-    this.getDocuments();
-  }
+
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.documents.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
 
   handleActionClick = event => {
     event.preventDefault();
@@ -69,7 +92,15 @@ class AdminHomePageDocumentContainer extends React.Component {
     axios
       .get(serverUrl + "api/doctype/" + this.state.documentName)
       .then(response => {
-        this.setState({ documents: [response.data] });
+        this.setState(
+          {
+            documents: [response.data],
+            pageCount: Math.ceil(response.data.length / this.state.perPage)
+          },
+          () => {
+            this.setElementsForCurrentPage();
+          }
+        );
       })
       .catch(error => {
         console.log(error);
@@ -78,10 +109,33 @@ class AdminHomePageDocumentContainer extends React.Component {
   };
 
   render() {
-    const documentInfo = this.state.documents.map((document, index) => (
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
+    }
+    const documentInfo = this.state.elements.map((document, index) => (
       <AdminHomePageDocumentComponent
         key={index}
-        rowNr={index + 1}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         documentName={document.id}
         comment={document.comment}
         handleActionClick={this.handleActionClick}
@@ -105,7 +159,6 @@ class AdminHomePageDocumentContainer extends React.Component {
               <Modal.Title>Create new document type</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {" "}
               <NewDocTypeFormComponent
                 onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
                 onHide={this.handleCloseModal}
@@ -145,6 +198,7 @@ class AdminHomePageDocumentContainer extends React.Component {
           </thead>
           <tbody>{documentInfo}</tbody>
         </table>
+        {paginationElement}
       </div>
     );
   }

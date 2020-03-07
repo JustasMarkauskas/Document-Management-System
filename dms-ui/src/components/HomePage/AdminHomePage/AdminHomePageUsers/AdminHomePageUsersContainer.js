@@ -5,21 +5,20 @@ import { Modal } from "react-bootstrap";
 import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
 import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
-class AdminHomePageUsersContainer extends React.Component {
+class AdminHomePageUsersContainerPagination extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
-      this
-    );
-
     this.state = {
       show: false,
       users: [],
-      inputUsername: ""
+      inputUsername: "",
+      offset: 0,
+      elements: [],
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0
     };
   }
   refresh() {
@@ -27,29 +26,53 @@ class AdminHomePageUsersContainer extends React.Component {
     window.location.reload();
   }
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     this.setState({ show: false });
-  }
+  };
 
-  handleCloseModalAfterSubmit() {
+  handleCloseModalAfterSubmit = () => {
     this.refresh();
     this.setState({ show: false });
-  }
+  };
 
-  handleShowModal() {
+  handleShowModal = () => {
     this.setState({ show: true });
-  }
+  };
 
   getUsers = () => {
     axios
       .get(serverUrl + "api/user")
       .then(response => {
-        this.setState({ users: response.data });
+        this.setState(
+          {
+            users: response.data,
+            pageCount: Math.ceil(response.data.length / this.state.perPage)
+          },
+          () => this.setElementsForCurrentPage()
+        );
       })
       .catch(error => {
         console.log(error);
       });
   };
+
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.users.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
+
   componentDidMount() {
     this.getUsers();
   }
@@ -77,10 +100,34 @@ class AdminHomePageUsersContainer extends React.Component {
   };
 
   render() {
-    const userInfo = this.state.users.map((user, index) => (
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
+    }
+
+    const userInfo = this.state.elements.map((user, index) => (
       <AdminHomePageUsersComponent
         key={index}
-        rowNr={index + 1}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         firstName={user.firstName}
         lastName={user.lastName}
         username={user.username}
@@ -108,7 +155,6 @@ class AdminHomePageUsersContainer extends React.Component {
               <Modal.Title>Create New User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {" "}
               <NewUserFormComponent
                 onCloseModal={this.handleCloseModal}
                 onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
@@ -151,9 +197,10 @@ class AdminHomePageUsersContainer extends React.Component {
           </thead>
           <tbody>{userInfo}</tbody>
         </table>
+        {paginationElement}
       </div>
     );
   }
 }
 
-export default withRouter(AdminHomePageUsersContainer);
+export default withRouter(AdminHomePageUsersContainerPagination);

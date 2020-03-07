@@ -5,21 +5,21 @@ import { Modal } from "react-bootstrap";
 import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
 import NewGroupFormComponent from "../../../NewGroupForm/NewGroupFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
 class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalAfterSubmit = this.handleCloseModalAfterSubmit.bind(
-      this
-    );
-
     this.state = {
       show: false,
       groups: [],
-      groupName: ""
+      groupName: "",
+      offset: 0,
+      elements: [],
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0
     };
   }
 
@@ -28,32 +28,57 @@ class AdminHomePageGroupContainer extends React.Component {
     window.location.reload();
   }
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     this.setState({ show: false });
-  }
+  };
 
-  handleCloseModalAfterSubmit() {
+  handleCloseModalAfterSubmit = () => {
     this.refresh();
     this.setState({ show: false });
-  }
+  };
 
-  handleShowModal() {
+  handleShowModal = () => {
     this.setState({ show: true });
-  }
+  };
 
+  componentDidMount() {
+    this.getGroups();
+  }
   getGroups = () => {
     axios
       .get(serverUrl + "api/group")
       .then(response => {
-        this.setState({ groups: response.data });
+        this.setState(
+          {
+            groups: response.data,
+            pageCount: Math.ceil(response.data.length / this.state.perPage)
+          },
+          () => {
+            this.setElementsForCurrentPage();
+          }
+        );
       })
       .catch(error => {
         console.log(error);
       });
   };
-  componentDidMount() {
-    this.getGroups();
-  }
+
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.groups.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
 
   handleSearchChange = event => {
     this.setState({ groupName: event.target.value });
@@ -73,7 +98,16 @@ class AdminHomePageGroupContainer extends React.Component {
         .get(serverUrl + "api/group/starting-with/" + this.state.groupName)
         .then(response => {
           if (response.data.length > 0) {
-            this.setState({ groups: response.data, groupName: "" });
+            this.setState(
+              {
+                groups: response.data,
+                groupName: "",
+                pageCount: Math.ceil(response.data.length / this.state.perPage)
+              },
+              () => {
+                this.setElementsForCurrentPage();
+              }
+            );
           } else {
             this.getGroups();
           }
@@ -86,7 +120,30 @@ class AdminHomePageGroupContainer extends React.Component {
   };
 
   render() {
-    const groupInfo = this.state.groups.map((group, index) => (
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
+    }
+    const groupInfo = this.state.elements.map((group, index) => (
       <AdminHomePageGroupComponent
         key={index}
         rowNr={index + 1}
@@ -155,6 +212,7 @@ class AdminHomePageGroupContainer extends React.Component {
           </thead>
           <tbody>{groupInfo}</tbody>
         </table>
+        {paginationElement}
       </div>
     );
   }
