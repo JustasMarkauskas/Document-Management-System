@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>docSubmit_valid</testDataGroup>
+		<identificator>all_minLength</identificator>
+		<documentTitle>Trip3</documentTitle>
+		<documentType>testDocType101</documentType>
+		<description>autot</description>
+		<fileName>Test doc 2.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>docSubmit_valid</testDataGroup>
+		<identificator>all_maxLength</identificator>
+		<documentTitle>Sick leave request- 26/02/2020</documentTitle>
+		<documentType>testDocType102</documentType>
+		<description>autotesting autotesting autotesting autotesting au</description>
+		<fileName>Test doc 2.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>docSubmit_valid</testDataGroup>
+		<identificator>title_specChars</identificator>
+		<documentTitle>spec test - title: 12.12_2019?</documentTitle>
+		<documentType>testDocType103</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 2.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>docSubmit_valid</testDataGroup>
+		<identificator>multipleAttachments</identificator>
+		<documentTitle>I want to leave now</documentTitle>
+		<documentType>testDocType104</documentType>
+		<description>autotesting</description>
+		<fileName></fileName>
+	</Document>
+
+</resources.models.DocumentData>

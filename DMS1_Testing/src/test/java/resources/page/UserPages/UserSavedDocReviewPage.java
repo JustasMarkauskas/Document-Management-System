@@ -1,5 +1,7 @@
 package resources.page.UserPages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,47 +12,56 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.models.Document;
 import resources.page.AbstractPage;
-import resources.utils.CustomWaits;
 
-public class UserCreateDocumentPage extends AbstractPage {
+public class UserSavedDocReviewPage extends AbstractPage {
 
 	//inputs
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//input[@id='title']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//input[@id='savedTitle']")
 	private WebElement inputTitle;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//textarea[@id='description']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//textarea[@id='savedDescription']")
 	private WebElement inputDescription;
 
 	//dropdowns
-	//	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//select[@id='docType']")
+	//	@FindBy(xpath = "//*[@id='SavedDocReview']//select[@id='savedDocType']")
 	private Select dropdownDocType;
 
 	//buttons
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//input[@type='file']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//input[@type='file']")
 	private WebElement buttonChooseFiles;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//button[text()='Submit']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//button[text()='Submit']")
 	private WebElement buttonSubmit;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//button[text()='Cancel']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//button[text()='Cancel']")
 	private WebElement buttonCancel;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//button[text()='Save for later']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//button[text()='Save']")
 	private WebElement buttonSave;
+	
+	@FindBy(xpath = "//form[@id='SavedDocReview']//button[i[contains(@class, 'trash-alt')]]")
+	private WebElement buttonTrashDoc;
 
 	//error messages
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//div[@id='uploadFileInfo']")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//div[@id='uploadFileInfo']")
 	private WebElement msgFileUpload;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//input[@id='title']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//input[@id='savedTitle']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidTitle;
 
-	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//textarea[@id='description']//following-sibling::div[contains(@class,'invalid-feedback')]/p")
+	@FindBy(xpath = "//*[@id='SavedDocReview']//textarea[@id='savedDescription']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidDescription;
+	
+	//links
+	@FindBy(xpath = "//form[@id='SavedDocReview']//a")
+	private List<WebElement> linksAttachments;
+	
+	@FindBy(xpath = "//form[@id='SavedDocReview']//button[i[@class='fas fa-trash']]")
+	private List<WebElement> buttonsRemoveAttachment;
 
 
 
-	public UserCreateDocumentPage(WebDriver driver) {
+	public UserSavedDocReviewPage(WebDriver driver) {
 		super(driver);
 	}
 
@@ -66,30 +77,35 @@ public class UserCreateDocumentPage extends AbstractPage {
 	private void waitForInvisibility(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.invisibilityOf(element));
 	}
+	private void waitForMultipleElementVisibility(List<WebElement> elements) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
+	}
 
 	private void initializeDropdownDocType() {
-		this.dropdownDocType = new Select(driver.findElement(By.xpath("//*[@id='userCreateDocumentForm']//select[@id='docType']")));
+		this.dropdownDocType = new Select(driver.findElement(By.xpath("//form[@id='SavedDocReview']//select[@id='savedDocType']")));
 	}
 
 	public void enterInputTitle(String title) {
 		waitForSingleElementVisibility(inputTitle);
+		inputTitle.clear();
 		inputTitle.sendKeys(title);
 	}
 
 	public void enterInputDescription(String description) {
 		waitForSingleElementVisibility(inputDescription);
+		inputDescription.clear();
 		inputDescription.sendKeys(description);
 	}
 
 	public void selectDocTypeByText (String docType) {
 		initializeDropdownDocType();
-		waitForPresenseOfNestedElements(By.id("docType"), By.tagName("option"));
+		waitForPresenseOfNestedElements(By.id("savedDocType"), By.tagName("option"));
 		dropdownDocType.selectByVisibleText(docType);
 	}
 
 	public void selectDocTypeByIndex (int index) {
 		initializeDropdownDocType();
-		waitForPresenseOfNestedElements(By.id("docType"), By.tagName("option"));
+		waitForPresenseOfNestedElements(By.id("savedDocType"), By.tagName("option"));
 		dropdownDocType.selectByIndex(index);
 	}
 
@@ -145,6 +161,37 @@ public class UserCreateDocumentPage extends AbstractPage {
 		selectDocTypeByText(document.getDocumentType());
 		enterInputDescription(document.getDescription());
 	}
+	
+	public int findAttachmentNumberByText(String text) {
+		waitForMultipleElementVisibility(linksAttachments);
+		for (int i = 0; i < linksAttachments.size(); i++) {
+			if (text.equals(linksAttachments.get(i).getText())) {
+				return i + 1;
+			}
+		}
+		return 0;
+	}
+	
+	public void clickButtonRemoveAttachmentByNumber(int number) {
+		WebElement button = buttonsRemoveAttachment.get(number);
+		waitForClickable(button);
+		button.click();
+		waitForInvisibility(button);
+	}
+	
+	public void clickButtonRemoveAttachmentByText(String text) {
+		int number = findAttachmentNumberByText(text);
+		clickButtonRemoveAttachmentByNumber(number);
+	}
+	
+	public void clickAllButtonsRemoveAttachment() {
+		for (WebElement button : buttonsRemoveAttachment) {
+			waitForClickable(button);
+			button.click();
+			waitForInvisibility(button);
+		}
+	}
+	
 
 	public String getTextFromMsgInvalidTitle() {
 		waitForSingleElementVisibility(getMsgInvalidTitle());
@@ -160,8 +207,7 @@ public class UserCreateDocumentPage extends AbstractPage {
 		waitForSingleElementVisibility(getMsgFileUpload());
 		return getMsgFileUpload().getText();
 	}
-
-
+	
 	//getters
 
 	public WebElement getInputTitle() {
@@ -192,6 +238,10 @@ public class UserCreateDocumentPage extends AbstractPage {
 		return buttonSave;
 	}
 
+	public WebElement getButtonTrashDoc() {
+		return buttonTrashDoc;
+	}
+
 	public WebElement getMsgFileUpload() {
 		return msgFileUpload;
 	}
@@ -203,6 +253,21 @@ public class UserCreateDocumentPage extends AbstractPage {
 	public WebElement getMsgInvalidDescription() {
 		return msgInvalidDescription;
 	}
+
+	public List<WebElement> getLinksAttachments() {
+		return linksAttachments;
+	}
+
+	public List<WebElement> getButtonsRemoveAttachment() {
+		return buttonsRemoveAttachment;
+	}
+
+
+	
+	
+	
+
+
 
 
 

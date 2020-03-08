@@ -16,22 +16,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import resources.models.*;
 import resources.page.HeaderPage;
 import resources.page.LoginPage;
-import resources.page.AdminPages.AdminAssignDFAToGroupPage;
-import resources.page.AdminPages.AdminAssignDFCToGroupPage;
-import resources.page.AdminPages.AdminAssignUsersToGroupPage;
-import resources.page.AdminPages.AdminCreateDocTypePage;
-import resources.page.AdminPages.AdminCreateGroupPage;
-import resources.page.AdminPages.AdminCreateUserPage;
-import resources.page.AdminPages.AdminDocTypesPage;
-import resources.page.AdminPages.AdminEditGroupPage;
-import resources.page.AdminPages.AdminGroupsPage;
-import resources.page.AdminPages.AdminNavPage;
-import resources.page.AdminPages.AdminUsersPage;
+import resources.page.AdminPages.*;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;
 
-public class MainScenarioAdminCreateElementsTest extends AbstractTest {
+public class MainFlowAdminCreateElementsTest extends AbstractTest {
 
 	private WebDriverWait wait;
 	private LoginPage login;
@@ -99,7 +89,7 @@ public class MainScenarioAdminCreateElementsTest extends AbstractTest {
 
 	@DataProvider(name = "validGroups")
 	public static Object[] testDataValidGroups() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/MainScenarioAdminCreateElements/GroupsValid.xml");
+		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/GroupsValid.xml");
 	}
 
 
@@ -118,11 +108,11 @@ public class MainScenarioAdminCreateElementsTest extends AbstractTest {
 
 	@DataProvider(name = "validDocTypes")
 	public static Object[] testDataValidDocuments() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/MainScenarioAdminCreateElements/DocumentsValid.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/DocumentsValid.xml");
 	}
 
 	@Test(priority = 2, groups = { "docTypeCreation" }, dataProvider = "validDocTypes")//, enabled = false)
-	public void testToCreateNewDocumentType(Document documentType) {
+	public void testToCreateNewDocumentType(DocumentType documentType) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();
@@ -137,7 +127,7 @@ public class MainScenarioAdminCreateElementsTest extends AbstractTest {
 
 	@DataProvider(name = "validUsers")
 	public static Object[] testDataValidUsers() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/MainScenarioAdminCreateElements/UsersValid.xml");
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/UsersValid.xml");
 	}
 
 

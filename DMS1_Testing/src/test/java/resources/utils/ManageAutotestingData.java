@@ -24,10 +24,10 @@ public class ManageAutotestingData {
 		//		createGroup("http://localhost:8081", "testGroup101", "autotesting");
 		//		createGroup("http://localhost:8081", "testGroup102", "autotesting");
 		//		createDocType("http://localhost:8081", "testDocType101", "autotesting");
-		//		updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "testGroup102");
+//				updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "");
 		//		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
 		//		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
-		//		updateGroupUsers("http://localhost:8081", "testGroup200", "testUser1", "testUser2", "testUser3", "testUser4", "testUser5");
+//				updateGroupUsers("http://localhost:8081", "testGroup101", "testUser101", "", "", "", "");
 		//		removeAssignedElementsFromGroup("http://localhost:8081", "testGroup101");
 //		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 //		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");

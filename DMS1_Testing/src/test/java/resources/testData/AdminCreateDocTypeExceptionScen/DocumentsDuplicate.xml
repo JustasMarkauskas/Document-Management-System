@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources.models.DocumentData>
-	<Document>
-		<testDataDocument>document_duplicate</testDataDocument>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>document_duplicate</testDataGroup>
 		<identificator>name_duplicate</identificator>
 		<documentTypeName>DuplicateDocType</documentTypeName>
 		<comment>autotesting</comment>
-	</Document>
-</resources.models.DocumentData>
+	</DocumentType>
+</resources.models.DocumentTypeData>

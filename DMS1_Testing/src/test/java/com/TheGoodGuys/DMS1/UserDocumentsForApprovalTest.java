@@ -47,7 +47,7 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 	public void testToApproveSubmittedDocument() throws InterruptedException {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
-		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
+//		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		System.out.println(userDFA.checkIfStatusIsSubmittedAndGetTitle());
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
@@ -65,12 +65,12 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 	public void testToRejectSubmittedDocument() throws InterruptedException {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
-		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
+//		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
 		assertFalse(userSubmitted.getButtonReject().isEnabled());
 		assertTrue(userSubmitted.getButtonApprove().isEnabled());
-		userSubmitted.enterInputRejection("Rejection Testing");
+		userSubmitted.enterInputRejectionReason("Rejection Testing");
 		assertTrue(userSubmitted.getButtonReject().isEnabled());
 		assertFalse(userSubmitted.getButtonApprove().isEnabled());
 		userSubmitted.clickButtonReject();
@@ -82,10 +82,10 @@ public class UserDocumentsForApprovalTest extends AbstractTest {
 	public void testToCheckCommentLengthRestrictionsInRejectSubmittedDocument() throws Exception {
 		wait.until(ExpectedConditions.elementToBeClickable(userNav.getButtonDFA()));
 		userNav.clickButtonDFA();
-		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
+//		wait.until(ExpectedConditions.elementToBeClickable(userDFA.getButtonAction()));
 		userDFA.checkIfStatusIsSubmittedAndClickAction();
 		wait.until(ExpectedConditions.elementToBeClickable(userSubmitted.getButtonCancel()));
-		userSubmitted.enterInputRejection("autotesting autotesting autotesting autotesting aut");
+		userSubmitted.enterInputRejectionReason("autotesting autotesting autotesting autotesting aut");
 		assertThat("Length restrictions msg for rejection reason comment does not match",
 				userSubmitted.getMsgInvalidComment().getText(), is(equalTo("Must be 50 characters or less")));
 		userSubmitted.clickButtonCancel();

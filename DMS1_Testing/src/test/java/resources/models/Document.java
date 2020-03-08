@@ -4,24 +4,31 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("Document")
 public class Document {
-	@XStreamAlias("testDataDocument")
-	private String testDataDocument;
+	@XStreamAlias("testDataGroup")
+	private String testDataGroup;
 
 	@XStreamAlias("identificator")
 	private String identificator;
 
-	@XStreamAlias("documentTypeName")
-	private String documentTypeName;
+	@XStreamAlias("documentTitle")
+	private String documentTitle;
 
-	@XStreamAlias("comment")
-	private String comment;
+	@XStreamAlias("description")
+	private String description;
+	
+	@XStreamAlias("documentType")
+	private String documentType;
+	
+	@XStreamAlias("fileName")
+	private String fileName;
 
-	public String getTestDataDocument() {
-		return testDataDocument;
+	
+	public String getTestDataGroup() {
+		return testDataGroup;
 	}
 
-	public void setTestDataDocument(String testDataDocument) {
-		this.testDataDocument = testDataDocument;
+	public void setTestDataGroup(String testDataGroup) {
+		this.testDataGroup = testDataGroup;
 	}
 
 	public String getIdentificator() {
@@ -32,20 +39,40 @@ public class Document {
 		this.identificator = identificator;
 	}
 
-	public String getDocumentTypeName() {
-		return documentTypeName.trim();
+	public String getDocumentTitle() {
+		return documentTitle;
 	}
 
-	public void setGroupName(String documentTypeName) {
-		this.documentTypeName = documentTypeName;
+	public void setDocumentTitle(String documentTitle) {
+		this.documentTitle = documentTitle;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setComments(String comment) {
-		this.comment = comment;
+	public void setDescription(String description) {
+		this.description = description;
 	}
+
+	public String getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	
+
+
 
 }

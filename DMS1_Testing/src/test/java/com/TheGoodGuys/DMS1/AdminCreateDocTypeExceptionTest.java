@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import resources.models.Document;
+import resources.models.DocumentType;
 import resources.models.Group;
 import resources.page.HeaderPage;
 import resources.page.LoginPage;
@@ -78,11 +78,11 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsInvalidLength")
 	public static Object[] testDataDocumentsInvalidLength() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidLength.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsInvalidLength.xml");
 	}
 
 	@Test(priority = 1, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidLength")
-	public void testToCheckLengthRestrictionsInCreateDocumentType(Document document) {
+	public void testToCheckLengthRestrictionsInCreateDocumentType(DocumentType document) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();
@@ -96,11 +96,11 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsBlankName")
 	public static Object[] testDataDocumentsBlankName() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsBlankName.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsBlankName.xml");
 	}
 
 	@Test(priority = 2, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsBlankName")
-	public void testToCheckBlankRestrictionsInCreateDocumentType(Document document) {
+	public void testToCheckBlankRestrictionsInCreateDocumentType(DocumentType document) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();
@@ -115,11 +115,11 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@DataProvider(name = "documentsInvalidCommentLength")
 	public static Object[] testDataDocumentsInvalidCommentLength() throws IOException {
 		return FileReaderUtils
-				.getDocumentsFromXml("src/test/java/resources/testData/DocumentsInvalidCommentLength.xml");
+				.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsInvalidCommentLength.xml");
 	}
 
 	@Test(priority = 3, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidCommentLength")
-	public void testToCheckCommentLengthRestrictionsInCreateDocumentType(Document document) {
+	public void testToCheckCommentLengthRestrictionsInCreateDocumentType(DocumentType document) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();
@@ -133,11 +133,11 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsInvalidChars")
 	public static Object[] testDataDocumentsInvalidCharacters() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsSpecChars.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsSpecChars.xml");
 	}
 
 	@Test(priority = 4, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidChars")
-	public void testToCheckSpecialCharsRestrictionsInCreateDocumentType(Document document) {
+	public void testToCheckSpecialCharsRestrictionsInCreateDocumentType(DocumentType document) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();
@@ -151,11 +151,11 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsDuplicate")
 	public static Object[] testDataDocumentsDuplicate() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/DocumentsDuplicate.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsDuplicate.xml");
 	}
 
 	@Test(priority = 5, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsDuplicate", enabled = false)
-	public void testToCheckDuplicatesInCreateDocumentType(Document document) {
+	public void testToCheckDuplicatesInCreateDocumentType(DocumentType document) {
 
 		adminNav.clickButtonDocuments();
 		adminDocTypes.clickButtonAddNewDocType();

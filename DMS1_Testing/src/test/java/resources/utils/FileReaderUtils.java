@@ -13,6 +13,8 @@ import com.thoughtworks.xstream.XStream;
 
 import resources.models.Document;
 import resources.models.DocumentData;
+import resources.models.DocumentType;
+import resources.models.DocumentTypeData;
 import resources.models.Group;
 import resources.models.GroupData;
 import resources.models.User;
@@ -44,12 +46,12 @@ public class FileReaderUtils {
 		return data.getGroups().toArray();
 	}
 	
-	public static Object[] getDocumentsFromXml(String fileName) throws IOException {
+	public static Object[] getDocumentTypesFromXml(String fileName) throws IOException {
 		XStream xstream = new XStream();
 
-		xstream.processAnnotations(DocumentData.class);
-		xstream.processAnnotations(Document.class);
-		DocumentData data = (DocumentData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
+		xstream.processAnnotations(DocumentTypeData.class);
+		xstream.processAnnotations(DocumentType.class);
+		DocumentTypeData data = (DocumentTypeData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
 
 		return data.getDocuments().toArray();
 	}
@@ -62,6 +64,16 @@ public class FileReaderUtils {
 		UserData data = (UserData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
 
 		return data.getUsers().toArray();
+	}
+	
+	public static Object[] getDocumentsFromXml(String fileName) throws IOException {
+		XStream xstream = new XStream();
+
+		xstream.processAnnotations(DocumentData.class);
+		xstream.processAnnotations(Document.class);
+		DocumentData data = (DocumentData) xstream.fromXML(FileUtils.readFileToString(new File(fileName)));
+
+		return data.getDocuments().toArray();
 	}
 
 

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources.models.DocumentData>
-	<Document>
-		<testDataDocument>docType_specChars</testDataDocument>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>docType_specChars</testDataGroup>
 		<identificator>name_underscore</identificator>
 		<documentTypeName>corp_Account</documentTypeName>
 		<comment>autotesting</comment>
-	</Document>
-	<Document>
-		<testDataDocument>docType_specChars</testDataDocument>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>docType_specChars</testDataGroup>
 		<identificator>name_asterix</identificator>
 		<documentTypeName>*docType*</documentTypeName>
 		<comment>autotesting</comment>
-	</Document>
-	<Document>
-		<testDataDocument>docType_specChars</testDataDocument>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>docType_specChars</testDataGroup>
 		<identificator>name_questionMark</identificator>
 		<documentTypeName>docType?</documentTypeName>
 		<comment>autotesting</comment>
-	</Document>
-</resources.models.DocumentData>
+	</DocumentType>
+</resources.models.DocumentTypeData>

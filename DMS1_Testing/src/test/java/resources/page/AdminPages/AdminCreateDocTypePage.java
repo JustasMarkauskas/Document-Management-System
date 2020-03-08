@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import resources.models.Document;
+import resources.models.DocumentType;
 import resources.page.AbstractPage;
 
 public class AdminCreateDocTypePage extends AbstractPage {
@@ -65,13 +65,13 @@ public class AdminCreateDocTypePage extends AbstractPage {
 		buttonCancel.click();
 	}
 
-	public void fillAndSubmitDocTypeCreationForm(Document document) {
+	public void fillAndSubmitDocTypeCreationForm(DocumentType document) {
 		enterInputDocumentTypeName(document.getDocumentTypeName());
 		enterInputComment(document.getComment());
 		clickButtonSubmit();
 	}
 	
-	public void fillDocTypeCreationForm(Document document) {
+	public void fillDocTypeCreationForm(DocumentType document) {
 		enterInputDocumentTypeName(document.getDocumentTypeName());
 		enterInputComment(document.getComment());
 	}
