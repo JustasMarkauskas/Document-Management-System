@@ -5,6 +5,7 @@ import UserHomePageDocumentComponent from "./UserHomePageDocumentcomponent";
 import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormComponent";
 import { Modal } from "react-bootstrap";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -15,7 +16,12 @@ class UserHomePageDocumentContainer extends React.Component {
       documents: [],
       username: "",
       documentStatus: "ALL",
-      inputDocumentTitle: "" //paieskai skirtas
+      inputDocumentTitle: "", //paieskai skirtas
+      offset: 0,
+      elements: [],
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0
     };
   }
 
@@ -26,7 +32,13 @@ class UserHomePageDocumentContainer extends React.Component {
       axios
         .get(serverUrl + "api/document/" + username)
         .then(response => {
-          this.setState({ documents: response.data });
+          this.setState(
+            {
+              documents: response.data,
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => this.setElementsForCurrentPage()
+          );
           axios
             .get(serverUrl + "api/user/user-doctypes-for-creation/" + username)
             .then(response => {
@@ -43,12 +55,42 @@ class UserHomePageDocumentContainer extends React.Component {
     this.getDocuments();
   }
 
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.documents.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
+
+  setFirstElementsForFilterPage = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.documents.slice(0, this.state.perPage);
+
+    this.setState({ elements: elements });
+  };
+
   getDocumentsByStatus = status => {
     if (status === "ALL") {
       axios
         .get(serverUrl + "api/document/" + this.state.username)
         .then(response => {
-          this.setState({ documents: response.data });
+          this.setState(
+            {
+              documents: response.data,
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => this.setFirstElementsForFilterPage()
+          );
         })
         .catch(error => {
           console.log(error);
@@ -63,7 +105,13 @@ class UserHomePageDocumentContainer extends React.Component {
             this.state.username
         )
         .then(response => {
-          this.setState({ documents: response.data });
+          this.setState(
+            {
+              documents: response.data,
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => this.setFirstElementsForFilterPage()
+          );
         })
         .catch(error => {
           console.log(error);
@@ -108,10 +156,34 @@ class UserHomePageDocumentContainer extends React.Component {
   };
 
   render() {
-    const documentInfo = this.state.documents.map((document, index) => (
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
+    }
+
+    const documentInfo = this.state.elements.map((document, index) => (
       <UserHomePageDocumentComponent
         key={index}
-        rowNr={index + 1}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         id={document.id}
         title={document.title}
         docType={document.docType}
@@ -163,7 +235,7 @@ class UserHomePageDocumentContainer extends React.Component {
           Download
         </button>
 
-        <div className="btn-group" role="group">
+        <div className="btn-group" role="group" id="DocumentsFilterId">
           <button
             type="button"
             className="btn btn-secondary"
@@ -228,6 +300,7 @@ class UserHomePageDocumentContainer extends React.Component {
             />
           </Modal.Body>
         </Modal>
+        <div id="documentsTablePagination">{paginationElement}</div>
       </div>
     );
   }

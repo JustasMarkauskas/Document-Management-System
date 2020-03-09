@@ -7,7 +7,7 @@ import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
 
-class AdminHomePageUsersContainerPagination extends React.Component {
+class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -197,10 +197,10 @@ class AdminHomePageUsersContainerPagination extends React.Component {
           </thead>
           <tbody>{userInfo}</tbody>
         </table>
-        {paginationElement}
+        <div id="userTablePagination">{paginationElement}</div>
       </div>
     );
   }
 }
 
-export default withRouter(AdminHomePageUsersContainerPagination);
+export default withRouter(AdminHomePageUsersContainer);

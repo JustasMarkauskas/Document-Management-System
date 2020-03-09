@@ -198,7 +198,7 @@ class AdminHomePageDocumentContainer extends React.Component {
           </thead>
           <tbody>{documentInfo}</tbody>
         </table>
-        {paginationElement}
+        <div id="docTypesTablePagination">{paginationElement}</div>
       </div>
     );
   }

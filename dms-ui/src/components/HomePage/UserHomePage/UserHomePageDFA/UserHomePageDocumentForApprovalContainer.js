@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import UserHomePageDocumentForApprovalComponent from "./UserHomePageDocumentForApprovalComponent";
 import qs from "qs";
 import serverUrl from "../../../URL/ServerUrl";
+import ReactPaginate from "react-paginate";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -12,7 +13,12 @@ class UserHomePageDocumentContainer extends React.Component {
       userDocTypesForApproval: [],
       documents: [],
       username: "",
-      inputDocumentTitle: "" //paieskai skirtas
+      inputDocumentTitle: "", //paieskai skirtas
+      offset: 0,
+      elements: [],
+      perPage: 10,
+      currentPage: 0,
+      pageCount: 0
     };
   }
 
@@ -24,7 +30,9 @@ class UserHomePageDocumentContainer extends React.Component {
         .get(serverUrl + "api/user/user-doctypes-for-approval/" + username)
         .then(response => {
           let docTypesFA = response.data;
-          this.setState({ userDocTypesForApproval: response.data });
+          this.setState({
+            userDocTypesForApproval: response.data
+          });
 
           axios
             .get(serverUrl + "api/document/documents-for-approval", {
@@ -36,7 +44,15 @@ class UserHomePageDocumentContainer extends React.Component {
               }
             })
             .then(response => {
-              this.setState({ documents: response.data });
+              this.setState(
+                {
+                  documents: response.data,
+                  pageCount: Math.ceil(
+                    response.data.length / this.state.perPage
+                  )
+                },
+                () => this.setElementsForCurrentPage()
+              );
             });
         })
         .catch(error => {
@@ -48,6 +64,30 @@ class UserHomePageDocumentContainer extends React.Component {
   componentDidMount() {
     this.getDocuments();
   }
+
+  handlePageClick = data => {
+    const selectedPage = data.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState({ currentPage: selectedPage, offset: offset }, () => {
+      this.setElementsForCurrentPage();
+    });
+  };
+
+  setElementsForCurrentPage = () => {
+    let elements = this.state.documents.slice(
+      this.state.offset,
+      this.state.offset + this.state.perPage
+    );
+
+    this.setState({ elements: elements });
+  };
+
+  setFirstElementsForFilterPage = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.documents.slice(0, this.state.perPage);
+
+    this.setState({ elements: elements });
+  };
 
   getDFAByStatus = status => {
     if (status === "ALL") {
@@ -61,7 +101,13 @@ class UserHomePageDocumentContainer extends React.Component {
           }
         })
         .then(response => {
-          this.setState({ documents: response.data });
+          this.setState(
+            {
+              documents: response.data,
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => this.setFirstElementsForFilterPage()
+          );
         });
     } else {
       axios
@@ -74,7 +120,13 @@ class UserHomePageDocumentContainer extends React.Component {
           }
         })
         .then(response => {
-          this.setState({ documents: response.data });
+          this.setState(
+            {
+              documents: response.data,
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => this.setFirstElementsForFilterPage()
+          );
         });
     }
   };
@@ -85,10 +137,34 @@ class UserHomePageDocumentContainer extends React.Component {
   };
 
   render() {
-    const documentInfo = this.state.documents.map((document, index) => (
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      );
+    }
+
+    const documentInfo = this.state.elements.map((document, index) => (
       <UserHomePageDocumentForApprovalComponent
         key={index}
-        rowNr={index + 1}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         author={document.author}
         id={document.id}
         title={document.title}
@@ -137,7 +213,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
 
-        <div className="btn-group" role="group">
+        <div className="btn-group" role="group" id="DFAFilterId">
           <button
             type="button"
             className="btn btn-secondary"
@@ -182,6 +258,7 @@ class UserHomePageDocumentContainer extends React.Component {
           </thead>
           <tbody>{documentInfo}</tbody>
         </table>
+        <div id="DFATablePagination">{paginationElement}</div>
       </div>
     );
   }

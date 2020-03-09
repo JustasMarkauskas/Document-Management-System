@@ -212,7 +212,7 @@ class AdminHomePageGroupContainer extends React.Component {
           </thead>
           <tbody>{groupInfo}</tbody>
         </table>
-        {paginationElement}
+        <div id="groupsTablePagination">{paginationElement}</div>
       </div>
     );
   }

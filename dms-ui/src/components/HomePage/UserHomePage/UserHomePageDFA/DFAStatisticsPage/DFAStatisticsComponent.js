@@ -58,7 +58,7 @@ class DFAStatisticsComponent extends React.Component {
           You need to select a period of statistics and then choose a document
           type
         </div>
-        <div className="row">
+        <div className="row" id="datesId">
           <div className="col-lg-6 col-sm-12">
             <label>Start date: </label>
             <DatePicker
@@ -83,7 +83,7 @@ class DFAStatisticsComponent extends React.Component {
           </div>
         </div>
         <div className="card">
-          <div className="card-body">
+          <div className="card-body" id="documentTypesId">
             <h5 className="card-title">Document types </h5>
             <div className="card-text scroll">
               <ul className="list-group mb-2">
