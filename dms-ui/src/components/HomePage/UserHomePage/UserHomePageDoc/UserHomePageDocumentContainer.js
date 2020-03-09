@@ -282,7 +282,7 @@ class UserHomePageDocumentContainer extends React.Component {
               <th scope="col">Status</th>
               <th scope="col">Submission date</th>
               <th scope="col">Review date</th>
-              <th scope="col">Action</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>{documentInfo}</tbody>

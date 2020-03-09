@@ -237,6 +237,7 @@ class SavedDocReviewComponent extends React.Component {
           {file.fileName}
         </a>
         <button
+          id={"deleteFile" + index}
           className="btn"
           onClick={() => this.deleteFile(file.id)}
           type="button"
@@ -340,6 +341,7 @@ class SavedDocReviewComponent extends React.Component {
 
             <div className="col text-right">
               <button
+                id="deleteDocumentId"
                 className="btn text-danger"
                 onClick={this.onDeleteDocumentClick}
                 type="button"
