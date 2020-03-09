@@ -1,8 +1,12 @@
 package it.akademija.controller;
+
 import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,16 +31,15 @@ import it.akademija.service.UserService;
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserController {
-	
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
 	private final UserService userService;
 
-   @Autowired
+	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-
 
 	@RequestMapping(path = "/loggedUsername", method = RequestMethod.GET)
 	public String getLoggedInUsername() {
@@ -47,18 +50,17 @@ public class UserController {
 		}
 		return "not logged";
 	}
-	
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(value = "Get Users", notes = "Returns list of all users")
 	public List<UserForClient> getUsersForClient() {
-		return userService.getUsersForClient(); 
+		return userService.getUsersForClient();
 	}
-	
+
 	@RequestMapping(path = "/usernames/", method = RequestMethod.GET)
 	@ApiOperation(value = "Get all usernames", notes = "Returns list of all usernames")
 	public List<String> getAllUsernames() {
-		return userService.getAllUsernames(); 
+		return userService.getAllUsernames();
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.GET)
@@ -66,41 +68,54 @@ public class UserController {
 	public UserForClient getUserForClient(@PathVariable String username) {
 		return userService.getUserForClient(username);
 	}
-	
+
 	@RequestMapping(path = "/user-groups/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User groups", notes = "Return names of all user groups")
 	public List<String> getUserGroups(@PathVariable String username) {
-		return userService.getUserGroups(username); 
+		return userService.getUserGroups(username);
 	}
-		
+
 	@RequestMapping(path = "/user-doctypes-for-approval/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User doc types for approval", notes = "Return names of all user doc types for approval")
 	public Set<String> getAllDocTypesForApproval(@PathVariable String username) {
-		return userService.getAllDocTypesForApproval(username); 
+		return userService.getAllDocTypesForApproval(username);
 	}
-	
+
 	@RequestMapping(path = "/user-doctypes-for-creation/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get User doc types for creation", notes = "Return names of all user doc types for creation")
 	public Set<String> getAllDocTypesForCreation(@PathVariable String username) {
-		return userService.getAllDocTypesForCreation(username); 
+		return userService.getAllDocTypesForCreation(username);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Group")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveUser(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
-		userService.saveUser(newUser);
+
+		if (userService.findByUsername(newUser.getUsername()) == null) {
+			userService.saveUser(newUser);
+			LOGGER.info("Action by {}. Created user: {}",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+		} else {
+			LOGGER.warn("Action by {}. User {} is not created",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, path = "/admin")
 	@ApiOperation(value = "Create admin")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveAdmin(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
-		userService.saveAdmin(newUser);
+		if (userService.findByUsername(newUser.getUsername()) == null) {
+			userService.saveAdmin(newUser);
+			LOGGER.info("Action by {}. Created admin: {}",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+		} else {
+			LOGGER.warn("Action by {}. Admin {} is not created",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+		}
 	}
-	
-	
-	
+
 	@RequestMapping(path = "/update-password/{username}", method = RequestMethod.PUT)
 //	@PreAuthorize("hasRole('ROLE_ADMIN')") // leidžiama tik su ROLE_ADMIN
 //	@PreAuthorize("hasAuthority('OP1')") // leidžiama tik su tam tikru authority(veikia)
@@ -108,30 +123,49 @@ public class UserController {
 	@ApiOperation(value = "Update user password", notes = "Update user password")
 	public User updatePassword(@ApiParam(required = true) @PathVariable String username,
 			@Valid @RequestBody final NewUser newUser) {
+
+		LOGGER.info("Action by {}. Updated password for user: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), username);
+
 		return userService.updatePassword(username, newUser);
+
 	}
-	
+
 	@RequestMapping(path = "/update-user-info/{username}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update user info", notes = "Update user info")
 	public User updateUserInfo(@ApiParam(required = true) @PathVariable String username,
 			@Valid @RequestBody final NewUser newUser) {
+
+		LOGGER.info("Action by {}. Updated user info for user: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), username);
+
 		return userService.updateUserInfo(username, newUser);
+
 	}
-	
+
 	@RequestMapping(path = "/update-user-groups/{username}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Update user groups", notes = "After update user has only those groups which are passed in the list")
 	public void updateGroups(@ApiParam(required = true) @PathVariable String username,
-			 @RequestParam final List<String> groups) {
-		 userService.updateGroupsForOneUser(username, groups);
+			@RequestParam final List<String> groups) {
+
+		userService.updateGroupsForOneUser(username, groups);
+
+		LOGGER.info("Action by {}. Updated user groups for user: {}. After update group names: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), username, groups);
+
 	}
-	
+
 	@RequestMapping(path = "/add-users-to-group/{groupName}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Add list of users to one group", notes = "Usernames must be passed in the list of users")
-	public void assignListOfUsersToOneGroup( @PathVariable String groupName,
-			 @RequestParam(value="usernames", required=true) final List<String> usernames) {
-		 userService.assignListOfUsersToOneGroup(groupName, usernames);
+	public void assignListOfUsersToOneGroup(@PathVariable String groupName,
+			@RequestParam(value = "usernames", required = true) final List<String> usernames) {
+
+		userService.assignListOfUsersToOneGroup(groupName, usernames);
+
+		LOGGER.info("Action by {}. Users assigned to group: {}. After update assigned users: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), groupName, usernames);
+
 	}
-	
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes user by comment", notes = "Usefull for testing")
@@ -140,7 +174,5 @@ public class UserController {
 		userService.deleteUsersByComment(comment);
 		return userService.getUsers();
 	}
-	
-
 
 }
