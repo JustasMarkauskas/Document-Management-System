@@ -51,8 +51,8 @@ public class GroupService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<GroupForClient> getGroupsForClientStartingWith(String groupNameText) {
-		return groupRepository.findByIdStartingWith(groupNameText).stream()
+	public List<GroupForClient> getGroupsForClientContaining(String groupNameText) {
+		return groupRepository.findByIdContainingIgnoreCase(groupNameText).stream()
 				.map((group) -> new GroupForClient(group.getId(), group.getComment(), group.getUsers().size(),
 						group.getGroupUsernames(), group.getGroupDocTypesForCreation(),
 						group.getGroupDocTypesForApproval()))

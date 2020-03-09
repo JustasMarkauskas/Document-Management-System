@@ -97,20 +97,21 @@ class AdminHomePageGroupContainer extends React.Component {
       axios
         .get(serverUrl + "api/group/starting-with/" + this.state.groupName)
         .then(response => {
-          if (response.data.length > 0) {
-            this.setState(
-              {
-                groups: response.data,
-                groupName: "",
-                pageCount: Math.ceil(response.data.length / this.state.perPage)
-              },
-              () => {
-                this.setElementsForCurrentPage();
-              }
-            );
-          } else {
-            this.getGroups();
-          }
+          //   if (response.data.length > 0) {
+          this.setState(
+            {
+              groups: response.data,
+              groupName: "",
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => {
+              this.setElementsForCurrentPage();
+            }
+          );
+          // } else {
+
+          //   this.getGroups();
+          // }
         })
         .catch(error => {
           console.log(error);
@@ -182,7 +183,7 @@ class AdminHomePageGroupContainer extends React.Component {
               onChange={this.handleSearchChange}
               type="text"
               className="form-control"
-              placeholder="Group"
+              placeholder="Group name"
               aria-label="Group"
               aria-describedby="button-addon2"
               id="adminGroupSearchInput"

@@ -12,5 +12,5 @@ public interface GroupRepository extends JpaRepository<Group, Long>   {
 	Group findById(String groupName);
 	void deleteById(String groupName);
 	void deleteByComment (String comment);
-	List<Group> findByIdStartingWith(String groupNameText);
+	List<Group> findByIdContainingIgnoreCase(String groupText);
 }

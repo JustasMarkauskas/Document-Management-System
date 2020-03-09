@@ -44,7 +44,7 @@ public class GroupController {
 	@RequestMapping(path = "/starting-with/{groupNameText}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get Groups starting with", notes = "Returns list of groups starting with passed String")
 	public List<GroupForClient> getGroupsForClient(@PathVariable String groupNameText) {
-		return groupService.getGroupsForClientStartingWith(groupNameText);
+		return groupService.getGroupsForClientContaining(groupNameText);
 	}
 
 	@RequestMapping(path = "/{groupName}", method = RequestMethod.GET)
