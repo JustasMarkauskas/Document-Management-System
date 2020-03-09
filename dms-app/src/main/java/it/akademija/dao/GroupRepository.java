@@ -8,6 +8,7 @@ import it.akademija.model.group.Group;
 
 public interface GroupRepository extends JpaRepository<Group, Long>   {
 
+	List<Group> findAllByOrderByCreateDateDesc();
 	Group findById(String groupName);
 	void deleteById(String groupName);
 	void deleteByComment (String comment);

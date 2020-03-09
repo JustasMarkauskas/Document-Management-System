@@ -109,12 +109,12 @@ public class UserService implements UserDetailsService {
 
 	@Transactional(readOnly = true)
 	public List<User> getUsers() {
-		return userRepository.findAll();
+		return userRepository.findAllByOrderByIdDesc();
 	}
 
 	@Transactional(readOnly = true)
 	public List<UserForClient> getUsersForClient() {
-		return userRepository.findAll().stream().map((user) -> new UserForClient(user.getFirstName(),
+		return userRepository.findAllByOrderByIdDesc().stream().map((user) -> new UserForClient(user.getFirstName(),
 				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames()))
 				.collect(Collectors.toList());
 	}

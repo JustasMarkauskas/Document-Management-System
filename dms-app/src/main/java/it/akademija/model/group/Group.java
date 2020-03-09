@@ -2,6 +2,7 @@ package it.akademija.model.group;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import it.akademija.model.doctype.DocType;
 
@@ -26,7 +31,7 @@ public class Group {
 
 	@ManyToMany(mappedBy = "groups", cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private Collection<User> users;
-
+	
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable(name = "group_doctypes_for_creation", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctype_id", referencedColumnName = "id"))
 	private Collection<DocType> docTypesForCreation;
@@ -34,6 +39,10 @@ public class Group {
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	@JoinTable(name = "group_doctypes_for_approval", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctype_id", referencedColumnName = "id"))
 	private Collection<DocType> docTypesForApproval;
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
 
 	public Group() {
 	}

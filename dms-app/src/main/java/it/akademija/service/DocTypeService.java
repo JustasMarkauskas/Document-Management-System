@@ -14,10 +14,6 @@ import it.akademija.model.doctype.DocTypeComment;
 import it.akademija.model.doctype.DocTypeForClient;
 import it.akademija.model.doctype.NewDocType;
 
-
-
-
-
 @Service
 public class DocTypeService {
 	
@@ -36,18 +32,18 @@ public class DocTypeService {
 	
 	@Transactional(readOnly = true)
 	public List<DocType> getDocTypes() {
-		return docTypeRepository.findAll();
+		return docTypeRepository.findAllByOrderByCreateDateDesc();
 	}
 	
 	@Transactional(readOnly = true)
 	public List<DocTypeForClient> getDocTypeNamesForClient() {
-		return docTypeRepository.findAll().stream().map((docType) -> new DocTypeForClient(docType.getId()))
+		return docTypeRepository.findAllByOrderByCreateDateDesc().stream().map((docType) -> new DocTypeForClient(docType.getId()))
 				.collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
 	public List<DocTypeForClient> getDocTypeNamesAndCommentsForClient() {
-		return docTypeRepository.findAll().stream().map((docType) -> new DocTypeForClient(docType.getId(), docType.getComment()))
+		return docTypeRepository.findAllByOrderByCreateDateDesc().stream().map((docType) -> new DocTypeForClient(docType.getId(), docType.getComment()))
 				.collect(Collectors.toList());
 	}
 	

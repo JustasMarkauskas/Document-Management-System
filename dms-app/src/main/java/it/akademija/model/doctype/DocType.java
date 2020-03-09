@@ -1,11 +1,16 @@
 package it.akademija.model.doctype;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import it.akademija.model.group.Group;
 
@@ -23,6 +28,9 @@ public class DocType {
 	@ManyToMany(mappedBy = "docTypesForApproval", cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private Collection<Group> groupsCanApprove;
 
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
 	
 	public DocType() {}
 	
