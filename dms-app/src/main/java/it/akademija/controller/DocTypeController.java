@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +28,9 @@ import it.akademija.service.DocTypeService;
 @RequestMapping(value = "/api/doctype")
 public class DocTypeController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DocTypeController.class);
+
+	
 	private final DocTypeService docTypeService;
 
 	@Autowired
@@ -60,7 +66,16 @@ public class DocTypeController {
 	@ApiOperation(value = "Create doc type", notes = "Creates doc type with data")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewDocType newDocType) {
+		
+		if(docTypeService.findByDocTypeName(newDocType.getId())== null) {
+			LOGGER.info("Action by {}. Created document type: {}",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newDocType.getId());
 		docTypeService.saveDocType(newDocType);
+		} else {
+			LOGGER.warn("Action by {}. Document type {} is not created",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newDocType.getId());
+		}
+		
 	}
 	
 	@RequestMapping(path = "/update-comment/{docTypeName}", method = RequestMethod.PUT)
@@ -68,6 +83,10 @@ public class DocTypeController {
 	public void updateDocTypeComment(@ApiParam(required = true) @PathVariable String docTypeName,
 			@Valid @RequestBody final DocTypeComment docTypeComment) {
 		 docTypeService.updateDocTypeComment(docTypeName, docTypeComment);
+		 
+		 LOGGER.info("Action by {}. Updated document type comment for document type: {}",
+					SecurityContextHolder.getContext().getAuthentication().getName(), docTypeName);
+
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

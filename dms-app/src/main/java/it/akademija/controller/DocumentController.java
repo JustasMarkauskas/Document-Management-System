@@ -8,9 +8,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +43,9 @@ import it.akademija.service.DocumentService;
 @RequestMapping(value = "/api/document")
 public class DocumentController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DocumentController.class);
+
+	
 	private final DocumentService documentService;
 
 	@Autowired
@@ -145,6 +151,9 @@ public class DocumentController {
 			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
 					files[i].getSize()));
 		}
+		
+		LOGGER.info("Action by {}. Saved document. Title: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), newDocument.getTitle());
 		return list;
 	}
 
@@ -163,6 +172,8 @@ public class DocumentController {
 			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
 					files[i].getSize()));
 		}
+		LOGGER.info("Action by {}. Submitted document. Title: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), newDocument.getTitle());
 		return list;
 	}
 
@@ -180,6 +191,8 @@ public class DocumentController {
 			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
 					files[i].getSize()));
 		}
+		LOGGER.info("Action by {}. Submitted already saved document. Id: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), id);
 		return list;
 	}
 
@@ -197,6 +210,8 @@ public class DocumentController {
 			list.add(new UploadFileResponse(dBFiles.get(i).getFileName(), fileDownloadUri, files[i].getContentType(),
 					files[i].getSize()));
 		}
+		LOGGER.info("Action by {}. Saved already saved document. Id: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), id);
 		return list;
 	}
 
@@ -205,6 +220,9 @@ public class DocumentController {
 	public void approveDocument(
 			@ApiParam(required = true) @Valid @RequestBody final DocumentInfoAfterReview documentInfoAfterReview) {
 		documentService.approveDocument(documentInfoAfterReview);
+		
+		LOGGER.info("Action by {}. Approved document. Document Id: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), documentInfoAfterReview.getId());
 	}
 
 	@RequestMapping(path = "/reject-document", method = RequestMethod.PUT)
@@ -212,6 +230,9 @@ public class DocumentController {
 	public void rejectDocument(
 			@ApiParam(required = true) @Valid @RequestBody final DocumentInfoAfterReview documentInfoAfterReview) {
 		documentService.rejectDocument(documentInfoAfterReview);
+		
+		LOGGER.info("Action by {}. Rejected document. Document Id: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), documentInfoAfterReview.getId());
 	}
 
 	@RequestMapping(path = "/{documentId}", method = RequestMethod.DELETE)

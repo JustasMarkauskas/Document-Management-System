@@ -3,8 +3,12 @@ package it.akademija.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +23,11 @@ import it.akademija.model.role.RoleForClient;
 
 import it.akademija.service.RoleService;
 
-
 @RestController
 @RequestMapping(value = "/api/role")
 public class RoleController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(RoleController.class);
 
 	private final RoleService roleService;
 
@@ -47,10 +52,18 @@ public class RoleController {
 	@ApiOperation(value = "Create role", notes = "Creates role with data")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewRole newRole) {
-		roleService.saveRole(newRole);
+
+		if (roleService.findByRoleName(newRole.getId()) == null) {
+			roleService.saveRole(newRole);
+
+			LOGGER.info("Action by {}. Created role: {}",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newRole.getId());
+		} else {
+			LOGGER.warn("Action by {}. Role {} is not created",
+					SecurityContextHolder.getContext().getAuthentication().getName(), newRole.getId());
+		}
 	}
 
-		
 	@RequestMapping(method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes role by name", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -58,12 +71,12 @@ public class RoleController {
 		roleService.deleteRoleByName(roleName);
 	}
 
-	@RequestMapping(path = "/comment",method = RequestMethod.DELETE)
+	@RequestMapping(path = "/comment", method = RequestMethod.DELETE)
 	@ApiOperation(value = "Deletes roles by comment", notes = "Usefull for testing")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteRolesByComment(@RequestParam final String comment) {
 		roleService.deleteRolesByComment(comment);
-		
+
 	}
-	
+
 }

@@ -3,13 +3,9 @@ package it.akademija.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import it.akademija.dao.RoleRepository;
 import it.akademija.model.role.NewRole;
 import it.akademija.model.role.Role;
@@ -30,6 +26,12 @@ public class RoleService {
 	@Transactional(readOnly = true)
 	public List<Role> getRoles() {
 		return roleRepository.findAll();
+	}
+	
+
+	@Transactional(readOnly = true)
+	public Role findByRoleName(String roleName) {
+		return roleRepository.findById(roleName);
 	}
 	
 	@Transactional(readOnly = true)
@@ -69,5 +71,6 @@ public class RoleService {
 	public void deleteRolesByComment(String comment) {
 		roleRepository.deleteByComment(comment);
 	}
+	
 	
 }

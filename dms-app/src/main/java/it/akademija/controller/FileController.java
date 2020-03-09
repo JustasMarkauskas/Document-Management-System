@@ -1,5 +1,7 @@
 package it.akademija.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,6 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/api/file")
 public class FileController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
+
+	
 	private DBFileStorageService dbFileStorageService;
 
 	@Autowired
@@ -48,9 +54,12 @@ public class FileController {
 	@RequestMapping(value = "/download-files-csv-zip/{username}", method = RequestMethod.GET, produces = "application/zip")
 	public byte[] downloadFilesAndCsv(HttpServletResponse response, @PathVariable("username") String username)
 			throws IOException {
+		
+		LOGGER.info("Action by {}. Downloaded zip archive",
+				SecurityContextHolder.getContext().getAuthentication().getName());
+		
 		response.setContentType("application/zip");
 		response.setStatus(HttpServletResponse.SC_OK);
-		
 		String headerValue = String.format("attachment; filename=\"%s_files.zip\"", username);
 		response.addHeader("Content-Disposition", headerValue);
 		
@@ -75,7 +84,7 @@ public class FileController {
 
 	@RequestMapping(path = "/{documentId}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get files by document id", notes = "Returns list of files by document id")
-	public List<DBFileNameAndId> getFilesByDocumentId(@PathVariable Long documentId) {
+	public List<DBFileNameAndId> getFilesByDocumentId(@PathVariable Long documentId) {		
 		return dbFileStorageService.getFilesByDocumentId(documentId);
 	}
 
@@ -84,6 +93,9 @@ public class FileController {
 		// Load file from database
 		DBFile dbFile = dbFileStorageService.getFile(fileId);
 
+		LOGGER.info("Action by {}. Downloaded file. File name: {}",
+				SecurityContextHolder.getContext().getAuthentication().getName(), dbFile.getFileName());
+		
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dbFile.getFileName() + "\"")
 				.body(new ByteArrayResource(dbFile.getData()));

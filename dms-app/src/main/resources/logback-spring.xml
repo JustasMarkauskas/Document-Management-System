@@ -20,16 +20,17 @@
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
 		</encoder>
-
 		<rollingPolicy
-			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<fileNamePattern>${LOGS}/archived/spring-boot-logger-%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<!-- Max log file size 10MB -->
+			<!-- Max log file size 10MB -->
 			<maxFileSize>10MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- Logs are kept for 30 days -->
+			<maxHistory>30</maxHistory>
+			<!-- Max total size of log files, if total size > 500MB, oldest log file 
+				will be deleted -->
+			<totalSizeCap>100MB</totalSizeCap>
 		</rollingPolicy>
 	</appender>
 
@@ -37,9 +38,34 @@
 		<appender-ref ref="Console" />
 	</root>
 
-	<logger name="it.akademija.controller.UserController" level="info">
+	<logger name="it.akademija.controller.UserController"
+		level="info">
 		<appender-ref ref="RollingFile" />
-	<!-- 	<appender-ref ref="Console" /> -->
+	</logger>
+
+	<logger name="it.akademija.controller.DocTypeController"
+		level="info">
+		<appender-ref ref="RollingFile" />
+	</logger>
+
+	<logger name="it.akademija.controller.GroupController"
+		level="info">
+		<appender-ref ref="RollingFile" />
+	</logger>
+
+	<logger name="it.akademija.controller.FileController"
+		level="info">
+		<appender-ref ref="RollingFile" />
+	</logger>
+
+	<logger name="it.akademija.controller.DocumentController"
+		level="info">
+		<appender-ref ref="RollingFile" />
+	</logger>
+
+	<logger name="it.akademija.controller.RoleController"
+		level="info">
+		<appender-ref ref="RollingFile" />
 	</logger>
 
 
