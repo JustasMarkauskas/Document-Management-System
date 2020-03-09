@@ -153,18 +153,7 @@ public class Document {
 		this.DBfiles.add(file);
 		file.setDocument(this);
 	}
-
-	public List<String> generateDbFileIDs() {
-		List<String> dbFilesIds = new ArrayList<String>();
-
-		for (int i = 0; i < getDBfiles().size(); i++) {
-			dbFilesIds.add(getDBfiles().get(i).getId());
-
-		}
-
-		return dbFilesIds;
-	}
-
+	
 	public Long getAuthorSubmittedDocuments() {
 		return authorSubmittedDocuments;
 	}
@@ -172,5 +161,26 @@ public class Document {
 	public void setAuthorSubmittedDocuments(Long authorSubmittedDocuments) {
 		this.authorSubmittedDocuments = authorSubmittedDocuments;
 	}
+
+	public List<String> generateDbFileIDs() {
+		List<String> dbFilesIds = new ArrayList<String>();
+
+		for (int i = 0; i < getDBfiles().size(); i++) {
+			dbFilesIds.add(getDBfiles().get(i).getId());
+		}
+		return dbFilesIds;
+	}
+	
+	public List<String> generateDbFileNames() {
+		List<String> dbFileNames = new ArrayList<String>();
+
+		for (int i = 0; i < getDBfiles().size(); i++) {
+			dbFileNames.add(getDBfiles().get(i).getFileName());
+
+		}
+		return dbFileNames;
+	}
+
+	
 
 }

@@ -123,13 +123,13 @@ public class DBFileStorageService {
 			FileWriter outputfile = new FileWriter(csvFile);
 			CSVWriter writer = new CSVWriter(outputfile);
 			String[] header = { "id", "author", "docType", "title", "description", "submissionDate", "reviewDate",
-					"documentReceiver", "rejectionReason", "status" };
+					"documentReceiver", "rejectionReason", "status", "documentFileNames" };
 			writer.writeNext(header);
 
 			for (DocumentForClient doc : documents) {
 				String[] data = { Long.toString(doc.getId()), doc.getAuthor(), doc.getDocType(), doc.getTitle(),
 						doc.getDescription(), formatDate(doc.getSubmissionDate()), formatDate(doc.getReviewDate()),
-						doc.getDocumentReceiver(), doc.getRejectionReason(), doc.getStatus() };
+						doc.getDocumentReceiver(), doc.getRejectionReason(), doc.getStatus(), String.join(", ", doc.getDocumentFileNames())};
 				writer.writeNext(data);
 			}
 			writer.close();
@@ -153,7 +153,10 @@ public class DBFileStorageService {
 		List<FileDetails> usersFilesDetails = findAllFileDetailsByUsername(username);
 		Map<String, ByteArrayResource> filesAsBytes = new HashMap<>();
 		for (FileDetails file : usersFilesDetails) {
-			filesAsBytes.put(file.getFileName(),
+			
+			String fileName = "DOC_" + Long.toString(file.getDocumentId())+ "_"+ file.getFileName();
+			
+			filesAsBytes.put(fileName,
 					new ByteArrayResource(dbFileRepository.findById(file.getId()).get().getData()));
 		}
 

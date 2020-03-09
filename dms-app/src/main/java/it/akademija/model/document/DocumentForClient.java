@@ -18,12 +18,13 @@ public class DocumentForClient {
 	private String rejectionReason;
 	private String status;
 	private List<String> dbFileIDs;
+	private List<String> documentFileNames;
 	
 	
 	public DocumentForClient() {}
 	
 	public DocumentForClient(Long id, String author, String docType, String title, String description, Date submissionDate,
-			Date reviewDate, String documentReceiver, String rejectionReason, String status, List<String> dbFileIDs) {
+			Date reviewDate, String documentReceiver, String rejectionReason, String status, List<String> dbFileIDs, List<String> documentFileNames) {
 		this.id = id;
 		this.author = author;
 		this.docType = docType;
@@ -35,6 +36,7 @@ public class DocumentForClient {
 		this.rejectionReason = rejectionReason;
 		this.status = status;
 		this.dbFileIDs = dbFileIDs;
+		this.documentFileNames = documentFileNames;
 		
 	}
 	
@@ -113,13 +115,15 @@ public class DocumentForClient {
 		this.dbFileIDs = dbFileIDs;
 	}
 
-//	public Map<String, String> getDbFileIDs() {
-//		return dbFileIDs;
-//	}
-//
-//	public void setDbFileIDs(Map<String, String> dbFileIDs) {
-//		this.dbFileIDs = dbFileIDs;
-//	}
+	public List<String> getDocumentFileNames() {
+		return documentFileNames;
+	}
+
+	public void setDocumentFileNames(List<String> documentFileNames) {
+		this.documentFileNames = documentFileNames;
+	}
+
+
 
 	
 

@@ -3,6 +3,7 @@ package it.akademija.model.file;
 public class FileDetails {
 	private String id;
 	private String fileName;
+	private Long documentId;
 	
 	
 	public FileDetails() {}
@@ -10,6 +11,7 @@ public class FileDetails {
 		this.id = DBFile.getId();
 		this.fileName = DBFile.getFileName();
 		this.fileType = DBFile.getFileType();
+		this.documentId = DBFile.getDocument().getId();
 	}
 	
 	
@@ -31,6 +33,12 @@ public class FileDetails {
 	}
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
+	}
+	public Long getDocumentId() {
+		return documentId;
+	}
+	public void setDocumentId(Long documentId) {
+		this.documentId = documentId;
 	}
 
 }

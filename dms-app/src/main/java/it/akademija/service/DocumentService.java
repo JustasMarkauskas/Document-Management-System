@@ -69,7 +69,7 @@ public class DocumentService {
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
-						document.getStatus(), document.generateDbFileIDs()))
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
 				.collect(Collectors.toList());
 	}
 
@@ -80,7 +80,7 @@ public class DocumentService {
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
-						document.getStatus(), document.generateDbFileIDs()))
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
 				.collect(Collectors.toList());
 	}
 
@@ -90,7 +90,7 @@ public class DocumentService {
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
-						document.getStatus(), document.generateDbFileIDs()))
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
 				.collect(Collectors.toList());
 	}
 
@@ -100,7 +100,7 @@ public class DocumentService {
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
-						document.getStatus(), document.generateDbFileIDs()))
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
 				.collect(Collectors.toList());
 	}
 
@@ -116,7 +116,7 @@ public class DocumentService {
 		DocumentForClient documentForClient = new DocumentForClient(document.getId(), document.getAuthor(),
 				document.getDocType(), document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 				document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
-				document.getStatus(), document.generateDbFileIDs());
+				document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames());
 		return documentForClient;
 	}
 
