@@ -12,10 +12,10 @@ import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/Adm
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
 import SubmittedDocReviewContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
-import UserInfoComponent from "./components/UserInfo/UserInfoComponent";
 import GroupReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewMainPage";
 import DFAStatisticsMainPage from "./components/HomePage/UserHomePage/UserHomePageDFA/DFAStatisticsPage/DFAStatisticsMainPage";
 import UserHomePageProfileMainPage from "./components/HomePage/UserHomePage/UserHomePageProfile/UserHomePageProfileMainPage";
+import UserReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageUsers/UserReviewPage/UserReviewMainPage";
 
 var AppContainer = props => {
   return <div>{props.children}</div>;
@@ -55,7 +55,7 @@ ReactDOM.render(
             path="/group-review/:groupName"
             component={GroupReviewMainPage}
           />
-          <Route path="/user-review/:username" component={UserInfoComponent} />
+          <Route path="/user-review/:username" component={UserReviewMainPage} />
           <Route
             path="/dfa-statistics/:username"
             component={DFAStatisticsMainPage}
