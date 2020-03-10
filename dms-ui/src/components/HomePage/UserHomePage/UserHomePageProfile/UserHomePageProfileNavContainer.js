@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import UserHomePageGroupsNavComponent from "./UserHomePageGroupsNavComponents";
+import UserHomePageProfileNavComponent from "./UserHomePageProfileNavComponents";
 import serverUrl from "../../../URL/ServerUrl";
 
-class UserHomePageGroupsNavContainer extends React.Component {
+class UserHomePageProfileNavContainer extends React.Component {
   handleLogoutButton = event => {
     axios
       .post(serverUrl + "logout")
@@ -19,10 +19,10 @@ class UserHomePageGroupsNavContainer extends React.Component {
 
   render() {
     return (
-      <UserHomePageGroupsNavComponent
+      <UserHomePageProfileNavComponent
         handleLogoutButton={this.handleLogoutButton}
       />
     );
   }
 }
-export default withRouter(UserHomePageGroupsNavContainer);
+export default withRouter(UserHomePageProfileNavContainer);

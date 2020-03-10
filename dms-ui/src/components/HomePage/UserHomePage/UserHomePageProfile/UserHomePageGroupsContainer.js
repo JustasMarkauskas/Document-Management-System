@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import UserHomePageGroupsComponents from "./UserHomePageGroupsComponents";
 import serverUrl from "../../../URL/ServerUrl";
 
 class UserHomePageGroupsContainer extends React.Component {
@@ -27,7 +26,7 @@ class UserHomePageGroupsContainer extends React.Component {
   }
 
   render() {
-    return <UserHomePageGroupsComponents username={this.state.username} />;
+    return <div>delete</div>;
   }
 }
 

@@ -24,7 +24,7 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-groups">
+        <Link className="col-2" to="/userhomepage-profile/">
           <button
             type="button"
             className="btn btn-outline-primary"

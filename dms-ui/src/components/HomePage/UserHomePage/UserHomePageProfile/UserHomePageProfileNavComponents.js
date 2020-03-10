@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const UserHomePageGroupsNavComponent = ({ handleLogoutButton }) => {
+const UserHomePageProfileNavComponent = ({ handleLogoutButton }) => {
   return (
     <ul className="nav flex-column">
       <li className="nav-item mb-2">
@@ -28,7 +28,7 @@ const UserHomePageGroupsNavComponent = ({ handleLogoutButton }) => {
         </Link>
       </li>
       <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-groups">
+        <Link className="col-2" to="/userhomepage-profile">
           <button type="button" className="btn btn-primary" id="userGroupsNav">
             Profile
           </button>
@@ -50,4 +50,4 @@ const UserHomePageGroupsNavComponent = ({ handleLogoutButton }) => {
   );
 };
 
-export default UserHomePageGroupsNavComponent;
+export default UserHomePageProfileNavComponent;

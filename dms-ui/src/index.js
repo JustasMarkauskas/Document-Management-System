@@ -11,11 +11,11 @@ import AdminHomePageDocumentsContainer from "./components/HomePage/AdminHomePage
 import AdminHomePageGroupContainer from "./components/HomePage/AdminHomePage/AdminHomePageGroups/AdminHomePageGroupsContainer";
 import UserHomePageContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/UserHomePageContainer";
 import UserHomePageDFAContainer from "./components/HomePage/UserHomePage/UserHomePageDFA/UserHomePageDFAContainer";
-import UserHomePageGroupsContainer from "./components/HomePage/UserHomePage/UserHomePageGroups/UserHomePageGroupsContainer";
 import SubmittedDocReviewContainer from "./components/HomePage/UserHomePage/UserHomePageDoc/SubmittedDocumentReviewPage/SubmittedDocReviewContainer";
 import UserInfoComponent from "./components/UserInfo/UserInfoComponent";
 import GroupReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageGroups/GroupReviewPage/GroupReviewMainPage";
 import DFAStatisticsMainPage from "./components/HomePage/UserHomePage/UserHomePageDFA/DFAStatisticsPage/DFAStatisticsMainPage";
+import UserHomePageProfileMainPage from "./components/HomePage/UserHomePage/UserHomePageProfile/UserHomePageProfileMainPage";
 
 var AppContainer = props => {
   return <div>{props.children}</div>;
@@ -52,10 +52,6 @@ ReactDOM.render(
             component={UserHomePageDFAContainer}
           />
           <Route
-            path="/userhomepage-groups"
-            component={UserHomePageGroupsContainer}
-          />
-          <Route
             path="/group-review/:groupName"
             component={GroupReviewMainPage}
           />
@@ -63,6 +59,10 @@ ReactDOM.render(
           <Route
             path="/dfa-statistics/:username"
             component={DFAStatisticsMainPage}
+          />
+          <Route
+            path="/userhomepage-profile"
+            component={UserHomePageProfileMainPage}
           />
         </Switch>
       </AppContainer>

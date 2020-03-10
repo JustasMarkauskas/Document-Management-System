@@ -1,9 +1,9 @@
 import React from "react";
 
-import UserHomePageGroupsNavContainer from "./UserHomePageGroupsNavContainer";
-import UserHomePageGroupContainer from "./UserHomePageGroupContainer";
+import UserHomePageProfileNavContainer from "./UserHomePageProfileNavContainer";
+import UserHomePageProfileContainer from "./UserHomePageProfileContainer";
 
-const UserHomePageGroupsComponents = ({ username }) => {
+const UserHomePageProfileMainPage = ({ username }) => {
   return (
     <div className="container">
       <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center">
@@ -11,11 +11,11 @@ const UserHomePageGroupsComponents = ({ username }) => {
       </div>
       <div className="row">
         <div className="col-lg-2 shadow-sm p-3 mb-5 bg-light rounded mr-4">
-          <UserHomePageGroupsNavContainer />
+          <UserHomePageProfileNavContainer />
         </div>
         <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
           <div className="col-12">
-            <UserHomePageGroupContainer />
+            <UserHomePageProfileContainer />
           </div>
         </div>
       </div>
@@ -23,4 +23,4 @@ const UserHomePageGroupsComponents = ({ username }) => {
   );
 };
 
-export default UserHomePageGroupsComponents;
+export default UserHomePageProfileMainPage;
