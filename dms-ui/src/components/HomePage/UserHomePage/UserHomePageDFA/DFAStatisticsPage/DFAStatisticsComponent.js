@@ -17,6 +17,14 @@ class DFAStatisticsComponent extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const currentDate = Date.now();
+    this.setState({
+      startDate: currentDate,
+      endDate: currentDate
+    });
+  }
+
   handleStatisticsModalClose = () => {
     this.setState({ showStatisticsModal: false });
   };
