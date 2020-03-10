@@ -1,7 +1,6 @@
 import React from "react";
-
+import UserHomePageDocumentForApprovalContainer from "./UserHomePageDocumentForApprovalContainer";
 import UserHomePageDFANavContainer from "./UserHomePageDFANavContainer";
-import UserHomePageDocumentFroApprovalContainer from "./UserHomePageDocumentForApprovalContainer";
 
 const UserHomePageDFAComponents = ({ username }) => {
   return (
@@ -15,7 +14,7 @@ const UserHomePageDFAComponents = ({ username }) => {
         </div>
         <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
           <div className="col-12">
-            <UserHomePageDocumentFroApprovalContainer />
+            <UserHomePageDocumentForApprovalContainer />
           </div>
         </div>
       </div>

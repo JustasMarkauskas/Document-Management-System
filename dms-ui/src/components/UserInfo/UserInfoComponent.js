@@ -78,7 +78,6 @@ class UserInfoComponent extends React.Component {
   //Funkcija uzdaryti modala be saugojimo ir atrefreshinti puslapi.
   handleCloseModal = () => {
     this.setState({ show: false });
-    this.refresh();
   };
 
   // Password change modalo cancel

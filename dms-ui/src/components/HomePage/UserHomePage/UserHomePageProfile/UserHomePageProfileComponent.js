@@ -1,25 +1,28 @@
 import React from "react";
+import { Modal } from "react-bootstrap";
+import PasswordChange from "../../../PasswordChange/PasswodChange";
 
 class UserHomePageProfileComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userGroups: []
+      changePasswordModal: false
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.userGroups !== prevProps.userGroups) {
-      this.setState({
-        userGroups: this.props.userGroups
-      });
-    }
-  }
+  handleShowPasswordModal = () => {
+    this.setState({ changePasswordModal: true });
+  };
+
+  handleClosePasswordModal = () => {
+    this.setState({ changePasswordModal: false });
+  };
+
   render() {
     return (
       <div className="my-2">
         <div className="row">
-          <div className="col-lg-3 col-sm-12 my-2 pr-1">
+          <div className="col-lg-6 col-sm-12 my-2 pr-1">
             <form id="profileReviewPageId">
               <div className="form-group">
                 <label htmlFor="profileUsername">Username</label>
@@ -52,22 +55,21 @@ class UserHomePageProfileComponent extends React.Component {
                 />
               </div>
               <button
-                onClick={this.props.onChangePassword}
+                onClick={this.handleShowPasswordModal}
                 type="button"
-                className="btn btn-secondary "
+                className="btn btn-primary "
               >
                 Change password
               </button>
             </form>
           </div>
-          <div className="col-lg-3 col-sm-12 my-2 px-1">
+          <div className="col-lg-6 col-sm-12 my-2 px-1">
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Groups</h5>
                 <div className="card-text scroll">
                   <ul className="list-group mb-2">
-                    {/* {userGroups} */}
-                    {this.state.userGroups.map((group, index) => {
+                    {this.props.userGroups.map((group, index) => {
                       return (
                         <div key={index}>
                           <li className="list-group-item">{group}</li>
@@ -80,6 +82,20 @@ class UserHomePageProfileComponent extends React.Component {
             </div>
           </div>
         </div>
+        <Modal
+          show={this.state.changePasswordModal}
+          onHide={this.handleClosePasswordModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Change password</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <PasswordChange
+              onCloseModal={this.handleClosePasswordModal}
+              username={this.props.username}
+            />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
