@@ -10,7 +10,6 @@ import PasswordChangeComponent from "../../../../PasswordChange/PasswodChange";
 import AssignGroupsContainer from "../AssignGroupsPage/AssignGroupsContainer";
 import serverUrl from "../../../../URL/ServerUrl";
 
-// Kolkas neveikia, issiaiskinti kodel...
 const schema = yup.object({
   firstName: yup
     .string()
@@ -44,10 +43,7 @@ const handleSubmit = values => {
     url: serverUrl + "api/user/update-user-info/" + values.username,
     data: values
   })
-    .then(
-      // console.log(values.username)
-      window.location.reload()
-    )
+    .then(console.log(values.username), window.location.reload())
     .catch(error => {
       console.log(error);
     });
@@ -90,21 +86,17 @@ class UserReviewContainer extends React.Component {
     this.getUser();
   }
 
-  //Funkcija uzdaryti modala be saugojimo ir atrefreshinti puslapi.
   handleCloseModal = () => {
     this.setState({ show: false });
   };
 
-  // Password change modalo cancel
   handlePassCloseModal = () => {
     this.setState({ show: false });
   };
-  // Password change modalo save
   handlePassSaveCloseModal = () => {
     this.setState({ show: false });
   };
 
-  //Funkcija parodyti modala
   handleShowPasswordChangeModal = () => {
     this.setState({ show: true });
   };
@@ -122,7 +114,6 @@ class UserReviewContainer extends React.Component {
     this.getUser();
   };
 
-  // situs padarom kad nusiustu i state
   handleFirstNameChange = event => {
     this.setState({ firstName: event.target.value });
   };
@@ -134,14 +125,12 @@ class UserReviewContainer extends React.Component {
   handleCommentChange = event => {
     this.setState({ comment: event.target.value });
   };
-  //
 
   onCancelClick = event => {
     event.preventDefault();
     this.props.history.push("/adminhomepage-users");
   };
 
-  // duomenu nusiuntimas i DB pagal username.
   updateUser = event => {
     event.preventDefault();
     axios
@@ -170,9 +159,9 @@ class UserReviewContainer extends React.Component {
           validationSchema={schema}
           onSubmit={handleSubmit}
           initialValues={{
-            firstName: "",
-            lastName: "",
-            comment: ""
+            firstName: "first name",
+            lastName: "last name",
+            comment: "comment"
           }}
         >
           {({
@@ -184,39 +173,33 @@ class UserReviewContainer extends React.Component {
             errors
           }) => (
             <div className="NewUserForm">
-              <Form noValidate onSubmit={handleSubmit}>
-                {/* User info */}
-
+              <Form noValidate>
                 <div className="row">
-                  <div className="d-flex  mb-2 justify-content-center  col-12">
-                    <h2>User Name:{this.state.user.username}</h2>
-                  </div>
                   <div className="row d-flex justify-content-center  col-12  m-0">
                     <div className="col-5 d-flex flex-column col-6">
                       <div>
                         <Form.Group>
-                          <label htmlFor="input">First Name</label>
+                          <Form.Control
+                            type="username"
+                            placeholder={this.state.user.username}
+                            size="lg"
+                            disabled
+                          ></Form.Control>
+                        </Form.Group>
+
+                        <Form.Group>
+                          <label htmlFor="firstName">First Name</label>
                           <Form.Control
                             type="firstname"
-                            placeholder={this.state.user.firstName}
+                            placeholder="First name"
                             defaultValue={this.state.user.firstName}
-                            // value={values.firstName}
+                            onKeyUp={this.handleFirstNameChange}
                             onChange={handleChange}
                             name="firstName"
                             id="firstName"
                             className="NewUserForm"
                             size="lg"
                             isInvalid={!!errors.firstName}
-
-                            // type="firstname"
-                            // defaultValue={this.state.user.firstName}
-                            // onChange={this.handleFirstNameChange}
-                            // name="firstName"
-                            // id="firstName"
-                            // className="NewUserForm"
-                            // placeholder="First name"
-                            // size="lg"
-                            // isInvalid={!!errors.firstName}
                           />
                           <Form.Control.Feedback
                             className="FeedBack"
@@ -226,27 +209,18 @@ class UserReviewContainer extends React.Component {
                           </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                          <label htmlFor="input">Last Name</label>
+                          <label htmlFor="lastName">Last Name</label>
                           <Form.Control
                             type="lastname"
-                            placeholder={this.state.user.lastName}
+                            placeholder="Last name"
                             defaultValue={this.state.user.lastName}
-                            //   value={values.lastName}
+                            onKeyUp={this.handleLastNameChange}
                             onChange={handleChange}
                             name="lastName"
                             id="lastName"
                             className="NewUserForm"
                             size="lg"
                             isInvalid={!!errors.lastName}
-                            // className="NewUserForm"
-                            // name="lastName"
-                            // onChange={this.handleLastNameChange}
-                            // type="lastname"
-                            // id="lastName"
-                            // defaultValue={this.state.user.lastName}
-                            // placeholder="Last name"
-                            // size="lg"
-                            // isInvalid={!!errors.lastName}
                           />
                           <Form.Control.Feedback
                             className="FeedBack"
@@ -256,32 +230,20 @@ class UserReviewContainer extends React.Component {
                           </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group>
-                          <label htmlFor="input">Comment</label>
+                          <label htmlFor="comment">Comment</label>
                           <Form.Control
                             as="textarea"
                             rows="2"
                             className="NewUserForm"
                             size="lg"
                             name="comment"
+                            onKeyUp={this.handleCommentChange}
                             onChange={handleChange}
                             type="comment"
                             id="comment"
                             defaultValue={this.state.user.comment}
-                            //  value={values.comment}
-                            placeholder={this.state.user.comment}
+                            placeholder="Comment"
                             isInvalid={!!errors.comment}
-
-                            // as="textarea"
-                            // rows="2"
-                            // className="NewUserForm col-12"
-                            // size="lg"
-                            // name="comment"
-                            // onChange={this.handleCommentChange}
-                            // type="comment"
-                            // id="comment"
-                            // defaultValue={this.state.user.comment}
-                            // placeholder="Comment"
-                            // isInvalid={!!errors.comment}
                           />
                           <Form.Control.Feedback
                             className="FeedBack"
@@ -297,8 +259,6 @@ class UserReviewContainer extends React.Component {
                         >
                           Assign to group
                         </button>
-
-                        {/* Assign to group modal begining */}
                         <Modal
                           show={this.state.showAssignToGroupsModal}
                           onHide={this.handleCloseAssignToGroupsModalAndUpdate}
@@ -316,8 +276,6 @@ class UserReviewContainer extends React.Component {
                             />
                           </Modal.Body>
                         </Modal>
-                        {/* Assign to group modal end */}
-
                         <button
                           type="button"
                           className="col-12 btn btn-primary btn-sm"
@@ -325,7 +283,6 @@ class UserReviewContainer extends React.Component {
                         >
                           Change password
                         </button>
-                        {/* Change password modal begining */}
                         <Modal
                           show={this.state.show}
                           onHide={this.handleCloseModal}
@@ -343,7 +300,6 @@ class UserReviewContainer extends React.Component {
                             />
                           </Modal.Body>
                         </Modal>
-                        {/* Change password modal end */}
                       </div>
                     </div>
                     <div className="col-6  m-0">
@@ -365,28 +321,14 @@ class UserReviewContainer extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="row d-flex flex-row justify-content-between align-items-center col-12  m-0">
-                    <div className="form-check col-4">
-                      {/* <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    ></input>
-                    <label className="form-check-label" htmlFor="defaultCheck1">
-                      Deactivate
-                    </label> */}
-                    </div>
-                  </div>
+                  {/* <div className="row d-flex flex-row justify-content-between align-items-center col-12  m-0">
+                    <div className="form-check col-4"></div>
+                  </div> */}
                 </div>
-                <div className="modal-footer d-flex shadow-sm  bg-light rounded justify-content-center align-items-center col-12">
+                <div className="d-flex justify-content-center col-12 mt-2">
                   <Button
                     disabled={!values.firstName || !values.lastName || !isValid}
-                    onClick={() => {
-                      setFieldValue("username", this.state.user.username);
-                      setFieldValue("password", "qwertyuio");
-                      handleSubmit();
-                    }}
+                    onClick={this.updateUser}
                     variant="primary"
                     className="SubmitButton mr-2 col-4"
                     type="button"
@@ -401,7 +343,6 @@ class UserReviewContainer extends React.Component {
                     Cancel
                   </Button>
                 </div>
-                {/* userinfo */}
               </Form>
             </div>
           )}
