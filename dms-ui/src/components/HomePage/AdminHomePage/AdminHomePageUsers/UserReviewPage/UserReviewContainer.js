@@ -38,22 +38,23 @@ const schema = yup.object({
 });
 
 const handleSubmit = values => {
-  axios({
-    method: "PUT",
-    url: serverUrl + "api/user/update-user-info/" + values.username,
-    data: values
-  })
-    .then(console.log(values.username), window.location.reload())
-    .catch(error => {
-      console.log(error);
-    });
+  console.log("handle submit method");
+  // axios({
+  //   method: "PUT",
+  //   url: serverUrl + "api/user/update-user-info/" + values.username,
+  //   data: values
+  // })
+  //   .then(console.log(values.username), window.location.reload())
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
 };
 
 class UserReviewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      showPasswordChangeModal: false,
       showAssignToGroupsModal: false,
       users: [],
       inputUsername: "",
@@ -86,19 +87,12 @@ class UserReviewContainer extends React.Component {
     this.getUser();
   }
 
-  handleCloseModal = () => {
-    this.setState({ show: false });
-  };
-
-  handlePassCloseModal = () => {
-    this.setState({ show: false });
-  };
-  handlePassSaveCloseModal = () => {
-    this.setState({ show: false });
+  handleClosePasswordChangeModal = () => {
+    this.setState({ showPasswordChangeModal: false });
   };
 
   handleShowPasswordChangeModal = () => {
-    this.setState({ show: true });
+    this.setState({ showPasswordChangeModal: true });
   };
 
   handleShowAssignToGroupsModal = () => {
@@ -172,7 +166,7 @@ class UserReviewContainer extends React.Component {
             isValid,
             errors
           }) => (
-            <div className="NewUserForm">
+            <div className="UserReviewForm">
               <Form noValidate>
                 <div className="row">
                   <div className="row d-flex justify-content-center  col-12  m-0">
@@ -193,11 +187,11 @@ class UserReviewContainer extends React.Component {
                             type="firstname"
                             placeholder="First name"
                             defaultValue={this.state.user.firstName}
-                            onKeyUp={this.handleFirstNameChange}
-                            onChange={handleChange}
+                            onChange={this.handleFirstNameChange}
+                            onKeyUp={handleChange}
                             name="firstName"
                             id="firstName"
-                            className="NewUserForm"
+                            className="UserReviewForm"
                             size="lg"
                             isInvalid={!!errors.firstName}
                           />
@@ -214,11 +208,11 @@ class UserReviewContainer extends React.Component {
                             type="lastname"
                             placeholder="Last name"
                             defaultValue={this.state.user.lastName}
-                            onKeyUp={this.handleLastNameChange}
-                            onChange={handleChange}
+                            onChange={this.handleLastNameChange}
+                            onKeyUp={handleChange}
                             name="lastName"
                             id="lastName"
-                            className="NewUserForm"
+                            className="UserReviewForm"
                             size="lg"
                             isInvalid={!!errors.lastName}
                           />
@@ -234,11 +228,11 @@ class UserReviewContainer extends React.Component {
                           <Form.Control
                             as="textarea"
                             rows="2"
-                            className="NewUserForm"
+                            className="UserReviewForm"
                             size="lg"
                             name="comment"
-                            onKeyUp={this.handleCommentChange}
-                            onChange={handleChange}
+                            onChange={this.handleCommentChange}
+                            onKeyUp={handleChange}
                             type="comment"
                             id="comment"
                             defaultValue={this.state.user.comment}
@@ -254,10 +248,10 @@ class UserReviewContainer extends React.Component {
                         </Form.Group>
                         <button
                           type="button"
-                          className="col-12 mb-1 btn btn-primary btn-sm"
+                          className="col-12 mb-1 btn btn-info btn-sm"
                           onClick={this.handleShowAssignToGroupsModal}
                         >
-                          Assign to group
+                          Assign to groups
                         </button>
                         <Modal
                           show={this.state.showAssignToGroupsModal}
@@ -278,24 +272,21 @@ class UserReviewContainer extends React.Component {
                         </Modal>
                         <button
                           type="button"
-                          className="col-12 btn btn-primary btn-sm"
+                          className="col-12 btn btn-info btn-sm"
                           onClick={this.handleShowPasswordChangeModal}
                         >
                           Change password
                         </button>
                         <Modal
-                          show={this.state.show}
-                          onHide={this.handleCloseModal}
+                          show={this.state.showPasswordChangeModal}
+                          onHide={this.handleClosePasswordChangeModal}
                         >
                           <Modal.Header closeButton>
                             <Modal.Title>Change password</Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
                             <PasswordChangeComponent
-                              onCloseModal={this.handlePassCloseModal}
-                              onCloseModalAfterSubmit={
-                                this.handlePassSaveCloseModal
-                              }
+                              onCloseModal={this.handleClosePasswordChangeModal}
                               username={this.state.user.username}
                             />
                           </Modal.Body>
@@ -321,9 +312,6 @@ class UserReviewContainer extends React.Component {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="row d-flex flex-row justify-content-between align-items-center col-12  m-0">
-                    <div className="form-check col-4"></div>
-                  </div> */}
                 </div>
                 <div className="d-flex justify-content-center col-12 mt-2">
                   <Button
