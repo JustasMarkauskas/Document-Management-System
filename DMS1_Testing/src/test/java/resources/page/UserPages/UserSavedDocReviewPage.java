@@ -23,8 +23,8 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	private WebElement inputDescription;
 
 	//dropdowns
-	//	@FindBy(xpath = "//*[@id='SavedDocReview']//select[@id='savedDocType']")
-	private Select dropdownDocType;
+	@FindBy(xpath = "//*[@id='SavedDocReview']//select[@id='savedDocType']")
+	private WebElement select;
 
 	//buttons
 	@FindBy(xpath = "//*[@id='SavedDocReview']//input[@type='file']")
@@ -81,10 +81,6 @@ public class UserSavedDocReviewPage extends AbstractPage {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
 	}
 
-	private void initializeDropdownDocType() {
-		this.dropdownDocType = new Select(driver.findElement(By.xpath("//form[@id='SavedDocReview']//select[@id='savedDocType']")));
-	}
-
 	public void enterInputTitle(String title) {
 		waitForSingleElementVisibility(inputTitle);
 		inputTitle.clear();
@@ -98,15 +94,20 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	}
 
 	public void selectDocTypeByText (String docType) {
-		initializeDropdownDocType();
 		waitForPresenseOfNestedElements(By.id("savedDocType"), By.tagName("option"));
+		Select dropdownDocType = new Select(select);
 		dropdownDocType.selectByVisibleText(docType);
 	}
 
 	public void selectDocTypeByIndex (int index) {
-		initializeDropdownDocType();
 		waitForPresenseOfNestedElements(By.id("savedDocType"), By.tagName("option"));
+		Select dropdownDocType = new Select(select);
 		dropdownDocType.selectByIndex(index);
+	}
+	
+	public WebElement getSelectedOption () {
+		Select dropdownDocType = new Select(select);
+		return dropdownDocType.getFirstSelectedOption();
 	}
 
 	public void uploadSingleFileByFilePath(String filePath) {
@@ -218,8 +219,8 @@ public class UserSavedDocReviewPage extends AbstractPage {
 		return inputDescription;
 	}
 
-	public Select getDropdownDocType() {
-		return dropdownDocType;
+	public WebElement getDropdownDocType() {
+		return select;
 	}
 
 	public WebElement getButtonChooseFiles() {

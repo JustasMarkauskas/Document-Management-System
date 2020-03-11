@@ -22,8 +22,8 @@ public class UserCreateDocumentPage extends AbstractPage {
 	private WebElement inputDescription;
 
 	//dropdowns
-	//	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//select[@id='docType']")
-	private Select dropdownDocType;
+	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//select[@id='docType']")
+	private WebElement select;
 
 	//buttons
 	@FindBy(xpath = "//*[@id='userCreateDocumentForm']//input[@type='file']")
@@ -67,10 +67,6 @@ public class UserCreateDocumentPage extends AbstractPage {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.invisibilityOf(element));
 	}
 
-	private void initializeDropdownDocType() {
-		this.dropdownDocType = new Select(driver.findElement(By.xpath("//*[@id='userCreateDocumentForm']//select[@id='docType']")));
-	}
-
 	public void enterInputTitle(String title) {
 		waitForSingleElementVisibility(inputTitle);
 		inputTitle.sendKeys(title);
@@ -82,14 +78,14 @@ public class UserCreateDocumentPage extends AbstractPage {
 	}
 
 	public void selectDocTypeByText (String docType) {
-		initializeDropdownDocType();
 		waitForPresenseOfNestedElements(By.id("docType"), By.tagName("option"));
+		Select dropdownDocType = new Select(select);
 		dropdownDocType.selectByVisibleText(docType);
 	}
 
 	public void selectDocTypeByIndex (int index) {
-		initializeDropdownDocType();
 		waitForPresenseOfNestedElements(By.id("docType"), By.tagName("option"));
+		Select dropdownDocType = new Select(select);
 		dropdownDocType.selectByIndex(index);
 	}
 
@@ -172,8 +168,8 @@ public class UserCreateDocumentPage extends AbstractPage {
 		return inputDescription;
 	}
 
-	public Select getDropdownDocType() {
-		return dropdownDocType;
+	public WebElement getDropdownDocType() {
+		return select;
 	}
 
 	public WebElement getButtonChooseFiles() {
