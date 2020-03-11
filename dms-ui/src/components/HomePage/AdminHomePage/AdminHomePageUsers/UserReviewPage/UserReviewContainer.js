@@ -7,8 +7,8 @@ import { Modal } from "react-bootstrap";
 import * as yup from "yup";
 import axios from "axios";
 import PasswordChangeComponent from "../../../../PasswordChange/PasswodChange";
-import AssignGroupsContainer from "../AssignGroupsPage/AssignGroupsContainer";
 import serverUrl from "../../../../URL/ServerUrl";
+import AssignGroupsContainer from "./AssignGroupsPage/AssignGroupsContainer";
 
 const schema = yup.object({
   firstName: yup
@@ -39,15 +39,6 @@ const schema = yup.object({
 
 const handleSubmit = values => {
   console.log("handle submit method");
-  // axios({
-  //   method: "PUT",
-  //   url: serverUrl + "api/user/update-user-info/" + values.username,
-  //   data: values
-  // })
-  //   .then(console.log(values.username), window.location.reload())
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
 };
 
 class UserReviewContainer extends React.Component {

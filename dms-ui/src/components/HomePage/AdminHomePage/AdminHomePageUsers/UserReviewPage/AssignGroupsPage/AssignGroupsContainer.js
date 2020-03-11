@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import serverUrl from "../../../../URL/ServerUrl";
+import serverUrl from "../../../../../URL/ServerUrl";
 
 class AssignGroupsContainer extends React.Component {
   constructor(props) {

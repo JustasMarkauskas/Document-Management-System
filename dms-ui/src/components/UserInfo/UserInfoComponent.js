@@ -7,8 +7,8 @@ import { Modal } from "react-bootstrap";
 import * as yup from "yup";
 import axios from "axios";
 import PasswordChangeComponent from "../PasswordChange/PasswodChange";
-import AssignGroupsContainer from "../HomePage/AdminHomePage/AdminHomePageUsers/AssignGroupsPage/AssignGroupsContainer";
 import serverUrl from "../URL/ServerUrl";
+import AssignGroupsContainer from "../HomePage/AdminHomePage/AdminHomePageUsers/UserReviewPage/AssignGroupsPage/AssignGroupsContainer";
 
 // Kolkas neveikia, issiaiskinti kodel...
 const schema = yup.object({
