@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
@@ -24,22 +23,16 @@ const schema = yup.object().shape({
 });
 
 const handleSubmit = values => {
-  axios({
-    method: "POST",
-    url: serverUrl + "api/group/",
-    data: values
-  })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  console.log("handle submit");
 };
 
 class NewGroupFormComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      groupName: "",
+      comment: ""
+    };
     this.innerRef = React.createRef();
   }
   componentDidMount() {
@@ -47,6 +40,27 @@ class NewGroupFormComponent extends React.Component {
       this.innerRef.current.focus();
     }, 1);
   }
+
+  handleGroupNameChange = event => {
+    this.setState({ groupName: event.target.value });
+  };
+  handleCommentChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
+  submitGroup = event => {
+    event.preventDefault();
+    axios
+      .post(serverUrl + "api/group/", {
+        id: this.state.groupName,
+        comment: this.state.comment
+      })
+      .then(this.props.onCloseModalAfterSubmit)
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <Formik
@@ -57,9 +71,9 @@ class NewGroupFormComponent extends React.Component {
           comment: ""
         }}
       >
-        {({ handleSubmit, handleChange, values, isValid, errors }) => (
+        {({ handleChange, values, isValid, errors }) => (
           <div className="NewGroupForm" id="adminCreateGroupForm">
-            <Form noValidate onSubmit={handleSubmit}>
+            <Form noValidate>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}
@@ -68,8 +82,9 @@ class NewGroupFormComponent extends React.Component {
                   type="text"
                   id="id"
                   name="id"
-                  value={values.id}
-                  onChange={handleChange}
+                  defaultValue={this.state.groupName}
+                  onChange={this.handleGroupNameChange}
+                  onKeyUp={handleChange}
                   placeholder="Group name"
                   isInvalid={!!errors.id}
                 />
@@ -85,10 +100,11 @@ class NewGroupFormComponent extends React.Component {
                   className="NewGroupForm"
                   size="lg"
                   name="comment"
-                  onChange={handleChange}
+                  onChange={this.handleCommentChange}
+                  onKeyUp={handleChange}
                   type="comment"
                   id="comment"
-                  value={values.comment}
+                  defaultValue={this.state.comment}
                   placeholder="Comment"
                   isInvalid={!!errors.comment}
                 />
@@ -99,10 +115,10 @@ class NewGroupFormComponent extends React.Component {
 
               <Button
                 disabled={!values.id || !isValid}
-                onClick={this.props.onCloseModalAfterSubmit}
+                onClick={this.submitGroup}
                 variant="primary"
                 className="SubmitButton mr-2"
-                type="submit"
+                type="button"
               >
                 Submit
               </Button>
@@ -117,4 +133,4 @@ class NewGroupFormComponent extends React.Component {
   }
 }
 
-export default withRouter(NewGroupFormComponent);
+export default NewGroupFormComponent;

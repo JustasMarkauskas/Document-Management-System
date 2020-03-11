@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
@@ -54,20 +53,19 @@ const schema = yup.object().shape({
 });
 
 const handleSubmit = values => {
-  axios({
-    method: "POST",
-    url: serverUrl + "api/user",
-    data: values
-  })
-    .then(window.location.reload())
-    .catch(error => {
-      console.log(error);
-    });
+  console.log("handle submit");
 };
 
 class NewUserFormComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      comment: ""
+    };
     this.innerRef = React.createRef();
   }
   componentDidMount() {
@@ -75,6 +73,42 @@ class NewUserFormComponent extends React.Component {
       this.innerRef.current.focus();
     }, 1);
   }
+
+  handleUsernameChange = event => {
+    this.setState({ username: event.target.value });
+  };
+  handleFirstNameChange = event => {
+    this.setState({ firstName: event.target.value });
+  };
+
+  handleLastNameChange = event => {
+    this.setState({ lastName: event.target.value });
+  };
+
+  handlePasswordChange = event => {
+    this.setState({ password: event.target.value });
+  };
+
+  handleCommentChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
+  submitUser = event => {
+    event.preventDefault();
+    axios
+      .post(serverUrl + "api/user", {
+        username: this.state.username,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        password: this.state.password,
+        comment: this.state.comment
+      })
+      .then(this.props.onCloseModalAfterSubmit)
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <Formik
@@ -89,16 +123,9 @@ class NewUserFormComponent extends React.Component {
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
-        {({
-          handleSubmit,
-          handleChange,
-          values,
-          isValid,
-          errors,
-          handleBlur
-        }) => (
+        {({ handleChange, values, isValid, errors, handleBlur }) => (
           <div className="NewUserForm" id="adminCreateUserForm">
-            <Form noValidate onSubmit={handleSubmit}>
+            <Form noValidate>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}
@@ -107,8 +134,9 @@ class NewUserFormComponent extends React.Component {
                   type="text"
                   id="username"
                   name="username"
-                  value={values.username}
-                  onChange={handleChange}
+                  defaultValue={this.state.username}
+                  onChange={this.handleUsernameChange}
+                  onKeyUp={handleChange}
                   onBlur={handleBlur}
                   placeholder="Username"
                   isInvalid={!!errors.username}
@@ -122,8 +150,9 @@ class NewUserFormComponent extends React.Component {
                 <Form.Control
                   type="firstname"
                   placeholder="First name"
-                  value={values.firstName}
-                  onChange={handleChange}
+                  defaultValue={this.state.firstName}
+                  onChange={this.handleFirstNameChange}
+                  onKeyUp={handleChange}
                   name="firstName"
                   id="firstName"
                   className="NewUserForm"
@@ -139,8 +168,9 @@ class NewUserFormComponent extends React.Component {
                 <Form.Control
                   type="lastname"
                   placeholder="Last name"
-                  value={values.lastName}
-                  onChange={handleChange}
+                  defaultValue={this.state.lastName}
+                  onChange={this.handleLastNameChange}
+                  onKeyUp={handleChange}
                   name="lastName"
                   id="lastName"
                   className="NewUserForm"
@@ -159,8 +189,8 @@ class NewUserFormComponent extends React.Component {
                   type="password"
                   name="password"
                   id="password"
-                  value={values.password}
-                  onChange={handleChange}
+                  defaultValue=""
+                  onKeyUp={handleChange}
                   placeholder="Password"
                   isInvalid={!!errors.password}
                 />
@@ -176,8 +206,9 @@ class NewUserFormComponent extends React.Component {
                   name="confirmPassword"
                   type="password"
                   id="confirmPassword"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
+                  defaultValue={this.state.password}
+                  onChange={this.handlePasswordChange}
+                  onKeyUp={handleChange}
                   placeholder="Confirm password"
                   isInvalid={!!errors.confirmPassword}
                 />
@@ -193,10 +224,11 @@ class NewUserFormComponent extends React.Component {
                   className="NewUserForm"
                   size="lg"
                   name="comment"
-                  onChange={handleChange}
+                  defaultValue={this.state.comment}
+                  onChange={this.handleCommentChange}
+                  onKeyUp={handleChange}
                   type="comment"
                   id="comment"
-                  value={values.comment}
                   placeholder="Comment"
                   isInvalid={!!errors.comment}
                 />
@@ -213,10 +245,10 @@ class NewUserFormComponent extends React.Component {
                   !values.confirmPassword ||
                   !isValid
                 }
-                onClick={handleSubmit}
+                onClick={this.submitUser}
                 variant="primary"
                 className="SubmitButton mr-2"
-                type="submit"
+                type="button"
               >
                 Submit
               </Button>
@@ -231,4 +263,4 @@ class NewUserFormComponent extends React.Component {
   }
 }
 
-export default withRouter(NewUserFormComponent);
+export default NewUserFormComponent;

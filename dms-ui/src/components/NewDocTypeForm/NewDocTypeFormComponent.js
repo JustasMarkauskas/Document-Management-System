@@ -33,6 +33,13 @@ class NewDocTypeFormComponent extends React.Component {
       docType: "",
       comment: ""
     };
+    this.innerRef = React.createRef();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.innerRef.current.focus();
+    }, 1);
   }
 
   handleDocTypeChange = event => {
@@ -70,8 +77,9 @@ class NewDocTypeFormComponent extends React.Component {
             <Form noValidate>
               <Form.Group>
                 <Form.Control
+                  ref={this.innerRef}
                   size="lg"
-                  type="id"
+                  type="text"
                   id="id"
                   name="id"
                   defaultValue={this.state.docType}

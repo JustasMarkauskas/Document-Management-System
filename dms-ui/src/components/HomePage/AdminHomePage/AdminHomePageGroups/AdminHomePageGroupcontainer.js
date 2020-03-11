@@ -23,18 +23,13 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
-  refresh() {
-    this.getGroups();
-    window.location.reload();
-  }
-
   handleCloseModal = () => {
     this.setState({ show: false });
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.refresh();
     this.setState({ show: false });
+    this.getGroups();
   };
 
   handleShowModal = () => {

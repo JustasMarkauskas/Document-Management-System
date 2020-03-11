@@ -21,18 +21,14 @@ class AdminHomePageUsersContainer extends React.Component {
       pageCount: 0
     };
   }
-  refresh() {
-    this.getUsers();
-    window.location.reload();
-  }
 
   handleCloseModal = () => {
     this.setState({ show: false });
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.refresh();
     this.setState({ show: false });
+    this.getUsers();
   };
 
   handleShowModal = () => {
