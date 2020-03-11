@@ -158,14 +158,7 @@ class UserReviewContainer extends React.Component {
             comment: "comment"
           }}
         >
-          {({
-            handleSubmit,
-            handleChange,
-            setFieldValue,
-            values,
-            isValid,
-            errors
-          }) => (
+          {({ handleChange, values, isValid, errors }) => (
             <div className="UserReviewForm">
               <Form noValidate>
                 <div className="row">

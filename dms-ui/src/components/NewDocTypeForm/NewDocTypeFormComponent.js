@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
@@ -24,29 +23,38 @@ const schema = yup.object().shape({
 });
 
 const handleSubmit = values => {
-  axios({
-    method: "POST",
-    url: serverUrl + "api/doctype/",
-    data: values
-  })
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+  console.log("handle submit");
 };
 
 class NewDocTypeFormComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.innerRef = React.createRef();
+    this.state = {
+      docType: "",
+      comment: ""
+    };
   }
-  componentDidMount() {
-    setTimeout(() => {
-      this.innerRef.current.focus();
-    }, 1);
-  }
+
+  handleDocTypeChange = event => {
+    this.setState({ docType: event.target.value });
+  };
+  handleCommentChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
+  submitDocType = event => {
+    event.preventDefault();
+    axios
+      .post(serverUrl + "api/doctype/", {
+        id: this.state.docType,
+        comment: this.state.comment
+      })
+      .then(this.props.onCloseModalAfterSubmit)
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <Formik
@@ -57,18 +65,18 @@ class NewDocTypeFormComponent extends React.Component {
           comment: ""
         }}
       >
-        {({ handleSubmit, handleChange, values, isValid, errors }) => (
+        {({ handleChange, values, isValid, errors }) => (
           <div id="adminCreateDocTypeForm">
-            <Form noValidate onSubmit={handleSubmit}>
+            <Form noValidate>
               <Form.Group>
                 <Form.Control
-                  ref={this.innerRef}
                   size="lg"
-                  type="text"
+                  type="id"
                   id="id"
                   name="id"
-                  value={values.id}
-                  onChange={handleChange}
+                  defaultValue={this.state.docType}
+                  onChange={this.handleDocTypeChange}
+                  onKeyUp={handleChange}
                   placeholder="Document type name"
                   isInvalid={!!errors.id}
                 />
@@ -83,10 +91,11 @@ class NewDocTypeFormComponent extends React.Component {
                   rows="2"
                   size="lg"
                   name="comment"
-                  onChange={handleChange}
+                  onChange={this.handleCommentChange}
+                  onKeyUp={handleChange}
                   type="comment"
                   id="comment"
-                  value={values.comment}
+                  defaultValue={this.state.comment}
                   placeholder="Comment"
                   isInvalid={!!errors.comment}
                 />
@@ -97,10 +106,10 @@ class NewDocTypeFormComponent extends React.Component {
 
               <Button
                 disabled={!values.id || !isValid}
-                onClick={this.props.onCloseModalAfterSubmit}
+                onClick={this.submitDocType}
                 variant="primary"
                 className="SubmitButton mr-2"
-                type="submit"
+                type="button"
               >
                 Submit
               </Button>
@@ -115,4 +124,4 @@ class NewDocTypeFormComponent extends React.Component {
   }
 }
 
-export default withRouter(NewDocTypeFormComponent);
+export default NewDocTypeFormComponent;

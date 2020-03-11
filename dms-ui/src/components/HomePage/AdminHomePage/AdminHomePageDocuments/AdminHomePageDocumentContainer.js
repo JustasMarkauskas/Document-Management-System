@@ -22,18 +22,13 @@ class AdminHomePageDocumentContainer extends React.Component {
     };
   }
 
-  refresh() {
-    this.getDocuments();
-    window.location.reload();
-  }
-
   handleCloseModal = () => {
     this.setState({ show: false });
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.refresh();
     this.setState({ show: false });
+    this.getDocuments();
   };
 
   handleShowModal = () => {
@@ -76,11 +71,6 @@ class AdminHomePageDocumentContainer extends React.Component {
     );
 
     this.setState({ elements: elements });
-  };
-
-  handleActionClick = event => {
-    event.preventDefault();
-    this.props.history.push("/document-info"); //navigacija teisinga padaryti
   };
 
   handleSearchChange = event => {
@@ -138,7 +128,6 @@ class AdminHomePageDocumentContainer extends React.Component {
         rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         documentName={document.id}
         comment={document.comment}
-        handleActionClick={this.handleActionClick}
         updateDocTypes={this.getDocuments}
       />
     ));
