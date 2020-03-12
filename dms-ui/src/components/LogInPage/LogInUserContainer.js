@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import LogInUserComponent from "./LogInUserComponents";
-import user from "../User/User";
 import serverUrl from "../URL/ServerUrl";
 
 axios.defaults.withCredentials = true;
@@ -37,7 +36,6 @@ class LoginUserContainer extends React.Component {
         }
       })
       .then(resp => {
-        user.username = this.state.userName;
         if (resp.data.isAdmin === "true") {
           this.props.history.push("/adminhomepage-users");
         } else {

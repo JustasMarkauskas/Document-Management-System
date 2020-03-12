@@ -47,7 +47,7 @@ public class DocumentService {
 			Date endDate) {
 		DocumentCountForStatistics dcfs = new DocumentCountForStatistics();
 		dcfs.setSubmittedCount(
-				documentRepository.countByDocTypeAndStatusAndDate(docType, "SUBMITTED", startDate, endDate));
+				documentRepository.countAllSubittedByDocTypeAndDate(docType, startDate, endDate));
 		dcfs.setRejectedCount(
 				documentRepository.countByDocTypeAndStatusAndDate(docType, "REJECTED", startDate, endDate));
 		dcfs.setApprovedCount(

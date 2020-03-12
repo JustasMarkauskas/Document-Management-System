@@ -37,6 +37,13 @@ class PasswordChangeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.innerRef = React.createRef();
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.innerRef.current.focus();
+    }, 1);
   }
 
   render() {
@@ -63,6 +70,7 @@ class PasswordChangeComponent extends React.Component {
                 <div className="d-flex justify-content-center col-12">
                   <Form.Group>
                     <Form.Control
+                      ref={this.innerRef}
                       className="NewUserForm"
                       size="lg"
                       type="password"
