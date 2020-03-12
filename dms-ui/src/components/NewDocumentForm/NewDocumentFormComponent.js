@@ -7,7 +7,6 @@ import axios from "axios";
 import serverUrl from "../URL/ServerUrl";
 
 const schema = yup.object().shape({
-  //  docType: yup.string().required("Please select document type"),
   title: yup
     .string()
     .trim()
@@ -21,39 +20,6 @@ const schema = yup.object().shape({
     .max(50, "Must be 5-50 characters long")
 });
 
-const handleSubmit = values => {
-  console.log("handle submit");
-  // const formData = new FormData();
-  // formData.append("author", values.author);
-  // formData.append("title", values.title.trim());
-  // formData.append("description", values.description.trim());
-  // formData.append("docType", values.docType);
-
-  // var i;
-  // for (i = 0; i <= values.files.length; i++) {
-  //   formData.append("files", values.files[i]);
-  // }
-
-  // var url;
-  // if (values.isSaveButton === true) {
-  //   url = "save";
-  // } else {
-  //   url = "submit";
-  // }
-  // axios({
-  //   method: "POST",
-  //   url: serverUrl + "api/document/" + url,
-  //   data: formData,
-  //   headers: {
-  //     "content-type": "multipart/form-data"
-  //   }
-  // })
-  //   .then(window.location.reload())
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-};
-
 class NewDocumentFormComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -61,8 +27,7 @@ class NewDocumentFormComponent extends React.Component {
       files: [],
       docType: "",
       title: "",
-      description: "",
-      isSaveButton: false
+      description: ""
     };
     this.innerRef = React.createRef();
   }
@@ -83,6 +48,15 @@ class NewDocumentFormComponent extends React.Component {
   };
   handleFilesChange = event => {
     this.setState({ files: event.target.files });
+    if (event.target.files.length > 0) {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small d-none");
+    } else {
+      document
+        .getElementById("uploadFileInfo")
+        .setAttribute("class", "text-info small");
+    }
   };
 
   submitDocument = (event, button) => {
@@ -98,12 +72,6 @@ class NewDocumentFormComponent extends React.Component {
       formData.append("files", this.state.files[i]);
     }
 
-    var url;
-    if (this.state.isSaveButton === true) {
-      url = "save";
-    } else {
-      url = "submit";
-    }
     axios({
       method: "POST",
       url: serverUrl + "api/document/" + button,
@@ -116,42 +84,27 @@ class NewDocumentFormComponent extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    // axios
-    //   .post(serverUrl + "api/group/", {
-    //     id: this.state.groupName,
-    //     comment: this.state.comment
-    //   })
-    //   .then(this.props.onCloseModalAfterSubmit)
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
   };
 
   render() {
     return (
       <Formik
         initialValues={{
-          files: [],
-          docType: "",
           title: "",
-          description: "",
-          author: this.props.author,
-          isSaveButton: false
+          description: ""
         }}
         validationSchema={schema}
-        onSubmit={handleSubmit}
       >
         {({
           handleSubmit,
           handleChange,
-          setFieldValue,
           values,
           isValid,
           errors,
           handleBlur
         }) => (
           <div className="NewDocumentForm" id="userCreateDocumentForm">
-            <Form noValidate>
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}
@@ -178,7 +131,6 @@ class NewDocumentFormComponent extends React.Component {
                   id="docType"
                   defaultValue={this.state.docType}
                   onChange={this.handleDocTypeChange}
-                  onKeyUp={handleChange}
                 >
                   <option value="" disabled defaultValue>
                     Select document type
@@ -218,22 +170,7 @@ class NewDocumentFormComponent extends React.Component {
                   type="file"
                   multiple
                   defaultValue={this.state.files}
-                  // onChange={this.handleDescriptionChange}
-                  onKeyUp={handleChange}
-                  onChange={
-                    //event => {
-                    this.handleFilesChange
-                    // if (event.target.files.length > 0) {
-                    //   document
-                    //     .getElementById("uploadFileInfo")
-                    //     .setAttribute("class", "text-info small d-none");
-                    // } else {
-                    //   document
-                    //     .getElementById("uploadFileInfo")
-                    //     .setAttribute("class", "text-info small");
-                    // }
-                    //  }
-                  }
+                  onChange={this.handleFilesChange}
                 />
                 <div id="uploadFileInfo" className="text-info small">
                   At least one file has to be selected to Submit the form
@@ -244,13 +181,14 @@ class NewDocumentFormComponent extends React.Component {
                 <div className="row">
                   <Button
                     disabled={
-                      !values.title || !values.description || !isValid
-
-                      //   !values.files.length > 0
+                      !values.title ||
+                      !values.description ||
+                      !isValid ||
+                      !this.state.docType.length > 0 ||
+                      !this.state.files.length > 0
                     }
                     onClick={(event, button) => {
                       this.submitDocument(event, "submit");
-                      // this.props.onCloseModalAfterSubmit();
                     }}
                     variant="primary"
                     className="SubmitButton mr-2"
@@ -259,10 +197,14 @@ class NewDocumentFormComponent extends React.Component {
                     Submit
                   </Button>
                   <Button
-                    disabled={!values.title || !values.description || !isValid}
+                    disabled={
+                      !values.title ||
+                      !values.description ||
+                      !this.state.docType.length > 0 ||
+                      !isValid
+                    }
                     onClick={(event, button) => {
                       this.submitDocument(event, "save");
-                      // this.props.onCloseModalAfterSubmit();
                     }}
                     variant="primary"
                     className="SubmitButton mr-2"

@@ -52,10 +52,6 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Please make sure your passwords match")
 });
 
-const handleSubmit = values => {
-  console.log("handle submit");
-};
-
 class NewUserFormComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -121,11 +117,17 @@ class NewUserFormComponent extends React.Component {
           confirmPassword: ""
         }}
         validationSchema={schema}
-        onSubmit={handleSubmit}
       >
-        {({ handleChange, values, isValid, errors, handleBlur }) => (
+        {({
+          handleSubmit,
+          handleChange,
+          values,
+          isValid,
+          errors,
+          handleBlur
+        }) => (
           <div className="NewUserForm" id="adminCreateUserForm">
-            <Form noValidate>
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}

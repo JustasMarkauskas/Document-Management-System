@@ -22,10 +22,6 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
-  console.log("handle submit");
-};
-
 class NewDocTypeFormComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -66,15 +62,14 @@ class NewDocTypeFormComponent extends React.Component {
     return (
       <Formik
         validationSchema={schema}
-        onSubmit={handleSubmit}
         initialValues={{
           id: "",
           comment: ""
         }}
       >
-        {({ handleChange, values, isValid, errors }) => (
+        {({ handleSubmit, handleChange, values, isValid, errors }) => (
           <div id="adminCreateDocTypeForm">
-            <Form noValidate>
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}

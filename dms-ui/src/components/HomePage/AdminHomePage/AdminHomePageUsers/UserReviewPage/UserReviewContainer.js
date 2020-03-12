@@ -37,10 +37,6 @@ const schema = yup.object({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
-  console.log("handle submit method");
-};
-
 class UserReviewContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -142,16 +138,15 @@ class UserReviewContainer extends React.Component {
       <div className="container">
         <Formik
           validationSchema={schema}
-          onSubmit={handleSubmit}
           initialValues={{
             firstName: "first name",
             lastName: "last name",
             comment: "comment"
           }}
         >
-          {({ handleChange, values, isValid, errors }) => (
+          {({ handleSubmit, handleChange, values, isValid, errors }) => (
             <div className="UserReviewForm">
-              <Form noValidate>
+              <Form noValidate onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="row d-flex justify-content-center  col-12  m-0">
                     <div className="col-5 d-flex flex-column col-6">

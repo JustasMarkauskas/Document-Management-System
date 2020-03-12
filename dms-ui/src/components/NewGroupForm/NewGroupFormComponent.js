@@ -22,10 +22,6 @@ const schema = yup.object().shape({
     .max(50, "Must be 50 characters or less")
 });
 
-const handleSubmit = values => {
-  console.log("handle submit");
-};
-
 class NewGroupFormComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -65,15 +61,14 @@ class NewGroupFormComponent extends React.Component {
     return (
       <Formik
         validationSchema={schema}
-        onSubmit={handleSubmit}
         initialValues={{
           id: "",
           comment: ""
         }}
       >
-        {({ handleChange, values, isValid, errors }) => (
+        {({ handleSubmit, handleChange, values, isValid, errors }) => (
           <div className="NewGroupForm" id="adminCreateGroupForm">
-            <Form noValidate>
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}
