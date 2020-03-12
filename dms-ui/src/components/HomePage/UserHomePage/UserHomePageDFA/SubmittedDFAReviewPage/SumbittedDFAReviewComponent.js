@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import SubmittedDFAReviewFiles from "./SumbittedDFAReviewFiles";
 import serverUrl from "../../../../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 class SubmittedDFAReviewComponent extends React.Component {
   constructor(props) {
@@ -79,6 +80,34 @@ class SubmittedDFAReviewComponent extends React.Component {
   closeModal = this.props.onHide;
   updateDocuments = this.props.updateDocuments;
 
+  successRejectNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.props.id + " rejected successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
+  successApproveNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.props.id + " approved successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   onApproveClick = event => {
     event.preventDefault();
     axios
@@ -89,6 +118,7 @@ class SubmittedDFAReviewComponent extends React.Component {
       .then(() => {
         this.closeModal();
         this.updateDocuments();
+        this.successApproveNotification();
       })
       .catch(error => {
         console.log(error);
@@ -106,6 +136,7 @@ class SubmittedDFAReviewComponent extends React.Component {
       .then(() => {
         this.closeModal();
         this.updateDocuments();
+        this.successRejectNotification();
       })
       .catch(error => {
         console.log(error);

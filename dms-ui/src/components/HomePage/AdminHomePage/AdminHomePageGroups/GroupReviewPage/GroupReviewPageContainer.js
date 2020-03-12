@@ -3,6 +3,7 @@ import axios from "axios";
 import GroupReviewPageComponent from "./GroupReviewPageComponent";
 import { withRouter } from "react-router-dom";
 import serverUrl from "../../../../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 class GroupReviewPageContainer extends React.Component {
   constructor(props) {
@@ -49,6 +50,20 @@ class GroupReviewPageContainer extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
+  successGroupUpdateNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.state.group.id + " comment updated successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   onSaveClick = event => {
     event.preventDefault();
     axios
@@ -58,6 +73,7 @@ class GroupReviewPageContainer extends React.Component {
       })
       .then(() => {
         this.props.history.push("/adminhomepage-groups");
+        this.successGroupUpdateNotification();
       })
       .catch(error => {
         console.log(error);

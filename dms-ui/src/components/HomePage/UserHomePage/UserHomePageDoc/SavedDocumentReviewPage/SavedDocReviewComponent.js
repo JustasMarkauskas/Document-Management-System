@@ -1,6 +1,7 @@
 import React from "react";
 import axios, { put } from "axios";
 import serverUrl from "../../../../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 class SavedDocReviewComponent extends React.Component {
   constructor(props) {
@@ -148,11 +149,40 @@ class SavedDocReviewComponent extends React.Component {
   closeModal = this.props.onHide;
   updateDocuments = this.props.updateDocuments;
 
+  successSaveNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.state.title + " saved successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
+  successSubmitNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.state.title + " submitted successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   onSaveClick = event => {
     event.preventDefault();
     this.fileSaveUpload(this.state.files).then(() => {
       this.closeModal();
       this.updateDocuments();
+      this.successSaveNotification();
     });
   };
 
@@ -162,6 +192,7 @@ class SavedDocReviewComponent extends React.Component {
     this.fileSubmitUpload(this.state.files).then(() => {
       this.closeModal();
       this.updateDocuments();
+      this.successSubmitNotification();
     });
   };
 

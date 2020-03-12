@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,17 +62,17 @@ public class GroupController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create group", notes = "Creates group with data")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveGroup(@ApiParam(required = true) @Valid @RequestBody final NewGroup newGroup) {
+	public  ResponseEntity<String> saveGroup(@ApiParam(required = true) @Valid @RequestBody final NewGroup newGroup) {
 
 		if (groupService.findByGroupName(newGroup.getId()) == null) {
-			groupService.saveGroup(newGroup);
-
 			LOGGER.info("Action by {}. Created group: {}",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newGroup.getId());
+			groupService.saveGroup(newGroup);
+			return new ResponseEntity<String>("Saved succesfully", HttpStatus.CREATED);
 		} else {
 			LOGGER.warn("Action by {}. Group {} is not created",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newGroup.getId());
+			return new ResponseEntity<String>("Failed to create group", HttpStatus.CONFLICT);
 		}
 	}
 

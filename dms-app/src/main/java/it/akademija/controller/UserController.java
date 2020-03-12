@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -89,30 +90,34 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create user", notes = "After creation user is not assigned to any Group")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveUser(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
+	public ResponseEntity<String>  saveUser(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
 
 		if (userService.findByUsername(newUser.getUsername()) == null) {
-			userService.saveUser(newUser);
 			LOGGER.info("Action by {}. Created user: {}",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+			userService.saveUser(newUser);
+			return new ResponseEntity<String>("Saved succesfully", HttpStatus.CREATED);
 		} else {
 			LOGGER.warn("Action by {}. User {} is not created",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+			return new ResponseEntity<String>("Failed to create user", HttpStatus.CONFLICT);
+
 		}
+
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/admin")
 	@ApiOperation(value = "Create admin")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveAdmin(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
+	public ResponseEntity<String> saveAdmin(@ApiParam(required = true) @Valid @RequestBody final NewUser newUser) {
 		if (userService.findByUsername(newUser.getUsername()) == null) {
-			userService.saveAdmin(newUser);
 			LOGGER.info("Action by {}. Created admin: {}",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+			userService.saveAdmin(newUser);
+			return new ResponseEntity<String>("Saved succesfully", HttpStatus.CREATED);
 		} else {
 			LOGGER.warn("Action by {}. Admin {} is not created",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newUser.getUsername());
+			return new ResponseEntity<String>("Failed to create admin", HttpStatus.CONFLICT);
 		}
 	}
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import DocumentTypeReviewContainer from "./DocumentTypeReviewPage/DocumentTypeReviewContainer";
+import { store } from "react-notifications-component";
 
 class AdminHomePageDocumentComponent extends React.Component {
   constructor(props) {
@@ -10,6 +11,20 @@ class AdminHomePageDocumentComponent extends React.Component {
     };
   }
 
+  successDocTypeUpdateNotification = name =>
+    store.addNotification({
+      title: "Success!",
+      message: name + " comment updated successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleShowDocTypeModal = () => {
     this.setState({ docTypeModal: true });
   };
@@ -18,9 +33,10 @@ class AdminHomePageDocumentComponent extends React.Component {
     this.setState({ docTypeModal: false });
   };
 
-  handleCloseAndUpdateDocTypeModal = () => {
+  handleCloseAndUpdateDocTypeModal = name => {
     this.setState({ docTypeModal: false });
     this.props.updateDocTypes();
+    this.successDocTypeUpdateNotification(name);
   };
 
   render() {
@@ -49,7 +65,9 @@ class AdminHomePageDocumentComponent extends React.Component {
               onHide={this.handleCloseDocTypeModal}
               comment={this.props.comment}
               docType={this.props.documentName}
-              onCloseAndUpdate={this.handleCloseAndUpdateDocTypeModal}
+              onCloseModalAfterSubmit={name =>
+                this.handleCloseAndUpdateDocTypeModal(name)
+              }
             />
           </Modal.Body>
         </Modal>

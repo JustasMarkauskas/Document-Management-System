@@ -6,6 +6,7 @@ import AdminHomePageGroupComponent from "./AdminHomePageGroupComponent";
 import NewGroupFormComponent from "../../../NewGroupForm/NewGroupFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
+import { store } from "react-notifications-component";
 
 class AdminHomePageGroupContainer extends React.Component {
   constructor(props) {
@@ -23,6 +24,20 @@ class AdminHomePageGroupContainer extends React.Component {
     };
   }
 
+  successGroupNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: "Group created successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleCloseModal = () => {
     this.setState({ show: false });
   };
@@ -30,6 +45,7 @@ class AdminHomePageGroupContainer extends React.Component {
   handleCloseModalAfterSubmit = () => {
     this.setState({ show: false });
     this.getGroups();
+    this.successGroupNotification();
   };
 
   handleShowModal = () => {
@@ -92,7 +108,6 @@ class AdminHomePageGroupContainer extends React.Component {
       axios
         .get(serverUrl + "api/group/starting-with/" + this.state.groupName)
         .then(response => {
-          //   if (response.data.length > 0) {
           this.setState(
             {
               groups: response.data,
@@ -103,10 +118,6 @@ class AdminHomePageGroupContainer extends React.Component {
               this.setElementsForCurrentPage();
             }
           );
-          // } else {
-
-          //   this.getGroups();
-          // }
         })
         .catch(error => {
           console.log(error);

@@ -9,6 +9,7 @@ import axios from "axios";
 import PasswordChangeComponent from "../../../../PasswordChange/PasswodChange";
 import serverUrl from "../../../../URL/ServerUrl";
 import AssignGroupsContainer from "./AssignGroupsPage/AssignGroupsContainer";
+import { store } from "react-notifications-component";
 
 const schema = yup.object({
   firstName: yup
@@ -74,8 +75,41 @@ class UserReviewContainer extends React.Component {
     this.getUser();
   }
 
+  successUserUpdateNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: this.state.user.username + " information updated successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
+  successPasswordChangeNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: "Password changed successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleClosePasswordChangeModal = () => {
     this.setState({ showPasswordChangeModal: false });
+  };
+
+  handleClosePasswordChangeModalAfterSubmit = () => {
+    this.setState({ showPasswordChangeModal: false });
+    this.successPasswordChangeNotification();
   };
 
   handleShowPasswordChangeModal = () => {
@@ -127,6 +161,7 @@ class UserReviewContainer extends React.Component {
       )
       .then(() => {
         this.props.history.push("/adminhomepage-users");
+        this.successUserUpdateNotification();
       })
       .catch(error => {
         console.log(error);
@@ -266,6 +301,9 @@ class UserReviewContainer extends React.Component {
                           <Modal.Body>
                             <PasswordChangeComponent
                               onCloseModal={this.handleClosePasswordChangeModal}
+                              onCloseModalAfterSubmit={
+                                this.handleClosePasswordChangeModalAfterSubmit
+                              }
                               username={this.state.user.username}
                             />
                           </Modal.Body>

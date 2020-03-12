@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import serverUrl from "../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 const schema = yup.object().shape({
   id: yup
@@ -45,6 +46,20 @@ class NewDocTypeFormComponent extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
+  errorDocTypeNotification = name =>
+    store.addNotification({
+      title: "Warning!",
+      message: "Document type with name " + name + " already exists",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   submitDocType = event => {
     event.preventDefault();
     axios
@@ -54,6 +69,7 @@ class NewDocTypeFormComponent extends React.Component {
       })
       .then(this.props.onCloseModalAfterSubmit)
       .catch(error => {
+        this.errorDocTypeNotification(this.state.docType);
         console.log(error);
       });
   };

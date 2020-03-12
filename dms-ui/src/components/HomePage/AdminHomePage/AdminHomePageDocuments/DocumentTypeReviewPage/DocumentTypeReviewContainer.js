@@ -11,6 +11,10 @@ class DocumentTypeReviewContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({ comment: this.props.comment });
+  }
+
   handleButtonValidation = () => {
     var formIsValid = true;
     if (this.state.comment.length > 50) {
@@ -38,7 +42,7 @@ class DocumentTypeReviewContainer extends React.Component {
       .put(serverUrl + "api/doctype/update-comment/" + this.props.docType, {
         comment: this.state.comment
       })
-      .then(this.props.onCloseAndUpdate)
+      .then(this.props.onCloseModalAfterSubmit(this.props.docType))
       .catch(error => {
         console.log(error);
       });

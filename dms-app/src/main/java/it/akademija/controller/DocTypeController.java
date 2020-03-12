@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -65,17 +66,22 @@ public class DocTypeController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create doc type", notes = "Creates doc type with data")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewDocType newDocType) {
+	public ResponseEntity<String> saveRole(@ApiParam(required = true) @Valid @RequestBody final NewDocType newDocType) {
 		
 		if(docTypeService.findByDocTypeName(newDocType.getId())== null) {
 			LOGGER.info("Action by {}. Created document type: {}",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newDocType.getId());
-		docTypeService.saveDocType(newDocType);
+			docTypeService.saveDocType(newDocType);
+
+			return new ResponseEntity<String>("Saved succesfully", HttpStatus.CREATED);
+
 		} else {
 			LOGGER.warn("Action by {}. Document type {} is not created",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newDocType.getId());
+			return new ResponseEntity<String>("Failed to create document type", HttpStatus.CONFLICT);
+
 		}
-		
+
 	}
 	
 	@RequestMapping(path = "/update-comment/{docTypeName}", method = RequestMethod.PUT)

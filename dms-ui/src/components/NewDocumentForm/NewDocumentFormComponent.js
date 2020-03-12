@@ -72,6 +72,11 @@ class NewDocumentFormComponent extends React.Component {
       formData.append("files", this.state.files[i]);
     }
 
+    var forSuccessMsg = "submitted";
+    if (button === "save") {
+      forSuccessMsg = "saved";
+    }
+
     axios({
       method: "POST",
       url: serverUrl + "api/document/" + button,
@@ -80,7 +85,7 @@ class NewDocumentFormComponent extends React.Component {
         "content-type": "multipart/form-data"
       }
     })
-      .then(this.props.onCloseModalAfterSubmit)
+      .then(this.props.onCloseModalAfterSubmit(forSuccessMsg))
       .catch(error => {
         console.log(error);
       });

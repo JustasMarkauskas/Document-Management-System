@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,18 +51,22 @@ public class RoleController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Create role", notes = "Creates role with data")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveRole(@ApiParam(required = true) @Valid @RequestBody final NewRole newRole) {
+	public ResponseEntity<String> saveRole(@ApiParam(required = true) @Valid @RequestBody final NewRole newRole) {
 
 		if (roleService.findByRoleName(newRole.getId()) == null) {
-			roleService.saveRole(newRole);
-
 			LOGGER.info("Action by {}. Created role: {}",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newRole.getId());
+			roleService.saveRole(newRole);
+
+			return new ResponseEntity<String>("Saved succesfully", HttpStatus.CREATED);
+
 		} else {
 			LOGGER.warn("Action by {}. Role {} is not created",
 					SecurityContextHolder.getContext().getAuthentication().getName(), newRole.getId());
+			return new ResponseEntity<String>("Failed to create role", HttpStatus.CONFLICT);
+
 		}
+
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)

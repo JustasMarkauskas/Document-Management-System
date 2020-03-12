@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import PasswordChange from "../../../PasswordChange/PasswodChange";
+import { store } from "react-notifications-component";
 
 class UserHomePageProfileComponent extends React.Component {
   constructor(props) {
@@ -10,12 +11,31 @@ class UserHomePageProfileComponent extends React.Component {
     };
   }
 
+  successPasswordChangeNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: "Password changed successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleShowPasswordModal = () => {
     this.setState({ changePasswordModal: true });
   };
 
   handleClosePasswordModal = () => {
     this.setState({ changePasswordModal: false });
+  };
+
+  handleClosePasswordModalAfterSubmit = () => {
+    this.setState({ changePasswordModal: false });
+    this.successPasswordChangeNotification();
   };
 
   render() {
@@ -92,6 +112,7 @@ class UserHomePageProfileComponent extends React.Component {
           <Modal.Body>
             <PasswordChange
               onCloseModal={this.handleClosePasswordModal}
+              onCloseModalAfterSubmit={this.handleClosePasswordModalAfterSubmit}
               username={this.props.username}
             />
           </Modal.Body>

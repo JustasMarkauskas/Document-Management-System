@@ -6,6 +6,7 @@ import AdminHomePageUsersComponent from "./AdminHomePageUsersComponent";
 import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
+import { store } from "react-notifications-component";
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
@@ -21,6 +22,19 @@ class AdminHomePageUsersContainer extends React.Component {
       pageCount: 0
     };
   }
+  successUserNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: "User created successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
 
   handleCloseModal = () => {
     this.setState({ show: false });
@@ -29,6 +43,7 @@ class AdminHomePageUsersContainer extends React.Component {
   handleCloseModalAfterSubmit = () => {
     this.setState({ show: false });
     this.getUsers();
+    this.successUserNotification();
   };
 
   handleShowModal = () => {

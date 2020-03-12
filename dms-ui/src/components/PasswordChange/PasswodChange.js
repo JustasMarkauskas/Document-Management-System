@@ -23,20 +23,12 @@ const schema = yup.object({
     .oneOf([yup.ref("password"), null], "Please make sure your passwords match")
 });
 
-const handleSubmit = values => {
-  axios({
-    method: "PUT",
-    url: serverUrl + "api/user/update-password/" + values.username,
-    data: values
-  }).catch(error => {
-    console.log(error);
-  });
-};
-
 class PasswordChangeComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      password: ""
+    };
     this.innerRef = React.createRef();
   }
 
@@ -46,24 +38,37 @@ class PasswordChangeComponent extends React.Component {
     }, 1);
   }
 
+  handlePasswordChange = event => {
+    this.setState({ password: event.target.value });
+  };
+
+  submitPasswordChange = event => {
+    event.preventDefault();
+    console.log("at");
+    axios
+      .put(serverUrl + "api/user/update-password/" + this.props.username, {
+        password: this.state.password,
+        username: this.props.username,
+        firstName: "test",
+        lastName: "test",
+        comment: "tests"
+      })
+      .then(this.props.onCloseModalAfterSubmit)
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <Formik
         validationSchema={schema}
-        onSubmit={handleSubmit}
         initialValues={{
           password: "",
           confirmPassword: ""
         }}
       >
-        {({
-          handleSubmit,
-          setFieldValue,
-          handleChange,
-          values,
-          isValid,
-          errors
-        }) => (
+        {({ handleSubmit, handleChange, values, isValid, errors }) => (
           <div className="NewUserForm">
             <Form noValidate onSubmit={handleSubmit}>
               <div className="row">
@@ -76,7 +81,7 @@ class PasswordChangeComponent extends React.Component {
                       type="password"
                       name="password"
                       id="password"
-                      value={values.password}
+                      defaultValue=""
                       onChange={handleChange}
                       placeholder="Password"
                       isInvalid={!!errors.password}
@@ -94,8 +99,9 @@ class PasswordChangeComponent extends React.Component {
                       name="confirmPassword"
                       type="password"
                       id="confirmPassword"
-                      value={values.confirmPassword}
-                      onChange={handleChange}
+                      defaultValue={this.state.password}
+                      onChange={this.handlePasswordChange}
+                      onKeyUp={handleChange}
                       placeholder="Confirm password"
                       isInvalid={!!errors.confirmPassword}
                     />
@@ -109,14 +115,7 @@ class PasswordChangeComponent extends React.Component {
                     disabled={
                       !values.password || !values.confirmPassword || !isValid
                     }
-                    onClick={() => {
-                      setFieldValue("username", this.props.username);
-                      setFieldValue("firstName", "empty");
-                      setFieldValue("lastName", "empty");
-                      setFieldValue("comment", "empty");
-                      handleSubmit();
-                      this.props.onCloseModal();
-                    }}
+                    onClick={this.submitPasswordChange}
                     variant="primary"
                     className="SubmitButton mr-2 col-4"
                     type="button"

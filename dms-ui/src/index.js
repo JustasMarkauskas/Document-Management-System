@@ -16,9 +16,16 @@ import GroupReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePa
 import DFAStatisticsMainPage from "./components/HomePage/UserHomePage/UserHomePageDFA/DFAStatisticsPage/DFAStatisticsMainPage";
 import UserHomePageProfileMainPage from "./components/HomePage/UserHomePage/UserHomePageProfile/UserHomePageProfileMainPage";
 import UserReviewMainPage from "./components/HomePage/AdminHomePage/AdminHomePageUsers/UserReviewPage/UserReviewMainPage";
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
 
 var AppContainer = props => {
-  return <div>{props.children}</div>;
+  return (
+    <div>
+      <ReactNotification />
+      {props.children}
+    </div>
+  );
 };
 
 ReactDOM.render(

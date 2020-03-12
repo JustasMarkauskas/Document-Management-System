@@ -6,6 +6,7 @@ import NewDocumentFormComponent from "../../../NewDocumentForm/NewDocumentFormCo
 import { Modal } from "react-bootstrap";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
+import { store } from "react-notifications-component";
 
 class UserHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -138,13 +139,28 @@ class UserHomePageDocumentContainer extends React.Component {
       });
   };
 
+  successDocumentNotification = button =>
+    store.addNotification({
+      title: "Success!",
+      message: "Document " + button + " successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleModalClose = () => {
     this.setState({ showModal: false });
   };
 
-  handleCloseModalAfterSubmit = () => {
+  handleCloseModalAfterSubmit = button => {
     this.getDocuments();
     this.setState({ showModal: false });
+    this.successDocumentNotification(button);
   };
 
   handleShowModal = () => {
@@ -293,7 +309,9 @@ class UserHomePageDocumentContainer extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <NewDocumentFormComponent
-              onCloseModalAfterSubmit={this.handleCloseModalAfterSubmit}
+              onCloseModalAfterSubmit={button =>
+                this.handleCloseModalAfterSubmit(button)
+              }
               onHide={this.handleModalClose}
               author={this.state.username}
               userDocTypes={this.state.userDocTypes}

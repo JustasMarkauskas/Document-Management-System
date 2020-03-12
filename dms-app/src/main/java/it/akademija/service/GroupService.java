@@ -81,11 +81,12 @@ public class GroupService {
 	}
 
 	@Transactional
-	public void saveGroup(NewGroup newGroup) {
+	public Group saveGroup(NewGroup newGroup) {
 		Group group = new Group();
 		group.setId(newGroup.getId());
 		group.setComment(newGroup.getComment());
-		groupRepository.save(group);
+		Group saved = groupRepository.save(group);
+		return saved;
 	}
 	
 	@Transactional

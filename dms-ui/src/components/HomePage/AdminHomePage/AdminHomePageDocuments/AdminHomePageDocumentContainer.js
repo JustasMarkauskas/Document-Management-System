@@ -6,6 +6,7 @@ import AdminHomePageDocumentComponent from "./AdminHomePageDocumentComponent";
 import NewDocTypeFormComponent from "../../../NewDocTypeForm/NewDocTypeFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
+import { store } from "react-notifications-component";
 
 class AdminHomePageDocumentContainer extends React.Component {
   constructor(props) {
@@ -22,6 +23,20 @@ class AdminHomePageDocumentContainer extends React.Component {
     };
   }
 
+  successDocTypeNotification = () =>
+    store.addNotification({
+      title: "Success!",
+      message: "Document type created successfully",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   handleCloseModal = () => {
     this.setState({ show: false });
   };
@@ -29,6 +44,7 @@ class AdminHomePageDocumentContainer extends React.Component {
   handleCloseModalAfterSubmit = () => {
     this.setState({ show: false });
     this.getDocuments();
+    this.successDocTypeNotification();
   };
 
   handleShowModal = () => {

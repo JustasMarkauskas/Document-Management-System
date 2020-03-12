@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import serverUrl from "../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 const schema = yup.object().shape({
   id: yup
@@ -44,15 +45,30 @@ class NewGroupFormComponent extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
+  errorGroupNotification = name =>
+    store.addNotification({
+      title: "Warning!",
+      message: "Group with name " + name + " already exists",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   submitGroup = event => {
     event.preventDefault();
     axios
-      .post(serverUrl + "api/group/", {
+      .post(serverUrl + "api/group", {
         id: this.state.groupName,
         comment: this.state.comment
       })
       .then(this.props.onCloseModalAfterSubmit)
       .catch(error => {
+        this.errorGroupNotification(this.state.groupName);
         console.log(error);
       });
   };

@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import serverUrl from "../URL/ServerUrl";
+import { store } from "react-notifications-component";
 
 const schema = yup.object().shape({
   username: yup
@@ -89,6 +90,20 @@ class NewUserFormComponent extends React.Component {
     this.setState({ comment: event.target.value });
   };
 
+  errorUserNotification = name =>
+    store.addNotification({
+      title: "Warning!",
+      message: "User with username " + name + " already exists",
+      type: "danger",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 3000
+      }
+    });
+
   submitUser = event => {
     event.preventDefault();
     axios
@@ -101,6 +116,7 @@ class NewUserFormComponent extends React.Component {
       })
       .then(this.props.onCloseModalAfterSubmit)
       .catch(error => {
+        this.errorUserNotification(this.state.username);
         console.log(error);
       });
   };
