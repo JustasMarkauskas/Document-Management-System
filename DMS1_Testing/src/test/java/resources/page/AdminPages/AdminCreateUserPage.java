@@ -103,7 +103,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	public void clickButtonSubmit() {
 		waitForClickable(getButtonSubmit());
 		buttonSubmit.submit();
-//		buttonSubmit.click();
+		buttonSubmit.click();
 	}
 	
 	public void clickButtonCancel() {

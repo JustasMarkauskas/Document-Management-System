@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>doc_invalidDescriptionLength</testDataGroup>
+		<identificator>descr_blank</identificator>
+		<documentTitle>Jack Jackson sick 02-25</documentTitle>
+		<documentType>testDocType101</documentType>
+		<description></description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+
+	
+</resources.models.DocumentData>

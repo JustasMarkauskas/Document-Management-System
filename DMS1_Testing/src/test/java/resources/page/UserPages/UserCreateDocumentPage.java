@@ -63,8 +63,9 @@ public class UserCreateDocumentPage extends AbstractPage {
 	private void waitForPresenseOfNestedElements(By parent, By childLocator) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfNestedElementsLocatedBy(parent, childLocator));
 	}
-	private void waitForInvisibility(WebElement element) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.invisibilityOf(element));
+
+	private void waitForFileUpload(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
 	}
 
 	public void enterInputTitle(String title) {
@@ -92,19 +93,18 @@ public class UserCreateDocumentPage extends AbstractPage {
 	public void uploadSingleFileByFilePath(String filePath) {
 		waitForClickable(buttonChooseFiles);
 		buttonChooseFiles.sendKeys(filePath);
-		waitForInvisibility(msgFileUpload);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
-	public void uploadSingleFileByName(String fileName) throws InterruptedException {
+	public void uploadSingleFileByName(String fileName) {
 		waitForClickable(buttonChooseFiles);
 		String filePath = "/home/justas/Desktop/testing_files/testdocspdf/" + fileName;
 		buttonChooseFiles.sendKeys(filePath);
-		//Need a proper wait for file upload
-		Thread.sleep(1000);
-		waitForInvisibility(msgFileUpload);
+//		Thread.sleep(500);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
-	public void uploadMultipleFiles() throws InterruptedException {
+	public void uploadMultipleFiles() {
 		waitForClickable(buttonChooseFiles);
 		String uploadFilePath1 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 1.pdf";
 		String uploadFilePath2 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf";
@@ -113,9 +113,8 @@ public class UserCreateDocumentPage extends AbstractPage {
 		String uploadFilePath5 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 5.pdf";
 		buttonChooseFiles.sendKeys(uploadFilePath1 + "\n " + uploadFilePath2 + "\n " 
 				+ uploadFilePath3 + "\n " + uploadFilePath4 + "\n " + uploadFilePath5);
-		//Need a proper wait for file upload
-		Thread.sleep(1000);
-		waitForInvisibility(msgFileUpload);
+//		Thread.sleep(1000);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
 

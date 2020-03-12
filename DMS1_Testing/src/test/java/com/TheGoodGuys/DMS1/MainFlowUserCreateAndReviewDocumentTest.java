@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -112,8 +114,8 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/MainFlowUserCreateAndReviewDocument/DocumentsValidSave.xml");
 	}
 
-	@Test (priority = 1, groups = { "documentCreation" } , dataProvider = "documentsValidSave", enabled = false)
-	public void testToCreateAndSaveNewDocument(Document document) throws InterruptedException {
+	@Test (priority = 1, groups = { "documentCreation" } , dataProvider = "documentsValidSave")
+	public void testToCreateAndSaveNewDocument(Document document) {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -135,6 +137,8 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		
 		createDocument.clickButtonSave();
 		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				document.getDocumentTitle()));
 		int rowNumber = userDocuments.findRowNumberByFieldValues(document.getDocumentTitle(),
 				document.getDocumentType(), "SAVED");
 		assertThat("Document was not saved", rowNumber, is(greaterThan(0)));
@@ -148,8 +152,8 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/MainFlowUserCreateAndReviewDocument/DocumentsValidSubmit.xml");
 	}
 
-	@Test (priority = 2, groups = { "documentCreation" } , dataProvider = "documentsValidSubmit", enabled = false)
-	public void testToCreateAndSubmitNewDocument(Document document) throws InterruptedException {
+	@Test (priority = 2, groups = { "documentCreation" } , dataProvider = "documentsValidSubmit")
+	public void testToCreateAndSubmitNewDocument(Document document) {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -169,6 +173,9 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		
 		createDocument.clickButtonSubmit();
 		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				document.getDocumentTitle()));
+		
 		int rowNumber = userDocuments.findRowNumberByFieldValues(document.getDocumentTitle(),
 				document.getDocumentType(), "SUBMITTED");
 		String currentDay = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
@@ -179,7 +186,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 	}
 	
 	@Test (priority = 3, groups = { "docCreateSubmitAndReview" } )
-	public void testToSubmitAndApproveNewDocument() throws InterruptedException {
+	public void testToSubmitAndApproveNewDocument() {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -195,6 +202,9 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		createDocument.enterInputDescription(description);
 		createDocument.uploadSingleFileByName(fileName);
 		createDocument.clickButtonSubmit();
+		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				title));
 		
 		int documentsRowNumber = userDocuments.findRowNumberByFieldValues(title,
 				docType, "SUBMITTED");
@@ -234,7 +244,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 	}
 	
 	@Test (priority = 4, groups = { "docCreateSubmitAndReview" } )
-	public void testToSubmitAndRejectNewDocument() throws InterruptedException {
+	public void testToSubmitAndRejectNewDocument() {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -251,6 +261,9 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		createDocument.enterInputDescription(description);
 		createDocument.uploadSingleFileByName(fileName);
 		createDocument.clickButtonSubmit();
+		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				title));
 		
 		int documentsRowNumber = userDocuments.findRowNumberByFieldValues(title,
 				docType, "SUBMITTED");
@@ -299,7 +312,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 	}
 	
 	@Test (priority = 5, groups = { "docCreateAndReview" } )
-	public void testToSaveEditAndSaveAgain() throws InterruptedException {
+	public void testToSaveEditAndSaveAgain() {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -314,6 +327,9 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		createDocument.selectDocTypeByText(docType);
 		createDocument.enterInputDescription(description);
 		createDocument.clickButtonSave();
+		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				title));
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues(title,
 				docType, "SAVED");
@@ -338,6 +354,8 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		assertThat("Type does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[5], is(equalTo("")));
 		
 		userDocuments.clickActionButtonByRowNumber(rowNumber);
+		
+		wait.until(ExpectedConditions.textToBePresentInElementValue(savedDocReview.getInputTitle(), titleReviewed));
 		assertThat("Title is not correct", savedDocReview.getInputTitle().getAttribute("value"), is(equalTo(titleReviewed)));
 		assertThat("Type is not correct", savedDocReview.getSelectedOption().getText(), is(equalTo(docTypeReviewed)));
 		assertThat("Description is not correct", savedDocReview.getInputDescription().getAttribute("value"), is(equalTo(description)));
@@ -348,7 +366,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 	}
 	
 	@Test (priority = 6, groups = { "docCreateAndReview" } )
-	public void testToSaveEditSubmitAndReview() throws InterruptedException {
+	public void testToSaveEditSubmitAndReview() {
 		userNav.clickButtonDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -364,6 +382,9 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		createDocument.selectDocTypeByText(docType);
 		createDocument.enterInputDescription(description);
 		createDocument.clickButtonSave();
+		
+		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
+				title));
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues(title,
 				docType, "SAVED");
@@ -403,6 +424,33 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		
 		submittedDocReview.clickButtonCancel();
 	
+	}
+	
+	@BeforeGroups({"docDelete"})
+	@Parameters({"apiURL"})
+	public void createTestDocs(String apiURL) throws UnirestException {
+		ManageAutotestingData.saveDocument(apiURL, "testUser101", "test document 77777", "testDocType104", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		
+	}
+	
+	@Test (priority = 7, groups = { "docDelete" } )
+	public void testToDeleteSavedDocument() {
+		userNav.clickButtonDocuments();
+		
+		String title = "test document 77777";
+		String docType = "testDocType104";
+		
+		int rowNumber = userDocuments.findRowNumberByFieldValues(title,
+				docType, "SAVED");
+		
+		userDocuments.clickActionButtonByRowNumber(rowNumber);
+		savedDocReview.clickButtonTrashDoc();
+		
+		int rowNumberSaved = userDocuments.findRowNumberByFieldValues(title, docType, "SAVED");
+		int rowNumberSubmitted = userDocuments.findRowNumberByFieldValues(title, docType, "SUBMITTED");
+		
+		assertThat("Document was saved", rowNumberSaved, is(equalTo(0)));
+		assertThat("Document was submitted", rowNumberSubmitted, is(equalTo(0)));
 	}
 
 }

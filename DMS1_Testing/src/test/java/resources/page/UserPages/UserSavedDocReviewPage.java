@@ -39,7 +39,7 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='SavedDocReview']//button[text()='Save']")
 	private WebElement buttonSave;
 	
-	@FindBy(xpath = "//form[@id='SavedDocReview']//button[i[contains(@class, 'trash-alt')]]")
+	@FindBy(xpath = "//form[@id='SavedDocReview']//button[@id='deleteDocumentId']")
 	private WebElement buttonTrashDoc;
 
 	//error messages
@@ -56,7 +56,7 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	@FindBy(xpath = "//form[@id='SavedDocReview']//a")
 	private List<WebElement> linksAttachments;
 	
-	@FindBy(xpath = "//form[@id='SavedDocReview']//button[i[@class='fas fa-trash']]")
+	@FindBy(xpath = "//form[@id='SavedDocReview']//button[contains(@id,'deleteFile')]")
 	private List<WebElement> buttonsRemoveAttachment;
 
 
@@ -79,6 +79,9 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	}
 	private void waitForMultipleElementVisibility(List<WebElement> elements) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
+	}
+	private void waitForFileUpload(WebElement element) {
+		new WebDriverWait(driver, 10).until(ExpectedConditions.attributeToBeNotEmpty(element, "value"));
 	}
 
 	public void enterInputTitle(String title) {
@@ -113,19 +116,17 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	public void uploadSingleFileByFilePath(String filePath) {
 		waitForClickable(buttonChooseFiles);
 		buttonChooseFiles.sendKeys(filePath);
-		waitForInvisibility(msgFileUpload);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
-	public void uploadSingleFileByName(String fileName) throws InterruptedException {
+	public void uploadSingleFileByName(String fileName) {
 		waitForClickable(buttonChooseFiles);
 		String filePath = "/home/justas/Desktop/testing_files/testdocspdf/" + fileName;
 		buttonChooseFiles.sendKeys(filePath);
-		//Need a proper wait for file upload
-		Thread.sleep(1000);
-		waitForInvisibility(msgFileUpload);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
-	public void uploadMultipleFiles() throws InterruptedException {
+	public void uploadMultipleFiles() {
 		waitForClickable(buttonChooseFiles);
 		String uploadFilePath1 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 1.pdf";
 		String uploadFilePath2 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf";
@@ -134,9 +135,7 @@ public class UserSavedDocReviewPage extends AbstractPage {
 		String uploadFilePath5 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 5.pdf";
 		buttonChooseFiles.sendKeys(uploadFilePath1 + "\n " + uploadFilePath2 + "\n " 
 				+ uploadFilePath3 + "\n " + uploadFilePath4 + "\n " + uploadFilePath5);
-		//Need a proper wait for file upload
-		Thread.sleep(1000);
-		waitForInvisibility(msgFileUpload);
+		waitForFileUpload(buttonChooseFiles);
 	}
 
 
@@ -174,7 +173,7 @@ public class UserSavedDocReviewPage extends AbstractPage {
 	}
 	
 	public void clickButtonRemoveAttachmentByNumber(int number) {
-		WebElement button = buttonsRemoveAttachment.get(number);
+		WebElement button = buttonsRemoveAttachment.get(number-1);
 		waitForClickable(button);
 		button.click();
 		waitForInvisibility(button);
@@ -191,6 +190,11 @@ public class UserSavedDocReviewPage extends AbstractPage {
 			button.click();
 			waitForInvisibility(button);
 		}
+	}
+	
+	public void clickButtonTrashDoc() {
+		waitForClickable(buttonTrashDoc);
+		buttonTrashDoc.click();
 	}
 	
 

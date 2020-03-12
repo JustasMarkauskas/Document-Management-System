@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>doc_invalidTitleLength</testDataGroup>
+		<identificator>title_tooShort</identificator>
+		<documentTitle>note</documentTitle>
+		<documentType>testDocType101</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>doc_invalidTitleLength</testDataGroup>
+		<identificator>title_tooLong</identificator>
+		<documentTitle>Parker new laptop request 02.20</documentTitle>
+		<documentType>testDocType102</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	
+</resources.models.DocumentData>

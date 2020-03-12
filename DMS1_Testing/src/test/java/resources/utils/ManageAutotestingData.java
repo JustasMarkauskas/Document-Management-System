@@ -23,21 +23,21 @@ public class ManageAutotestingData {
 		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
 		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
 		//		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
-		//		createUser("http://localhost:8081", "testUser101", "test", "test", "Password1", "autotesting");
+//				createUser("http://localhost:8081", "testUserUnirest", "test", "test", "Password1", "autotesting");
 		//		createGroup("http://localhost:8081", "testGroup101", "autotesting");
 		//		createGroup("http://localhost:8081", "testGroup102", "autotesting");
 		//		createDocType("http://localhost:8081", "testDocType101", "autotesting");
-//				updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "");
+		//				updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "");
 		//		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
 		//		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
-//				updateGroupUsers("http://localhost:8081", "testGroup101", "testUser101", "", "", "", "");
+		//				updateGroupUsers("http://localhost:8081", "testGroup101", "testUser101", "", "", "", "");
 		//		removeAssignedElementsFromGroup("http://localhost:8081", "testGroup101");
-//		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-//		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");
-//		deleteDocumentsByComment("http://localhost:8081", "autotesting");
-//		createDataForStatistics("http://localhost:8081");
-//		rejectDocument("http://localhost:8081", "testUser1", 1059, "test api Call");
-		
+		//		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		//		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");
+		//		deleteDocumentsByComment("http://localhost:8081", "autotesting");
+		//		createDataForStatistics("http://localhost:8081");
+		//		rejectDocument("http://localhost:8081", "testUser1", 1059, "test api Call");
+
 	}
 
 	public static void deleteGroupDataByComment(String baseUrl, String comment) throws UnirestException {
@@ -60,12 +60,12 @@ public class ManageAutotestingData {
 		.routeParam("comment", comment)
 		.asString();
 	}
-	
+
 	public static void deleteDocumentsByComment(String baseUrl, String comment) throws UnirestException {
 		String editApi = baseUrl + "/api/document/comment?description={description}";
 		HttpResponse<String> response = Unirest.delete(editApi)
-		.routeParam("description", comment)
-		.asString();
+				.routeParam("description", comment)
+				.asString();
 		System.out.println("delete documents status code: " + response.getStatus());
 	}
 
@@ -79,60 +79,71 @@ public class ManageAutotestingData {
 	public static void saveDocument(String baseUrl, String author, String title, String docType, String description, String filePath) throws UnirestException {
 		String editApi = baseUrl + "/api/document/save";
 		HttpResponse<String> response = Unirest.post(editApi)
-		.field("author", author)
-		.field("description", description)
-		.field("docType", docType)
-		.field("files", new File(filePath))
-		.field("title", title).asString();
+				.field("author", author)
+				.field("description", description)
+				.field("docType", docType)
+				.field("files", new File(filePath))
+				.field("title", title).asString();
 		System.out.println("save document status code: " + response.getStatus());
-		
+
 	}
 
 	public static void submitDocument(String baseUrl, String author, String title, String docType, String description, String filePath) throws UnirestException {
 		String editApi = baseUrl + "/api/document/submit";
 		HttpResponse<String> response = Unirest.post(editApi)
-		.field("author", author)
-		.field("description", description)
-		.field("docType", docType)
-		.field("files", new File(filePath))
-		.field("title", title).asString();
+				.field("author", author)
+				.field("description", description)
+				.field("docType", docType)
+				.field("files", new File(filePath))
+				.field("title", title).asString();
 		System.out.println("submit document status code: " + response.getStatus());
 	}
 
-	public static void createUser(String baseUrl, String username, String firstName, String lastName, String password, String comment) throws UnirestException {
+	public static void createUser(String baseUrl, String username, String firstName,
+			String lastName, String password, String comment) throws UnirestException {
+		
 		String editApi = baseUrl + "/api/user";
-		String userData = "{ \"comment\": \"" + comment + "\", " 
-				+ "\"firstName\": \"" + firstName + "\", " 
-				+ "\"lastName\": \"" + lastName + "\", " 
-				+ "\"password\": \"" + password + "\", " 
-				+ "\"username\": \"" + username + "\"}";
-		HttpResponse<JsonNode> jsonResponse = Unirest.post(editApi)
+//		String userData = "{ \"comment\": \"" + comment + "\", " 
+//				+ "\"firstName\": \"" + firstName + "\", " 
+//				+ "\"lastName\": \"" + lastName + "\", " 
+//				+ "\"password\": \"" + password + "\", " 
+//				+ "\"username\": \"" + username + "\"}";
+		
+		JSONObject user = new JSONObject();
+		user.put("comment", comment);
+		user.put("firstName", firstName);
+		user.put("lastName", lastName);
+		user.put("password", password);
+		user.put("username", username);
+		
+		HttpResponse<String> request = Unirest.post(editApi)
 				.header("content-type", "application/json")
-				.body(userData)
-				.asJson();
-		System.out.println("createUser status code: " + jsonResponse.getStatus());
+				.body(user)
+				.asString();
+//				.asJson();
+		System.out.println("createUser status code: " + request.getStatus());
 	}
 
 	public static void createGroup(String baseUrl, String groupName, String comment) throws UnirestException {
 		String editApi = baseUrl + "/api/group";
 		String groupData = "{ \"comment\": \"" + comment + "\", " 
 				+ "\"id\": \"" + groupName + "\"}";
-		HttpResponse<JsonNode> jsonResponse = Unirest.post(editApi)
+		HttpResponse<String> request = Unirest.post(editApi)
 				.header("content-type", "application/json")
 				.body(groupData)
-				.asJson();
-		System.out.println("createGroup status code: " + jsonResponse.getStatus());
+				.asString();
+		System.out.println("createGroup status code: " + request.getStatus());
 	}
 
 	public static void createDocType(String baseUrl, String docTypeName, String comment) throws UnirestException {
 		String editApi = baseUrl + "/api/doctype";
 		String docTypeData = "{ \"comment\": \"" + comment + "\", " 
 				+ "\"id\": \"" + docTypeName + "\"}";
-		HttpResponse<JsonNode> jsonResponse = Unirest.post(editApi)
+		HttpResponse<String> request = Unirest.post(editApi)
 				.header("content-type", "application/json")
 				.body(docTypeData)
-				.asJson();
-		System.out.println("createDocType status code: " + jsonResponse.getStatus());
+				.asString();
+		System.out.println("createDocType status code: " + request.getStatus());
 	}
 
 	public static void updateUserGroups(String baseUrl, String username, String group1, String group2) throws UnirestException {
@@ -215,13 +226,13 @@ public class ManageAutotestingData {
 		.routeParam("docType5", docType5)
 		.asString();
 	}
-	
+
 	public static int getLastDocumentIdByUsername(String baseUrl) throws UnirestException {
 		String editApi = baseUrl + "/api/document/testUser1";
 
 		HttpResponse<JsonNode> request = Unirest.get(editApi).asJson();
 		System.out.println("get documents by username: " + request.getStatus());
-		
+
 		JSONObject jsonObj = new JSONObject(request);
 		JSONObject body = jsonObj.getJSONObject("body");
 		JSONArray results = body.getJSONArray("array");
@@ -229,33 +240,33 @@ public class ManageAutotestingData {
 		int id = doc.getInt("id");
 		return id;
 	}
-	
+
 	public static void approveDocument(String baseUrl, String reviewer, int id, String rejectionReason) throws UnirestException {
 		String editApi = baseUrl + "/api/document/approve-document";
 		String docData = "{ \"documentReceiver\": \"" + reviewer + "\", " 
 				+ "\"id\": \"" + id + "\", " 
 				+ "\"rejectionReason\": \"" + rejectionReason + "\"}";
-		HttpResponse<JsonNode> request = Unirest.put(editApi)
+		HttpResponse<String> request = Unirest.put(editApi)
 				.header("content-type", "application/json")
 				.body(docData)
-				.asJson();
+				.asString();
 		System.out.println("approve document status code: " + request.getStatus());
 	}
-	
+
 	public static void rejectDocument(String baseUrl, String reviewer, int id, String rejectionReason) throws UnirestException {
 		String editApi = baseUrl + "/api/document/reject-document";
 		String docData = "{ \"documentReceiver\": \"" + reviewer + "\", " 
 				+ "\"id\": \"" + id + "\", " 
 				+ "\"rejectionReason\": \"" + rejectionReason + "\"}";
-		HttpResponse<JsonNode> request = Unirest.put(editApi)
+		HttpResponse<String> request = Unirest.put(editApi)
 				.header("content-type", "application/json")
 				.body(docData)
-				.asJson();
+				.asString();
 		System.out.println("reject document status code: " + request.getStatus());
 	}
-	
-	
-	
+
+
+
 	public static void createDataForStatistics(String baseUrl) throws UnirestException {
 		createGroup(baseUrl, "managerStatistics", "data for statistics");
 		createGroup(baseUrl, "userStatistics", "data for statistics");
@@ -273,43 +284,43 @@ public class ManageAutotestingData {
 		updateUserGroups(baseUrl, "manager111", "managerStatistics", "");
 		updateGroupsDocTypesForCreation(baseUrl, "userStatistics", "statisticsRequest1", "statisticsRequest2", "statisticsRequest3", "statisticsRequest4", "statisticsRequest5");
 		updateGroupsDocTypesForApproval(baseUrl, "managerStatistics", "statisticsRequest1", "statisticsRequest2", "statisticsRequest3", "statisticsRequest4", "statisticsRequest5");
-		
+
 		submitDocument(baseUrl, "userStatistics1", "test request 1", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics2", "test request 2", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics2", "test request 3", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics3", "test request 4", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 5", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 6", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 7", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics3", "test request 8", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 9", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 10", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 11", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics3", "test request 12", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 13", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 14", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics4", "test request 15", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 16", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 17", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 18", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 19", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics4", "test request 20", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 21", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics4", "test request 22", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics4", "test request 23", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
+
 		submitDocument(baseUrl, "userStatistics5", "test request 24", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics5", "test request 25", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-		
-		
-		
+
+
+
 	}
 
 

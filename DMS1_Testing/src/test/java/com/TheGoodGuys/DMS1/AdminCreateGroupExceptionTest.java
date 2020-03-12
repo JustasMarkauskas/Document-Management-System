@@ -67,7 +67,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 	
 	@DataProvider(name = "groupsInvalidLength")
 	public static Object[] testDataGroupsInvalidLength() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsInvalidLength.xml");
+		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/AdminCreateGroupExceptionScen/GroupsInvalidLength.xml");
 	}
 	
 	
@@ -85,7 +85,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 	
 	@DataProvider(name = "groupsBlankName")
 	public static Object[] testDataGroupsBlankName() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsBlankName.xml");
+		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/AdminCreateGroupExceptionScen/GroupsBlankName.xml");
 	}
 	
 	
@@ -103,7 +103,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 	
 	@DataProvider(name = "groupsInvalidCommentLength")
 	public static Object[] testDataGroupsInvalidCommentLength() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsInvalidCommentLength.xml");
+		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/AdminCreateGroupExceptionScen/GroupsInvalidCommentLength.xml");
 	}
 	
 	
@@ -121,7 +121,7 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 	
 	@DataProvider(name = "groupsInvalidChars")
 	public static Object[] testDataGroupsInvalidCharacters() throws IOException {
-		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/GroupsSpecChars.xml");
+		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/AdminCreateGroupExceptionScen/GroupsSpecChars.xml");
 	}
 	
 	
@@ -146,6 +146,15 @@ public class AdminCreateGroupExceptionTest extends AbstractTest {
 			
 		Boolean btnDisabled = createGroup.getButtonSubmit().isEnabled();
 		assertThat("Submit button is not disabled", btnDisabled, is(false));
+	}
+	
+	@Test (priority = 6, groups = { "groupCreationInvalidData" } )
+	public void testToCheckEmptyFormSubmissionRestrictionsInCreateGroup() {
+		
+		adminNav.clickButtonGroups();
+		adminGroups.clickButtonAddNewGroup();
+		
+		assertThat("Submit button is not disabled", createGroup.getButtonSubmit().isEnabled(), is(false));
 	}
 	
 	

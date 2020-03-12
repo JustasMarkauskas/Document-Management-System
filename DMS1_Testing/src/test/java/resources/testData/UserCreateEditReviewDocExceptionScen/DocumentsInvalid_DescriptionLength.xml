@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>doc_invalidDescriptionLength</testDataGroup>
+		<identificator>descr_tooShort</identificator>
+		<documentTitle>Peterson notice 01.01</documentTitle>
+		<documentType>testDocType101</documentType>
+		<description>auto</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>doc_invalidDescriptionLength</testDataGroup>
+		<identificator>descr_tooLong</identificator>
+		<documentTitle>Business trip 2020/01/31</documentTitle>
+		<documentType>testDocType102</documentType>
+		<description>autotesting autotesting autotesting autotesting aut</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+
+	
+</resources.models.DocumentData>

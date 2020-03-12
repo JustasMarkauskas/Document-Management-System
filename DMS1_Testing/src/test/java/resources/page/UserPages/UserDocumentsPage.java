@@ -152,17 +152,7 @@ public class UserDocumentsPage extends AbstractPage {
 	}
 	
 	public String[] getTextFromRowFieldsByFieldValues(String title, String docType, String status) {
-//		String[] rowFields = new String[6];
 		int rowNumber = findRowNumberByFieldValues(title, docType, status);
-//		if (rowNumber > 0) {
-//			WebElement row = getRowByRowNumber(rowNumber);
-//			rowFields[0] = row.findElement(By.xpath("./th")).getText();
-//			rowFields[1] = row.findElement(By.xpath("./td[1]")).getText();
-//			rowFields[2] = row.findElement(By.xpath("./td[2]")).getText();
-//			rowFields[3] = row.findElement(By.xpath("./td[3]")).getText();
-//			rowFields[4] = row.findElement(By.xpath("./td[4]")).getText();
-//			rowFields[5] = row.findElement(By.xpath("./td[5]")).getText();
-//		}
 		return getTextFromRowFieldsByRowNumber(rowNumber);
 	}
 	

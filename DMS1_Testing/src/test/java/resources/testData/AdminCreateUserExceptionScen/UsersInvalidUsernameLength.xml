@@ -20,14 +20,4 @@
 		<confirmPassword>0EVRgytEdk</confirmPassword>
 		<comment>autotesting</comment>
 	</User>
-	<User>
-		<testDataGroup>user_usernameLength</testDataGroup>
-		<identificator>username_blank</identificator>
-		<userName></userName>
-		<name>NatalE</name>
-		<surname>Celorio</surname>
-		<password>Ha3fMWRHvm</password>
-		<confirmPassword>Ha3fMWRHvm</confirmPassword>
-		<comment>autotesting</comment>
-	</User>
 </resources.models.UserData>

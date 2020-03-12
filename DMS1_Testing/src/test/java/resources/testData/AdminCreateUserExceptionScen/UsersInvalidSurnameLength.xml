@@ -2,16 +2,6 @@
 <resources.models.UserData>
 	<User>
 		<testDataGroup>user_surnameLength</testDataGroup>
-		<identificator>surname_blank</identificator>
-		<userName>ellen12</userName>
-		<name>Constanzo</name>
-		<surname></surname>
-		<password>gzdVUq2vxAbs</password>
-		<confirmPassword>gzdVUq2vxAbs</confirmPassword>
-		<comment>autotesting</comment>
-	</User>
-	<User>
-		<testDataGroup>user_surnameLength</testDataGroup>
 		<identificator>surname_tooLong</identificator>
 		<userName>elinolan</userName>
 		<name>Thermon-Svend-Kadar</name>

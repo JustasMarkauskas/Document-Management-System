@@ -75,11 +75,21 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 	
 	@DataProvider(name = "usersInvalidPasswordLength")
 	public static Object[] testDataUsersInvalidPasswordLength() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/UsersInvalidPasswordLength.xml");
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordLength.xml");
+	}
+	
+	
+	@Test (priority = 1, groups = { "userCreationInvalidData" } )
+	public void testToCheckEmptyFormSubmissionRestrictionsInCreateUser() {
+		
+		adminNav.clickButtonUsers();
+		adminUsers.clickButtonAddNewUser();
+		
+		assertThat("Submit button is not disabled", createUser.getButtonSubmit().isEnabled(), is(false));
 	}
 
 
-	@Test (priority = 1, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordLength")
+	@Test (priority = 2, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordLength")
 	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) {
 		
 		adminNav.clickButtonUsers();
@@ -95,11 +105,11 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "usersInvalidPasswordChars")
 	public static Object[] testDataUsersInvalidPasswordCharacters() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/UsersInvalidPasswordChars.xml");
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordChars.xml");
 	}
 
 
-	@Test (priority = 2, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordChars")
+	@Test (priority = 3, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordChars")
 	public void testToCheckPasswordSpecialCharsRestrictionsInCreateUser(User user) {
 		
 		adminNav.clickButtonUsers();

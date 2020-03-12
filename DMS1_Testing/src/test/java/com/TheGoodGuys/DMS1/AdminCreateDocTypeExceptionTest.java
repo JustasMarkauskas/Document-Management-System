@@ -78,7 +78,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsInvalidLength")
 	public static Object[] testDataDocumentsInvalidLength() throws IOException {
-		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsInvalidLength.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminCreateDocTypeExceptionScen/DocumentsInvalidLength.xml");
 	}
 
 	@Test(priority = 1, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidLength")
@@ -96,7 +96,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsBlankName")
 	public static Object[] testDataDocumentsBlankName() throws IOException {
-		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsBlankName.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminCreateDocTypeExceptionScen/DocumentsBlankName.xml");
 	}
 
 	@Test(priority = 2, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsBlankName")
@@ -115,7 +115,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@DataProvider(name = "documentsInvalidCommentLength")
 	public static Object[] testDataDocumentsInvalidCommentLength() throws IOException {
 		return FileReaderUtils
-				.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsInvalidCommentLength.xml");
+				.getDocumentTypesFromXml("src/test/java/resources/testData/AdminCreateDocTypeExceptionScen/DocumentsInvalidCommentLength.xml");
 	}
 
 	@Test(priority = 3, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidCommentLength")
@@ -133,7 +133,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsInvalidChars")
 	public static Object[] testDataDocumentsInvalidCharacters() throws IOException {
-		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsSpecChars.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminCreateDocTypeExceptionScen/DocumentsSpecChars.xml");
 	}
 
 	@Test(priority = 4, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidChars")
@@ -151,7 +151,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 
 	@DataProvider(name = "documentsDuplicate")
 	public static Object[] testDataDocumentsDuplicate() throws IOException {
-		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/DocumentsDuplicate.xml");
+		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminCreateDocTypeExceptionScen/DocumentsDuplicate.xml");
 	}
 
 	@Test(priority = 5, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsDuplicate", enabled = false)
@@ -173,6 +173,15 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 		// is(equalTo("Duplicate document type is not allowed")));
 		createDocType.clickButtonCancel();
 
+	}
+	
+	@Test(priority = 6, groups = { "docTypeCreationInvalid" } )
+	public void testToCheckEmptyFormSubmissionRestrictionsInCreateDocumentType() {
+
+		adminNav.clickButtonDocuments();
+		adminDocTypes.clickButtonAddNewDocType();
+		
+		assertThat("Submit button is not disabled", createDocType.getButtonSubmit().isEnabled(), is(false));
 	}
 
 }
