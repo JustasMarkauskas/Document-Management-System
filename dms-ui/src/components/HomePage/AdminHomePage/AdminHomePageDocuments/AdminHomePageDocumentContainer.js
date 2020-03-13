@@ -42,8 +42,7 @@ class AdminHomePageDocumentContainer extends React.Component {
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.setState({ show: false });
-    this.getDocuments();
+    this.setState({ show: false }, this.getDocuments());
     this.successDocTypeNotification();
   };
 

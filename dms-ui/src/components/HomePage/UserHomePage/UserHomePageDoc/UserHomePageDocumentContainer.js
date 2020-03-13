@@ -158,9 +158,11 @@ class UserHomePageDocumentContainer extends React.Component {
   };
 
   handleCloseModalAfterSubmit = button => {
-    this.getDocuments();
-    this.setState({ showModal: false });
-    this.successDocumentNotification(button);
+    setTimeout(() => {
+      this.getDocuments();
+      this.successDocumentNotification(button);
+      this.setState({ showModal: false });
+    }, 500);
   };
 
   handleShowModal = () => {

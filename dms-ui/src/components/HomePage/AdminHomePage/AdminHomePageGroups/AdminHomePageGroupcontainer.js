@@ -43,8 +43,7 @@ class AdminHomePageGroupContainer extends React.Component {
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.setState({ show: false });
-    this.getGroups();
+    this.setState({ show: false }, this.getGroups());
     this.successGroupNotification();
   };
 

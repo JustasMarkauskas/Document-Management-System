@@ -41,8 +41,7 @@ class AdminHomePageUsersContainer extends React.Component {
   };
 
   handleCloseModalAfterSubmit = () => {
-    this.setState({ show: false });
-    this.getUsers();
+    this.setState({ show: false }, this.getUsers());
     this.successUserNotification();
   };
 

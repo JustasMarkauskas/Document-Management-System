@@ -165,6 +165,7 @@ class SavedDocReviewComponent extends React.Component {
 
   successSubmitNotification = () =>
     store.addNotification({
+      id: "test",
       title: "Success!",
       message: this.state.title + " submitted successfully",
       type: "success",
