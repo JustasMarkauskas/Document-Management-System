@@ -99,6 +99,12 @@ class AdminHomePageGroupContainer extends React.Component {
     this.props.history.push("/group-review/" + groupName);
   };
 
+  setElementsForSearchButton = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.groups.slice(0, this.state.perPage);
+    this.setState({ elements: elements, offset: 0 });
+  };
+
   handleSearchButton = event => {
     event.preventDefault();
     if (this.state.groupName.length < 1) {
@@ -114,7 +120,7 @@ class AdminHomePageGroupContainer extends React.Component {
               pageCount: Math.ceil(response.data.length / this.state.perPage)
             },
             () => {
-              this.setElementsForCurrentPage();
+              this.setElementsForSearchButton();
             }
           );
         })
@@ -122,6 +128,13 @@ class AdminHomePageGroupContainer extends React.Component {
           console.log(error);
         });
       document.getElementById("adminGroupSearchInput").value = "";
+    }
+  };
+
+  checkIfEnter = event => {
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      this.handleSearchButton(event);
     }
   };
 
@@ -152,7 +165,7 @@ class AdminHomePageGroupContainer extends React.Component {
     const groupInfo = this.state.elements.map((group, index) => (
       <AdminHomePageGroupComponent
         key={index}
-        rowNr={index + 1}
+        rowNr={index + 1 + this.state.currentPage * this.state.perPage}
         groupName={group.id}
         groupSize={group.groupSize}
         comment={group.comment}
@@ -186,6 +199,7 @@ class AdminHomePageGroupContainer extends React.Component {
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
+              onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
               placeholder="Group name"
