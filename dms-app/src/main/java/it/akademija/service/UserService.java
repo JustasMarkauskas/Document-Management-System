@@ -118,6 +118,13 @@ public class UserService implements UserDetailsService {
 				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames()))
 				.collect(Collectors.toList());
 	}
+	
+	@Transactional(readOnly = true)
+	public List<UserForClient> getUsersForClientContaining(String userText) {
+		return userRepository.findByUsernameContainingIgnoreCase(userText).stream().map((user) -> new UserForClient(user.getFirstName(),
+				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames()))
+				.collect(Collectors.toList());
+	}
 
 	@Transactional(readOnly = true)
 	public List<String> getAllUsernames() {

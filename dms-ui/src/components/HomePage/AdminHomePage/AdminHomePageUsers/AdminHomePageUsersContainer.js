@@ -98,15 +98,41 @@ class AdminHomePageUsersContainer extends React.Component {
 
   handleSearchButton = event => {
     event.preventDefault();
-    axios
-      .get(serverUrl + "api/user/" + this.state.inputUsername)
-      .then(response => {
-        this.setState({ users: [response.data] });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    document.getElementById("adminUserSearchInput").value = "";
+    if (this.state.inputUsername.length < 1) {
+      this.getUsers();
+    } else {
+      axios
+        .get(serverUrl + "api/user/containing/" + this.state.inputUsername)
+        .then(response => {
+          this.setState(
+            {
+              users: response.data,
+              inputUsername: "",
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => {
+              this.setElementsForSearchButton();
+            }
+          );
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      document.getElementById("adminUserSearchInput").value = "";
+    }
+  };
+
+  setElementsForSearchButton = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.users.slice(0, this.state.perPage);
+    this.setState({ elements: elements, offset: 0 });
+  };
+
+  checkIfEnter = event => {
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      this.handleSearchButton(event);
+    }
   };
 
   render() {
@@ -174,6 +200,7 @@ class AdminHomePageUsersContainer extends React.Component {
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
+              onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
               placeholder="Username"

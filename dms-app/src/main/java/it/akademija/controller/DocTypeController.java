@@ -57,6 +57,12 @@ public class DocTypeController {
 		return docTypeService.getDocTypeNamesAndCommentsForClient();
 	}
 
+	@RequestMapping(path = "/containing/{docTypeText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get document types containing text", notes = "Returns list of document types containing passed String")
+	public List<DocTypeForClient> getDocTypeForClientContaining(@PathVariable String docTypeText) {
+		return docTypeService.getDocTypeNamesAndCommentsForClientContaining(docTypeText);
+	}
+	
 	@RequestMapping(path = "/{docTypeName}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get doc type", notes = "Returns doc type name and comment by doc type name")
 	public DocTypeForClient getDocTypeNameAndCommentForClient(@PathVariable String docTypeName) {

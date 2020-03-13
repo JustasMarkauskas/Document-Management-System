@@ -47,6 +47,13 @@ public class DocTypeService {
 				.collect(Collectors.toList());
 	}
 	
+	
+	@Transactional(readOnly = true)
+	public List<DocTypeForClient> getDocTypeNamesAndCommentsForClientContaining(String docTypeText) {
+		return docTypeRepository.findByIdContainingIgnoreCase(docTypeText).stream().map((docType) -> new DocTypeForClient(docType.getId(), docType.getComment()))
+				.collect(Collectors.toList());
+	}
+	
 	@Transactional
 	public DocTypeForClient getDocTypeNameAndCommentForClient(String docTypeName) {
 		return getDocTypeNamesAndCommentsForClient().stream().filter(docType -> docType.getId().equals(docTypeName)).findFirst()

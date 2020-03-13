@@ -92,25 +92,43 @@ class AdminHomePageDocumentContainer extends React.Component {
     this.setState({ documentName: event.target.value });
   };
 
+  setElementsForSearchButton = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.documents.slice(0, this.state.perPage);
+    this.setState({ elements: elements, offset: 0 });
+  };
+
   handleSearchButton = event => {
     event.preventDefault();
-    axios
-      .get(serverUrl + "api/doctype/" + this.state.documentName)
-      .then(response => {
-        this.setState(
-          {
-            documents: [response.data],
-            pageCount: Math.ceil(response.data.length / this.state.perPage)
-          },
-          () => {
-            this.setElementsForCurrentPage();
-          }
-        );
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    document.getElementById("adminDocumentSearchInput").value = "";
+    if (this.state.documentName.length < 1) {
+      this.getDocuments();
+    } else {
+      axios
+        .get(serverUrl + "api/doctype/containing/" + this.state.documentName)
+        .then(response => {
+          this.setState(
+            {
+              documents: response.data,
+              documentName: "",
+              pageCount: Math.ceil(response.data.length / this.state.perPage)
+            },
+            () => {
+              this.setElementsForSearchButton();
+            }
+          );
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      document.getElementById("adminDocumentSearchInput").value = "";
+    }
+  };
+
+  checkIfEnter = event => {
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      this.handleSearchButton(event);
+    }
   };
 
   render() {
@@ -172,6 +190,7 @@ class AdminHomePageDocumentContainer extends React.Component {
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
+              onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
               placeholder="Document"

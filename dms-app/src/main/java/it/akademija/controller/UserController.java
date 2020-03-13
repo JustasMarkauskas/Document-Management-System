@@ -58,6 +58,12 @@ public class UserController {
 		return userService.getUsersForClient();
 	}
 
+	@RequestMapping(path = "/containing/{userText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get Users containing text", notes = "Returns list of users containing passed String")
+	public List<UserForClient> getUsersForClientContaining(@PathVariable String userText) {
+		return userService.getUsersForClientContaining(userText);
+	}
+	
 	@RequestMapping(path = "/usernames/", method = RequestMethod.GET)
 	@ApiOperation(value = "Get all usernames", notes = "Returns list of all usernames")
 	public List<String> getAllUsernames() {
