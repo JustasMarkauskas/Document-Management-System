@@ -72,6 +72,18 @@ public class DocumentService {
 						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
 				.collect(Collectors.toList());
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForClient> getDocumentsForApprovalByDfaListContaining(List<String> documentForApprovalNames,
+			String status, String titleText) {
+		return documentRepository.findDocumentsForApprovalContaining(documentForApprovalNames, status, titleText).stream()
+				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
 
 	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForApprovalByDfaListAndStatus(List<String> documentForApprovalNames,
@@ -87,6 +99,16 @@ public class DocumentService {
 	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForClientByAuthor(String username) {
 		return documentRepository.findByAuthorOrderByIdDesc(username).stream()
+				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForClient> getDocumentsForClientByAuthorContaining(String username, String titleText) {
+		return documentRepository.findByAuthorAndTitleContainingIgnoreCaseOrderByIdDesc(username, titleText).stream()
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),

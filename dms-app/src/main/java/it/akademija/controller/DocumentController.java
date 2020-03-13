@@ -86,6 +86,12 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForClientByAuthor(@PathVariable String username) {
 		return documentService.getDocumentsForClientByAuthor(username);
 	}
+	
+	@RequestMapping(path = "/containing/{username}/{titleText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents by author and titleText", notes = "Returns list of documents by author and title text")
+	public List<DocumentForClient> getDocumentsForClientByAuthorContaining(@PathVariable String username, @PathVariable String titleText) {
+		return documentService.getDocumentsForClientByAuthorContaining(username, titleText);
+	}
 
 	@RequestMapping(path = "/status/{status}/{username}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents by author and status", notes = "Returns list of documents by author and status (descending order)")
@@ -99,6 +105,13 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForApprovalByDfaList(
 			@RequestParam final List<String> documentForApprovalNames) {
 		return documentService.getDocumentsForApprovalByDfaList(documentForApprovalNames, "SAVED");
+	}
+	
+	@RequestMapping(path = "/documents-for-approval/containing/{titleText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents for approval for user containing text", notes = "Returns list of documents for approval by DFA names list containing titleText. Status must not be equalto SAVED")
+	public List<DocumentForClient> getDocumentsForApprovalByDfaListContaining(
+			@RequestParam final List<String> documentForApprovalNames, @PathVariable String titleText) {
+		return documentService.getDocumentsForApprovalByDfaListContaining(documentForApprovalNames, "SAVED", titleText);
 	}
 
 	@RequestMapping(path = "/documents-for-approval/{status}", method = RequestMethod.GET)

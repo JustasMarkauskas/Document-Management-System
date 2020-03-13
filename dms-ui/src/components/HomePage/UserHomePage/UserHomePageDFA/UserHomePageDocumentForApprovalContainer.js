@@ -13,7 +13,7 @@ class UserHomePageDocumentContainer extends React.Component {
       userDocTypesForApproval: [],
       documents: [],
       username: "",
-      inputDocumentTitle: "", //paieskai skirtas
+      inputDocumentTitle: "",
       offset: 0,
       elements: [],
       perPage: 10,
@@ -136,6 +136,74 @@ class UserHomePageDocumentContainer extends React.Component {
     this.props.history.push("/dfa-statistics/" + this.state.username);
   };
 
+  handleSearchChange = event => {
+    this.setState({ inputDocumentTitle: event.target.value });
+  };
+
+  setElementsForSearchButton = () => {
+    this.setState({ currentPage: 0 });
+    let elements = this.state.documents.slice(0, this.state.perPage);
+    this.setState({ elements: elements, offset: 0 });
+  };
+
+  handleSearchButton = event => {
+    event.preventDefault();
+    if (this.state.inputDocumentTitle.length < 1) {
+      this.getDocuments();
+    } else {
+      axios
+        .get(
+          serverUrl +
+            "api/user/user-doctypes-for-approval/" +
+            this.state.username
+        )
+        .then(response => {
+          let docTypesFA = response.data;
+          this.setState({
+            userDocTypesForApproval: response.data
+          });
+
+          axios
+            .get(
+              serverUrl +
+                "api/document/documents-for-approval/containing/" +
+                this.state.inputDocumentTitle,
+              {
+                params: {
+                  documentForApprovalNames: docTypesFA
+                },
+                paramsSerializer: params => {
+                  return qs.stringify(params, { indices: false });
+                }
+              }
+            )
+            .then(response => {
+              this.setState(
+                {
+                  documents: response.data,
+                  inputDocumentTitle: "",
+                  pageCount: Math.ceil(
+                    response.data.length / this.state.perPage
+                  )
+                },
+                () => this.setElementsForSearchButton()
+              );
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      document.getElementById("userSearchDocumentInput").value = "";
+    }
+  };
+
+  checkIfEnter = event => {
+    var code = event.keyCode || event.which;
+    if (code === 13) {
+      this.handleSearchButton(event);
+    }
+  };
+
   render() {
     let paginationElement;
     if (this.state.pageCount > 1) {
@@ -183,9 +251,10 @@ class UserHomePageDocumentContainer extends React.Component {
           <div className="input-group mb-3 col-lg-5">
             <input
               onChange={this.handleSearchChange}
+              onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
-              placeholder="Document name"
+              placeholder="Document title"
               aria-label="document"
               aria-describedby="button-addon2"
               id="userSearchDocumentInput"
