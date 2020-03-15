@@ -10,6 +10,7 @@ import { store } from "react-notifications-component";
 const schema = yup.object().shape({
   id: yup
     .string()
+    .trim()
     .min(5, "Must be 5-20 characters long")
     .max(20, "Must be 5-20 characters long")
     .required("Please enter a document type name")

@@ -86,7 +86,7 @@ class GroupReviewPageComponent extends React.Component {
               </div>
               <div className="form-group">
                 <label htmlFor="groupCommentId">Comment</label>
-                <input
+                <textarea
                   id="groupCommentId"
                   type="text"
                   defaultValue={this.props.comment}

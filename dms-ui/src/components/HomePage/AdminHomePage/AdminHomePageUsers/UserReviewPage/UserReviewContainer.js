@@ -260,13 +260,6 @@ class UserReviewContainer extends React.Component {
                             {errors.comment}
                           </Form.Control.Feedback>
                         </Form.Group>
-                        <button
-                          type="button"
-                          className="col-12 mb-1 btn btn-info btn-sm"
-                          onClick={this.handleShowAssignToGroupsModal}
-                        >
-                          Assign to groups
-                        </button>
                         <Modal
                           show={this.state.showAssignToGroupsModal}
                           onHide={this.handleCloseAssignToGroupsModalAndUpdate}
@@ -286,7 +279,7 @@ class UserReviewContainer extends React.Component {
                         </Modal>
                         <button
                           type="button"
-                          className="col-12 btn btn-info btn-sm"
+                          className="col-12 btn btn-info"
                           onClick={this.handleShowPasswordChangeModal}
                         >
                           Change password
@@ -309,6 +302,28 @@ class UserReviewContainer extends React.Component {
                           </Modal.Body>
                         </Modal>
                       </div>
+                      <div className="container mt-2">
+                        <div className="row">
+                          <Button
+                            disabled={
+                              !values.firstName || !values.lastName || !isValid
+                            }
+                            onClick={this.updateUser}
+                            variant="primary"
+                            className="SubmitButton mr-2 col-4"
+                            type="button"
+                          >
+                            Save
+                          </Button>
+                          <Button
+                            onClick={this.onCancelClick}
+                            variant="secondary"
+                            className="col-4"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                     <div className="col-6  m-0">
                       <div className="card">
@@ -325,28 +340,18 @@ class UserReviewContainer extends React.Component {
                               })}
                             </ul>
                           </div>
+                          <button
+                            id="assignGroupsButton"
+                            onClick={this.handleShowAssignToGroupsModal}
+                            type="button"
+                            className="btn btn-info m-2"
+                          >
+                            Assign
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="d-flex justify-content-center col-12 mt-2">
-                  <Button
-                    disabled={!values.firstName || !values.lastName || !isValid}
-                    onClick={this.updateUser}
-                    variant="primary"
-                    className="SubmitButton mr-2 col-4"
-                    type="button"
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    onClick={this.onCancelClick}
-                    variant="secondary"
-                    className="col-4"
-                  >
-                    Cancel
-                  </Button>
                 </div>
               </Form>
             </div>
