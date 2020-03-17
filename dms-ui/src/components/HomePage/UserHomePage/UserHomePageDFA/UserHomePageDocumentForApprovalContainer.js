@@ -250,7 +250,7 @@ class UserHomePageDocumentContainer extends React.Component {
         <div className="row d-flex">
           <div className="col-lg-7">
             <button
-              className="btn btn-primary col-lg-2 col-md-12 mb-3"
+              className="btn btn-primary col-lg-3 col-md-12 mb-3"
               type="button"
               id="statisticsButton"
               onClick={this.handleStatisticsClick}

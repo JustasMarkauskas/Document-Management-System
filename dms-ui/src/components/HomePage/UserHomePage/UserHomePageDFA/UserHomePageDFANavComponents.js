@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
   return (
-    <ul className="nav flex-column">
-      <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-documents">
+    <ul className="nav row">
+      <li className="nav-item mb-2 col-lg-12">
+        <Link className="text-decoration-none" to="/userhomepage-documents">
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary btn-block"
             aria-pressed="true"
             id="userDocumentNav"
           >
@@ -16,30 +16,34 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
           </button>
         </Link>
       </li>
-      <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-dfa">
-          <button type="button" className="btn btn-primary" id="userDFANav">
+      <li className="nav-item mb-2 col-lg-12">
+        <Link className="text-decoration-none" to="/userhomepage-dfa">
+          <button
+            type="button"
+            className="btn btn-primary btn-block"
+            id="userDFANav"
+          >
             Documents for approval
           </button>
         </Link>
       </li>
-      <li className="nav-item mb-2">
-        <Link className="col-2" to="/userhomepage-profile/">
+      <li className="nav-item mb-2 col-lg-12">
+        <Link className="text-decoration-none" to="/userhomepage-profile/">
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-primary btn-block"
             id="userGroupsNav"
           >
             Profile
           </button>
         </Link>
       </li>
-      <li className="nav-item mt-4">
-        <Link className="col-2" to="/">
+      <li className="nav-item mt-4 col-lg-12">
+        <Link className="text-decoration-none" to="/">
           <button
             onClick={handleLogoutButton}
             type="button"
-            className="btn btn-outline-dark"
+            className="btn btn-outline-dark btn-block"
             id="userLogoutNav"
           >
             Log out
