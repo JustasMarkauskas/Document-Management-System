@@ -344,21 +344,24 @@ class UserHomePageDocumentContainer extends React.Component {
             </button>
           </div>
         </div>
-
-        <table className="table" id="userDocumentsTable">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">Type</th>
-              <th scope="col">Status</th>
-              <th scope="col">Submission</th>
-              <th scope="col">Review</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{documentInfo}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table" id="userDocumentsTable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Submission</th>
+                <th scope="col">Review</th>
+                <th className="text-right" scope="col">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>{documentInfo}</tbody>
+          </table>
+        </div>
         <Modal show={this.state.showModal} onHide={this.handleModalClose}>
           <Modal.Header closeButton>
             <Modal.Title>Create New Document</Modal.Title>

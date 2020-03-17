@@ -314,21 +314,25 @@ class UserHomePageDocumentContainer extends React.Component {
             </button>
           </div>
         </div>
-        <table className="table" id="userDFATable">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Author</th>
-              <th scope="col">Title</th>
-              <th scope="col">Type</th>
-              <th scope="col">Status</th>
-              <th scope="col">Submission </th>
-              <th scope="col">Review </th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{documentInfo}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table" id="userDFATable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Author</th>
+                <th scope="col">Title</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Submission </th>
+                <th scope="col">Review </th>
+                <th className="text-right" scope="col">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>{documentInfo}</tbody>
+          </table>
+        </div>
         <div id="DFATablePagination">{paginationElement}</div>
       </div>
     );

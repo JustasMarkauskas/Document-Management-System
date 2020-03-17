@@ -220,20 +220,23 @@ class AdminHomePageUsersContainer extends React.Component {
             </div>
           </div>
         </div>
-
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Username</th>
-              <th scope="col">First name</th>
-              <th scope="col">Last name</th>
-              <th scope="col">Comment</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{userInfo}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Comment</th>
+                <th className="text-right" scope="col">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>{userInfo}</tbody>
+          </table>
+        </div>
         <div id="userTablePagination">{paginationElement}</div>
       </div>
     );

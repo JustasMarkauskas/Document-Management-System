@@ -219,19 +219,20 @@ class AdminHomePageGroupContainer extends React.Component {
             </div>
           </div>
         </div>
-
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Group name</th>
-              <th scope="col">Group size</th>
-              <th scope="col">Comment</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{groupInfo}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Group name</th>
+                <th scope="col">Group size</th>
+                <th scope="col">Comment</th>
+                <th className="text-right" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>{groupInfo}</tbody>
+          </table>
+        </div>
         <div id="groupsTablePagination">{paginationElement}</div>
       </div>
     );

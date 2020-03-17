@@ -7,8 +7,8 @@ class AdminHomePageGroupComponent extends React.Component {
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.groupName}</td>
         <td>{this.props.groupSize}</td>
-        <td>{this.props.comment}</td>
-        <td>
+        <td className="comment-width">{this.props.comment}</td>
+        <td className="text-right">
           <button
             className="btn btn-primary"
             onClick={this.props.handleActionClick}

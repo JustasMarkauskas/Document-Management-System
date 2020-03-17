@@ -50,12 +50,12 @@ class UserHomePageDocumentComponent extends React.Component {
         }
       >
         <th scope="row">{this.props.rowNr}</th>
-        <td>{this.props.title}</td>
-        <td>{this.props.docType}</td>
+        <td className="documents-td-width">{this.props.title}</td>
+        <td className="documents-td-width">{this.props.docType}</td>
         <td>{this.props.status}</td>
         <td>{this.props.submissionDate}</td>
         <td>{this.props.reviewDate}</td>
-        <td>
+        <td className="text-right">
           <button className="btn btn-primary" onClick={this.handleActionClick}>
             <i className="fas fa-cog"></i>
           </button>

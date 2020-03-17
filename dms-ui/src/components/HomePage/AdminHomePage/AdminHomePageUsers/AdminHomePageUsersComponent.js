@@ -27,10 +27,10 @@ class AdminHomePageUsersComponent extends React.Component {
       <tr id={"userNr" + this.props.rowNr}>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.username}</td>
-        <td>{this.props.firstName}</td>
-        <td>{this.props.lastName}</td>
-        <td>{this.props.comment}</td>
-        <td>
+        <td className="name-width">{this.props.firstName}</td>
+        <td className="name-width">{this.props.lastName}</td>
+        <td className="comment-width">{this.props.comment}</td>
+        <td className="text-right">
           <button
             type="button"
             className="btn btn-primary"

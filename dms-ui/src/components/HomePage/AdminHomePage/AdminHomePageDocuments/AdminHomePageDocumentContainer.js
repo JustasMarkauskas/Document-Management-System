@@ -210,17 +210,21 @@ class AdminHomePageDocumentContainer extends React.Component {
             </div>
           </div>
         </div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Document type name</th>
-              <th scope="col">Comment</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>{documentInfo}</tbody>
-        </table>
+        <div className="table-responsive">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Document type name</th>
+                <th scope="col">Comment</th>
+                <th className="text-right" scope="col">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>{documentInfo}</tbody>
+          </table>
+        </div>
         <div id="docTypesTablePagination">{paginationElement}</div>
       </div>
     );

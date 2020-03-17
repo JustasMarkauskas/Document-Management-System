@@ -44,8 +44,8 @@ class AdminHomePageDocumentComponent extends React.Component {
       <tr id={"documentNr" + this.props.rowNr}>
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.documentName}</td>
-        <td>{this.props.comment}</td>
-        <td>
+        <td className="comment-width">{this.props.comment}</td>
+        <td className="text-right">
           <button
             className="btn btn-primary"
             onClick={this.handleShowDocTypeModal}
