@@ -167,11 +167,11 @@ class AdminHomePageDocumentContainer extends React.Component {
 
     return (
       <div className="container">
-        <div className="row">
+        <div className="row d-flex">
           <button
             onClick={this.handleShowModal}
             type="button"
-            className="btn btn-primary col-lg-4 mb-2"
+            className="btn btn-primary col-lg-4 col-md-12 mb-3"
             id="adminAddNewDocumentButton"
           >
             Add new document type
@@ -187,13 +187,13 @@ class AdminHomePageDocumentContainer extends React.Component {
               />
             </Modal.Body>
           </Modal>
-          <div className="input-group mb-3 col-lg-5">
+          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
-              placeholder="Document"
+              placeholder="Document type"
               aria-label="Document"
               aria-describedby="button-addon2"
               id="adminDocumentSearchInput"

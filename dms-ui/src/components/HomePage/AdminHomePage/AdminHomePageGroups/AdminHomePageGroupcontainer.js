@@ -176,11 +176,11 @@ class AdminHomePageGroupContainer extends React.Component {
 
     return (
       <div className="container">
-        <div className="row col-lg-12">
+        <div className="row d-flex">
           <button
             onClick={this.handleShowModal}
             type="button"
-            className="btn btn-primary col-lg-3 mb-2"
+            className="btn btn-primary col-lg-3 col-md-12 mb-3"
             id="adminAddNewGroupButton"
           >
             Add new group
@@ -196,7 +196,7 @@ class AdminHomePageGroupContainer extends React.Component {
               />
             </Modal.Body>
           </Modal>
-          <div className="input-group mb-3 col-lg-5">
+          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}

@@ -13,7 +13,7 @@ const UserHomePageComponents = ({ username }) => {
         <div className="col-lg-2 shadow-sm p-3 mb-5 bg-light rounded mr-4">
           <UserHomePageDocNavContainer />
         </div>
-        <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
+        <div className="row col-lg-10 shadow-sm p-3 mb-5 bg-light rounded">
           <div className="col-12">
             <UserHomePageDocumentContainer />
           </div>

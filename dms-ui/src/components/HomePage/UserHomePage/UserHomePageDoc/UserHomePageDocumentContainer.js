@@ -263,82 +263,86 @@ class UserHomePageDocumentContainer extends React.Component {
     ));
 
     return (
-      <div className="row ">
-        <button
-          onClick={this.handleAddNewDocumentButton}
-          type="button"
-          className="btn btn-primary col-lg-3 mb-2"
-          id="userAddNewDocumentButton"
-        >
-          Add new document
-        </button>
-        <div className="input-group mb-3 col-lg-5">
-          <input
-            onChange={this.handleSearchChange}
-            onKeyPress={this.checkIfEnter}
-            type="text"
-            className="form-control"
-            placeholder="Document title"
-            aria-label="document"
-            aria-describedby="button-addon2"
-            id="userSearchDocumentInput"
-          ></input>
-          <div className="input-group-append">
-            <button
-              className="btn btn-primary"
-              type="button"
-              id="userDocumentSearchButton"
-              onClick={this.handleSearchButton}
-            >
-              Search
-            </button>
+      <div>
+        <div className="row d-flex">
+          <button
+            onClick={this.handleAddNewDocumentButton}
+            type="button"
+            className="btn btn-primary col-lg-3 col-md-12 mb-3 mr-2"
+            id="userAddNewDocumentButton"
+          >
+            Add new document
+          </button>
+
+          <button
+            onClick={this.handleDownloadButton}
+            type="button"
+            className="btn btn-primary col-lg-2 col-md-12 mb-3 mr-2"
+            id="downloadDocumentsButton"
+          >
+            Download
+          </button>
+          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
+            <input
+              onChange={this.handleSearchChange}
+              onKeyPress={this.checkIfEnter}
+              type="text"
+              className="form-control"
+              placeholder="Document title"
+              aria-label="document"
+              aria-describedby="button-addon2"
+              id="userSearchDocumentInput"
+            ></input>
+            <div className="input-group-append">
+              <button
+                className="btn btn-primary"
+                type="button"
+                id="userDocumentSearchButton"
+                onClick={this.handleSearchButton}
+              >
+                Search
+              </button>
+            </div>
           </div>
         </div>
-        <button
-          onClick={this.handleDownloadButton}
-          type="button"
-          className="btn btn-primary col-lg-2 mb-2"
-          id="downloadDocumentsButton"
-        >
-          Download
-        </button>
-
-        <div className="btn-group" role="group" id="DocumentsFilterId">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("ALL")}
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("SAVED")}
-          >
-            Saved
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("SUBMITTED")}
-          >
-            Submitted
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("REJECTED")}
-          >
-            Rejected
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDocumentsByStatus("APPROVED")}
-          >
-            Approved
-          </button>
+        <div className="text-center">
+          <div className="btn-group" role="group" id="DocumentsFilterId">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDocumentsByStatus("ALL")}
+            >
+              All
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDocumentsByStatus("SAVED")}
+            >
+              Saved
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDocumentsByStatus("SUBMITTED")}
+            >
+              Submitted
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDocumentsByStatus("REJECTED")}
+            >
+              Rejected
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDocumentsByStatus("APPROVED")}
+            >
+              Approved
+            </button>
+          </div>
         </div>
 
         <table className="table" id="userDocumentsTable">
@@ -348,8 +352,8 @@ class UserHomePageDocumentContainer extends React.Component {
               <th scope="col">Title</th>
               <th scope="col">Type</th>
               <th scope="col">Status</th>
-              <th scope="col">Submission date</th>
-              <th scope="col">Review date</th>
+              <th scope="col">Submission</th>
+              <th scope="col">Review</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>

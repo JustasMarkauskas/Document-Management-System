@@ -247,8 +247,19 @@ class UserHomePageDocumentContainer extends React.Component {
 
     return (
       <div>
-        <div className="row ">
-          <div className="input-group mb-3 col-lg-5">
+        <div className="row d-flex">
+          <div className="col-lg-7">
+            <button
+              className="btn btn-primary col-lg-2 col-md-12 mb-3"
+              type="button"
+              id="statisticsButton"
+              onClick={this.handleStatisticsClick}
+            >
+              Statistics
+            </button>
+          </div>
+
+          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
@@ -270,47 +281,38 @@ class UserHomePageDocumentContainer extends React.Component {
               </button>
             </div>
           </div>
-          <div className="col-lg-7">
+        </div>
+        <div className="text-center">
+          <div className="btn-group" role="group" id="DFAFilterId">
             <button
-              className="btn btn-primary float-right"
               type="button"
-              id="statisticsButton"
-              onClick={this.handleStatisticsClick}
+              className="btn btn-secondary"
+              onClick={() => this.getDFAByStatus("ALL")}
             >
-              Statistics
+              All
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDFAByStatus("SUBMITTED")}
+            >
+              Submitted
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDFAByStatus("REJECTED")}
+            >
+              Rejected
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.getDFAByStatus("APPROVED")}
+            >
+              Approved
             </button>
           </div>
-        </div>
-
-        <div className="btn-group" role="group" id="DFAFilterId">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDFAByStatus("ALL")}
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDFAByStatus("SUBMITTED")}
-          >
-            Submitted
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDFAByStatus("REJECTED")}
-          >
-            Rejected
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => this.getDFAByStatus("APPROVED")}
-          >
-            Approved
-          </button>
         </div>
         <table className="table" id="userDFATable">
           <thead>
@@ -320,8 +322,8 @@ class UserHomePageDocumentContainer extends React.Component {
               <th scope="col">Title</th>
               <th scope="col">Type</th>
               <th scope="col">Status</th>
-              <th scope="col">Submission date</th>
-              <th scope="col">Review date</th>
+              <th scope="col">Submission </th>
+              <th scope="col">Review </th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
