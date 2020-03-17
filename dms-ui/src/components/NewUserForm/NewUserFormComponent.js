@@ -33,7 +33,10 @@ const schema = yup.object().shape({
     .min(1, "Must be 1-30 characters long")
     .max(30, "Must be 1-30 characters long")
     .required("Please enter a last name")
-    .matches(/^[A-Za-z\s-]+$/, "Only uppercases And lowercases"),
+    .matches(
+      /^[A-Za-z\s-]+$/,
+      "Only uppercase, lowercase letters and '-', space symbols are allowed"
+    ),
   comment: yup
     .string()
     .trim()
