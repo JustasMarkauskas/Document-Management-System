@@ -20,3 +20,8 @@ code {
   max-height: 300px;
   overflow-y: auto;
 }
+
+.password-modal-width {
+  width: 70%;
+  margin: auto;
+}
