@@ -18,8 +18,8 @@ public class UserNavPage extends AbstractPage {
 	@FindBy(id = "userDFANav")
 	private WebElement buttonDFA;
 
-//	@FindBy(id = "userGroupsNav")
-//	private WebElement buttonGroups;
+	@FindBy(id = "userGroupsNav")
+	private WebElement buttonProfile;
 
 	@FindBy(id = "userLogoutNav")
 	private WebElement buttonLogout;
@@ -38,9 +38,9 @@ public class UserNavPage extends AbstractPage {
 		buttonDocuments.click();
 	}
 
-//	public void clickButtonGroups() {
-//		buttonGroups.click();
-//	}
+	public void clickButtonProfile() {
+		buttonProfile.click();
+	}
 
 	public void clickButtonLogout() {
 		waitForClickable(buttonLogout);
@@ -62,12 +62,13 @@ public class UserNavPage extends AbstractPage {
 		return buttonDFA;
 	}
 
-//	public WebElement getButtonGroups() {
-//		return buttonGroups;
-//	}
-
 	public WebElement getButtonLogout() {
 		return buttonLogout;
 	}
 
+	public WebElement getButtonProfile() {
+		return buttonProfile;
+	}
+
+	
 }

@@ -1,5 +1,7 @@
 package resources.page.AdminPages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +32,9 @@ public class AdminCreateUserPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//textarea[@placeholder='Comment']")
 	private WebElement inputComment;
 	
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input")
+	private List<WebElement> inputs;
+	
 	//buttons
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//button[text()='Submit']")
 	private WebElement buttonSubmit;
@@ -41,7 +46,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Username']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidUsername;
 	
-	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Username']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='First name']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidFirstName;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Last name']//following-sibling::div[contains(@class,'invalid-feedback')]")
@@ -218,4 +223,9 @@ public class AdminCreateUserPage extends AbstractPage {
 		return msgInvalidComment;
 	}
 
+	public List<WebElement> getInputs() {
+		return inputs;
+	}
+
+	
 }

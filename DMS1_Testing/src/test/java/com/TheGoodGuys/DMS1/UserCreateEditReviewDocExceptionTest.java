@@ -260,7 +260,7 @@ public class UserCreateEditReviewDocExceptionTest extends AbstractTest  {
 		
 		createDocument.uploadSingleFileByName(document.getFileName());
 		
-//		assertThat("Blank restrictions msg for description does not match", createDocument.getTextFromMsgInvalidDescription(), is(equalTo("Must be 5-50 characters long")));
+		assertThat("Blank restrictions msg for description does not match", createDocument.getTextFromMsgInvalidDescription(), is(equalTo("Must be 5-50 characters long")));
 		assertThat("Save button is not disabled", createDocument.getButtonSave().isEnabled(), is(false));
 		assertThat("Submit button is not disabled", createDocument.getButtonSubmit().isEnabled(), is(false));
 		
@@ -339,7 +339,7 @@ public class UserCreateEditReviewDocExceptionTest extends AbstractTest  {
 		
 		savedDocReview.fillFormDocumentCreation(document);
 		
-//		assertThat("Length restrictions msg for title does not match", savedDocReview.getTextFromMsgInvalidTitle(), is(equalTo("Must be 5-30 characters long")));
+		assertThat("Length restrictions msg for title does not match", savedDocReview.getTextFromMsgInvalidTitle(), is(equalTo("Must be 5-30 characters long")));
 		assertThat("Save button is not disabled", savedDocReview.getButtonSave().isEnabled(), is(false));
 		assertThat("Submit button is not disabled", savedDocReview.getButtonSubmit().isEnabled(), is(false));
 		
@@ -374,7 +374,7 @@ public class UserCreateEditReviewDocExceptionTest extends AbstractTest  {
 		savedDocReview.getInputDescription().clear();
 		
 //		wait.until(ExpectedConditions.attributeContains(savedDocReview.getButtonSave(), "disabled", ""));
-//		assertThat("Blank restrictions msg for description does not match", savedDocReview.getTextFromMsgInvalidDescription(), is(equalTo("Must be 5-50 characters long")));
+		assertThat("Blank restrictions msg for description does not match", savedDocReview.getTextFromMsgInvalidDescription(), is(equalTo("Must be 5-50 characters long")));
 		assertThat("Save button is not disabled", savedDocReview.getButtonSave().isEnabled(), is(false));
 		assertThat("Submit button is not disabled", savedDocReview.getButtonSubmit().isEnabled(), is(false));
 		

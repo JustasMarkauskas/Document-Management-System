@@ -6,34 +6,34 @@
 		<listener class-name="resources.utils.ListenerTest" />
 	</listeners>
 
-	<test name="GroupCreationTest">
+	<test name="GroupCreationExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin1" />
 		<parameter name="loginPassword" value="Password1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateGroupExceptionTest" />
 		</classes>
 	</test>
-	<test name="UserCreationTest">
+	<test name="UserCreationExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin1" />
 		<parameter name="loginPassword" value="Password1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateUserTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateUserExceptionTest" />
 		</classes>
 	</test>
-	<test name="DocTypeCreationTest">
+	<test name="DocTypeCreationExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin1" />
 		<parameter name="loginPassword" value="Password1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.AdminCreateDocumentTypeTest" />
+			<class name="com.TheGoodGuys.DMS1.AdminCreateDocTypeExceptionTest" />
 		</classes>
 	</test>
 	<test name="InvalidLoginTest">

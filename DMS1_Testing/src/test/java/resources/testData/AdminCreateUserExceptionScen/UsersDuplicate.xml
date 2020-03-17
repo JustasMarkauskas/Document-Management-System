@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources.models.UserData>
-	<User>
-		<testDataGroup>user_duplicate</testDataGroup>
-		<identificator>username_duplicate</identificator>
-		<userName>monitorfactor</userName>
-		<name>mikelle</name>
-		<surname>Panaka</surname>
-		<password>SLYQyWd8LH</password>
-		<confirmPassword>SLYQyWd8LH</confirmPassword>
-		<comment>autotesting</comment>
-	</User>
+
 	<User>
 		<testDataGroup>user_duplicate</testDataGroup>
 		<identificator>username_duplicate</identificator>

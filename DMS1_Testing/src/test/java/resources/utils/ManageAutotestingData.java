@@ -34,9 +34,10 @@ public class ManageAutotestingData {
 		//		removeAssignedElementsFromGroup("http://localhost:8081", "testGroup101");
 		//		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		//		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");
-		//		deleteDocumentsByComment("http://localhost:8081", "autotesting");
-		//		createDataForStatistics("http://localhost:8081");
+//				deleteDocumentsByComment("http://localhost:8081", "data for statistics");
+//				createDataForStatistics("http://localhost:8081");
 		//		rejectDocument("http://localhost:8081", "testUser1", 1059, "test api Call");
+//		System.out.println(getLastDocumentIdByUsername("http://localhost:8081", "testUser1"));
 
 	}
 
@@ -227,8 +228,8 @@ public class ManageAutotestingData {
 		.asString();
 	}
 
-	public static int getLastDocumentIdByUsername(String baseUrl) throws UnirestException {
-		String editApi = baseUrl + "/api/document/testUser1";
+	public static int getLastDocumentIdByUsername(String baseUrl, String username) throws UnirestException {
+		String editApi = baseUrl + "/api/document/" + username;
 
 		HttpResponse<JsonNode> request = Unirest.get(editApi).asJson();
 		System.out.println("get documents by username: " + request.getStatus());
@@ -286,21 +287,35 @@ public class ManageAutotestingData {
 		updateGroupsDocTypesForApproval(baseUrl, "managerStatistics", "statisticsRequest1", "statisticsRequest2", "statisticsRequest3", "statisticsRequest4", "statisticsRequest5");
 
 		submitDocument(baseUrl, "userStatistics1", "test request 1", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-
+		int docID = getLastDocumentIdByUsername(baseUrl, "userStatistics1");
+		rejectDocument(baseUrl, "manager111", docID, "data for statistics");
+		
 		submitDocument(baseUrl, "userStatistics2", "test request 2", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics2", "test request 3", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics2");
+		approveDocument(baseUrl, "manager111", docID, "");
+		
 		submitDocument(baseUrl, "userStatistics3", "test request 4", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics3");
+		approveDocument(baseUrl, "manager111", docID, "");
 		submitDocument(baseUrl, "userStatistics3", "test request 5", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics3");
+		approveDocument(baseUrl, "manager111", docID, "");
 		submitDocument(baseUrl, "userStatistics3", "test request 6", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics3");
+		approveDocument(baseUrl, "manager111", docID, "");
 		submitDocument(baseUrl, "userStatistics3", "test request 7", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics3");
+		rejectDocument(baseUrl, "manager111", docID, "data for statistics");
+		
 		submitDocument(baseUrl, "userStatistics3", "test request 8", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 9", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 10", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 11", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 
 		submitDocument(baseUrl, "userStatistics3", "test request 12", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics3");
+		approveDocument(baseUrl, "manager111", docID, "");
 		submitDocument(baseUrl, "userStatistics3", "test request 13", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics3", "test request 14", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 
@@ -311,14 +326,21 @@ public class ManageAutotestingData {
 		submitDocument(baseUrl, "userStatistics4", "test request 19", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 
 		submitDocument(baseUrl, "userStatistics4", "test request 20", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics4");
+		rejectDocument(baseUrl, "manager111", docID, "data for statistics");
 		submitDocument(baseUrl, "userStatistics4", "test request 21", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 
 		submitDocument(baseUrl, "userStatistics4", "test request 22", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics4");
+		approveDocument(baseUrl, "manager111", docID, "");
 		submitDocument(baseUrl, "userStatistics4", "test request 23", "statisticsRequest3", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics4");
+		rejectDocument(baseUrl, "manager111", docID, "data for statistics");
+		
 		submitDocument(baseUrl, "userStatistics5", "test request 24", "statisticsRequest1", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		submitDocument(baseUrl, "userStatistics5", "test request 25", "statisticsRequest2", "data for statistics", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
-
+		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics5");
+		approveDocument(baseUrl, "manager111", docID, "");
 
 
 	}

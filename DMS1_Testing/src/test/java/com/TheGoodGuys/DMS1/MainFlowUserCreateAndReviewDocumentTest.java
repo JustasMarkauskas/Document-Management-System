@@ -25,6 +25,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import resources.models.Document;
 import resources.page.HeaderPage;
 import resources.page.LoginPage;
+import resources.page.NotificationsPage;
 import resources.page.UserPages.*;
 
 import resources.test.AbstractTest;
@@ -44,6 +45,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 	private UserReviewedDFAReviewPage reviewedDFAReview;
 	private UserSavedDocReviewPage savedDocReview;
 	private UserSubmittedDocReviewPage submittedDocReview;
+	private NotificationsPage notifications;
 
 	@BeforeClass
 	public void preconditions() {
@@ -59,6 +61,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		reviewedDFAReview = new UserReviewedDFAReviewPage(driver);
 		savedDocReview = new UserSavedDocReviewPage(driver);
 		submittedDocReview = new UserSubmittedDocReviewPage(driver);
+		notifications = new NotificationsPage(driver);
 
 	}
 
@@ -137,6 +140,7 @@ public class MainFlowUserCreateAndReviewDocumentTest extends AbstractTest  {
 		
 		createDocument.clickButtonSave();
 		
+		wait.until(ExpectedConditions.visibilityOf(notifications.getMsgSuccess()));
 		wait.until(ExpectedConditions.textToBePresentInElement(userDocuments.getRowByRowNumber(1).findElement(By.xpath("./td[1]")),
 				document.getDocumentTitle()));
 		int rowNumber = userDocuments.findRowNumberByFieldValues(document.getDocumentTitle(),

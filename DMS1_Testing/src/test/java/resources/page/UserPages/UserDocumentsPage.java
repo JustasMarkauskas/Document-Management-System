@@ -48,6 +48,7 @@ public class UserDocumentsPage extends AbstractPage {
 	
 	@FindBy(xpath = "//tr[contains(@id,'userDocumentNr')]//button")
 	private List<WebElement> buttonsDocumentActions;
+
 	
 
 	public UserDocumentsPage(WebDriver driver) {
@@ -212,6 +213,7 @@ public class UserDocumentsPage extends AbstractPage {
 	public List<WebElement> getButtonsDocumentActions() {
 		return buttonsDocumentActions;
 	}
+
 
 	
 	
