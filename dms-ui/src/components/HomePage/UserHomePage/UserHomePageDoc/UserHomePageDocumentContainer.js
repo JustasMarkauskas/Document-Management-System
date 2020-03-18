@@ -265,24 +265,26 @@ class UserHomePageDocumentContainer extends React.Component {
     return (
       <div>
         <div className="row d-flex">
-          <button
-            onClick={this.handleAddNewDocumentButton}
-            type="button"
-            className="btn btn-primary col-lg-3 col-md-12 mb-3 mr-2"
-            id="userAddNewDocumentButton"
-          >
-            Add new document
-          </button>
+          <div className="col-lg-5 col-md-12 mb-3">
+            <button
+              onClick={this.handleAddNewDocumentButton}
+              type="button"
+              className="main-btn btn-color  mr-2"
+              id="userAddNewDocumentButton"
+            >
+              Add new document
+            </button>
+            <button
+              onClick={this.handleDownloadButton}
+              type="button"
+              className="main-btn btn-color "
+              id="downloadDocumentsButton"
+            >
+              Download
+            </button>
+          </div>
 
-          <button
-            onClick={this.handleDownloadButton}
-            type="button"
-            className="btn btn-primary col-lg-2 col-md-12 mb-3 mr-2"
-            id="downloadDocumentsButton"
-          >
-            Download
-          </button>
-          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
+          <div className="input-group mb-3 col-lg-3 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
@@ -295,7 +297,7 @@ class UserHomePageDocumentContainer extends React.Component {
             ></input>
             <div className="input-group-append">
               <button
-                className="btn btn-primary"
+                className="search-btn btn-color"
                 type="button"
                 id="userDocumentSearchButton"
                 onClick={this.handleSearchButton}
@@ -305,7 +307,7 @@ class UserHomePageDocumentContainer extends React.Component {
             </div>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-right">
           <div className="btn-group" role="group" id="DocumentsFilterId">
             <button
               type="button"

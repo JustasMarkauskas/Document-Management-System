@@ -77,7 +77,7 @@ class UserHomePageProfileComponent extends React.Component {
               <button
                 onClick={this.handleShowPasswordModal}
                 type="button"
-                className="btn btn-primary "
+                className="main-btn btn-color"
               >
                 Change password
               </button>

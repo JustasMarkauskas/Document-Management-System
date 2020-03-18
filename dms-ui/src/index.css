@@ -48,13 +48,6 @@ Table td width
   text-overflow: ellipsis;
 }
 
-.documents-td-width {
-  max-width: 120px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /*
 NAV color
 */
@@ -66,6 +59,41 @@ NAV color
 /*
 Button colors
 */
+
+.main-btn {
+  border: none;
+  background: #74498f;
+  color: white;
+  font-weight: 100;
+  padding: 7px 30px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.search-btn {
+  border: none;
+  background: #74498f;
+  color: white;
+  font-weight: 100;
+  padding: 7px 10px;
+  border-radius: 0px 6px 6px 0px;
+  display: inline-block;
+}
+
+.action-btn {
+  border: none;
+  background: #74498f;
+  color: white;
+  font-weight: 100;
+  padding: 9px 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.btn-color:hover {
+  background-color: #6c378b;
+  color: white;
+}
 
 .selected-btn {
   background-color: #763f96;

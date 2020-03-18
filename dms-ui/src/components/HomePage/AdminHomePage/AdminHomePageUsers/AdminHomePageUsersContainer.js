@@ -181,7 +181,7 @@ class AdminHomePageUsersContainer extends React.Component {
           <button
             onClick={this.handleShowModal}
             type="button"
-            className="btn btn-primary col-lg-3 col-md-12 mb-3"
+            className="main-btn btn-color col-lg-3 col-md-12 mb-3"
             id="adminAddNewUserButton"
           >
             Add new user
@@ -197,7 +197,7 @@ class AdminHomePageUsersContainer extends React.Component {
               />
             </Modal.Body>
           </Modal>
-          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
+          <div className="input-group mb-3 col-lg-3 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
@@ -211,7 +211,7 @@ class AdminHomePageUsersContainer extends React.Component {
             <div className="input-group-append">
               <button
                 onClick={this.handleSearchButton}
-                className="btn btn-primary"
+                className="search-btn btn-color"
                 type="button"
                 id="adminUserSearchButton"
               >

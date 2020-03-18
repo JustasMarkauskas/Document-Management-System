@@ -55,7 +55,10 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
         <td>{this.props.submissionDate}</td>
         <td>{this.props.reviewDate}</td>
         <td className="text-right">
-          <button className="btn btn-primary" onClick={this.handleActionClick}>
+          <button
+            className="action-btn btn-color"
+            onClick={this.handleActionClick}
+          >
             <i className="fas fa-cog"></i>
           </button>
         </td>

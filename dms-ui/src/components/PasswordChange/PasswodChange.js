@@ -69,12 +69,12 @@ class PasswordChangeComponent extends React.Component {
         }}
       >
         {({ handleSubmit, handleChange, values, isValid, errors }) => (
-          <div className="NewUserForm password-modal-width">
-            <Form noValidate onSubmit={handleSubmit}>
+          <div className="PasswordForm password-modal-width">
+            <Form noValidate onSubmit={handleSubmit} id="passwordChangeForm">
               <Form.Group>
                 <Form.Control
                   ref={this.innerRef}
-                  className="NewUserForm"
+                  className="PasswordForm"
                   size="lg"
                   type="password"
                   name="password"
@@ -90,7 +90,7 @@ class PasswordChangeComponent extends React.Component {
               </Form.Group>
               <Form.Group>
                 <Form.Control
-                  className="NewUserForm"
+                  className="PasswordForm"
                   size="lg"
                   name="confirmPassword"
                   type="password"

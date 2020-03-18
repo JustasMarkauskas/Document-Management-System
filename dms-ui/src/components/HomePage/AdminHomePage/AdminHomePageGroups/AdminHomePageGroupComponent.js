@@ -10,7 +10,7 @@ class AdminHomePageGroupComponent extends React.Component {
         <td className="comment-width">{this.props.comment}</td>
         <td className="text-right">
           <button
-            className="btn btn-primary"
+            className="action-btn btn-color"
             onClick={this.props.handleActionClick}
           >
             <i className="fas fa-cog"></i>

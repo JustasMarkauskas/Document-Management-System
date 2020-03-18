@@ -248,9 +248,9 @@ class UserHomePageDocumentContainer extends React.Component {
     return (
       <div>
         <div className="row d-flex">
-          <div className="col-lg-7">
+          <div className="col-lg-3 col-md-12 mb-3">
             <button
-              className="btn btn-primary col-lg-3 col-md-12 mb-3"
+              className="main-btn btn-color col-lg-7 col-md-12 "
               type="button"
               id="statisticsButton"
               onClick={this.handleStatisticsClick}
@@ -259,7 +259,7 @@ class UserHomePageDocumentContainer extends React.Component {
             </button>
           </div>
 
-          <div className="input-group mb-3 col-lg-5 col-md-12 ml-auto">
+          <div className="input-group mb-3 col-lg-3 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
@@ -272,7 +272,7 @@ class UserHomePageDocumentContainer extends React.Component {
             ></input>
             <div className="input-group-append">
               <button
-                className="btn btn-primary"
+                className="search-btn btn-color"
                 type="button"
                 id="userDocumentSearchButton"
                 onClick={this.handleSearchButton}
@@ -282,7 +282,7 @@ class UserHomePageDocumentContainer extends React.Component {
             </div>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-right">
           <div className="btn-group" role="group" id="DFAFilterId">
             <button
               type="button"

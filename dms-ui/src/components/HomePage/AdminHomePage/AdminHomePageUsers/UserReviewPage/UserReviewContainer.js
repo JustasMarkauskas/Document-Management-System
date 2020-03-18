@@ -279,7 +279,7 @@ class UserReviewContainer extends React.Component {
                         </Modal>
                         <button
                           type="button"
-                          className="col-12 btn btn-info"
+                          className="col-12 main-btn btn-color"
                           onClick={this.handleShowPasswordChangeModal}
                         >
                           Change password
@@ -344,7 +344,7 @@ class UserReviewContainer extends React.Component {
                             id="assignGroupsButton"
                             onClick={this.handleShowAssignToGroupsModal}
                             type="button"
-                            className="btn btn-info m-2"
+                            className="main-btn btn-color m-2"
                           >
                             Assign
                           </button>

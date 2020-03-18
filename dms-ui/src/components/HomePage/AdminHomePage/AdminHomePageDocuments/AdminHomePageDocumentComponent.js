@@ -47,7 +47,7 @@ class AdminHomePageDocumentComponent extends React.Component {
         <td className="comment-width">{this.props.comment}</td>
         <td className="text-right">
           <button
-            className="btn btn-primary"
+            className="action-btn btn-color"
             onClick={this.handleShowDocTypeModal}
           >
             <i className="fas fa-cog"></i>

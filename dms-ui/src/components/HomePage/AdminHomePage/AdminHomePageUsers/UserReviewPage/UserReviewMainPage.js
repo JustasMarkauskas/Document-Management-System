@@ -27,18 +27,16 @@ class UserReviewMainPage extends React.Component {
   }
   render() {
     return (
-      <div className="container">
-        <div className="row col-12 shadow-sm p-3 mb-5 bg-light rounded justify-content-center">
-          <h1>Welcome, {this.state.username}</h1>
-        </div>
-        <div className="row">
-          <div className="col-lg-2 shadow-sm p-3 mb-5 bg-light rounded mr-4">
+      <div className="no-scroll">
+        <div className="row full-height">
+          <div className="col-lg-2 p-0 nav-color">
             <AdminHomePageUserNavContainer />
           </div>
-          <div className="row col-lg-9 shadow-sm p-3 mb-5 bg-light rounded">
-            <div className="col-12">
-              <UserReviewContainer />
+          <div className="col-lg-10 p-3">
+            <div className="mb-5 text-center">
+              <h1>Welcome, {this.state.username}</h1>
             </div>
+            <UserReviewContainer />
           </div>
         </div>
       </div>

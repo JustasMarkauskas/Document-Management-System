@@ -139,7 +139,7 @@ class GroupReviewPageComponent extends React.Component {
                   id="assignUserButton"
                   onClick={this.handleShowAssignUserModal}
                   type="button"
-                  className="btn btn-info m-2"
+                  className="main-btn btn-color m-2"
                 >
                   Assign
                 </button>
@@ -165,7 +165,7 @@ class GroupReviewPageComponent extends React.Component {
                   id="assignDFAButton"
                   onClick={this.handleShowAssignDFAModal}
                   type="button"
-                  className="btn btn-info m-2"
+                  className="main-btn btn-color m-2"
                 >
                   Assign
                 </button>
@@ -191,7 +191,7 @@ class GroupReviewPageComponent extends React.Component {
                   id="assignDFCButton"
                   onClick={this.handleShowAssignDFCModal}
                   type="button"
-                  className="btn btn-info m-2"
+                  className="main-btn btn-color m-2"
                 >
                   Assign
                 </button>

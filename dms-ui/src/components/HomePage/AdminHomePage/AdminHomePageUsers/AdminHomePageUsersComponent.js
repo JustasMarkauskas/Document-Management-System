@@ -33,7 +33,7 @@ class AdminHomePageUsersComponent extends React.Component {
         <td className="text-right">
           <button
             type="button"
-            className="btn btn-primary"
+            className="action-btn btn-color"
             onClick={this.props.handleActionClick}
             data-toggle="modal"
             data-target="#userInfoModal"
