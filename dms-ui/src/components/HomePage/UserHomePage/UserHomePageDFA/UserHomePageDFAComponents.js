@@ -9,7 +9,7 @@ const UserHomePageDFAComponents = ({ username }) => {
         <div className="col-lg-2 p-0 nav-color">
           <UserHomePageDFANavContainer />
         </div>
-        <div className="col-lg-10 ">
+        <div className="col-lg-10 main-color">
           <div className="mb-5 text-center">
             <h1>Welcome, {username}</h1>
           </div>

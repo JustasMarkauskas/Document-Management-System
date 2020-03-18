@@ -49,11 +49,15 @@ Table td width
 }
 
 /*
-NAV color
+NAV and Main component background colors
 */
 
 .nav-color {
-  background-color: #363636;
+  background-color: #412659;
+}
+
+.main-color {
+  background-color: #f0f0f0;
 }
 
 /*
@@ -91,12 +95,12 @@ Button colors
 }
 
 .btn-color:hover {
-  background-color: #6c378b;
+  background-color: #653e7c;
   color: white;
 }
 
 .selected-btn {
-  background-color: #763f96;
+  background-color: #65228b;
   color: white;
   padding: 14px 28px;
   border: none;
@@ -110,7 +114,7 @@ Button colors
 }
 
 .nav-btn {
-  background-color: #525252;
+  background-color: #53276d;
   color: white;
   padding: 14px 28px;
   border: none;
@@ -119,8 +123,13 @@ Button colors
 }
 
 .color:hover {
-  background-color: #6e6e6e;
+  background-color: #754196;
   color: white;
+}
+
+.table-head {
+  background-color: #9a6bb8;
+  color: black;
 }
 
 .nav-sticky {
@@ -130,4 +139,19 @@ Button colors
 
 .no-scroll {
   overflow-x: hidden;
+}
+
+/*
+Table style
+*/
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table td,
+.table th {
+  border-top: none !important;
 }

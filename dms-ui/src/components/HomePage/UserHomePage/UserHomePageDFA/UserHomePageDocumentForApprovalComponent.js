@@ -39,13 +39,13 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
     return (
       <tr
         id={"userDFADocumentNr" + this.props.rowNr}
-        className={
-          this.props.status === "SUBMITTED"
-            ? "table-primary"
-            : this.props.status === "REJECTED"
-            ? "table-secondary"
-            : "table-success"
-        }
+        // className={
+        //   this.props.status === "SUBMITTED"
+        //     ? "table-primary"
+        //     : this.props.status === "REJECTED"
+        //     ? "table-secondary"
+        //     : "table-success"
+        // }
       >
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.author}</td>

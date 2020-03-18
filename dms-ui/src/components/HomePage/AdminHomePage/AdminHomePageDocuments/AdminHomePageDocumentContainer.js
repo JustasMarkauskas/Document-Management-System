@@ -168,14 +168,16 @@ class AdminHomePageDocumentContainer extends React.Component {
     return (
       <div className="container">
         <div className="row d-flex">
-          <button
-            onClick={this.handleShowModal}
-            type="button"
-            className="main-btn btn-color col-lg-3 col-md-12 mb-3"
-            id="adminAddNewDocumentButton"
-          >
-            Add new document type
-          </button>
+          <div className="col-lg-4 col-md-12 mb-3">
+            <button
+              onClick={this.handleShowModal}
+              type="button"
+              className="main-btn btn-color col-lg-11 col-md-12"
+              id="adminAddNewDocumentButton"
+            >
+              Add new document type
+            </button>
+          </div>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
             <Modal.Header closeButton>
               <Modal.Title>Create new document type</Modal.Title>
@@ -187,7 +189,7 @@ class AdminHomePageDocumentContainer extends React.Component {
               />
             </Modal.Body>
           </Modal>
-          <div className="input-group mb-3 col-lg-3 col-md-12 ml-auto">
+          <div className="input-group mb-3 col-lg-4 col-md-12 ml-auto">
             <input
               onChange={this.handleSearchChange}
               onKeyPress={this.checkIfEnter}
@@ -211,8 +213,8 @@ class AdminHomePageDocumentContainer extends React.Component {
           </div>
         </div>
         <div className="table-responsive">
-          <table className="table">
-            <thead>
+          <table className="table table-striped">
+            <thead className="table-head">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Document type name</th>

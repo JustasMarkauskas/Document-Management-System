@@ -39,15 +39,15 @@ class UserHomePageDocumentComponent extends React.Component {
     return (
       <tr
         id={"userDocumentNr" + this.props.rowNr}
-        className={
-          this.props.status === "SAVED"
-            ? "table-warning"
-            : this.props.status === "SUBMITTED"
-            ? "table-primary"
-            : this.props.status === "APPROVED"
-            ? "table-success"
-            : "table-secondary"
-        }
+        // className={
+        //   this.props.status === "SAVED"
+        //     ? "table-warning"
+        //     : this.props.status === "SUBMITTED"
+        //     ? "table-primary"
+        //     : this.props.status === "APPROVED"
+        //     ? "table-success"
+        //     : "table-secondary"
+        // }
       >
         <th scope="row">{this.props.rowNr}</th>
         <td>{this.props.title}</td>

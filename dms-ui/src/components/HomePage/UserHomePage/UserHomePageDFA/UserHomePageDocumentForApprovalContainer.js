@@ -315,8 +315,8 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
         <div className="table-responsive">
-          <table className="table" id="userDFATable">
-            <thead>
+          <table className="table table-striped table-dark" id="userDFATable">
+            <thead className="table-head">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Author</th>

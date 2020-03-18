@@ -32,7 +32,7 @@ class UserHomePageProfileMainPage extends React.Component {
           <div className="col-lg-2 p-0 nav-color">
             <UserHomePageProfileNavContainer />
           </div>
-          <div className="col-lg-10 ">
+          <div className="col-lg-10 main-color">
             <div className="mb-5 text-center">
               <h1>Welcome, {this.state.username}</h1>
             </div>

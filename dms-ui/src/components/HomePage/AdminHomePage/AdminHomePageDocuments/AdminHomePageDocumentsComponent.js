@@ -9,7 +9,7 @@ const AdminHomePageDocumentsComponet = ({ username }) => {
         <div className="col-lg-2 p-0 nav-color">
           <AdminHomePageDocumentsNavContainer />
         </div>
-        <div className="col-lg-10 p-3">
+        <div className="col-lg-10 p-3 main-color">
           <div className="mb-5 text-center">
             <h1>Welcome, {username}</h1>
           </div>

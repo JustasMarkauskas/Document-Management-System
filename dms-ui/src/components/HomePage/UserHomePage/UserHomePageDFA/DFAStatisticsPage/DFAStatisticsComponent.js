@@ -62,7 +62,7 @@ class DFAStatisticsComponent extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="alert alert-warning " role="alert">
+        <div className="alert table-head  " role="alert">
           You need to select a period of statistics and then choose a document
           type
         </div>

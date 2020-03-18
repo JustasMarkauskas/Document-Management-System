@@ -265,11 +265,11 @@ class UserHomePageDocumentContainer extends React.Component {
     return (
       <div>
         <div className="row d-flex">
-          <div className="col-lg-5 col-md-12 mb-3">
+          <div className="col-lg-9 col-md-12 mb-3">
             <button
               onClick={this.handleAddNewDocumentButton}
               type="button"
-              className="main-btn btn-color  mr-2"
+              className="main-btn btn-color mr-2"
               id="userAddNewDocumentButton"
             >
               Add new document
@@ -347,8 +347,11 @@ class UserHomePageDocumentContainer extends React.Component {
           </div>
         </div>
         <div className="table-responsive">
-          <table className="table" id="userDocumentsTable">
-            <thead>
+          <table
+            className="table table-striped table-dark"
+            id="userDocumentsTable"
+          >
+            <thead className="table-head ">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
