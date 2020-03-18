@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
   return (
-    <ul className="nav row">
-      <li className="nav-item mb-2 col-lg-12">
+    <ul className="nav row nav-sticky">
+      <li className="nav-item  col-lg-12">
         <Link className="text-decoration-none" to="/userhomepage-documents">
           <button
             type="button"
-            className="btn btn-primary btn-block"
+            className="text-left selected-btn selected-color btn-block"
             aria-pressed="true"
             id="userDocumentNav"
           >
@@ -16,11 +16,11 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
           </button>
         </Link>
       </li>
-      <li className="nav-item mb-2 col-lg-12">
+      <li className="nav-item  col-lg-12">
         <Link className="text-decoration-none" to="/userhomepage-dfa">
           <button
             type="button"
-            className="btn btn-outline-primary btn-block"
+            className="text-left nav-btn color btn-block"
             id="userDFANav"
           >
             Documents for approval
@@ -31,7 +31,7 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
         <Link className="text-decoration-none" to="/userhomepage-profile">
           <button
             type="button"
-            className="btn btn-outline-primary btn-block"
+            className="text-left nav-btn color btn-block"
             id="userGroupsNav"
           >
             Profile
@@ -43,7 +43,7 @@ const UserHomePageDocNavComponent = ({ handleLogoutButton }) => {
           <button
             onClick={handleLogoutButton}
             type="button"
-            className="btn btn-outline-dark btn-block"
+            className="text-left nav-btn color btn-block"
             id="userLogoutNav"
           >
             Log out

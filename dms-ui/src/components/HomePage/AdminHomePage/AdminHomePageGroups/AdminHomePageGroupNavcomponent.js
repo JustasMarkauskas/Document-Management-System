@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const AdminHomePageGroupNavComponent = ({ handleLogoutButton }) => {
   return (
-    <ul className="nav row">
-      <li className="nav-item mb-2 col-lg-12 ">
+    <ul className="nav row nav-sticky">
+      <li className="nav-item  col-lg-12">
         <Link className="text-decoration-none" to="/adminhomepage-users">
           <button
             type="button"
-            className="btn btn-outline-primary btn-block"
+            className="text-left nav-btn color btn-block"
             aria-pressed="true"
             id="adminUserNav"
           >
@@ -16,11 +16,11 @@ const AdminHomePageGroupNavComponent = ({ handleLogoutButton }) => {
           </button>
         </Link>
       </li>
-      <li className="nav-item mb-2 col-lg-12">
+      <li className="nav-item  col-lg-12">
         <Link className="text-decoration-none" to="/adminhomepage-documents">
           <button
             type="button"
-            className="btn btn-outline-primary btn-block"
+            className="text-left nav-btn color btn-block"
             id="adminDocumentNav"
           >
             Document types
@@ -31,7 +31,7 @@ const AdminHomePageGroupNavComponent = ({ handleLogoutButton }) => {
         <Link className="text-decoration-none" to="/adminhomepage-groups">
           <button
             type="button"
-            className="btn btn-primary btn-block"
+            className="text-left selected-btn selected-color btn-block"
             id="adminGroupNav"
           >
             Groups
@@ -43,7 +43,7 @@ const AdminHomePageGroupNavComponent = ({ handleLogoutButton }) => {
           <button
             onClick={handleLogoutButton}
             type="button"
-            className="btn btn-outline-dark btn-block"
+            className="text-left nav-btn color btn-block"
             id="adminLogoutNav"
           >
             Log out

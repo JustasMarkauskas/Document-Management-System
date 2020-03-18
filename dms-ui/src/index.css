@@ -17,6 +17,14 @@ code {
 }
 
 /*
+Used for full height nav component
+*/
+
+.full-height {
+  height: 100vh;
+}
+
+/*
 Used for max card height
 */
 .scroll {
@@ -40,16 +48,58 @@ Table td width
   text-overflow: ellipsis;
 }
 
-.name-width {
-  max-width: 150px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .documents-td-width {
   max-width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/*
+NAV color
+*/
+
+.nav-color {
+  background-color: #363636;
+}
+
+/*
+Button colors
+*/
+
+.selected-btn {
+  background-color: #763f96;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.selected-color:hover {
+  background-color: #875ca1;
+  color: white;
+}
+
+.nav-btn {
+  background-color: #525252;
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.color:hover {
+  background-color: #6e6e6e;
+  color: white;
+}
+
+.nav-sticky {
+  position: sticky;
+  top: 15%;
+}
+
+.no-scroll {
+  overflow-x: hidden;
 }
