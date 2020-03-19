@@ -95,6 +95,13 @@ public class User {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public String toString() {
+		return "User [identificator=" + identificator + ", userName=" + userName + "]";
+	}
+	
+	
 	
 	
 	

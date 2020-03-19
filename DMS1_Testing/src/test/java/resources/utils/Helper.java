@@ -2,7 +2,7 @@ package resources.utils;
 
 import org.openqa.selenium.WebDriver;
 
-import resources.page.LoginPage;
+import resources.page.SharedPages.LoginPage;
 
 public class Helper {
 	/**
