@@ -13,8 +13,8 @@ const LogInUserComponent = ({
     <div className="background-image">
       <div className="row ">
         <div className="d-flex justify-content-center align-items-center mx-auto col-lg-6 col-md-10 col-sm-12 mt-5">
-          <div className="p-3 my-5 rounded  bg-white">
-            <div className="d-none d-lg-block col-lg-12 text-center">
+          <div className="p-3 my-5 rounded col-lg-6 bg-white">
+            <div className="d-none d-lg-block text-center">
               <img src={loginLogo} alt="" className="img-fluid" />
             </div>
             <form>

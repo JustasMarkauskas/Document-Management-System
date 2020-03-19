@@ -184,19 +184,11 @@ Login
   height: 100%;
 }
 
-.background-login {
-  background-image: url(../src/resources/login-form.jpg);
-  background-repeat: no-repeat;
-  background-size: auto;
-  background-position: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .alert-color {
   background-color: #b1223a;
   color: black;
 }
+
+/*
+xxx
+*/

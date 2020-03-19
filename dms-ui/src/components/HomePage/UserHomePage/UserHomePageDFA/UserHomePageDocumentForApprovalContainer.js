@@ -286,28 +286,28 @@ class UserHomePageDocumentContainer extends React.Component {
           <div className="btn-group" role="group" id="DFAFilterId">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDFAByStatus("ALL")}
             >
               All
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDFAByStatus("SUBMITTED")}
             >
               Submitted
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDFAByStatus("REJECTED")}
             >
               Rejected
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDFAByStatus("APPROVED")}
             >
               Approved

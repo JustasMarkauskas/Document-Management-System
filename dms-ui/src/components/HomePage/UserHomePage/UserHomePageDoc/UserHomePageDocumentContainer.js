@@ -311,35 +311,35 @@ class UserHomePageDocumentContainer extends React.Component {
           <div className="btn-group" role="group" id="DocumentsFilterId">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDocumentsByStatus("ALL")}
             >
               All
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDocumentsByStatus("SAVED")}
             >
               Saved
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDocumentsByStatus("SUBMITTED")}
             >
               Submitted
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDocumentsByStatus("REJECTED")}
             >
               Rejected
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-dark"
               onClick={() => this.getDocumentsByStatus("APPROVED")}
             >
               Approved
