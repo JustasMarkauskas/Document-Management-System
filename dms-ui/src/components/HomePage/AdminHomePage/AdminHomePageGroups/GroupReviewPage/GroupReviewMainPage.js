@@ -33,7 +33,7 @@ class GroupReviewMainPage extends React.Component {
             <AdminHomePageGroupNavContainer />
           </div>
           <div className="col-lg-10 p-3 main-color">
-            <div className="mb-5 text-center">
+            <div className="m-4 text-center">
               <h1>Welcome, {this.state.username}</h1>
             </div>
             <div className="px-5">

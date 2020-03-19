@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../../../resources/logo.png";
 
 const AdminHomePageDocumentsNavComponent = ({ handleLogoutButton }) => {
   return (
     <ul className="nav row nav-sticky">
+      <li className="d-none d-lg-block col-lg-12 text-center">
+        <img src={logo} alt="" className="img-fluid img-width " />;
+      </li>
       <li className="nav-item  col-lg-12">
         <Link className="text-decoration-none" to="/adminhomepage-users">
           <button
             type="button"
-            className="text-left nav-btn color btn-block"
+            className="text-left nav-btn color btn-block font-weight-bold"
             aria-pressed="true"
             id="adminUserNav"
           >
@@ -20,7 +24,7 @@ const AdminHomePageDocumentsNavComponent = ({ handleLogoutButton }) => {
         <Link className="text-decoration-none" to="/adminhomepage-documents">
           <button
             type="button"
-            className="text-left selected-btn selected-color btn-block"
+            className="text-left selected-btn selected-color btn-block font-weight-bold"
             id="adminDocumentNav"
           >
             Document types
@@ -31,7 +35,7 @@ const AdminHomePageDocumentsNavComponent = ({ handleLogoutButton }) => {
         <Link className="text-decoration-none" to="/adminhomepage-groups">
           <button
             type="button"
-            className="text-left nav-btn color btn-block"
+            className="text-left nav-btn color btn-block font-weight-bold"
             id="adminGroupNav"
           >
             Groups
@@ -43,7 +47,7 @@ const AdminHomePageDocumentsNavComponent = ({ handleLogoutButton }) => {
           <button
             onClick={handleLogoutButton}
             type="button"
-            className="text-left nav-btn color btn-block"
+            className="text-left nav-btn color btn-block font-weight-bold"
             id="adminLogoutNav"
           >
             Log out

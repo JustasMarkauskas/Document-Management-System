@@ -213,7 +213,7 @@ class AdminHomePageDocumentContainer extends React.Component {
           </div>
         </div>
         <div className="table-responsive">
-          <table className="table table-striped">
+          <table className="table table-striped table-dark">
             <thead className="table-head">
               <tr>
                 <th scope="col">#</th>

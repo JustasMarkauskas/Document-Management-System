@@ -127,14 +127,12 @@ Button colors
   color: white;
 }
 
-.table-head {
-  background-color: #9a6bb8;
-  color: black;
-}
-
+/*
+Sticyky nav and no horizontal scroll on pages
+*/
 .nav-sticky {
   position: sticky;
-  top: 15%;
+  /* top: 2%; */
 }
 
 .no-scroll {
@@ -144,6 +142,10 @@ Button colors
 /*
 Table style
 */
+.table-head {
+  background-color: #74498f;
+  color: black;
+}
 
 table {
   border-collapse: collapse;
@@ -154,4 +156,47 @@ table {
 .table td,
 .table th {
   border-top: none !important;
+  vertical-align: middle !important;
+}
+
+/*
+Logo widht and height
+*/
+
+.img-width {
+  height: 170px !important;
+  width: 200px !important;
+}
+
+/*
+Login
+*/
+
+.background-image {
+  background-image: url(../src/resources/login-background.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background-login {
+  background-image: url(../src/resources/login-form.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.alert-color {
+  background-color: #b1223a;
+  color: black;
 }

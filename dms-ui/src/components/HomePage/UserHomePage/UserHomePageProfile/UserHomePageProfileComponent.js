@@ -40,7 +40,7 @@ class UserHomePageProfileComponent extends React.Component {
 
   render() {
     return (
-      <div className="my-2">
+      <div className="container">
         <div className="row">
           <div className="col-lg-6 col-sm-12 my-2 pr-1">
             <form id="profileReviewPageId">
