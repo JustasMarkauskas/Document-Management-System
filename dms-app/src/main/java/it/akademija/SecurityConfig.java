@@ -55,8 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				// UI without security
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
-				// all /apitest/ are safe, accessed only when user is logged in
-				.antMatchers("/apitest/**").authenticated().and().formLogin().loginPage("/login").permitAll()
+				// all /api/ are safe, accessed only when user is logged in
+				.antMatchers( "/api/**").authenticated().and().formLogin().loginPage("/login").permitAll()
 				.successHandler(new AuthenticationSuccessHandler() {
 					@Override
 					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -71,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				})
 				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).loginPage("/login").permitAll().and()
 				.logout().permitAll()
-				// works, but need to change this part in next sprint
 				.logoutSuccessHandler(new LogoutSuccessHandler() {
 					@Override
 					public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
