@@ -90,6 +90,7 @@ public class UserCreateEditReviewDocExceptionTest extends AbstractTest  {
 		ManageAutotestingData.updateGroupsDocTypesForApproval(apiURL, "testGroup101", "testDocType101", "testDocType102", "testDocType103", "", "");
 		ManageAutotestingData.updateGroupsDocTypesForCreation(apiURL, "testGroup101", "testDocType101", "testDocType102", "testDocType103", "testDocType104", "testDocType105");
 		ManageAutotestingData.updateUserGroups(apiURL, "testUser101", "testGroup101", "");
+		
 
 	}
 

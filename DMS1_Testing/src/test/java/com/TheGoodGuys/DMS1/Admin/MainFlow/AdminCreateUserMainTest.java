@@ -78,8 +78,9 @@ public class AdminCreateUserMainTest extends AbstractTest {
 	}
 
 	@AfterMethod
-	public void logout() {
-		adminNav.clickButtonLogout();
+	@Parameters({"baseURL"})
+	public void logout(String baseURL) {
+		driver.get(baseURL);
 	}
 
 	@AfterTest
