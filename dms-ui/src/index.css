@@ -175,7 +175,7 @@ Login
 .background-image {
   background-image: url(../src/resources/login-background.png);
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   background-position: center;
   position: fixed;
   top: 0;
