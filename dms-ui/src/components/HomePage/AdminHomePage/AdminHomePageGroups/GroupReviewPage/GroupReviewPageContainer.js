@@ -72,7 +72,7 @@ class GroupReviewPageContainer extends React.Component {
         id: "not updated"
       })
       .then(() => {
-        this.props.history.push("/adminhomepage-groups");
+        this.props.history.push("/dms/adminhomepage-groups");
         this.successGroupUpdateNotification();
       })
       .catch(error => {
@@ -82,7 +82,7 @@ class GroupReviewPageContainer extends React.Component {
 
   onCancelClick = event => {
     event.preventDefault();
-    this.props.history.push("/adminhomepage-groups");
+    this.props.history.push("/dms/adminhomepage-groups");
   };
 
   render() {

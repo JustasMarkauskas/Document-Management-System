@@ -143,7 +143,7 @@ class UserReviewContainer extends React.Component {
 
   onCancelClick = event => {
     event.preventDefault();
-    this.props.history.push("/adminhomepage-users");
+    this.props.history.push("/dms/adminhomepage-users");
   };
 
   updateUser = event => {
@@ -160,7 +160,7 @@ class UserReviewContainer extends React.Component {
         }
       )
       .then(() => {
-        this.props.history.push("/adminhomepage-users");
+        this.props.history.push("/dms/adminhomepage-users");
         this.successUserUpdateNotification();
       })
       .catch(error => {

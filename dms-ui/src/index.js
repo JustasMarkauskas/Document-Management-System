@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { Switch, Route } from "react-router";
-import { HashRouter as Router, BrowserRouter } from "react-router-dom";
+import { Switch } from "react-router";
+import { Route, BrowserRouter } from "react-router-dom";
 import LogInUserContainer from "./components/LogInPage/LogInUserContainer";
 import AdminHomePageContainer from "./components/HomePage/AdminHomePage/AdminHomePageContainer";
 import AdminHomePageDocumentsContainer from "./components/HomePage/AdminHomePage/AdminHomePageDocuments/AdminHomePageDocumentsContainer";
@@ -30,50 +30,61 @@ var AppContainer = props => {
 
 ReactDOM.render(
   <BrowserRouter>
-    <Router>
-      <AppContainer>
-        <Switch>
-          <Route exact path="/" component={LogInUserContainer} />
-          <Route
-            path="/adminhomepage-users"
-            component={AdminHomePageContainer}
-          />
-          <Route
-            path="/submitted-document"
-            component={SubmittedDocReviewContainer}
-          />
-          <Route
-            path="/adminhomepage-documents"
-            component={AdminHomePageDocumentsContainer}
-          />
-          <Route
-            path="/adminhomepage-groups"
-            component={AdminHomePageGroupContainer}
-          />
-          <Route
-            path="/userhomepage-documents"
-            component={UserHomePageContainer}
-          />
-          <Route
-            path="/userhomepage-dfa"
-            component={UserHomePageDFAContainer}
-          />
-          <Route
-            path="/group-review/:groupName"
-            component={GroupReviewMainPage}
-          />
-          <Route path="/user-review/:username" component={UserReviewMainPage} />
-          <Route
-            path="/dfa-statistics/:username"
-            component={DFAStatisticsMainPage}
-          />
-          <Route
-            path="/userhomepage-profile"
-            component={UserHomePageProfileMainPage}
-          />
-        </Switch>
-      </AppContainer>
-    </Router>
+    <AppContainer>
+      <Switch>
+        <Route exact path="/dms/" component={LogInUserContainer} />
+        <Route
+          exact
+          path="/dms/adminhomepage-users"
+          component={AdminHomePageContainer}
+        />
+        <Route
+          exact
+          path="/dms/submitted-document"
+          component={SubmittedDocReviewContainer}
+        />
+        <Route
+          exact
+          path="/dms/adminhomepage-documents"
+          component={AdminHomePageDocumentsContainer}
+        />
+        <Route
+          exact
+          path="/dms/adminhomepage-groups"
+          component={AdminHomePageGroupContainer}
+        />
+        <Route
+          exact
+          path="/dms/userhomepage-documents"
+          component={UserHomePageContainer}
+        />
+        <Route
+          exact
+          path="/dms/userhomepage-dfa"
+          component={UserHomePageDFAContainer}
+        />
+        <Route
+          exact
+          path="/dms/group-review/:groupName"
+          component={GroupReviewMainPage}
+        />
+        <Route
+          exact
+          path="/dms/user-review/:username"
+          component={UserReviewMainPage}
+        />
+        <Route
+          exact
+          path="/dms/dfa-statistics/:username"
+          component={DFAStatisticsMainPage}
+        />
+        <Route
+          exact
+          path="/dms/userhomepage-profile"
+          component={UserHomePageProfileMainPage}
+        />
+      </Switch>
+    </AppContainer>
   </BrowserRouter>,
   document.getElementById("root")
 );

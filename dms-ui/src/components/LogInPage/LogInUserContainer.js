@@ -37,9 +37,9 @@ class LoginUserContainer extends React.Component {
       })
       .then(resp => {
         if (resp.data.isAdmin === "true") {
-          this.props.history.push("/adminhomepage-users");
+          this.props.history.push("/dms/adminhomepage-users");
         } else {
-          this.props.history.push("/userhomepage-documents");
+          this.props.history.push("/dms/userhomepage-documents");
         }
       })
       .catch(e => {

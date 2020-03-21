@@ -133,7 +133,7 @@ class UserHomePageDocumentContainer extends React.Component {
 
   handleStatisticsClick = event => {
     event.preventDefault();
-    this.props.history.push("/dfa-statistics/" + this.state.username);
+    this.props.history.push("/dms/dfa-statistics/" + this.state.username);
   };
 
   handleSearchChange = event => {

@@ -96,7 +96,7 @@ class AdminHomePageGroupContainer extends React.Component {
 
   handleActionClick = (event, groupName) => {
     event.preventDefault();
-    this.props.history.push("/group-review/" + groupName);
+    this.props.history.push("/dms/group-review/" + groupName);
   };
 
   setElementsForSearchButton = () => {

@@ -9,7 +9,7 @@ class UserHomePageDocNavContainer extends React.Component {
     axios
       .post(serverUrl + "logout")
       .then(() => {
-        this.props.history.push("/");
+        this.props.history.push("/dms/");
       })
       .catch(e => {
         console.log(e);

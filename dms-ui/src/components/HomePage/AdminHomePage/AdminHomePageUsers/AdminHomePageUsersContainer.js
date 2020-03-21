@@ -89,7 +89,7 @@ class AdminHomePageUsersContainer extends React.Component {
 
   handleActionClick = (event, username) => {
     event.preventDefault();
-    this.props.history.push("/user-review/" + username);
+    this.props.history.push("/dms/user-review/" + username);
   };
 
   handleSearchChange = event => {
