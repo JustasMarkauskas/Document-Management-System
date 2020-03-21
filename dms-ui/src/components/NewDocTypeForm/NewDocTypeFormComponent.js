@@ -53,7 +53,7 @@ class NewDocTypeFormComponent extends React.Component {
       message: "Document type with name " + name + " already exists",
       type: "danger",
       insert: "top",
-      container: "top-right",
+      container: "top-center",
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
       dismiss: {

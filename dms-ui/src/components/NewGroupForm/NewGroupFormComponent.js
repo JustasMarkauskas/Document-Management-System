@@ -51,7 +51,7 @@ class NewGroupFormComponent extends React.Component {
       message: "Group with name " + name + " already exists",
       type: "danger",
       insert: "top",
-      container: "top-right",
+      container: "top-center",
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
       dismiss: {

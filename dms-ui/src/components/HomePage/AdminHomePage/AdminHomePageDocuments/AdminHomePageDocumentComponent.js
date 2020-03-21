@@ -17,7 +17,7 @@ class AdminHomePageDocumentComponent extends React.Component {
       message: name + " comment updated successfully",
       type: "success",
       insert: "top",
-      container: "top-right",
+      container: "top-center",
       animationIn: ["animated", "fadeIn"],
       animationOut: ["animated", "fadeOut"],
       dismiss: {
@@ -34,9 +34,9 @@ class AdminHomePageDocumentComponent extends React.Component {
   };
 
   handleCloseAndUpdateDocTypeModal = name => {
-    this.setState({ docTypeModal: false });
     this.props.updateDocTypes();
     this.successDocTypeUpdateNotification(name);
+    this.setState({ docTypeModal: false });
   };
 
   render() {
