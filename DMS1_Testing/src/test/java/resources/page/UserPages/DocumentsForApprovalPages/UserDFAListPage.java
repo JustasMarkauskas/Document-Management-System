@@ -3,9 +3,11 @@ package resources.page.UserPages.DocumentsForApprovalPages;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,7 +30,7 @@ public class UserDFAListPage extends AbstractPage {
 
 
 	//lists
-	@FindBy(xpath = "//table[@id='userDFATable']/preceding::div[@class='btn-group']/button")
+	@FindBy(xpath = "//div[@id='DFAFilterId']/button")
 	private List<WebElement> buttonsFilter;
 	
 	@FindBy(xpath = "//tr[contains(@id,'userDFADocumentNr')]/descendant::td[1]")
@@ -118,7 +120,7 @@ public class UserDFAListPage extends AbstractPage {
 	}
 	
 	public WebElement getButtonFilterByText(String text) {
-		for (WebElement button : buttonsDocumentActions) {
+		for (WebElement button : buttonsFilter) {
 			if (text.equals(button.getText())) {
 				return button;
 			}
@@ -151,18 +153,7 @@ public class UserDFAListPage extends AbstractPage {
 	}
 	
 	public String[] getTextFromRowFieldsByFieldValues(String author, String title, String docType, String status) {
-//		String[] rowFields = new String[7];
 		int rowNumber = findRowNumberByFieldValues(author, title, docType, status);
-//		if (rowNumber > 0) {
-//			WebElement row = getRowByRowNumber(rowNumber);
-//			rowFields[0] = row.findElement(By.xpath("./th")).getText();
-//			rowFields[1] = row.findElement(By.xpath("./td[1]")).getText();
-//			rowFields[2] = row.findElement(By.xpath("./td[2]")).getText();
-//			rowFields[3] = row.findElement(By.xpath("./td[3]")).getText();
-//			rowFields[4] = row.findElement(By.xpath("./td[4]")).getText();
-//			rowFields[5] = row.findElement(By.xpath("./td[5]")).getText();
-//			rowFields[6] = row.findElement(By.xpath("./td[6]")).getText();
-//		}
 		return getTextFromRowFieldsByRowNumber(rowNumber);
 	}
 	
@@ -181,9 +172,34 @@ public class UserDFAListPage extends AbstractPage {
 		return rowFields;
 	}
 	
+	private void waitForLabelsStatusToUpdate() {
+		WebDriverWait wait = (WebDriverWait)new WebDriverWait(driver,1000)
+				.ignoring(StaleElementReferenceException.class); 
+		wait.until(new ExpectedCondition<Boolean>(){ 
+			@Override 
+			public Boolean apply(WebDriver driver) { 
+				WebElement element = driver.findElement(By.xpath("//div[@id='DFAFilterId']/button")); 
+				return element != null && element.isDisplayed(); 
+			} 
+		}); 
+	}
 
+	public boolean checkIfAllStatusesMatchText(String text) {
+		waitForMultipleElementVisibility(getLabelsStatus());
+		
+		int numberOfLabels = labelsStatus.size();
+		int numberOfMatches = 0;
+		for (WebElement label : labelsStatus) {
+			if(label.getText().equals(text)) {
+				numberOfMatches++;
+			}
+		}
+		return numberOfLabels == numberOfMatches;
+	}
 	
 
+	
+	//Ingos like metodai:
 	//sitas ok
 	public void checkIfStatusIsSubmittedAndClickAction() {
 		int buttonIndex = 0;
@@ -259,6 +275,7 @@ public class UserDFAListPage extends AbstractPage {
 	}
 
 	public List<WebElement> getLabelsStatus() {
+		waitForLabelsStatusToUpdate();
 		return labelsStatus;
 	}
 

@@ -1,27 +1,31 @@
 package com.TheGoodGuys.DMS1.Login.MainFlow;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.thoughtworks.xstream.XStream;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
-import resources.models.UserData;
+import resources.page.AdminPages.AdminNavPage;
 import resources.page.SharedPages.HeaderPage;
 import resources.page.SharedPages.LoginPage;
 import resources.page.UserPages.UserNavPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
+import resources.utils.ManageAutotestingData;
 
 public class ValidLoginLogoutTest extends AbstractTest {
 
@@ -29,6 +33,7 @@ public class ValidLoginLogoutTest extends AbstractTest {
 	private LoginPage login;
 	private HeaderPage header;
 	private UserNavPage userNav;
+	private AdminNavPage adminNav;
 
 	@BeforeClass
 	@Parameters({ "baseURL" })
@@ -37,26 +42,48 @@ public class ValidLoginLogoutTest extends AbstractTest {
 		login = new LoginPage(driver);
 		header = new HeaderPage(driver);
 		userNav = new UserNavPage(driver);
+		adminNav = new AdminNavPage(driver);
 		driver.get(baseURL);
 	}
 
-	@DataProvider(name = "validUser")
+	
+	@BeforeClass
+	@Parameters({"apiURL"})
+	public void createTestData(String apiURL) throws UnirestException {
+
+		ManageAutotestingData.createUser(apiURL, "SimpleUser1", "test", "test", "SimpleUser1", "autotesting");
+		ManageAutotestingData.createAdmin(apiURL, "DemoAdmin1", "test", "test", "DemoAdmin1", "autotesting");
+	}
+	
+	@AfterClass
+	@Parameters({"apiURL"})
+	public void deleteTestData(String apiURL) throws UnirestException {
+
+		ManageAutotestingData.deleteUserDataByComment(apiURL, "autotesting");
+	}
+	
+
+	@DataProvider(name = "validUsers")
 	public static Object[] testData() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/UsersValidLogin.xml");
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/LoginTests/UsersValidLogin.xml");
 	}
 
-	@Test(priority = 1, groups = { "validUserLogin" }, dataProvider = "validUser")
-	@Parameters({ "loginUsername", "loginPassword" })
-	public void testValidUserLogin(User validUser) throws Exception {
+	@Test(priority = 1, groups = { "validUserLogin" }, dataProvider = "validUsers")
+	public void testValidUserLogin(User validUser) {
 
 		login.enterDetailsAndLogin(validUser.getUserName(), validUser.getPassword());
-//		Thread.sleep(2000);
 		wait.until(ExpectedConditions.textToBePresentInElement(header.getWelcomeMsg(), "Welcome"));
 		
-		//AdminNavPage ir UserNavPage du skirtingi PAge'ai todel ieskau tiesiai cia:
-		Assert.assertTrue(driver.findElement(By.tagName("h1")).getText().contains(validUser.getUserName()));
-		//AdminNavPage ir UserNavPage logout buttonai turi skirtingus ID, ten neredagavau, ieskau tiesiai cia:
-		driver.findElement(By.xpath("//button[text()='Log Out']")).click();
+		assertThat("Login was not successful", header.getWelcomeMsgText(), is(equalTo("Welcome, " + validUser.getUserName())));
+
+		if (validUser.getIdentificator().equals("simple_user")) {
+			userNav.clickButtonLogout();
+		} else if (validUser.getIdentificator().equals("admin_user")) {
+			adminNav.clickButtonLogout();
+		}
+		
+		assertThat("Logout was not successful", login.getButtonUserLogin().isDisplayed(), is(true));
+		
 	}
 
 }

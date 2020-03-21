@@ -8,8 +8,6 @@
 
 	<test name="InvalidLoginTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>

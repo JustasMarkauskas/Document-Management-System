@@ -17,39 +17,33 @@ public class ManageAutotestingData {
 	public static void main(String[] args) throws UnirestException {
 
 		//		deleteUserDataByComment("http://localhost:8081", "autotesting");
-		//		deleteUserDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
 		//		deleteGroupDataByComment("http://localhost:8081", "autotesting");
-		//		deleteGroupDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
 		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting");
-		//		deleteDocTypeDataByComment("http://localhost:8081", "autotesting autotesting autotesting autotesting au");
 		//		deleteDocTypeDataByName("http://localhost:8081", "Shgn7");
-		//				createUser("http://localhost:8081", "testUserUnirest", "test", "test", "Password1", "autotesting");
+		//		createUser("http://localhost:8081", "testUserUnirest", "test", "test", "Password1", "autotesting");
 		//		createGroup("http://localhost:8081", "testGroup101", "autotesting");
-		//		createGroup("http://localhost:8081", "testGroup102", "autotesting");
 		//		createDocType("http://localhost:8081", "testDocType101", "autotesting");
-		//				updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "");
+		//		updateUserGroups("http://localhost:8081", "testUser101", "testGroup101", "");
 		//		updateGroupsDocTypesForApproval("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
 		//		updateGroupsDocTypesForCreation("http://localhost:8081", "testGroup101", "Annual leave", "ExpenseClaim", "Sick-leave", "notice period", "EquipmentRequest");
-		//				updateGroupUsers("http://localhost:8081", "testGroup101", "testUser101", "", "", "", "");
+		//		updateGroupUsers("http://localhost:8081", "testGroup101", "testUser101", "", "", "", "");
 		//		removeAssignedElementsFromGroup("http://localhost:8081", "testGroup101");
 		//		saveDocument("http://localhost:8081", "testUser1", "test unirest 1", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
 		//		submitDocument("http://localhost:8081", "testUser1", "test unirest 3", "Sick-leave", "autotesting", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf");
-		//				deleteDocumentsByComment("http://localhost:8081", "data for statistics");
-		//				createDataForStatistics("http://localhost:8081");
+		//		deleteDocumentsByComment("http://localhost:8081", "data for statistics");
+		//		createDataForStatistics("http://localhost:8081");
 		//		rejectDocument("http://localhost:8081", "testUser1", 1059, "test api Call");
 		//		System.out.println(getLastDocumentIdByUsername("http://localhost:8081", "testUser1"));
-
-		//		String cookie = login("http://localhost:8081", "admin1", "Password1");
-		//		System.out.println(cookie);
-		//		createUser("http://localhost:8081", "testCookie1", "test", "test", "Password1", "test data", cookie);
+		//		createAdmin("http://localhost:8081", "admin", "Admin name", "Admin surename", "Bandymas1", "System administration");
+//		createDataForFilterTest("http://localhost:8081");
 
 	}
 
 	public static String login(String baseUrl) throws UnirestException {
 		String editApi = baseUrl + "/login";
 		HttpResponse<String> response = Unirest.post(editApi)
-				.field("username", "admin1")
-				.field("password", "Password1").asString();
+				.field("username", "admin")
+				.field("password", "Bandymas1").asString();
 
 		//		System.out.println("login status code: " + response.getStatus());
 		//		System.out.println(response.getHeaders());
@@ -60,31 +54,32 @@ public class ManageAutotestingData {
 	public static void deleteGroupDataByComment(String baseUrl, String comment) throws UnirestException {
 		String sessionId = login(baseUrl);
 		String editApi = baseUrl + "/api/group/comment?comment={comment}";
-		Unirest.delete(editApi)
+		HttpResponse<String> response = Unirest.delete(editApi)
 		.header("Cookie", sessionId)
 		.routeParam("comment", comment)
 		.asString();
+		System.out.println("delete group data status code: " + response.getStatus());
 	}
 
 	public static void deleteUserDataByComment(String baseUrl, String comment) throws UnirestException {
 		String sessionId = login(baseUrl);
 		String editApi = baseUrl + "/api/user?comment={comment}";
-		Unirest.delete(editApi)
-		.header("Cookie", sessionId)
-		.routeParam("comment", comment)
-		.asString();
+		HttpResponse<String> response = Unirest.delete(editApi)
+				.header("Cookie", sessionId)
+				.routeParam("comment", comment)
+				.asString();
+				System.out.println("delete user data status code: " + response.getStatus());
 	}
 
 	public static void deleteDocTypeDataByComment(String baseUrl, String comment) throws UnirestException {
 		String sessionId = login(baseUrl);
 		String editApi = baseUrl + "/api/doctype/comment?comment={comment}";
-		Unirest.delete(editApi)
-		.header("Cookie", sessionId)
-		.routeParam("comment", comment)
-		.asString();
+		HttpResponse<String> response = Unirest.delete(editApi)
+				.header("Cookie", sessionId)
+				.routeParam("comment", comment)
+				.asString();
+				System.out.println("delete docType data status code: " + response.getStatus());
 	}
-
-
 
 	public static void deleteDocumentsByComment(String baseUrl, String comment) throws UnirestException {
 		String sessionId = login(baseUrl);
@@ -100,10 +95,13 @@ public class ManageAutotestingData {
 		String sessionId = login(baseUrl);
 		String editApi = baseUrl + "/api/doctype?docTypeName={name}";
 		Unirest.delete(editApi)
-		.header("Cookie", sessionId)
-		.routeParam("name", name)
-		.asString();
+			.header("Cookie", sessionId)
+			.routeParam("name", name)
+			.asString();
 	}
+	
+	
+	
 
 	public static void saveDocument(String baseUrl, String author, String title, String docType, String description, String filePath) throws UnirestException {
 		String sessionId = login(baseUrl);
@@ -132,6 +130,9 @@ public class ManageAutotestingData {
 				.field("title", title).asString();
 		System.out.println("submit document status code: " + response.getStatus());
 	}
+	
+	
+	
 
 	public static void createUser(String baseUrl, String username, String firstName,
 			String lastName, String password, String comment) throws UnirestException {
@@ -153,6 +154,50 @@ public class ManageAutotestingData {
 				.body(user)
 				.asString();
 		System.out.println("createUser status code: " + request.getStatus());
+	}
+	
+	public static void createAdmin(String baseUrl, String username, String firstName,
+			String lastName, String password, String comment) throws UnirestException {
+
+		String sessionId = login(baseUrl);
+		String editApi = baseUrl + "/api/user/admin";
+
+		JSONObject user = new JSONObject();
+		user.put("comment", comment);
+		user.put("firstName", firstName);
+		user.put("lastName", lastName);
+		user.put("password", password);
+		user.put("username", username);
+
+		HttpResponse<String> request = Unirest.post(editApi)
+				.header("content-type", "application/json")
+				.header("accept", "*/*")
+				.header("Cookie", sessionId)
+				.body(user)
+				.asString();
+		System.out.println("createAdmin status code: " + request.getStatus());
+	}
+	
+	public static void updatePassword(String baseUrl, String username, String firstName,
+			String lastName, String newPassword, String comment) throws UnirestException {
+
+		String sessionId = login(baseUrl);
+		String editApi = baseUrl + "/api/user/update-password/" + username;
+
+		JSONObject user = new JSONObject();
+		user.put("comment", comment);
+		user.put("firstName", firstName);
+		user.put("lastName", lastName);
+		user.put("password", newPassword);
+		user.put("username", username);
+
+		HttpResponse<String> request = Unirest.put(editApi)
+				.header("content-type", "application/json")
+				.header("accept", "*/*")
+				.header("Cookie", sessionId)
+				.body(user)
+				.asString();
+		System.out.println("update password status code: " + request.getStatus());
 	}
 
 	public static void createGroup(String baseUrl, String groupName, String comment) throws UnirestException {
@@ -180,6 +225,8 @@ public class ManageAutotestingData {
 				.asString();
 		System.out.println("createDocType status code: " + request.getStatus());
 	}
+	
+	
 
 	public static void updateUserGroups(String baseUrl, String username, String group1, String group2) throws UnirestException {
 		String sessionId = login(baseUrl);
@@ -278,6 +325,9 @@ public class ManageAutotestingData {
 		.routeParam("docType5", docType5)
 		.asString();
 	}
+	
+	
+	
 
 	public static int getLastDocumentIdByUsername(String baseUrl, String username) throws UnirestException {
 		String sessionId = login(baseUrl);
@@ -295,6 +345,8 @@ public class ManageAutotestingData {
 		int id = doc.getInt("id");
 		return id;
 	}
+	
+	
 
 	public static void approveDocument(String baseUrl, String reviewer, int id, String rejectionReason) throws UnirestException {
 		String sessionId = login(baseUrl);
@@ -400,6 +452,45 @@ public class ManageAutotestingData {
 		docID = getLastDocumentIdByUsername(baseUrl, "userStatistics5");
 		approveDocument(baseUrl, "manager111", docID, "");
 
+
+	}
+	
+	
+	public static void createDataForFilterTest(String baseUrl) throws UnirestException {
+		createGroup(baseUrl, "filterTestGroup", "data for filters");
+		createUser(baseUrl, "filterTestUser", "test", "test", "Password1", "data for filters");
+		createDocType(baseUrl, "filterRequest", "data for filters");
+
+		updateUserGroups(baseUrl, "filterTestUser", "filterTestGroup", "");
+		updateGroupsDocTypesForCreation(baseUrl, "filterTestGroup", "filterRequest", "", "", "", "");
+		updateGroupsDocTypesForApproval(baseUrl, "filterTestGroup", "filterRequest", "", "", "", "");
+
+		submitDocument(baseUrl, "filterTestUser", "test request 1", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		int docID = getLastDocumentIdByUsername(baseUrl, "filterTestUser");
+		rejectDocument(baseUrl, "filterTestUser", docID, "data for statistics");
+
+		submitDocument(baseUrl, "filterTestUser", "test request 2", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		submitDocument(baseUrl, "filterTestUser", "test request 3", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "filterTestUser");
+		approveDocument(baseUrl, "filterTestUser", docID, "");
+		
+		saveDocument(baseUrl, "filterTestUser", "test request 4", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		
+		submitDocument(baseUrl, "filterTestUser", "test request 5", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "filterTestUser");
+		rejectDocument(baseUrl, "filterTestUser", docID, "data for statistics");
+
+		submitDocument(baseUrl, "filterTestUser", "test request 6", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		submitDocument(baseUrl, "filterTestUser", "test request 7", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		docID = getLastDocumentIdByUsername(baseUrl, "filterTestUser");
+		approveDocument(baseUrl, "filterTestUser", docID, "");
+		
+		saveDocument(baseUrl, "filterTestUser", "test request 8", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		
+		submitDocument(baseUrl, "filterTestUser", "test request 9", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		
+		saveDocument(baseUrl, "filterTestUser", "test request 10", "filterRequest", "data for filters", "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf");
+		
 
 	}
 

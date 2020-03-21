@@ -10,12 +10,12 @@
 		<testDataGroup>user_invalid</testDataGroup>
 		<identificator>userName_nonExisting</identificator>
 		<userName>nonExistingUserName</userName>
-		<password>K3CUzY2V9brEhAYEzvFK</password>
+		<password>Password1</password>
 	</User>
 	<User>
 		<testDataGroup>user_invalid</testDataGroup>
 		<identificator>password_incorrect</identificator>
-		<userName>userpetermark</userName>
-		<password>123456</password>
+		<userName>DemoUser1</userName>
+		<password>Password11</password>
 	</User>	
 </resources.models.UserData>

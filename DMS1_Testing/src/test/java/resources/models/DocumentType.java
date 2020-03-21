@@ -48,4 +48,12 @@ public class DocumentType {
 		this.comment = comment;
 	}
 
+	@Override
+	public String toString() {
+		return "DocumentType [testDataGroup=" + testDataGroup + ", identificator=" + identificator
+				+ ", documentTypeName=" + documentTypeName + "]";
+	}
+	
+	
+
 }

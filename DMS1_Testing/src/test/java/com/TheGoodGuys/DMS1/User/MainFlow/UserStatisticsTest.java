@@ -45,13 +45,7 @@ public class UserStatisticsTest extends AbstractTest  {
 	private LoginPage login;
 	private HeaderPage header;
 	private UserNavPage userNav;
-	private UserMyDocumentListPage userDocuments;
-	private UserCreateDocumentPage createDocument;
 	private UserDFAListPage docsForApproval;
-	private UserSubmittedDFAReviewPage submittedDFAReview;
-	private UserSavedDocReviewPage savedDocReview;
-	private UserSubmittedDocReviewPage submittedDocReview;
-	private NotificationsPage notifications;
 	private UserStatisticsOptionsPage statisticsOptions;
 	private UserStatisticsPage statisticsResults;
 
@@ -62,13 +56,7 @@ public class UserStatisticsTest extends AbstractTest  {
 		login = new LoginPage(driver);
 		header = new HeaderPage(driver);
 		userNav = new UserNavPage(driver);
-		userDocuments = new UserMyDocumentListPage(driver);
-		createDocument = new UserCreateDocumentPage(driver);
 		docsForApproval = new UserDFAListPage(driver);
-		submittedDFAReview = new UserSubmittedDFAReviewPage(driver);
-		savedDocReview = new UserSavedDocReviewPage(driver);
-		submittedDocReview = new UserSubmittedDocReviewPage(driver);
-		notifications = new NotificationsPage(driver);
 		statisticsOptions = new UserStatisticsOptionsPage(driver);
 		statisticsResults = new UserStatisticsPage(driver);
 

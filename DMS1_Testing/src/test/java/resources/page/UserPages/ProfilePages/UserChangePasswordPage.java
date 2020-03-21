@@ -1,4 +1,4 @@
-package resources.page.AdminPages.UserPages;
+package resources.page.UserPages.ProfilePages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.models.User;
 import resources.page.AbstractPage;
 
-public class AdminChangePasswordPage extends AbstractPage {
+public class UserChangePasswordPage extends AbstractPage {
 	
 	//inputs
 	
@@ -36,7 +36,7 @@ public class AdminChangePasswordPage extends AbstractPage {
 	
 		
 	
-	public AdminChangePasswordPage(WebDriver driver) {
+	public UserChangePasswordPage(WebDriver driver) {
 		super(driver);
 	}
 	

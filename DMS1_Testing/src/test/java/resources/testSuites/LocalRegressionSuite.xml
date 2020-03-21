@@ -5,11 +5,29 @@
 	<listeners>
 		<listener class-name="resources.utils.ListenerTest" />
 	</listeners>
+	
+	<test name="ValidLoginTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class name="com.TheGoodGuys.DMS1.Login.MainFlow.ValidLoginLogoutTest" />
+		</classes>
+	</test>
+	
+	<test name="InvalidLoginTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class name="com.TheGoodGuys.DMS1.Login.ExceptionFlow.InvalidLoginTest" />
+		</classes>
+	</test>
 
 	<test name="CreateUserTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
@@ -21,8 +39,8 @@
 	
 	<test name="CreateDocumentTypeExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
@@ -33,8 +51,8 @@
 	
 	<test name="CreateGroupExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
@@ -45,8 +63,8 @@
 	
 	<test name="CreateUserExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
@@ -54,16 +72,7 @@
 		</classes>
 	</test>
 	
-	<test name="InvalidLoginTest">
-		<parameter name="baseURL" value="http://localhost:3000/#/" />
-		<parameter name="loginUsername" value="admin1" />
-		<parameter name="loginPassword" value="Password1" />
-		<parameter name="apiURL" value="http://localhost:8081" />
-
-		<classes>
-			<class name="com.TheGoodGuys.DMS1.Login.ExceptionFlow.InvalidLoginTest" />
-		</classes>
-	</test>
+	
 	
 	
 	<test name="DocumentCreateEditAndReviewTest">

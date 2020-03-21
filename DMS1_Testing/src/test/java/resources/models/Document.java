@@ -70,6 +70,12 @@ public class Document {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
+	@Override
+	public String toString() {
+		return "Document [identificator=" + identificator + ", documentTitle=" + documentTitle + ", description="
+				+ description + ", documentType=" + documentType + "]";
+	}
 	
 	
 

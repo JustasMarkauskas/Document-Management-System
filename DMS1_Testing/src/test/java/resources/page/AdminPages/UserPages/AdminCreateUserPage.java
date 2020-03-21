@@ -56,7 +56,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	private WebElement msgInvalidPassword;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//input[@placeholder='Confirm password']//following-sibling::div[contains(@class,'invalid-feedback')]")
-	private WebElement msgInvalidCondirmPassword;
+	private WebElement msgInvalidConfirmPassword;
 	
 	@FindBy(xpath = "//*[@id='adminCreateUserForm']//textarea[@placeholder='Comment']//following-sibling::div[contains(@class,'invalid-feedback')]")
 	private WebElement msgInvalidComment;
@@ -216,7 +216,7 @@ public class AdminCreateUserPage extends AbstractPage {
 	}
 
 	public WebElement getMsgInvalidCondirmPassword() {
-		return msgInvalidCondirmPassword;
+		return msgInvalidConfirmPassword;
 	}
 
 	public WebElement getMsgInvalidComment() {

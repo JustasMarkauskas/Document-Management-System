@@ -49,6 +49,14 @@ public class Group {
 	public void setComments(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public String toString() {
+		return "Group [testDataGroup=" + testDataGroup + ", identificator=" + identificator + ", groupName=" + groupName
+				+ "]";
+	}
+	
+	
 	
 	
 
