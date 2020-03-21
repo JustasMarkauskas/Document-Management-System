@@ -1,3 +1,3 @@
-const serverUrl = "http://localhost:8080/dms/";
+const serverUrl = "http://localhost:8081/";
 
 export default serverUrl;
