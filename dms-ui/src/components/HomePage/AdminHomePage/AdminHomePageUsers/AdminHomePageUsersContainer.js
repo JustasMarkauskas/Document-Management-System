@@ -205,7 +205,7 @@ class AdminHomePageUsersContainer extends React.Component {
               onKeyPress={this.checkIfEnter}
               type="text"
               className="form-control"
-              placeholder="Username"
+              placeholder="User info"
               aria-label="username"
               aria-describedby="button-addon2"
               id="adminUserSearchInput"

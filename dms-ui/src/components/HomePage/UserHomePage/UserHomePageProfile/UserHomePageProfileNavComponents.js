@@ -16,7 +16,7 @@ const UserHomePageProfileNavComponent = ({ handleLogoutButton }) => {
             aria-pressed="true"
             id="userDocumentNav"
           >
-            Documents
+            My documents
           </button>
         </Link>
       </li>

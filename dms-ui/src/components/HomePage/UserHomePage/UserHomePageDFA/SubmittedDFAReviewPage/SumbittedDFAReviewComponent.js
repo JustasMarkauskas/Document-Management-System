@@ -10,7 +10,8 @@ class SubmittedDFAReviewComponent extends React.Component {
     this.state = {
       files: [],
       rejectionReason: "",
-      username: ""
+      username: "",
+      documentReceiver: ""
     };
   }
 
@@ -18,7 +19,14 @@ class SubmittedDFAReviewComponent extends React.Component {
     axios
       .get(serverUrl + "api/user/loggedUsername")
       .then(response => {
+        let username = response.data;
         this.setState({ username: response.data });
+        axios.get(serverUrl + "api/user/" + username).then(response => {
+          this.setState({
+            documentReceiver:
+              response.data.firstName + " " + response.data.lastName
+          });
+        });
       })
       .catch(error => {
         console.log(error);
@@ -112,7 +120,7 @@ class SubmittedDFAReviewComponent extends React.Component {
     event.preventDefault();
     axios
       .put(serverUrl + "api/document/approve-document", {
-        documentReceiver: this.state.username,
+        documentReceiver: this.state.documentReceiver,
         id: this.props.id
       })
       .then(() => {
@@ -129,7 +137,7 @@ class SubmittedDFAReviewComponent extends React.Component {
     event.preventDefault();
     axios
       .put(serverUrl + "api/document/reject-document", {
-        documentReceiver: this.state.username,
+        documentReceiver: this.state.documentReceiver,
         id: this.props.id,
         rejectionReason: this.state.rejectionReason
       })
