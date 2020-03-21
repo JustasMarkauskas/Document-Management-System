@@ -11,7 +11,8 @@ public interface UserRepository extends JpaRepository<User, Long>  {
 	List<User> findAllByOrderByIdDesc();
 	User findByUsername (String username);
 	void deleteByComment (String comment);
-	List<User> findByUsernameContainingIgnoreCase(String userText);
+	List<User> findByUsernameContainingIgnoreCase(String username);
+	List<User> findByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String username, String firstName, String lastName);
 	
 
 }
