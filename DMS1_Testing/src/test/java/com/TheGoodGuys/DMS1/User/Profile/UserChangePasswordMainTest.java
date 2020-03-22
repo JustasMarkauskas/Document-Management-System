@@ -1,4 +1,4 @@
-package com.TheGoodGuys.DMS1.User.MainFlow;
+package com.TheGoodGuys.DMS1.User.Profile;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -12,10 +12,8 @@ import org.testng.annotations.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.*;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
-import resources.page.SharedPages.NotificationsPage;
-import resources.page.UserPages.*;
+import resources.page.SharedPages.*;
+import resources.page.UserPages.UserNavPage;
 import resources.page.UserPages.ProfilePages.*;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
@@ -127,7 +125,9 @@ public class UserChangePasswordMainTest extends AbstractTest {
 		assertThat("Change button is not disabled", changePassword.getButtonChange().isEnabled(), is(false));
 
 		changePassword.enterInputPassword(newPassword);
+		assertThat("Password is displayed in plain text", changePassword.getInputPassword().getAttribute("type"), is(equalTo("password")));
 		changePassword.enterInputConfirmPassword(newPassword);
+		assertThat("Confirm Password is displayed in plain text", changePassword.getInputConfirmPassword().getAttribute("type"), is(equalTo("password")));
 
 		assertThat("Change button is disabled", changePassword.getButtonChange().isEnabled(), is(true));
 

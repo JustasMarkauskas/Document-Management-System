@@ -70,9 +70,6 @@ public class UserSubmittedDFAReviewPage extends AbstractPage {
 	private void waitForSingleElementVisibility(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
 	}
-	private void waitForMultipleElementVisibility(List<WebElement> elements) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
-	}
 
 
 	public void clickButtonApprove() {

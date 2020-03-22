@@ -64,12 +64,6 @@ public class UserReviewedDFAReviewPage extends AbstractPage {
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
-	private void waitForSingleElementVisibility(WebElement element) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
-	}
-	private void waitForMultipleElementVisibility(List<WebElement> elements) {
-		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(elements));
-	}
 
 	public void clickButtonCancel() {
 		waitForClickable(buttonCancel);

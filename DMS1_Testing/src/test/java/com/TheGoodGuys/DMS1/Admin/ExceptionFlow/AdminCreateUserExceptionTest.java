@@ -2,32 +2,18 @@ package com.TheGoodGuys.DMS1.Admin.ExceptionFlow;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.expectThrows;
-
 import java.io.IOException;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
 import resources.page.AdminPages.AdminNavPage;
-import resources.page.AdminPages.UserPages.AdminCreateUserPage;
-import resources.page.AdminPages.UserPages.AdminUserListPage;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
-import resources.page.SharedPages.NotificationsPage;
+import resources.page.AdminPages.UserPages.*;
+import resources.page.SharedPages.*;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
 import resources.utils.ManageAutotestingData;

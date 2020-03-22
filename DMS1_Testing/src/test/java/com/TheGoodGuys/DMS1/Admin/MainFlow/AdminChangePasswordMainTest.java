@@ -2,13 +2,10 @@ package com.TheGoodGuys.DMS1.Admin.MainFlow;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.greaterThan;
-
 import java.io.IOException;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.*;
 
 
@@ -17,9 +14,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import resources.models.*;
 import resources.page.AdminPages.AdminNavPage;
 import resources.page.AdminPages.UserPages.*;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
-import resources.page.SharedPages.NotificationsPage;
+import resources.page.SharedPages.*;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;
@@ -132,8 +127,10 @@ public class AdminChangePasswordMainTest extends AbstractTest {
 		assertThat("Change button is not disabled", changePassword.getButtonChange().isEnabled(), is(false));
 
 		changePassword.enterInputPassword(newPassword);
+		assertThat("Password is displayed in plain text", changePassword.getInputPassword().getAttribute("type"), is(equalTo("password")));
 		changePassword.enterInputConfirmPassword(newPassword);
-
+		assertThat("Confirm Password is displayed in plain text", changePassword.getInputConfirmPassword().getAttribute("type"), is(equalTo("password")));
+		
 		assertThat("Change button is disabled", changePassword.getButtonChange().isEnabled(), is(true));
 
 		changePassword.clickButtonChange();
@@ -151,5 +148,6 @@ public class AdminChangePasswordMainTest extends AbstractTest {
 		driver.navigate().refresh();
 
 	}
+	
 
 }

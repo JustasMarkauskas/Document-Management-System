@@ -13,10 +13,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.Group;
 import resources.page.AdminPages.AdminNavPage;
-import resources.page.AdminPages.GroupPages.AdminCreateGroupPage;
-import resources.page.AdminPages.GroupPages.AdminGroupListPage;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
+import resources.page.AdminPages.GroupPages.*;
+import resources.page.SharedPages.*;
 import resources.test.AbstractTest;
 import resources.utils.ManageAutotestingData;
 import resources.utils.FileReaderUtils;

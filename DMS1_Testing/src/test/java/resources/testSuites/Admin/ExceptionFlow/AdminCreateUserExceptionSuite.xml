@@ -6,7 +6,7 @@
 		<listener class-name="resources.utils.ListenerTest" />
 	</listeners>
 	
-	<test name="CreateUserTest">
+	<test name="CreateUserExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin" />
 		<parameter name="loginPassword" value="Bandymas1" />

@@ -16,7 +16,7 @@ public class AdminNavPage extends AbstractPage {
 	private WebElement buttonUsers;
 	
 	@FindBy(id = "adminDocumentNav")
-	private WebElement buttonDocuments;
+	private WebElement buttonDocTypes;
 	
 	@FindBy(id = "adminGroupNav")
 	private WebElement buttonGroups;
@@ -40,9 +40,9 @@ public class AdminNavPage extends AbstractPage {
 		buttonUsers.click();
 	}
 	
-	public void clickButtonDocuments() {
-		waitForClickable(buttonDocuments);
-		buttonDocuments.click();
+	public void clickButtonDocTypes() {
+		waitForClickable(buttonDocTypes);
+		buttonDocTypes.click();
 	}
 	
 	public void clickButtonGroups() {
@@ -63,7 +63,7 @@ public class AdminNavPage extends AbstractPage {
 
 
 	public WebElement getButtonDocuments() {
-		return buttonDocuments;
+		return buttonDocTypes;
 	}
 
 

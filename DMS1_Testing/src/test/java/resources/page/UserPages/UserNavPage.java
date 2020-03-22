@@ -13,7 +13,7 @@ public class UserNavPage extends AbstractPage {
 	// buttons
 
 	@FindBy(id = "userDocumentNav")
-	private WebElement buttonDocuments;
+	private WebElement buttonMyDocuments;
 
 	@FindBy(id = "userDFANav")
 	private WebElement buttonDFA;
@@ -33,9 +33,9 @@ public class UserNavPage extends AbstractPage {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	public void clickButtonDocuments() {
-		waitForClickable(buttonDocuments);
-		buttonDocuments.click();
+	public void clickButtonMyDocuments() {
+		waitForClickable(buttonMyDocuments);
+		buttonMyDocuments.click();
 	}
 
 	public void clickButtonProfile() {
@@ -54,8 +54,8 @@ public class UserNavPage extends AbstractPage {
 
 	// getters
 
-	public WebElement getButtonDocuments() {
-		return buttonDocuments;
+	public WebElement getButtonMyDocuments() {
+		return buttonMyDocuments;
 	}
 
 	public WebElement getButtonDFA() {

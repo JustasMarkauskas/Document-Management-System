@@ -2,26 +2,18 @@ package com.TheGoodGuys.DMS1.Login.MainFlow;
 
 import java.io.IOException;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.User;
 import resources.page.AdminPages.AdminNavPage;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
+import resources.page.SharedPages.*;
 import resources.page.UserPages.UserNavPage;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;

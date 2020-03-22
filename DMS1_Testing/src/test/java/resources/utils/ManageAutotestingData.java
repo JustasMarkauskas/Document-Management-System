@@ -100,6 +100,15 @@ public class ManageAutotestingData {
 			.asString();
 	}
 	
+	public static void deleteGroupDataByName(String baseUrl, String name) throws UnirestException {
+		String sessionId = login(baseUrl);
+		String editApi = baseUrl + "/api/group?groupName={name}";
+		Unirest.delete(editApi)
+			.header("Cookie", sessionId)
+			.routeParam("name", name)
+			.asString();
+	}
+	
 	
 	
 

@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.models.Document;
 import resources.page.AbstractPage;
-import resources.utils.CustomWaits;
 
 public class UserCreateDocumentPage extends AbstractPage {
 

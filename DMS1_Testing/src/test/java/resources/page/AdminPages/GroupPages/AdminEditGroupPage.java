@@ -18,40 +18,44 @@ public class AdminEditGroupPage extends AbstractPage {
 	@FindBy(xpath = "//form[@id='groupReviewPageId']//input[@id='groupName']")
 	private WebElement inputGroupName;
 
-	@FindBy(xpath = "//form[@id='groupReviewPageId']//input[@id='groupCommentId']")
+	@FindBy(xpath = "//form[@id='groupReviewPageId']//textarea[@id='groupCommentId']")
 	private WebElement inputComment;
-	
+
 	//buttons
 	@FindBy(xpath = "//form[@id='groupReviewPageId']//button[text() = 'Save']")
 	private WebElement buttonSave;
-	
+
 	@FindBy(xpath = "//form[@id='groupReviewPageId']//button[text() = 'Cancel']")
 	private WebElement buttonCancel;
 
 	@FindBy(id = "assignUserButton")
 	private WebElement buttonAssignUser;
-	
+
 	@FindBy(id = "assignDFAButton")
 	private WebElement buttonAssignDFA;
-	
+
 	@FindBy(id = "assignDFCButton")
 	private WebElement buttonAssignDFC;
-	
+
 	//card fields
 	@FindBy(xpath = "//h5[text() = 'Users']/following-sibling::div//li")
 	private List<WebElement> labelsUsers;
-	
+
 	@FindBy(xpath = "//h5[text() = 'Document types for creation']/following-sibling::div//li")
 	private List<WebElement> labelsDFCTypes;
-	
+
 	@FindBy(xpath = "//h5[text() = 'Document types for approval']/following-sibling::div//li")
 	private List<WebElement> labelsDFATypes;
+
+	//error msgs
+	@FindBy(xpath = "//form[@id='groupReviewPageId']//textarea[@id='groupCommentId']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	private WebElement msgInvalidComment;
 
 
 	public AdminEditGroupPage(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
@@ -61,46 +65,47 @@ public class AdminEditGroupPage extends AbstractPage {
 	private void waitForSingleElementVisibility(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
 	}
-	
+
 	public void enterInputComment(String comment) {
 		waitForSingleElementVisibility(inputComment);
+		inputComment.clear();
 		inputComment.sendKeys(comment);
 	}
-	
+
 	public void clickButtonSave() {
 		waitForClickable(buttonSave);
 		buttonSave.click();
 	}
-	
+
 	public void clickButtonCancel() {
 		waitForClickable(buttonCancel);
 		buttonCancel.click();
 	}
-	
+
 	public void fillAndSaveFormEditGroup(Group group) {
 		enterInputComment(group.getComment());
 		clickButtonSave();
 	}
-	
+
 	public void fillFormEditGroup(Group group) {
 		enterInputComment(group.getComment());
 	}
-	
+
 	public void clickButtonAssignUsers() {
 		waitForClickable(buttonAssignUser);
 		buttonAssignUser.click();
 	}
-	
+
 	public void clickButtonAssignDFA() {
 		waitForClickable(buttonAssignDFA);
 		buttonAssignDFA.click();
 	}
-	
+
 	public void clickButtonAssignDFC() {
 		waitForClickable(buttonAssignDFC);
 		buttonAssignDFC.click();
 	}
-	
+
 	public int findLabelNumberByUsername(String username) {
 		waitForMultipleElementVisibility(labelsUsers);
 		for (int i = 0; i < labelsUsers.size(); i++) {
@@ -110,11 +115,11 @@ public class AdminEditGroupPage extends AbstractPage {
 		}
 		return 0;
 	}
-	
+
 	public WebElement getAssignedUserByLabelNumber(int labelNumber) {
 		return labelsUsers.get(labelNumber - 1);
 	}
-	
+
 	public int findLabelNumberByDFATypeName(String docTypeName) {
 		waitForMultipleElementVisibility(labelsDFATypes);
 		for (int i = 0; i < labelsDFATypes.size(); i++) {
@@ -124,11 +129,11 @@ public class AdminEditGroupPage extends AbstractPage {
 		}
 		return 0;
 	}
-	
+
 	public WebElement getDFATypeByLabelNumber(int labelNumber) {
 		return labelsDFATypes.get(labelNumber - 1);
 	}
-	
+
 	public int findLabelNumberByDFCTypeName(String docTypeName) {
 		waitForMultipleElementVisibility(labelsDFCTypes);
 		for (int i = 0; i < labelsDFCTypes.size(); i++) {
@@ -138,11 +143,11 @@ public class AdminEditGroupPage extends AbstractPage {
 		}
 		return 0;
 	}
-	
+
 	public WebElement getDFCTypeByLabelNumber(int labelNumber) {
 		return labelsDFCTypes.get(labelNumber - 1);
 	}
-	
+
 	//getters
 
 	public WebElement getInputGroupName() {
@@ -186,7 +191,7 @@ public class AdminEditGroupPage extends AbstractPage {
 	}
 
 
-	
+
 
 
 }

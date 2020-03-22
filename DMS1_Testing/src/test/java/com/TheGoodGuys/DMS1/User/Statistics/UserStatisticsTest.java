@@ -1,42 +1,18 @@
-package com.TheGoodGuys.DMS1.User.MainFlow;
+package com.TheGoodGuys.DMS1.User.Statistics;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import resources.models.Document;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
-import resources.page.SharedPages.NotificationsPage;
+import resources.page.SharedPages.*;
 import resources.page.UserPages.*;
-import resources.page.UserPages.DocumentsForApprovalPages.UserDFAListPage;
-import resources.page.UserPages.DocumentsForApprovalPages.UserSubmittedDFAReviewPage;
-import resources.page.UserPages.MyDocumentsPages.UserCreateDocumentPage;
-import resources.page.UserPages.MyDocumentsPages.UserMyDocumentListPage;
-import resources.page.UserPages.MyDocumentsPages.UserSavedDocReviewPage;
-import resources.page.UserPages.MyDocumentsPages.UserSubmittedDocReviewPage;
-import resources.page.UserPages.StatisticsPages.UserStatisticsOptionsPage;
-import resources.page.UserPages.StatisticsPages.UserStatisticsPage;
+import resources.page.UserPages.DocumentsForApprovalPages.*;
+import resources.page.UserPages.StatisticsPages.*;
 import resources.test.AbstractTest;
-import resources.utils.FileReaderUtils;
 import resources.utils.ManageAutotestingData;
 
 public class UserStatisticsTest extends AbstractTest  {

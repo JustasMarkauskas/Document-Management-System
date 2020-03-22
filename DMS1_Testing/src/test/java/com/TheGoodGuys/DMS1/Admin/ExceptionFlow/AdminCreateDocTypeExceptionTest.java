@@ -8,25 +8,14 @@ import java.io.IOException;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterGroups;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeGroups;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.DocumentType;
-import resources.models.Group;
 import resources.page.AdminPages.AdminNavPage;
-import resources.page.AdminPages.DocTypePages.AdminCreateDocTypePage;
-import resources.page.AdminPages.DocTypePages.AdminDocTypeListPage;
-import resources.page.AdminPages.GroupPages.AdminCreateGroupPage;
-import resources.page.AdminPages.GroupPages.AdminGroupListPage;
-import resources.page.SharedPages.HeaderPage;
-import resources.page.SharedPages.LoginPage;
+import resources.page.AdminPages.DocTypePages.*;
+import resources.page.SharedPages.*;
 import resources.test.AbstractTest;
 import resources.utils.FileReaderUtils;
 import resources.utils.ManageAutotestingData;
@@ -84,7 +73,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 1, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidLength")
 	public void testToCheckLengthRestrictionsInCreateDocumentType(DocumentType document) {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		createDocType.fillDocTypeCreationForm(document);
 		
@@ -102,7 +91,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 2, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsBlankName")
 	public void testToCheckBlankRestrictionsInCreateDocumentType(DocumentType document) {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		createDocType.fillDocTypeCreationForm(document);
 		
@@ -121,7 +110,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 3, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidCommentLength")
 	public void testToCheckCommentLengthRestrictionsInCreateDocumentType(DocumentType document) {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		createDocType.fillDocTypeCreationForm(document);
 
@@ -139,7 +128,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 4, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsInvalidChars")
 	public void testToCheckSpecialCharsRestrictionsInCreateDocumentType(DocumentType document) {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		createDocType.fillDocTypeCreationForm(document);
 		
@@ -157,7 +146,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 5, groups = { "docTypeCreationInvalid" }, dataProvider = "documentsDuplicate", enabled = false)
 	public void testToCheckDuplicatesInCreateDocumentType(DocumentType document) {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		createDocType.enterInputDocumentTypeName(document.getDocumentTypeName());
 		createDocType.enterInputComment(document.getComment());
@@ -178,7 +167,7 @@ public class AdminCreateDocTypeExceptionTest extends AbstractTest {
 	@Test(priority = 6, groups = { "docTypeCreationInvalid" } )
 	public void testToCheckEmptyFormSubmissionRestrictionsInCreateDocumentType() {
 
-		adminNav.clickButtonDocuments();
+		adminNav.clickButtonDocTypes();
 		adminDocTypes.clickButtonAddNewDocType();
 		
 		assertThat("Submit button is not disabled", createDocType.getButtonSubmit().isEnabled(), is(false));

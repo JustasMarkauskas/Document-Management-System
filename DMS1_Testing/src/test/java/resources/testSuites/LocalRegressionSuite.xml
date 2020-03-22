@@ -5,26 +5,30 @@
 	<listeners>
 		<listener class-name="resources.utils.ListenerTest" />
 	</listeners>
-	
+
+
 	<test name="ValidLoginTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.Login.MainFlow.ValidLoginLogoutTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.Login.MainFlow.ValidLoginLogoutTest" />
 		</classes>
 	</test>
-	
+
 	<test name="InvalidLoginTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.Login.ExceptionFlow.InvalidLoginTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.Login.ExceptionFlow.InvalidLoginTest" />
 		</classes>
 	</test>
 
-	<test name="CreateUserTest">
+
+	<test name="AdminCreateElementsMainTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin" />
 		<parameter name="loginPassword" value="Bandymas1" />
@@ -32,35 +36,46 @@
 
 		<classes>
 			<class
-				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminCreateUserMainTest" />
+				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminCreateElementsMainTest" />
 		</classes>
 	</test>
-	
-	
-	<test name="CreateDocumentTypeExceptionTest">
+
+	<test name="AdminChangePasswordMainTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin" />
 		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateDocTypeExceptionTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminChangePasswordMainTest" />
 		</classes>
 	</test>
-	
-	
-	<test name="CreateGroupExceptionTest">
+
+	<test name="AdminAssignGroupsMainTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin" />
 		<parameter name="loginPassword" value="Bandymas1" />
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateGroupExceptionTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminAssignGroupsToUserMainTest" />
 		</classes>
 	</test>
-	
-	
+
+	<test name="AdminAssignElementsMainTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminAssignElementsToGroupMainTest" />
+		</classes>
+	</test>
+
 	<test name="CreateUserExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="admin" />
@@ -68,14 +83,37 @@
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateUserExceptionTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateUserExceptionTest" />
 		</classes>
 	</test>
-	
-	
-	
-	
-	<test name="DocumentCreateEditAndReviewTest">
+
+	<test name="CreateGroupExceptionTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateGroupExceptionTest" />
+		</classes>
+	</test>
+
+	<test name="CreateDocumentTypeExceptionTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.ExceptionFlow.AdminCreateDocTypeExceptionTest" />
+		</classes>
+	</test>
+
+
+	<test name="UserCreateDocumentMainTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="testUser101" />
 		<parameter name="loginPassword" value="Password1" />
@@ -83,12 +121,11 @@
 
 		<classes>
 			<class
-				name="com.TheGoodGuys.DMS1.User.ExceptionFlow.UserCreateEditReviewDocExceptionTest" />
+				name="com.TheGoodGuys.DMS1.User.Documents.MainFlow.UserCreateDocumentMainTest" />
 		</classes>
 	</test>
-	
-	
-	<test name="DocumentCreateAndReviewTest">
+
+	<test name="UserReviewDocumentMainTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="testUser101" />
 		<parameter name="loginPassword" value="Password1" />
@@ -96,11 +133,70 @@
 
 		<classes>
 			<class
-				name="com.TheGoodGuys.DMS1.User.MainFlow.UserCreateAndReviewDocumentMainTest" />
+				name="com.TheGoodGuys.DMS1.User.Documents.MainFlow.UserReviewDocumentMainTest" />
 		</classes>
 	</test>
-	
-	
+
+	<test name="UserEditDocumentAlternateTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="testUser101" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.Documents.AlternateFlow.UserEditDocumentAlternateFlowTest" />
+		</classes>
+	</test>
+
+	<test name="UserCreateDocExceptionTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="testUser101" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.Documents.ExceptionFlow.UserCreateDocExceptionTest" />
+		</classes>
+	</test>
+
+	<test name="UserEditDocExceptionTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="testUser101" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.Documents.ExceptionFlow.UserEditDocExceptionTest" />
+		</classes>
+	</test>
+
+	<test name="UserReviewDocExceptionTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="testUser101" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.Documents.ExceptionFlow.UserReviewDocExceptionTest" />
+		</classes>
+	</test>
+
+	<test name="UserChangePasswordMainTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="changePassUser3" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.Profile.UserChangePasswordMainTest" />
+		</classes>
+	</test>
+
 	<test name="StatisticsTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />
 		<parameter name="loginUsername" value="manager111" />
@@ -108,15 +204,23 @@
 		<parameter name="apiURL" value="http://localhost:8081" />
 
 		<classes>
-			<class name="com.TheGoodGuys.DMS1.User.MainFlow.UserStatisticsTest" />
+			<class
+				name="com.TheGoodGuys.DMS1.User.Statistics.UserStatisticsTest" />
 		</classes>
 	</test>
-	
-	
-	
-	
-	
-	
+
+	<test name="FilterByStatusTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="filterTestUser" />
+		<parameter name="loginPassword" value="Password1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.User.FilterByStatus.UserFilterByStatusTest" />
+		</classes>
+	</test>
+
 
 
 </suite>

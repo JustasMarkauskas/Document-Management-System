@@ -20,38 +20,48 @@ public class AdminEditUserPage extends AbstractPage {
 
 	@FindBy(xpath = "//*[@class='UserReviewForm']//input[@id='firstName']")
 	private WebElement inputFirstName;
-	
+
 	@FindBy(xpath = "//*[@class='UserReviewForm']//input[@id='lastName']")
 	private WebElement inputLastName;
-	
+
 	@FindBy(xpath = "//*[@class='UserReviewForm']//textarea[@id='comment']")
 	private WebElement inputComment;
-	
+
 	//buttons
 	@FindBy(xpath = "//*[@class='UserReviewForm']//button[text() = 'Save']")
 	private WebElement buttonSave;
-	
+
 	@FindBy(xpath = "//*[@class='UserReviewForm']//button[text() = 'Cancel']")
 	private WebElement buttonCancel;
-	
+
 	@FindBy(xpath = "//*[@class='UserReviewForm']//button[text() = 'Change password']")
 	private WebElement buttonChangePassword;
 
 	@FindBy(id = "assignGroupsButton")
 	private WebElement buttonAssignGroup;
 
-	
+
 	//card fields
 	@FindBy(xpath = "//h5[text() = 'User groups' and @class='card-title']/following-sibling::div//li")
 	private List<WebElement> labelsGroups;
+
+	//error msgs
+	@FindBy(xpath = "//*[@class='UserReviewForm']//textarea[@id='comment']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	private WebElement msgInvalidComment;
 	
+	@FindBy(xpath = "//*[@class='UserReviewForm']//input[@id='firstName']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	private WebElement msgInvalidFirstName;
+	
+	@FindBy(xpath = "//*[@class='UserReviewForm']//input[@id='lastName']//following-sibling::div[contains(@class,'invalid-feedback')]")
+	private WebElement msgInvalidLastName;
+
 
 
 
 	public AdminEditUserPage(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	private void waitForClickable(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(element));
 	}
@@ -61,50 +71,53 @@ public class AdminEditUserPage extends AbstractPage {
 	private void waitForSingleElementVisibility(WebElement element) {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(element));
 	}
-	
+
 	public void enterInputFirstName(String firstName) {
 		waitForSingleElementVisibility(inputFirstName);
+		inputFirstName.clear();
 		inputFirstName.sendKeys(firstName);
 	}
-	
+
 	public void enterInputLastName(String lastName) {
 		waitForSingleElementVisibility(inputLastName);
+		inputLastName.clear();
 		inputLastName.sendKeys(lastName);
 	}
-	
+
 	public void enterInputComment(String comment) {
 		waitForSingleElementVisibility(inputComment);
+		inputComment.clear();
 		inputComment.sendKeys(comment);
 	}
-	
+
 	public void clickButtonSave() {
 		waitForClickable(buttonSave);
 		buttonSave.click();
 	}
-	
+
 	public void clickButtonCancel() {
 		waitForClickable(buttonCancel);
 		buttonCancel.click();
 	}
-	
+
 	public void clickButtonChangePassword() {
 		waitForClickable(buttonChangePassword);
 		buttonChangePassword.click();
 	}
-	
+
 	public void fillFormEditUser(User user) {
 		enterInputFirstName(user.getName());
 		enterInputLastName(user.getSurname());
 		enterInputComment(user.getComment());
 	}
-	
+
 	public void clickButtonAssignGroup() {
 		waitForClickable(buttonAssignGroup);
 		buttonAssignGroup.click();
 	}
-	
 
-	
+
+
 	public int findLabelNumberByGroupName(String groupName) {
 		waitForMultipleElementVisibility(labelsGroups);
 		for (int i = 0; i < labelsGroups.size(); i++) {
@@ -114,12 +127,12 @@ public class AdminEditUserPage extends AbstractPage {
 		}
 		return 0;
 	}
-	
+
 	public WebElement getAssignedGroupByLabelNumber(int labelNumber) {
 		return labelsGroups.get(labelNumber - 1);
 	}
-	
-	
+
+
 	//getters
 
 	public WebElement getInputUsername() {
@@ -157,15 +170,27 @@ public class AdminEditUserPage extends AbstractPage {
 	public List<WebElement> getLabelsGroups() {
 		return labelsGroups;
 	}
+
+	public WebElement getMsgInvalidComment() {
+		return msgInvalidComment;
+	}
+
+	public WebElement getMsgInvalidFirstName() {
+		return msgInvalidFirstName;
+	}
+
+	public WebElement getMsgInvalidLastName() {
+		return msgInvalidLastName;
+	}
+
 	
-	
 
 
 
 
 
 
-	
+
 
 
 }

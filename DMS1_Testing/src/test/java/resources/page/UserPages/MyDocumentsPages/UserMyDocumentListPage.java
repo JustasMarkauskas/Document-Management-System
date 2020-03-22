@@ -137,7 +137,7 @@ public class UserMyDocumentListPage extends AbstractPage {
 	}
 
 	public int findRowNumberByFieldValues(String title, String docType, String status) {
-		waitForMultipleElementVisibility(dataRows);
+		waitForMultipleElementVisibility(getDataRows());
 		for (int i = 0; i < dataRows.size(); i++) {
 			if (title.equals(labelsTitle.get(i).getText()) 
 					&& (docType.equals(labelsDocType.get(i).getText())) 
@@ -181,6 +181,18 @@ public class UserMyDocumentListPage extends AbstractPage {
 			public Boolean apply(WebDriver driver) { 
 				WebElement element = driver.findElement(By.xpath("//div[@id='DocumentsFilterId']/button")); 
 				return element != null && element.isDisplayed(); 
+			} 
+		}); 
+	}
+	
+	private void waitForDataRowsToUpdate() {
+		WebDriverWait wait = (WebDriverWait)new WebDriverWait(driver,1000)
+				.ignoring(StaleElementReferenceException.class); 
+		wait.until(new ExpectedCondition<Boolean>(){ 
+			@Override 
+			public Boolean apply(WebDriver driver) { 
+				List<WebElement> elements = driver.findElements(By.xpath("//tr[contains(@id,'userDocumentNr')]")); 
+				return elements.get(0) != null && elements.get(0).isDisplayed(); 
 			} 
 		}); 
 	}
@@ -235,6 +247,7 @@ public class UserMyDocumentListPage extends AbstractPage {
 	}
 
 	public List<WebElement> getDataRows() {
+		waitForDataRowsToUpdate();
 		return dataRows;
 	}
 
