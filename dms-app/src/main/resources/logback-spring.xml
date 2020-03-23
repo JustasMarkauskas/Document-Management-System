@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="LOGS" value="./logs" />
+	<property name="LOGS" value="/tmp/goodGuysLog.log" />
 
 	<appender name="Console"
 		class="ch.qos.logback.core.ConsoleAppender">
@@ -15,14 +15,14 @@
 
 	<appender name="RollingFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOGS}/spring-boot-logger.log</file>
+		<file>${LOGS}</file>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
 		</encoder>
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-			<fileNamePattern>${LOGS}/archived/spring-boot-logger-%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>/logs/archived/app.-%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<!-- Max log file size 10MB -->
 			<maxFileSize>10MB</maxFileSize>
