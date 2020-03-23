@@ -75,6 +75,18 @@
 				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminAssignElementsToGroupMainTest" />
 		</classes>
 	</test>
+	
+	<test name="AdminEditElementsAlternateTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.AlternateFlow.AdminEditElementsAlternateTest" />
+		</classes>
+	</test>
 
 	<test name="CreateUserExceptionTest">
 		<parameter name="baseURL" value="http://localhost:3000/#/" />

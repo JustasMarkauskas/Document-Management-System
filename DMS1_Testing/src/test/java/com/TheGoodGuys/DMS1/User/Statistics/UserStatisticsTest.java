@@ -77,7 +77,32 @@ public class UserStatisticsTest extends AbstractTest  {
 	}
 
 
-
+	/**
+	 * Test to check if Documents for approval statistics are calculated and displayed correctly: 
+	 * number of submitted, number of approved, number of rejected documents are correct, 
+	 * Top 5 users by number of submissions are displayed correctly and number of submissions
+	 * per user match.
+	 * 
+	 * Preconditions: 
+	 * test data for statistics is loaded to the system
+	 * 
+	 * Test flow:
+	 * go to Documents for approval list,
+	 * click button Statistics
+	 * select start date: 1st of previous month
+	 * select end date: current day
+	 * click on 1st test document type and verify the statistics displayed
+	 * click close modal window
+	 * click on 2nd test document type and verify the statistics displayed
+	 * click close modal window
+	 * click on 3rd test document type and verify the statistics displayed
+	 * click close modal window
+	 * 
+	 * Expected results:
+	 * numbers of submitted, approved, rejected documents are correct for all 3 test doc types
+	 * top 5 users by number of submissions are correct for all 3 test doc types
+	 * numbers of submissions by user are correct for all 3 test doc types
+	 */
 	@Test (priority = 1, groups = { "statistics" } )
 	public void testToCheckDocumentForApprovalStatistics() {
 
@@ -151,6 +176,22 @@ public class UserStatisticsTest extends AbstractTest  {
 
 	}
 	
+	/**
+	 * Test to check if Documents for approval statistics are not displayed when dates are selected incorrectly:
+	 * end date is earlier than start date
+	 * 
+	 * Preconditions: 
+	 * test data for statistics is loaded to the system
+	 * 
+	 * Test flow:
+	 * go to Documents for approval list,
+	 * click button Statistics
+	 * default start date: current day
+	 * select end date: 1st of previous month
+	 * 
+	 * Expected results:
+	 * all three test document type buttons are disabled
+	 */
 	@Test (priority = 2, groups = { "statistics" } )
 	public void testToCheckStatisticsWithEndDateEarlierThanStartDate() {
 
@@ -167,6 +208,29 @@ public class UserStatisticsTest extends AbstractTest  {
 
 	}
 	
+	/**
+	 * Test to check if Documents for approval statistics are displayed as zero when dates are selected in the future
+	 * 
+	 * Preconditions: 
+	 * test data for statistics is loaded to the system
+	 * 
+	 * Test flow:
+	 * go to Documents for approval list,
+	 * click button Statistics
+	 * select start date: 1st of next month
+	 * select end date: 20th of next month
+	 * click on 1st test document type and verify the statistics displayed
+	 * click close modal window
+	 * click on 2nd test document type and verify the statistics displayed
+	 * click close modal window
+	 * click on 3rd test document type and verify the statistics displayed
+	 * click close modal window
+	 * 
+	 * Expected results:
+	 * numbers of submitted, approved, rejected documents are zeros for all 3 test doc types
+	 * top 5 users by number of submissions are not displayed for all 3 test doc types
+	 * numbers of submissions by user are not displayed for all 3 test doc types
+	 */
 	@Test (priority = 3, groups = { "statistics" } )
 	public void testToCheckStatisticsWithFutureDates() {
 

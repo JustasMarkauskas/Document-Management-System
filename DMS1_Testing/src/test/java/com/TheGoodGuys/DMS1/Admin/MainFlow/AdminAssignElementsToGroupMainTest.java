@@ -85,6 +85,19 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		ManageAutotestingData.deleteGroupDataByComment(apiURL, "autotesting");
 	}
 
+	/**
+	 * Test to check if admin can assign user to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Users section
+	 * select a user in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected username is visible under Users section
+	 * 
+	 */
 	@Test (priority = 1, groups = { "groupAssignments" })
 	public void testToAssignOneUserToGroup() {
 		adminNav.clickButtonGroups();
@@ -99,7 +112,21 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		
 		assertThat("User was not assigned", editGroup.findLabelNumberByUsername(username), is(greaterThan(0)));
 	}
-
+	
+	
+	/**
+	 * Test to check if admin can assign all available users to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Users section
+	 * select all available users in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected usernames of test users (5 test users) are visible under Users section
+	 * 
+	 */
 	@Test (priority = 2, groups = { "groupAssignments" })
 	public void testToAssignAllUsersToGroup() {
 		adminNav.clickButtonGroups();
@@ -119,6 +146,19 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		assertThat("Users were not assigned correctly", editGroup.findLabelNumberByUsername("testUser105"), is(greaterThan(0)));
 	}
 	
+	/**
+	 * Test to check if admin can assign document type for approval to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Document types for approval section
+	 * select a document type in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected doc type name is visible under Document types for approval section
+	 * 
+	 */
 	@Test (priority = 3, groups = { "groupAssignments" })
 	public void testToAssignOneDFAToGroup() {
 		adminNav.clickButtonGroups();
@@ -134,6 +174,20 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		assertThat("DFA was not assigned", editGroup.findLabelNumberByDFATypeName(docTypeName), is(greaterThan(0)));
 	}
 	
+	
+	/**
+	 * Test to check if admin can assign all available document types for approval to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Document types for approval section
+	 * select all available document types in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected test doc type names (5 test doc types) are visible under Document types for approval section
+	 * 
+	 */
 	@Test (priority = 4, groups = { "groupAssignments" })
 	public void testToAssignAllDFAsToGroup() {
 		adminNav.clickButtonGroups();
@@ -153,6 +207,20 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		assertThat("DFAs were not assigned correctly", editGroup.findLabelNumberByDFATypeName("testDocType105"), is(greaterThan(0)));
 	}
 	
+	
+	/**
+	 * Test to check if admin can assign document type for creation to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Document types for crestion section
+	 * select a document type in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected doc type name is visible under Document types for creation section
+	 * 
+	 */
 	@Test (priority = 5, groups = { "groupAssignments" })
 	public void testToAssignOneDFCToGroup() {
 		adminNav.clickButtonGroups();
@@ -168,6 +236,20 @@ public class AdminAssignElementsToGroupMainTest extends AbstractTest {
 		assertThat("DFC was not assigned", editGroup.findLabelNumberByDFCTypeName(docTypeName), is(greaterThan(0)));
 	}
 	
+	
+	/**
+	 * Test to check if admin can assign all available document types for creation to a group in Edit Group page
+	 * 
+	 * Test flow: 
+	 * go to Edit Group Page for existing group
+	 * click Assign button under Document types for creation section
+	 * select all available document types in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected test doc type names (5 test doc types) are visible under Document types for creation section
+	 * 
+	 */
 	@Test (priority = 6, groups = { "groupAssignments" })
 	public void testToAssignAllDFCsToGroup() {
 		adminNav.clickButtonGroups();

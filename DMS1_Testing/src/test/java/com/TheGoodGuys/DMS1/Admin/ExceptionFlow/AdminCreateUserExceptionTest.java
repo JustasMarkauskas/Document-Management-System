@@ -62,13 +62,20 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		ManageAutotestingData.deleteUserDataByComment(apiURL, "autotesting autotesting autotesting autotesting au");
 	}
 	
-	
-	@DataProvider(name = "usersInvalidPasswordLength")
-	public static Object[] testDataUsersInvalidPasswordLength() throws IOException {
-		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordLength.xml");
-	}
-	
-	
+	/**
+	 * Test to check if empty user creation form cannot be submitted
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * leave all fields empty
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Submit button is disabled
+	 * 
+	 */
 	@Test (priority = 1, groups = { "userCreationInvalidData" } )
 	public void testToCheckEmptyFormSubmissionRestrictionsInCreateUser() {
 		
@@ -78,8 +85,31 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		assertThat("Submit button is not disabled", createUser.getButtonSubmit().isEnabled(), is(false));
 		createUser.clickButtonCancel();
 	}
-
-
+	
+	
+	@DataProvider(name = "usersInvalidPasswordLength")
+	public static Object[] testDataUsersInvalidPasswordLength() throws IOException {
+		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordLength.xml");
+	}
+	
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user password length is invalid(
+	 * Password - Length: not 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, at least one each; Special characters: not allowed;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid password length
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Password field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 2, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordLength")
 	public void testToCheckPasswordLengthRestrictionsInCreateUser(User user) {
 		
@@ -99,6 +129,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordBlank.xml");
 	}
 
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user password is blank (
+	 * Password - Length: 0;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with blank password
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Password field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 3, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordBlank")
 	public void testToCheckPasswordBlankRestrictionsInCreateUser(User user) {
 		
@@ -119,7 +167,25 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordChars.xml");
 	}
 
-
+	
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user password contains special characters (
+	 * Password - Length: 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, at least one each, spec chars;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid password characters
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Password field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 4, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordChars")
 	public void testToCheckPasswordSpecialCharsRestrictionsInCreateUser(User user) {
 		
@@ -139,7 +205,25 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidPasswordCharSet.xml");
 	}
 
-
+	
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user password does not cover 3 allowed sets of symbols (
+	 * Password - Length: 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, covers only 2 out of 3 required sets of symbols;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with insufficient password symbol sets
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Password field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 5, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordCharSet")
 	public void testToCheckPasswordCharSetRestrictionsInCreateUser(User user) {
 		
@@ -159,6 +243,22 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidConfirmPasswordMatch.xml");
 	}
 
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if Password and Confirm password fields do not match
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with mismatching passwords
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Confirm password field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 
 	@Test (priority = 6, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidPasswordMatch")
 	public void testToCheckPasswordMatchRestrictionsInCreateUser(User user) {
@@ -185,7 +285,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidUsernameChars.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Username contains special characters (
+	 * Username - Length: 5-20 chars; Allowed symbols: lowercase/uppercase letters, digits, special chars
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid Username characters
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Username field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 7, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidUsernameSpecChars")
 	public void testToCheckUsernameSpecCharsRestrictionsInCreateUser(User user) {
 		
@@ -205,7 +322,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidUsernameLength.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Username length is invalid (
+	 * Username - Length: not 5-20 chars; Allowed symbols: lowercase/uppercase letters, digits; Special characters: not allowed;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid Username length
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Username field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 8, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidUsernameLength")
 	public void testToCheckUsernameLengthRestrictionsInCreateUser(User user) {
 		
@@ -225,7 +359,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidUsernameBlank.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Username is blank (
+	 * Username - Length: 0;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with blank Username
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Username field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 9, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidUsernameBlank")
 	public void testToCheckUsernameBlankRestrictionsInCreateUser(User user) {
 		
@@ -245,7 +396,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidNameBlank.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user First name is blank (
+	 * First name - Length: 0;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with blank First name
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under First name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 10, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidFirstNameBlank")
 	public void testToCheckFirstNameBlankRestrictionsInCreateUser(User user) {
 		
@@ -265,7 +433,25 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidNameLength.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user First name length is invalid (
+	 * First name - Length: not 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * 
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid First name length
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under First name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 11, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidFirstNameLength")
 	public void testToCheckFirstNameLengthRestrictionsInCreateUser(User user) {
 		
@@ -285,7 +471,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidNameChars.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user First name contains special characters (
+	 * First name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars, spec chars;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid First name characters
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under First name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 11, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidFirstNameChars")
 	public void testToCheckFirstNameCharsRestrictionsInCreateUser(User user) {
 		
@@ -305,7 +508,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidSurnameChars.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Last name contains special characters (
+	 * Last name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars, spec chars;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid Last name characters
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Last name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 12, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidSurnameChars")
 	public void testToCheckSurnameCharsRestrictionsInCreateUser(User user) {
 		
@@ -325,7 +545,24 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidSurnameBlank.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Last name is blank (
+	 * Last name - Length: 0;
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with blank Last name
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Last name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 13, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidSurnameBlank")
 	public void testToCheckSurnameBlankRestrictionsInCreateUser(User user) {
 		
@@ -345,7 +582,25 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidSurnameLength.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Last name length is invalid (
+	 * Last name - Length: not 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * 
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid Last name length
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Last name field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 14, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidSurnameLength")
 	public void testToCheckSurnameLengthRestrictionsInCreateUser(User user) {
 		
@@ -365,7 +620,25 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersInvalidCommentLength.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed and Submit button is disabled in User Creation form if user Comment length is invalid (
+	 * Comment - Length: more than 50 chars;
+	 * 
+	 * )
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with invalid Comment length
+	 * check if Submit button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Comment field is displayed
+	 * Submit button is disabled
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 15, groups = { "userCreationInvalidData" } , dataProvider = "usersInvalidCommentLength")
 	public void testToCheckCommentLengthRestrictionsInCreateUser(User user) {
 		
@@ -392,7 +665,21 @@ public class AdminCreateUserExceptionTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/AdminCreateUserExceptionScen/UsersDuplicate.xml");
 	}
 
-
+	/**
+	 * Test to check if error msg is displayed when user is created with a duplicate username 
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill form with test data with username which already exists in the system
+	 * click Submit
+	 * 
+	 * Expected results: 
+	 * Error msg is displayed
+	 * Form is not submitted
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 16, groups = { "userCreationDuplicate" } , dataProvider = "usersDuplicate")
 	public void testToCheckDuplicateUsernameRestrictionsInCreateUser(User user) {
 		

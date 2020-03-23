@@ -35,7 +35,6 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 	private AdminUserListPage adminUsers;
 	private AdminEditUserPage editUser;
 	private HeaderPage header;
-	private NotificationsPage notifications;
 
 	@BeforeClass
 	public void preconditions() {
@@ -50,7 +49,6 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 		editDocType = new AdminEditDocTypePage(driver);
 		adminUsers = new AdminUserListPage(driver);
 		editUser = new AdminEditUserPage(driver);
-		notifications = new NotificationsPage(driver);
 
 	}
 
@@ -94,7 +92,22 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 		return FileReaderUtils.getGroupsFromXml("src/test/java/resources/testData/AdminEditElementsAlternateScen/GroupsValid_Comment.xml");
 	}
 
-
+	/**
+	 * Test to check if group edition is possible with valid data(
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed).
+	 * 
+	 * Test flow: 
+	 * go to Edit Group form for existing Group
+	 * enter new comment in Comment field
+	 * click Save
+	 * 
+	 * 
+	 * Expected results: 
+	 * updated group can be located by group name in the group list page
+	 * comment is updated
+	 * 
+	 * @param group
+	 */
 	@Test (priority = 1, groups = { "groupEdit" } , dataProvider = "validGroups")//, enabled = false)
 	public void testToEditGroupWithValidData(Group group) {
 		
@@ -123,7 +136,23 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 	public static Object[] testDataValidDocTypes() throws IOException {
 		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminEditElementsAlternateScen/DocTypeValid_Comment.xml");
 	}
-
+	
+	/**
+	 * Test to check if document type edition is possible with valid data(
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed).
+	 * 
+	 * Test flow: 
+	 * go to Edit Document type form for existing Document type
+	 * enter new comment in Comment field
+	 * click Save
+	 * 
+	 * 
+	 * Expected results: 
+	 * updated document type can be located by document type name in the doc type list page
+	 * comment is updated
+	 * 
+	 * @param documentType
+	 */
 	@Test(priority = 2, groups = { "docTypeEdit" }, dataProvider = "validDocTypes")
 	public void testToEditDocTypeWithValidData(DocumentType documentType) {
 
@@ -154,7 +183,28 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/UsersValid.xml");
 	}
 
-
+	/**
+	 * Test to check if user edition is possible with valid data(
+	 * First name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * Last name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed)
+	 * 
+	 * Test flow: 
+	 * go to Edit user form for existing user
+	 * enter new first name
+	 * enter new last name
+	 * enter new comment in Comment field
+	 * click Save
+	 * 
+	 * 
+	 * Expected results: 
+	 * updated user can be located by username in the user list page
+	 * first name is updated
+	 * last name is updated
+	 * comment is updated
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 3, groups = { "userEdit" } , dataProvider = "validUsers")//, enabled = false)
 	public void testToEditUserWithValidData(User user) {
 		

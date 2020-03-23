@@ -59,7 +59,24 @@ public class ValidLoginLogoutTest extends AbstractTest {
 	public static Object[] testData() throws IOException {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/LoginTests/UsersValidLogin.xml");
 	}
-
+	
+	
+	/**
+	 * Test to check if successful login and logout is possible for system administrator and 
+	 * regular user with valid login credentials
+	 * 
+	 * Test flow: 
+	 * enter login credentials into login form
+	 * click Login
+	 * check if Welcome msg is displayed in the header
+	 * click Logout
+	 * 
+	 * Expected results: 
+	 * 'Welcome, + username' is displayed in the header after login
+	 * User can see the login form after logout
+	 * 
+	 * @param validUser
+	 */
 	@Test(priority = 1, groups = { "validUserLogin" }, dataProvider = "validUsers")
 	public void testValidUserLogin(User validUser) {
 

@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import resources.models.Group;
 import resources.page.AbstractPage;
 
 public class AdminEditDocTypePage extends AbstractPage {

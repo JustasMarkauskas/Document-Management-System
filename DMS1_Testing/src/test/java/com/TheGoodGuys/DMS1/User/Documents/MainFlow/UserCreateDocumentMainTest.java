@@ -101,7 +101,35 @@ public class UserCreateDocumentMainTest extends AbstractTest  {
 	public static Object[] testDataDocumentsValidSave() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/MainFlowUserCreateAndReviewDocument/DocumentsValidSave.xml");
 	}
-
+	
+	/**
+	 * Test to check if user can create and save a document with valid data(
+	 * Title - Length: 5-30 chars; Allowed symbols: all;
+	 * Document Type - select one from available doc types
+	 * Description - Length: 5-50 chars; Allowed symbols: all;
+	 * Attachment - optional
+	 * )
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * click on Add new document
+	 * fill in input fields and select doc type in the open modal form document creation
+	 * add attachment(s) if applicable
+	 * click button Save
+	 * 
+	 * 
+	 * Expected results:
+	 * buttons Submit and Save are disabled when the form is blank
+	 * button Submit is disabled when no attachment is selected
+	 * New document is located in My Documents list using title, type and status 'SAVED'
+	 * Submission and Review dates are blank
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 1, groups = { "documentCreation" } , dataProvider = "documentsValidSave")
 	public void testToCreateAndSaveNewDocument(Document document) {
 		userNav.clickButtonMyDocuments();
@@ -132,7 +160,7 @@ public class UserCreateDocumentMainTest extends AbstractTest  {
 				document.getDocumentType(), "SAVED");
 		assertThat("Document was not saved", rowNumber, is(greaterThan(0)));
 		assertThat("Submission date does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[4], is(equalTo("")));
-		assertThat("Type does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[5], is(equalTo("")));
+		assertThat("Review date does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[5], is(equalTo("")));
 
 	}
 	
@@ -140,7 +168,36 @@ public class UserCreateDocumentMainTest extends AbstractTest  {
 	public static Object[] testDataDocumentsValidSubmit() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/MainFlowUserCreateAndReviewDocument/DocumentsValidSubmit.xml");
 	}
-
+	
+	/**
+	 * Test to check if user can create and submit a document with valid data(
+	 * Title - Length: 5-30 chars; Allowed symbols: all;
+	 * Document Type - select one from available doc types
+	 * Description - Length: 5-50 chars; Allowed symbols: all;
+	 * Attachment - required
+	 * )
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * click on Add new document
+	 * fill in input fields and select doc type in the open modal form document creation
+	 * add attachment(s)
+	 * click button Submit
+	 * 
+	 * 
+	 * Expected results:
+	 * buttons Submit and Save are disabled when the form is blank
+	 * buttons Submit and Save are not disabled when the form is filled and attachment selected
+	 * New document is located in My Documents list using title, type and status 'SUBMITTED'
+	 * Submission date matched with current day
+	 * Review date is blank
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 2, groups = { "documentCreation" } , dataProvider = "documentsValidSubmit")
 	public void testToCreateAndSubmitNewDocument(Document document) {
 		userNav.clickButtonMyDocuments();
@@ -170,7 +227,7 @@ public class UserCreateDocumentMainTest extends AbstractTest  {
 		String currentDay = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString();
 		assertThat("Document was not submitted", rowNumber, is(greaterThan(0)));
 		assertThat("Submission date does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[4], is(equalTo(currentDay)));
-		assertThat("Type does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[5], is(equalTo("")));
+		assertThat("Review date does not match", userDocuments.getTextFromRowFieldsByRowNumber(rowNumber)[5], is(equalTo("")));
 
 	}
 	
@@ -183,6 +240,25 @@ public class UserCreateDocumentMainTest extends AbstractTest  {
 		
 	}
 	
+	/**
+	 * Test to check if user can delete a document with status 'SAVED'
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * locate a document with given title, type and status 'SAVED'
+	 * click button Actions
+	 * click on the red bin icon
+	 * 
+	 * 
+	 * Expected results:
+	 * Document is deleted and cannot be located in My Documents list
+	 * 
+	 */
 	@Test (priority = 3, groups = { "docDelete" } )
 	public void testToDeleteSavedDocument() {
 		userNav.clickButtonMyDocuments();

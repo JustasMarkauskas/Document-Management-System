@@ -82,6 +82,19 @@ public class AdminAssignGroupsToUserMainTest extends AbstractTest {
 		ManageAutotestingData.deleteGroupDataByComment(apiURL, "autotesting");
 	}
 
+	/**
+	 * Test to check if admin can assign group to a user in Edit User page
+	 * 
+	 * Test flow: 
+	 * go to Edit User page for existing user
+	 * click Assign button under User Groups section
+	 * select a group in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected group name is visible under User Groups section
+	 * 
+	 */
 	@Test (priority = 1, groups = { "userAssignments" })
 	public void testToAssignOneGroupToUser() {
 		adminNav.clickButtonUsers();
@@ -97,6 +110,19 @@ public class AdminAssignGroupsToUserMainTest extends AbstractTest {
 		assertThat("Group was not assigned", editUser.findLabelNumberByGroupName(groupName), is(greaterThan(0)));
 	}
 
+	/**
+	 * Test to check if admin can assign all available groups to a user in Edit User page
+	 * 
+	 * Test flow: 
+	 * go to Edit User page for existing user
+	 * click Assign button under User Groups section
+	 * select all available groups in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * selected test group names (5 test groups) are visible under User Groups section
+	 * 
+	 */
 	@Test (priority = 2, groups = { "userAssignments" })
 	public void testToAssignAllGroupsToUser() {
 		adminNav.clickButtonUsers();
@@ -116,6 +142,20 @@ public class AdminAssignGroupsToUserMainTest extends AbstractTest {
 		assertThat("Groups were not assigned correctly", editUser.findLabelNumberByGroupName("testGroup105"), is(greaterThan(0)));
 	}
 	
+	
+	/**
+	 * Test to check if admin can remove all selected groups from a user in Edit User page
+	 * 
+	 * Test flow: 
+	 * go to Edit User page for existing user
+	 * click Assign button under User Groups section
+	 * deselect all selected groups in the list
+	 * click Save
+	 * 
+	 * Expected results: 
+	 * no groups are visible under User Groups section
+	 * 
+	 */
 	@Test (priority = 3, groups = { "userAssignments" })
 	public void testToRemoveAllAssignedGroupsFromUser() {
 		adminNav.clickButtonUsers();

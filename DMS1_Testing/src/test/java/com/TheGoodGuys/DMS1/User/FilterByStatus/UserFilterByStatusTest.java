@@ -71,7 +71,20 @@ public class UserFilterByStatusTest extends AbstractTest  {
 	}
 
 
-
+	/**
+	 * Test to check if only documents with status 'SAVED' are displayed in My Documents list
+	 *  after clicking 'Saved' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to My Documents list
+	 *  click on 'Saved' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'SAVED' are displayed after clicking on 'Saved'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 1, groups = { "documentFilters" } )
 	public void testToCheckSavedFilterInMyDocuments() {
 
@@ -84,7 +97,21 @@ public class UserFilterByStatusTest extends AbstractTest  {
 
 		assertThat("Filter All does not work", myDocuments.getLabelsStatus().size(), is(10));
 	}
-
+	
+	/**
+	 * Test to check if only documents with status 'SUBMITTED' are displayed in My Documents list
+	 *  after clicking 'Submitted' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to My Documents list
+	 *  click on 'Submitted' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'SUBMITTED' are displayed after clicking on 'Submitted'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 2, groups = { "documentFilters" } )
 	public void testToCheckSubmittedFilterInMyDocuments() {
 
@@ -97,7 +124,21 @@ public class UserFilterByStatusTest extends AbstractTest  {
 
 		assertThat("Filter All does not work", myDocuments.getLabelsStatus().size(), is(10));
 	}
-
+	
+	/**
+	 * Test to check if only documents with status 'REJECTED' are displayed in My Documents list
+	 *  after clicking 'Rejected' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to My Documents list
+	 *  click on 'Rejected' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'REJECTED' are displayed after clicking on 'Rejected'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 3, groups = { "documentFilters" } )
 	public void testToCheckRejectedFilterInMyDocuments() {
 
@@ -110,7 +151,21 @@ public class UserFilterByStatusTest extends AbstractTest  {
 
 		assertThat("Filter All does not work", myDocuments.getLabelsStatus().size(), is(10));
 	}
-
+	
+	/**
+	 * Test to check if only documents with status 'APPROVED' are displayed in My Documents list
+	 *  after clicking 'Approved' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to My Documents list
+	 *  click on 'Approved' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'APPROVED' are displayed after clicking on 'Approved'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 4, groups = { "documentFilters" } )
 	public void testToCheckApprovedFilterInMyDocuments() {
 
@@ -124,6 +179,20 @@ public class UserFilterByStatusTest extends AbstractTest  {
 		assertThat("Filter All does not work", myDocuments.getLabelsStatus().size(), is(10));
 	}
 	
+	/**
+	 * Test to check if only documents with status 'SUBMITTED' are displayed in Documents for approval list
+	 *  after clicking 'Submitted' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to Documents for approval list
+	 *  click on 'Submitted' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'SUBMITTED' are displayed after clicking on 'Submitted'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 5, groups = { "dfaFilters" } )
 	public void testToCheckSubmittedFilterInDocsForApproval() {
 
@@ -137,6 +206,20 @@ public class UserFilterByStatusTest extends AbstractTest  {
 		assertThat("Filter All does not work", docsForApproval.getLabelsStatus().size(), is(7));
 	}
 	
+	/**
+	 * Test to check if only documents with status 'REJECTED' are displayed in Documents for approval list
+	 *  after clicking 'Rejected' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to Documents for approval list
+	 *  click on 'Rejected' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'REJECTED' are displayed after clicking on 'Rejected'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 6, groups = { "dfaFilters" } )
 	public void testToCheckRejectedFilterInDocsForApproval() {
 
@@ -150,6 +233,20 @@ public class UserFilterByStatusTest extends AbstractTest  {
 		assertThat("Filter All does not work", docsForApproval.getLabelsStatus().size(), is(7));
 	}
 	
+	/**
+	 * Test to check if only documents with status 'APPROVED' are displayed in Documents for approval list
+	 *  after clicking 'Approved' in the filter section
+	 *  
+	 *  Test flow:
+	 *  go to Documents for approval list
+	 *  click on 'Approved' in the filter section
+	 *  click on 'All' in the filter section
+	 *  
+	 *  Expected results:
+	 *  only documents with status 'APPROVED' are displayed after clicking on 'Approved'
+	 *  all documents are displayed after clicking on 'All'
+	 *  
+	 */
 	@Test (priority = 7, groups = { "dfaFilters" } )
 	public void testToCheckApprovedFilterInDocsForApproval() {
 

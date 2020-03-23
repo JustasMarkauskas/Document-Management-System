@@ -45,9 +45,21 @@ public class InvalidLoginTest extends AbstractTest {
 	public static Object[] testData() throws IOException {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/LoginTests/UsersInvalid.xml");
 	}
-
+	/**
+	 * Test to check if error message is displayed when trying to login with invalid credentials 
+	 * (blank, non existing username, incorrect password)
+	 * 
+	 * Test flow: 
+	 * enter login credentials into login form
+	 * click Login
+	 * 
+	 * Expected results: 
+	 * Error message is displayed
+	 * 
+	 * @param invalidUser
+	 */
 	@Test(priority = 1, groups = { "invalidUserLogin" }, dataProvider = "invalidUser")
-	public void testInvalidUserLogin(User invalidUser) throws Exception {
+	public void testInvalidUserLogin(User invalidUser) {
 
 		login.enterDetailsAndLogin(invalidUser.getUserName(), invalidUser.getPassword());
 		wait.until(ExpectedConditions.textToBePresentInElement(login.getAlertMessage(), "Login failed"));

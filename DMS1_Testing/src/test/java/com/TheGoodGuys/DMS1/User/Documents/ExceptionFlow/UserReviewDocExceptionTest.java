@@ -84,9 +84,31 @@ public class UserReviewDocExceptionTest extends AbstractTest  {
 	}
 
 	
-	
+	/**
+	 * Test to check if error msg is displayed and Reject button is disabled
+	 *  in Review document form if Rejection reason length is invalid
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is submitted
+	 * 
+	 * Test flow:
+	 * go to Documents for approval section
+	 * locate a document with given author, title, type and status 'SUBMITTED'
+	 * click button Actions
+	 * Enter Rejection reason with invalid length
+	 * 
+	 * Expected results:
+	 * Button Approve is enabled before Rejection reason is entered
+	 * Button Approve is disabled after Rejection reason is entered
+	 * Button Reject is disabled before Rejection reason is entered
+	 * Button Reject is enabled after Rejection reason is entered
+	 * Error msg under Rejection reason field is displayed
+	 * 
+	 */
 	@Test (priority = 1, groups = { "documentReview" })
-	public void testCheckRejectionReasonLengthRestrictionsInReviewDocForm() throws InterruptedException {
+	public void testCheckRejectionReasonLengthRestrictionsInReviewDocForm() {
 		userNav.clickButtonDFA();
 		
 		int rowNumber = docsForApproval.findRowNumberByFieldValues("testUser101", "test document 902", "testDocType102", "SUBMITTED");

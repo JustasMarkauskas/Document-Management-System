@@ -102,7 +102,33 @@ public class UserReviewDocumentMainTest extends AbstractTest  {
 		
 	}
 
-
+	/**
+	 * Test to check if user can approve and view document after approval in Documents for approval list
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is submitted
+	 * 
+	 * Test flow:
+	 * go to Documents for approval section
+	 * locate a document with given author, title, type and status 'SUBMITTED'
+	 * click button Actions
+	 * verify data in the open form
+	 * click button Approve
+	 * locate the document in the list by author, title, type and status 'APPROVED'
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Data in submitted document view is correct
+	 * Button Approve is enabled
+	 * Button Reject is disabled
+	 * Document can be located in the list after approval with status 'APPROVED'
+	 * Submission and Review date is current day
+	 * Data in reviewed document view is correct
+	 * 
+	 */
 	@Test (priority = 1, groups = { "docReview" } )
 	public void testToApproveAndViewDocument() {
 
@@ -166,7 +192,35 @@ public class UserReviewDocumentMainTest extends AbstractTest  {
 		reviewedDFAReview.clickButtonCancel();
 
 	}
-
+	
+	/**
+	 * Test to check if user can reject and view document after rejection in Documents for approval list
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is submitted
+	 * 
+	 * Test flow:
+	 * go to Documents for approval section
+	 * locate a document with given author, title, type and status 'SUBMITTED'
+	 * click button Actions
+	 * verify data in the open form
+	 * Enter Rejection reason
+	 * click button Reject
+	 * locate the document in the list by author, title, type and status 'REJECTED'
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Data in submitted document view is correct
+	 * Button Approve is disabled after Rejection reason is entered
+	 * Button Reject is enabled after Rejection reason is entered
+	 * Document can be located in the list after rejection with status 'REJECTED'
+	 * Submission and Review date is current day
+	 * Data in reviewed document view is correct
+	 * 
+	 */
 	@Test (priority = 2, groups = { "docReview" } )
 	public void testToRejectAndViewDocument() {
 
@@ -237,7 +291,28 @@ public class UserReviewDocumentMainTest extends AbstractTest  {
 		ManageAutotestingData.rejectDocument(apiURL, "testUser102", docID, "incorrect date");
 	}
 	
-	
+	/**
+	 * Test to check if user can view document after approval in My Documents list
+	 * 
+	 * Preconditions:
+	 * test users are created and assigned to group
+	 * test doc types are created and assigned to group
+	 * test document is approved
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * locate a document with given title, type and status 'APPROVED'
+	 * verify document Submission and Review dates
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Document can be located in the list with status 'APPROVED'
+	 * Submission and Review dates are set to current day
+	 * Data in reviewed document view is correct
+	 * Rejection reason is empty
+	 * 
+	 */
 	@Test (priority = 3, groups = { "viewAfterReview" } )
 	public void testToViewApprovedDocumentInMyDocuments() {
 
@@ -277,7 +352,28 @@ public class UserReviewDocumentMainTest extends AbstractTest  {
 		
 	}
 	
-	
+	/**
+	 * Test to check if user can view document after rejection in My Documents list
+	 * 
+	 * Preconditions:
+	 * test users are created and assigned to group
+	 * test doc types are created and assigned to group
+	 * test document is rejected
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * locate a document with given title, type and status 'REJECTED'
+	 * verify document Submission and Review dates
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Document can be located in the list with status 'REJECTED'
+	 * Submission and Review dates are set to current day
+	 * Data in reviewed document view is correct
+	 * Rejection reason is not empty
+	 * 
+	 */
 	@Test (priority = 4, groups = { "viewAfterReview" } )
 	public void testToViewRejectedDocumentInMyDocuments() {
 

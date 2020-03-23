@@ -90,9 +90,32 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 	public static Object[] testDataDocumentsInvalidSpaces() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_Spaces.xml");
 	}
-
+	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Document Creation form
+	 *  if Title contains trailing spaces
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data with title containing trailing spaces
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Title field is displayed
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 1, groups = { "documentCreation" } , dataProvider = "documentsInvalid_Spaces")
-	public void testCheckTitleTrailingSpacesRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleTrailingSpacesRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -118,8 +141,33 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_TitleLength.xml");
 	}
 
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Document Creation form
+	 *  if Title length is invalid (
+	 *  Title - Length: not 5-30 chars; Allowed symbols: all;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data with invalid title length
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Title field is displayed
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 2, groups = { "documentCreation" } , dataProvider = "documentsInvalid_TitleLength")
-	public void testCheckTitleLengthRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleLengthRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -144,9 +192,34 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 	public static Object[] testDataDocumentsInvalidTitleBlank() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_TitleBlank.xml");
 	}
-
+	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Document Creation form
+	 *  if Title is blank (
+	 *  Title - Length: 0 chars;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data with blank title
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Title field is displayed
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 3, groups = { "documentCreation" } , dataProvider = "documentsInvalid_TitleBlank")
-	public void testCheckTitleBlankRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleBlankRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -172,8 +245,30 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_Type.xml");
 	}
 
+	/**
+	 * Test to check if Submit and Save buttons are disabled in Document Creation form
+	 *  if Document type is not selected
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill title and description with test data without selecting document type
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 4, groups = { "documentCreation" } , dataProvider = "documentsInvalid_Type")
-	public void testCheckTypeRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckTypeRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -187,7 +282,6 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		
 		createDocument.uploadSingleFileByName(document.getFileName());
 		
-//		assertThat("Not selected restrictions msg for type does not match", createDocument.getTextFromMs, is(equalTo("Please enter a title")));
 		assertThat("Save button is not disabled", createDocument.getButtonSave().isEnabled(), is(false));
 		assertThat("Submit button is not disabled", createDocument.getButtonSubmit().isEnabled(), is(false));
 		
@@ -199,9 +293,34 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 	public static Object[] testDataDocumentsInvalidDescriptionLength() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_DescriptionLength.xml");
 	}
-
+	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Document Creation form
+	 *  if Description length is invalid (
+	 *  Description - Length: not 5-50 chars; Allowed symbols: all;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data with invalid description length
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Description field is displayed
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 5, groups = { "documentCreation" } , dataProvider = "documentsInvalid_DescriptionLength")
-	public void testCheckDescriptionLengthRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckDescriptionLengthRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -228,8 +347,32 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_DescriptionBlank.xml");
 	}
 
+	/**
+	 * Test to check if Submit and Save buttons are disabled in Document Creation form
+	 *  if Description is blank (
+	 *  Description - Length: 0 chars;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data with blank description
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered and after
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 6, groups = { "documentCreation" } , dataProvider = "documentsInvalid_DescriptionBlank")
-	public void testCheckDescriptionBlankRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckDescriptionBlankRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		
@@ -253,8 +396,33 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_NoAttachment.xml");
 	}
 
+	/**
+	 * Test to check if info msg is displayed and Submit button is disabled in Document Creation form
+	 *  if attachment is not selected
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * click on button Add new document
+	 * fill form with test data
+	 * do not attach any file
+	 * check if Submit button is disabled
+	 * check if Save button is enabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Info msg under Attachment section is displayed
+	 * Submit button is disabled before the test data is entered and after
+	 * Save button is disabled before the test data is entered
+	 * Save button is enabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 7, groups = { "documentCreation" } , dataProvider = "documentsInvalid_NoAttachment")
-	public void testCheckAttachmentRestrictionsInCreateDocForm(Document document) throws InterruptedException {
+	public void testCheckAttachmentRestrictionsInCreateDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		userDocuments.clickButtonAddNewDocument();
 		

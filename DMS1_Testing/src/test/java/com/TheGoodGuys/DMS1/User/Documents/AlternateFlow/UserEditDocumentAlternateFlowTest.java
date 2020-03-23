@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
@@ -27,10 +26,8 @@ public class UserEditDocumentAlternateFlowTest extends AbstractTest  {
 	private HeaderPage header;
 	private UserNavPage userNav;
 	private UserMyDocumentListPage userDocuments;
-	private UserCreateDocumentPage createDocument;
 	private UserSavedDocReviewPage savedDocReview;
 	private UserSubmittedDocReviewPage submittedDocReview;
-	private NotificationsPage notifications;
 
 	@BeforeClass
 	public void preconditions() {
@@ -40,10 +37,8 @@ public class UserEditDocumentAlternateFlowTest extends AbstractTest  {
 		header = new HeaderPage(driver);
 		userNav = new UserNavPage(driver);
 		userDocuments = new UserMyDocumentListPage(driver);
-		createDocument = new UserCreateDocumentPage(driver);
 		savedDocReview = new UserSavedDocReviewPage(driver);
 		submittedDocReview = new UserSubmittedDocReviewPage(driver);
-		notifications = new NotificationsPage(driver);
 
 	}
 
@@ -96,7 +91,32 @@ public class UserEditDocumentAlternateFlowTest extends AbstractTest  {
 		ManageAutotestingData.deleteDocumentsByComment(apiURL, "autotesting");
 	}
 
-	
+	/**
+	 * Test to check if user can edit a document with status 'SAVED' and save it again
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * locate a document with given title, type and status 'SAVED'
+	 * click button Actions
+	 * update title, select a new type and attach a new file
+	 * click button Save
+	 * locate the document in the list by updated title, type and status 'SAVED'
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Button Submit is enabled after new data is entered
+	 * Button Save is enabled after new data is entered
+	 * Document can be located in the list after saving by  updated title, type and status 'SAVED'
+	 * Submission and Review dates are blank
+	 * Data in saved document view form is updated with new values
+	 * 
+	 */
 	@Test (priority = 1, groups = { "docEdit" } )
 	public void testToEditAndSaveDoc() {
 		userNav.clickButtonMyDocuments();
@@ -142,6 +162,33 @@ public class UserEditDocumentAlternateFlowTest extends AbstractTest  {
 	
 	}
 	
+	/**
+	 * Test to check if user can edit a document with status 'SAVED', submit it and view after submission
+	 * 
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow:
+	 * go to My Documents section
+	 * locate a document with given title, type and status 'SAVED'
+	 * click button Actions
+	 * update title, select a new type and attach a new file
+	 * click button Submit
+	 * locate the document in the list by updated title, type and status 'SUBMITTED'
+	 * click button Actions
+	 * verify data in the open form
+	 * 
+	 * Expected results:
+	 * Button Submit is enabled after new data is entered
+	 * Button Save is enabled after new data is entered
+	 * Document can be located in the list after submitting by updated title, type and status 'SUBMITTED'
+	 * Submission date is current day
+	 * Review dates is blank
+	 * Data in submitted document view form is updated with new values
+	 * 
+	 */
 	@Test (priority = 2, groups = { "docEdit" } )
 	public void testToEditSubmitAndReviewDoc() {
 		userNav.clickButtonMyDocuments();

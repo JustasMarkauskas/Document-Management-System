@@ -66,6 +66,12 @@ public class AdminCreateElementsMainTest extends AbstractTest {
 	public void logout(String baseURL) {
 		driver.get(baseURL);
 	}
+	
+	/**
+	 * Method deletes test data: all users, groups, document types with comment field = 'autotesting'
+	 * @param apiURL
+	 * @throws UnirestException
+	 */
 
 	@AfterTest
 	@Parameters({"apiURL"})
@@ -88,6 +94,24 @@ public class AdminCreateElementsMainTest extends AbstractTest {
 	}
 
 
+	/**
+	 * Test to check if group creation is possible with valid data(
+	 * Group name - Length: 5-20 chars; Allowed symbols: lowercase/uppercase letters, digits; Special characters: not allowed.
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed).
+	 * 
+	 * Test flow: 
+	 * click on button Groups in Nav section
+	 * click on button Add New Group
+	 * fill in all fields in the open modal form Group Creation
+	 * click submit
+	 * 
+	 * 
+	 * Expected results: 
+	 * new group name is located in the group list page
+	 * comment is correct
+	 * 
+	 * @param group
+	 */
 	@Test (priority = 1, groups = { "groupCreation" } , dataProvider = "validGroups")//, enabled = false)
 	public void testToCreateNewGroup(Group group) {
 
@@ -105,7 +129,25 @@ public class AdminCreateElementsMainTest extends AbstractTest {
 	public static Object[] testDataValidDocuments() throws IOException {
 		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/DocumentsValid.xml");
 	}
-
+	
+	
+	/**
+	 * Test to check if document type creation is possible with valid data(
+	 * Doc Type name - Length: 5-20 chars; Allowed symbols: lowercase/uppercase letters, digits, spec chars; Special characters: space, '/', '.', '-'
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed).
+	 * 
+	 * Test flow: 
+	 * click on button Document Types in Nav section
+	 * click on button Add new document type
+	 * fill in all fields in the open modal form doc type creation
+	 * click submit
+	 * 
+	 * Expected results: 
+	 * new doc type name is located in the doc type list page
+	 * comment is correct
+	 * 
+	 * @param documentType
+	 */
 	@Test(priority = 2, groups = { "docTypeCreation" }, dataProvider = "validDocTypes")//, enabled = false)
 	public void testToCreateNewDocumentType(DocumentType documentType) {
 
@@ -125,7 +167,30 @@ public class AdminCreateElementsMainTest extends AbstractTest {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/MainFlowAdminCreateElements/UsersValid.xml");
 	}
 
-
+	
+	/**
+	 * Test to check if user creation is possible with valid data(
+	 * Username - Length: 5-20 chars; Allowed symbols: lowercase/uppercase letters, digits; Special characters: not allowed;
+	 * First name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * Last name - Length: 1-30 chars; Allowed symbols: lowercase/uppercase letters, spec chars; Special characters: space,'-';
+	 * Password - Length: 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, at least one each; Special characters: not allowed;
+	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed)
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill in all fields in the open modal form user creation
+	 * click submit
+	 * 
+	 * Expected results: 
+	 * new username is located in the user list page
+	 * username is correct
+	 * first name is correct
+	 * last name is correct
+	 * comment is correct
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 3, groups = { "userCreation" } , dataProvider = "validUsers")//, enabled = false)
 	public void testToCreateNewUser(User user) {
 
@@ -142,6 +207,19 @@ public class AdminCreateElementsMainTest extends AbstractTest {
 	}
 	
 	
+	/**
+	 * Test to check if password is not displayed in plain text in Create User form.
+	 * 
+	 * Test flow: 
+	 * click on button Users in Nav section
+	 * click on button Add new user
+	 * fill Password field in the open modal form user creation
+	 * fill Confirm password field
+	 * 
+	 * Expected results: 
+	 * Password input type is set to "password"
+	 * Confirm password input type is set to "password"
+	 */
 	@Test (priority = 4, groups = { "userCreation" } )
 	public void testToCheckIfPasswordDisplayedInText() {
 		

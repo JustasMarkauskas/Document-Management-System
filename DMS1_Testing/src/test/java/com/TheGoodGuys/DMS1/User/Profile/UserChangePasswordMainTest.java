@@ -77,12 +77,32 @@ public class UserChangePasswordMainTest extends AbstractTest {
 
 		ManageAutotestingData.updatePassword(apiURL, "changePassUser3", "test", "test", "Password1", "autotesting");
 	}
-
+	
 	@DataProvider(name = "validPasswords")
 	public static Object[] testDataValidPassword() throws IOException {
 		return FileReaderUtils.getUsersFromXml("src/test/java/resources/testData/ChangePasswordData/ChangePasswordValid.xml");
 	}
-
+	
+	
+	/**
+	 * Test to check if user can change his password using valid password(
+	 * Password - Length: 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, at least one each; Special characters: not allowed;
+	 * )
+	 * 
+	 * Test flow: 
+	 * go to Profile section
+	 * click Change Password button 
+	 * fill in the open form and submit
+	 * Logout and login with updated password
+	 * 
+	 * Expected results: 
+	 * Change button in Change password form is disabled until valid data is entered
+	 * Change button in Change password form is not disabled after valid data is entered
+	 * Success msg is displayed after password successfully updated
+	 * Logout and login with updated password is successful - 'Welcome, + username' msg is visible
+	 * 
+	 * @param user
+	 */
 	@Test (priority = 1, groups = { "userChangePassword" }, dataProvider = "validPasswords")
 	public void testToChangePasswordValidData(User user) {
 		String username = "changePassUser3";
@@ -112,7 +132,25 @@ public class UserChangePasswordMainTest extends AbstractTest {
 
 	}
 	
-	
+	/**
+	 * Test to check if user can login with old password after he changes his password(
+	 * Password - Length: 8-20 chars; Allowed symbols: lowercase/uppercase letters, digits, at least one each; Special characters: not allowed;
+	 * )
+	 * 
+	 * Test flow: 
+	 * go to Profile section
+	 * click Change Password button 
+	 * fill in the open form and submit
+	 * Logout and login with old password
+	 * 
+	 * Expected results: 
+	 * Change button in Change password form is disabled until valid data is entered
+	 * Password and Confirm password are not displayed in plain text
+	 * Change button in Change password form is not disabled after valid data is entered
+	 * Success msg is displayed after password successfully updated
+	 * Login is unsuccessful with old password
+	 * 
+	 */
 	@Test (priority = 2, groups = { "userChangePassword", "loginOldCredentials" })
 	public void testToChangePasswordLoginWithOldPassword() {
 		String username = "changePassUser3";

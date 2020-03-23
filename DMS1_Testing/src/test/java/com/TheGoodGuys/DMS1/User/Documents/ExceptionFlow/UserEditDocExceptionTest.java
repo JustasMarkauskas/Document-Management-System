@@ -94,9 +94,35 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 	public static Object[] testDataDocumentsInvalidSpaces() throws IOException {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_Spaces.xml");
 	}
-
+	
+	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Saved Document Edit form
+	 *  if Title contains trailing spaces
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data with title containing trailing spaces
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Title field is displayed
+	 * Submit button is disabled after the test data is entered
+	 * Save button is disabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 1, groups = { "documentEdit" } , dataProvider = "documentsInvalid_Spaces")
-	public void testCheckTitleTrailingSpacesRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleTrailingSpacesRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
@@ -116,8 +142,35 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_TitleLength.xml");
 	}
 	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Saved Document Edit form
+	 *  if Title length is invalid(
+	 *  Title - Length: not 5-30 chars; Allowed symbols: all;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data with invalid title length
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Title field is displayed
+	 * Submit button is disabled after the test data is entered
+	 * Save button is disabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 2, groups = { "documentEdit" } , dataProvider = "documentsInvalid_TitleLength")
-	public void testCheckTitleLengthRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleLengthRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
@@ -137,8 +190,34 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_TitleBlank.xml");
 	}
 	
+	/**
+	 * Test to check if Submit and Save buttons are disabled in Saved Document Edit form
+	 *  if Title is blank(
+	 *  Title - Length: 0 chars;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data with blank title
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Submit button is disabled after the test data is entered
+	 * Save button is disabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 3, groups = { "documentEdit" } , dataProvider = "documentsInvalid_TitleBlank")
-	public void testCheckTitleBlankRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckTitleBlankRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
@@ -157,8 +236,35 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_DescriptionLength.xml");
 	}
 	
+	/**
+	 * Test to check if error msg is displayed and Submit and Save buttons are disabled in Saved Document Edit form
+	 *  if Description length is invalid(
+	 *  Description - Length: not 5-50 chars; Allowed symbols: all;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data with invalid description length
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Error msg under Description field is displayed
+	 * Submit button is disabled after the test data is entered
+	 * Save button is disabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 4, groups = { "documentEdit" } , dataProvider = "documentsInvalid_DescriptionLength")
-	public void testCheckDescriptionLengthRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckDescriptionLengthRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
@@ -178,8 +284,34 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_DescriptionBlank.xml");
 	}
 	
+	/**
+	 * Test to check if Submit and Save buttons are disabled in Saved Document Edit form
+	 *  if Description is blank(
+	 *  Description - Length: 0 chars;
+	 *  )
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data with blank description
+	 * check if Submit button is disabled
+	 * check if Save button is disabled
+	 * click cancel
+	 * 
+	 * Expected results: 
+	 * Submit button is disabled after the test data is entered
+	 * Save button is disabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 5, groups = { "documentEdit" } , dataProvider = "documentsInvalid_DescriptionBlank")
-	public void testCheckDescriptionBlankRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckDescriptionBlankRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
@@ -203,8 +335,33 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_NoAttachment.xml");
 	}
 	
+	/**
+	 * Test to check if info msg is displayed and Submit button is disabled in Saved Document Edit form
+	 *  if attachment is not selected
+	 *  
+	 * Preconditions:
+	 * test user is created and assigned to group
+	 * test doc type is created and assigned to group
+	 * test document is saved
+	 * 
+	 * Test flow: 
+	 * click on button My Documents in Nav section
+	 * locate document in the list by title, type and status 'SAVED'
+	 * click on button Actions
+	 * update form with test data
+	 * remove the attached file
+	 * check if Submit button is disabled
+	 * check if Save button is enabled
+	 * 
+	 * Expected results: 
+	 * Info msg under Attachment section is displayed
+	 * Submit button is disabled after the test data is entered
+	 * Save button is enabled after the test data is entered
+	 * 
+	 * @param document
+	 */
 	@Test (priority = 6, groups = { "documentEdit" } , dataProvider = "documentsInvalid_NoAttachment")
-	public void testCheckAttachmentRestrictionsInEditDocForm(Document document) throws InterruptedException {
+	public void testCheckAttachmentRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
 		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
