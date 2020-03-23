@@ -116,7 +116,7 @@ public class DBFileStorageService {
 	}
 
 	public File getCsvFile(String username) {
-		File csvFile = new File(username);
+		File csvFile = new File("/tmp/" +username);
 		List<DocumentForClient> documents = documentService.getDocumentsForClientByAuthor(username);
 
 		try {
