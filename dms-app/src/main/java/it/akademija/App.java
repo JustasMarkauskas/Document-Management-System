@@ -1,6 +1,5 @@
 package it.akademija;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -13,7 +12,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 
 @EnableSwagger2
 @SpringBootApplication
@@ -30,7 +28,9 @@ public class App extends SpringBootServletInitializer {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:3000", "http://akademijait.vtmc.lt:8180").allowCredentials(true);
+				registry.addMapping("/**").allowedMethods("*").allowedOrigins("http://localhost:3000",
+						"http://localhost:8080", "http://localhost:8081", "http://akademijait.vtmc.lt:8180")
+						.allowCredentials(true);
 			}
 		};
 	}
@@ -38,13 +38,10 @@ public class App extends SpringBootServletInitializer {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("IT Akademija REST Documentation").version("0.0.1-SNAPSHOT").build();
 	}
-	
-
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
 
 	}
 
-	
 }
