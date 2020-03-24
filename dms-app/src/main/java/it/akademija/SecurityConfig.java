@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// UI without security
 				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
 				// all /api/ are safe, accessed only when user is logged in
-				.antMatchers("/apitest/**").authenticated().and().formLogin().permitAll()
+				.antMatchers("/api/**").authenticated().and().formLogin().permitAll()
 				.successHandler(new SimpleUrlAuthenticationSuccessHandler() {
 					@Override
 					public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

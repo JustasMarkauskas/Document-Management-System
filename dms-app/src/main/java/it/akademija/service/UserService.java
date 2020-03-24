@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,6 +32,7 @@ import it.akademija.model.role.Role;
 import it.akademija.model.user.NewUser;
 import it.akademija.model.user.User;
 import it.akademija.model.user.UserForClient;
+import it.akademija.model.user.UserForTable;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -111,7 +114,15 @@ public class UserService implements UserDetailsService {
 	public List<User> getUsers() {
 		return userRepository.findAllByOrderByIdDesc();
 	}
-
+	
+	@Transactional(readOnly = true)
+	public List<UserForTable> getPageableUsersForClient(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return userRepository.findAllByOrderByIdDesc(pageable).stream().map((user) -> new UserForTable(user.getFirstName(),
+				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames(), userRepository.count()))
+				.collect(Collectors.toList());
+	}
+	
 	@Transactional(readOnly = true)
 	public List<UserForClient> getUsersForClient() {
 		return userRepository.findAllByOrderByIdDesc().stream().map((user) -> new UserForClient(user.getFirstName(),
@@ -129,6 +140,14 @@ public class UserService implements UserDetailsService {
 	public List<UserForClient> getUsersForClientContaining(String userText) {
 		return userRepository.findByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(userText, userText, userText).stream().map((user) -> new UserForClient(user.getFirstName(),
 				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<UserForTable> getPageableUsersForClientContaining(String userText, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return userRepository.findByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(userText, userText, userText, pageable).stream().map((user) -> new UserForTable(user.getFirstName(),
+				user.getLastName(), user.getUsername(), user.getComment(), user.getUserGroupNames(), userRepository.countByUsernameContainingIgnoreCaseOrFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(userText, userText, userText)))
 				.collect(Collectors.toList());
 	}
 

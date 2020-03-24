@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -16,6 +18,7 @@ import it.akademija.model.document.Document;
 import it.akademija.model.document.DocumentCountForStatistics;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentForStatistics;
+import it.akademija.model.document.DocumentForTable;
 import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
 import it.akademija.model.file.DBFile;
@@ -75,6 +78,18 @@ public class DocumentService {
 	
 	
 	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaList(List<String> documentForApprovalNames,
+			String status, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findDocumentsForApproval(documentForApprovalNames, status, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countDFA(documentForApprovalNames, status)))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForApprovalByDfaListContaining(List<String> documentForApprovalNames,
 			String status, String titleText) {
 		return documentRepository.findDocumentsForApprovalContaining(documentForApprovalNames, status, titleText).stream()
@@ -82,6 +97,18 @@ public class DocumentService {
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
 						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaListContaining(List<String> documentForApprovalNames,
+			String status, String titleText, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findDocumentsForApprovalContaining(documentForApprovalNames, status, titleText, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countDFAContaining(documentForApprovalNames, status, titleText)))
 				.collect(Collectors.toList());
 	}
 
@@ -93,6 +120,18 @@ public class DocumentService {
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
 						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaListAndStatus(List<String> documentForApprovalNames,
+			String status, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findDocumentsForApprovalByStatus(documentForApprovalNames, status, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countDFAByStatus(documentForApprovalNames, status)))
 				.collect(Collectors.toList());
 	}
 
@@ -107,12 +146,34 @@ public class DocumentService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthor(String username, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findByAuthorOrderByIdDesc(username, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countByAuthor(username)))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
 	public List<DocumentForClient> getDocumentsForClientByAuthorContaining(String username, String titleText) {
 		return documentRepository.findByAuthorAndTitleContainingIgnoreCaseOrderByIdDesc(username, titleText).stream()
 				.map((document) -> new DocumentForClient(document.getId(), document.getAuthor(), document.getDocType(),
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
 						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthorContaining(String username, String titleText, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findByAuthorAndTitleContainingIgnoreCaseOrderByIdDesc(username, titleText, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countByAuthorAndTitleContainingIgnoreCase(username, titleText)))
 				.collect(Collectors.toList());
 	}
 
@@ -123,6 +184,17 @@ public class DocumentService {
 						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
 						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
 						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames()))
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthorAndStatus(String username, String status, int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);	
+		return documentRepository.findByAuthorAndStatusOrderByIdDesc(username, status, pageable).stream()
+				.map((document) -> new DocumentForTable(document.getId(), document.getAuthor(), document.getDocType(),
+						document.getTitle(), document.getDescription(), document.getSubmissionDate(),
+						document.getReviewDate(), document.getDocumentReceiver(), document.getRejectionReason(),
+						document.getStatus(), document.generateDbFileIDs(), document.generateDbFileNames(), documentRepository.countByAuthorAndStatus(username, status)))
 				.collect(Collectors.toList());
 	}
 

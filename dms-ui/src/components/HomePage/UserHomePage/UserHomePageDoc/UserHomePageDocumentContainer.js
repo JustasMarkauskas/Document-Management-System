@@ -18,11 +18,15 @@ class UserHomePageDocumentContainer extends React.Component {
       username: "",
       documentStatus: "ALL",
       inputDocumentTitle: "",
+      documentTitleForSearch: "",
       offset: 0,
       elements: [],
       perPage: 10,
       currentPage: 0,
-      pageCount: 0
+      pageCount: 0,
+      totalDocuments: 0,
+      status: "",
+      pageClickInfo: "DOC" //DOC, SEARCH, FILTER
     };
   }
 
@@ -31,15 +35,21 @@ class UserHomePageDocumentContainer extends React.Component {
       let username = response.data;
       this.setState({ username: response.data });
       axios
-        .get(serverUrl + "api/document/" + username)
+        .get(serverUrl + "api/document/page/" + username, {
+          params: {
+            page: this.state.currentPage,
+            size: this.state.perPage
+          }
+        })
         .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => this.setElementsForCurrentPage()
-          );
+          this.setState({
+            pageCount: Math.ceil(
+              response.data[0].totalDocuments / this.state.perPage
+            ),
+            elements: response.data,
+            pageClickInfo: "DOC"
+          });
+
           axios
             .get(serverUrl + "api/user/user-doctypes-for-creation/" + username)
             .then(response => {
@@ -60,64 +70,102 @@ class UserHomePageDocumentContainer extends React.Component {
     const selectedPage = data.selected;
     const offset = selectedPage * this.state.perPage;
     this.setState({ currentPage: selectedPage, offset: offset }, () => {
-      this.setElementsForCurrentPage();
+      this.state.pageClickInfo === "DOC"
+        ? this.setElementsForCurrentPage()
+        : this.state.pageClickInfo === "SEARCH"
+        ? this.setElementsForSearchButton()
+        : this.setElementsForStatus(this.state.status);
     });
   };
 
   setElementsForCurrentPage = () => {
-    let elements = this.state.documents.slice(
-      this.state.offset,
-      this.state.offset + this.state.perPage
-    );
+    axios
+      .get(serverUrl + "api/document/page/" + this.state.username, {
+        params: {
+          page: this.state.currentPage,
+          size: this.state.perPage
+        }
+      })
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
 
-    this.setState({ elements: elements });
-  };
-
-  setFirstElementsForFilterPage = () => {
-    this.setState({ currentPage: 0 });
-    let elements = this.state.documents.slice(0, this.state.perPage);
-
-    this.setState({ elements: elements });
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          pageClickInfo: "DOC"
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   getDocumentsByStatus = status => {
     if (status === "ALL") {
-      axios
-        .get(serverUrl + "api/document/" + this.state.username)
-        .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => this.setFirstElementsForFilterPage()
-          );
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.setState({ currentPage: 0 }, () =>
+        axios
+          .get(serverUrl + "api/document/page/" + this.state.username, {
+            params: {
+              page: this.state.currentPage,
+              size: this.state.perPage
+            }
+          })
+          .then(response => {
+            let totalDocuments = 0;
+            if (response.data.length > 0) {
+              totalDocuments = response.data[0].totalDocuments;
+            }
+
+            this.setState({
+              pageCount: Math.ceil(totalDocuments / this.state.perPage),
+              elements: response.data,
+              pageClickInfo: "DOC"
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      );
     } else {
-      axios
-        .get(
-          serverUrl +
-            "api/document/status/" +
-            status +
-            "/" +
-            this.state.username
-        )
-        .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => this.setFirstElementsForFilterPage()
-          );
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.setState({ currentPage: 0, status: status }, () => {
+        this.setElementsForStatus(status);
+      });
     }
+  };
+
+  setElementsForStatus = status => {
+    axios
+      .get(
+        serverUrl +
+          "api/document/page/status/" +
+          status +
+          "/" +
+          this.state.username,
+        {
+          params: {
+            page: this.state.currentPage,
+            size: this.state.perPage
+          }
+        }
+      )
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          pageClickInfo: "FILTER"
+        });
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleDownloadButton = () => {
@@ -177,42 +225,58 @@ class UserHomePageDocumentContainer extends React.Component {
     this.setState({ inputDocumentTitle: event.target.value });
   };
 
-  setElementsForSearchButton = () => {
-    this.setState({ currentPage: 0 });
-    let elements = this.state.documents.slice(0, this.state.perPage);
-    this.setState({ elements: elements, offset: 0 });
-  };
-
   handleSearchButton = event => {
     event.preventDefault();
     if (this.state.inputDocumentTitle.length < 1) {
-      this.getDocuments();
+      this.setState({ pageClickInfo: "SEARCH", currentPage: 0 }, () => {
+        this.getDocuments();
+      });
     } else {
-      axios
-        .get(
-          serverUrl +
-            "api/document/containing/" +
-            this.state.username +
-            "/" +
-            this.state.inputDocumentTitle
-        )
-        .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              inputDocumentTitle: "",
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => {
-              this.setElementsForSearchButton();
-            }
-          );
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.setState(
+        {
+          inputDocumentTitle: "",
+          documentTitleForSearch: this.state.inputDocumentTitle,
+          currentPage: 0
+        },
+        () => {
+          this.setElementsForSearchButton();
+        }
+      );
+
       document.getElementById("userSearchDocumentInput").value = "";
     }
+  };
+
+  setElementsForSearchButton = () => {
+    axios
+      .get(
+        serverUrl +
+          "api/document/page/containing/" +
+          this.state.username +
+          "/" +
+          this.state.documentTitleForSearch,
+        {
+          params: {
+            page: this.state.currentPage,
+            size: this.state.perPage
+          }
+        }
+      )
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          offset: 0,
+          pageClickInfo: "SEARCH"
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   checkIfEnter = event => {

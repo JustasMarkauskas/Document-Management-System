@@ -7,6 +7,7 @@ import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
 import { store } from "react-notifications-component";
+import UserReviewMainPage from "./UserReviewPage/UserReviewMainPage";
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
@@ -15,11 +16,14 @@ class AdminHomePageUsersContainer extends React.Component {
       show: false,
       users: [],
       inputUsername: "",
+      usernameForSearch: "",
       offset: 0,
       elements: [],
       perPage: 10,
       currentPage: 0,
-      pageCount: 0
+      pageCount: 0,
+      totalUsers: 0,
+      isSearchElements: false
     };
   }
   successUserNotification = () =>
@@ -51,15 +55,20 @@ class AdminHomePageUsersContainer extends React.Component {
 
   getUsers = () => {
     axios
-      .get(serverUrl + "api/user")
+      .get(serverUrl + "api/user/page", {
+        params: {
+          page: this.state.currentPage,
+          size: this.state.perPage
+        }
+      })
       .then(response => {
-        this.setState(
-          {
-            users: response.data,
-            pageCount: Math.ceil(response.data.length / this.state.perPage)
-          },
-          () => this.setElementsForCurrentPage()
-        );
+        this.setState({
+          pageCount: Math.ceil(
+            response.data[0].totalUsers / this.state.perPage
+          ),
+          elements: response.data,
+          isSearchElements: false
+        });
       })
       .catch(error => {
         console.log(error);
@@ -70,17 +79,35 @@ class AdminHomePageUsersContainer extends React.Component {
     const selectedPage = data.selected;
     const offset = selectedPage * this.state.perPage;
     this.setState({ currentPage: selectedPage, offset: offset }, () => {
-      this.setElementsForCurrentPage();
+      this.state.isSearchElements
+        ? this.setElementsForSearchButton()
+        : this.setElementsForCurrentPage();
     });
   };
 
   setElementsForCurrentPage = () => {
-    let elements = this.state.users.slice(
-      this.state.offset,
-      this.state.offset + this.state.perPage
-    );
+    axios
+      .get(serverUrl + "api/user/page", {
+        params: {
+          page: this.state.currentPage,
+          size: this.state.perPage
+        }
+      })
+      .then(response => {
+        let totalUsers = 0;
+        if (response.data.length > 0) {
+          totalUsers = response.data[0].totalUsers;
+        }
 
-    this.setState({ elements: elements });
+        this.setState({
+          pageCount: Math.ceil(totalUsers / this.state.perPage),
+          elements: response.data,
+          isSearchElements: false
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   componentDidMount() {
@@ -89,7 +116,10 @@ class AdminHomePageUsersContainer extends React.Component {
 
   handleActionClick = (event, username) => {
     event.preventDefault();
-    this.props.history.push("/user-review/" + username);
+
+    return <UserReviewMainPage />;
+
+    //this.props.history.push("/user-review/" + username);
   };
 
   handleSearchChange = event => {
@@ -99,33 +129,51 @@ class AdminHomePageUsersContainer extends React.Component {
   handleSearchButton = event => {
     event.preventDefault();
     if (this.state.inputUsername.length < 1) {
-      this.getUsers();
+      this.setState({ isSearchElements: true, currentPage: 0 }, () => {
+        this.getUsers();
+      });
     } else {
-      axios
-        .get(serverUrl + "api/user/containing/" + this.state.inputUsername)
-        .then(response => {
-          this.setState(
-            {
-              users: response.data,
-              inputUsername: "",
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => {
-              this.setElementsForSearchButton();
-            }
-          );
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      this.setState(
+        {
+          inputUsername: "",
+          usernameForSearch: this.state.inputUsername,
+          currentPage: 0
+        },
+        () => {
+          this.setElementsForSearchButton();
+        }
+      );
+
       document.getElementById("adminUserSearchInput").value = "";
     }
   };
 
   setElementsForSearchButton = () => {
-    this.setState({ currentPage: 0 });
-    let elements = this.state.users.slice(0, this.state.perPage);
-    this.setState({ elements: elements, offset: 0 });
+    axios
+      .get(
+        serverUrl + "api/user/page/containing/" + this.state.usernameForSearch,
+        {
+          params: {
+            page: this.state.currentPage,
+            size: this.state.perPage
+          }
+        }
+      )
+      .then(response => {
+        let totalUsers = 0;
+        if (response.data.length > 0) {
+          totalUsers = response.data[0].totalUsers;
+        }
+        this.setState({
+          pageCount: Math.ceil(totalUsers / this.state.perPage),
+          elements: response.data,
+          offset: 0,
+          isSearchElements: true
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   checkIfEnter = event => {

@@ -33,6 +33,7 @@ import io.swagger.annotations.ApiParam;
 import it.akademija.model.document.DocumentCountForStatistics;
 import it.akademija.model.document.DocumentForClient;
 import it.akademija.model.document.DocumentForStatistics;
+import it.akademija.model.document.DocumentForTable;
 import it.akademija.model.document.DocumentInfoAfterReview;
 import it.akademija.model.document.NewDocument;
 import it.akademija.model.file.DBFile;
@@ -87,10 +88,22 @@ public class DocumentController {
 		return documentService.getDocumentsForClientByAuthor(username);
 	}
 	
+	@RequestMapping(path = "/page/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents by author", notes = "Returns list of documents by author")
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthor(@PathVariable String username, @RequestParam int page, @RequestParam int size) {
+		return documentService.getPageableDocumentsForClientByAuthor(username, page, size);
+	}
+	
 	@RequestMapping(path = "/containing/{username}/{titleText}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents by author and titleText", notes = "Returns list of documents by author and title text")
 	public List<DocumentForClient> getDocumentsForClientByAuthorContaining(@PathVariable String username, @PathVariable String titleText) {
 		return documentService.getDocumentsForClientByAuthorContaining(username, titleText);
+	}
+	
+	@RequestMapping(path = "/page/containing/{username}/{titleText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents by author and titleText", notes = "Returns list of documents by author and title text")
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthorContaining(@PathVariable String username, @PathVariable String titleText, @RequestParam int page, @RequestParam int size) {
+		return documentService.getPageableDocumentsForClientByAuthorContaining(username, titleText, page, size);
 	}
 
 	@RequestMapping(path = "/status/{status}/{username}", method = RequestMethod.GET)
@@ -98,6 +111,13 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForClientByAuthorAndStatus(@PathVariable String username,
 			@PathVariable String status) {
 		return documentService.getDocumentsForClientByAuthorAndStatus(username, status);
+	}
+	
+	@RequestMapping(path = "/page/status/{status}/{username}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents by author and status", notes = "Returns list of documents by author and status (descending order)")
+	public List<DocumentForTable> getPageableDocumentsForClientByAuthorAndStatus(@PathVariable String username,
+			@PathVariable String status, @RequestParam int page, @RequestParam int size) {
+		return documentService.getPageableDocumentsForClientByAuthorAndStatus(username, status, page, size);
 	}
 
 	@RequestMapping(path = "/documents-for-approval", method = RequestMethod.GET)
@@ -107,11 +127,25 @@ public class DocumentController {
 		return documentService.getDocumentsForApprovalByDfaList(documentForApprovalNames, "SAVED");
 	}
 	
+	@RequestMapping(path = "/page/documents-for-approval", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents for approval for user", notes = "Returns list of documents for approval by DFA names list. Status must not be equalto SAVED")
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaList(
+			@RequestParam final List<String> documentForApprovalNames, @RequestParam int page, @RequestParam int size) {
+		return documentService.getPageableDocumentsForApprovalByDfaList(documentForApprovalNames, "SAVED", page, size);
+	}
+	
 	@RequestMapping(path = "/documents-for-approval/containing/{titleText}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get documents for approval for user containing text", notes = "Returns list of documents for approval by DFA names list containing titleText. Status must not be equalto SAVED")
 	public List<DocumentForClient> getDocumentsForApprovalByDfaListContaining(
 			@RequestParam final List<String> documentForApprovalNames, @PathVariable String titleText) {
 		return documentService.getDocumentsForApprovalByDfaListContaining(documentForApprovalNames, "SAVED", titleText);
+	}
+	
+	@RequestMapping(path = "/page/documents-for-approval/containing/{titleText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents for approval for user containing text", notes = "Returns list of documents for approval by DFA names list containing titleText. Status must not be equalto SAVED")
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaListContaining(
+			@RequestParam final List<String> documentForApprovalNames, @RequestParam int page, @RequestParam int size, @PathVariable String titleText) {
+		return documentService.getPageableDocumentsForApprovalByDfaListContaining(documentForApprovalNames, "SAVED", titleText, page, size);
 	}
 
 	@RequestMapping(path = "/documents-for-approval/{status}", method = RequestMethod.GET)
@@ -119,6 +153,13 @@ public class DocumentController {
 	public List<DocumentForClient> getDocumentsForApprovalByDfaListAndStatus(
 			@RequestParam final List<String> documentForApprovalNames, @PathVariable String status) {
 		return documentService.getDocumentsForApprovalByDfaListAndStatus(documentForApprovalNames, status);
+	}
+	
+	@RequestMapping(path = "/page/documents-for-approval/{status}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get documents for approval for user by status", notes = "Returns list of documents for approval by DFA names list and status")
+	public List<DocumentForTable> getPageableDocumentsForApprovalByDfaListAndStatus(
+			@RequestParam final List<String> documentForApprovalNames,@RequestParam int page, @RequestParam int size, @PathVariable String status) {
+		return documentService.getPageableDocumentsForApprovalByDfaListAndStatus(documentForApprovalNames, status, page, size);
 	}
 
 	@RequestMapping(path = "/{id}/{username}", method = RequestMethod.GET)

@@ -13,12 +13,17 @@ class UserHomePageDocumentContainer extends React.Component {
       userDocTypesForApproval: [],
       documents: [],
       username: "",
+      documentStatus: "ALL",
       inputDocumentTitle: "",
+      documentTitleForSearch: "",
       offset: 0,
       elements: [],
       perPage: 10,
       currentPage: 0,
-      pageCount: 0
+      pageCount: 0,
+      totalDocuments: 0,
+      status: "",
+      pageClickInfo: "DOC" //DOC, SEARCH, FILTER
     };
   }
 
@@ -35,24 +40,24 @@ class UserHomePageDocumentContainer extends React.Component {
           });
 
           axios
-            .get(serverUrl + "api/document/documents-for-approval", {
+            .get(serverUrl + "api/document/page/documents-for-approval", {
               params: {
-                documentForApprovalNames: docTypesFA
+                documentForApprovalNames: docTypesFA,
+                page: this.state.currentPage,
+                size: this.state.perPage
               },
               paramsSerializer: params => {
                 return qs.stringify(params, { indices: false });
               }
             })
             .then(response => {
-              this.setState(
-                {
-                  documents: response.data,
-                  pageCount: Math.ceil(
-                    response.data.length / this.state.perPage
-                  )
-                },
-                () => this.setElementsForCurrentPage()
-              );
+              this.setState({
+                pageCount: Math.ceil(
+                  response.data[0].totalDocuments / this.state.perPage
+                ),
+                elements: response.data,
+                pageClickInfo: "DOC"
+              });
             });
         })
         .catch(error => {
@@ -69,66 +74,104 @@ class UserHomePageDocumentContainer extends React.Component {
     const selectedPage = data.selected;
     const offset = selectedPage * this.state.perPage;
     this.setState({ currentPage: selectedPage, offset: offset }, () => {
-      this.setElementsForCurrentPage();
+      this.state.pageClickInfo === "DOC"
+        ? this.setElementsForCurrentPage()
+        : this.state.pageClickInfo === "SEARCH"
+        ? this.setElementsForSearchButton()
+        : this.setElementsForStatus(this.state.status);
     });
   };
 
   setElementsForCurrentPage = () => {
-    let elements = this.state.documents.slice(
-      this.state.offset,
-      this.state.offset + this.state.perPage
-    );
+    axios
+      .get(serverUrl + "api/document/page/documents-for-approval", {
+        params: {
+          documentForApprovalNames: this.state.userDocTypesForApproval,
+          page: this.state.currentPage,
+          size: this.state.perPage
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params, { indices: false });
+        }
+      })
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
 
-    this.setState({ elements: elements });
-  };
-
-  setFirstElementsForFilterPage = () => {
-    this.setState({ currentPage: 0 });
-    let elements = this.state.documents.slice(0, this.state.perPage);
-
-    this.setState({ elements: elements });
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          pageClickInfo: "DOC"
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   getDFAByStatus = status => {
     if (status === "ALL") {
-      axios
-        .get(serverUrl + "api/document/documents-for-approval", {
-          params: {
-            documentForApprovalNames: this.state.userDocTypesForApproval
-          },
-          paramsSerializer: params => {
-            return qs.stringify(params, { indices: false });
-          }
-        })
-        .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
+      this.setState({ currentPage: 0 }, () =>
+        axios
+          .get(serverUrl + "api/document/page/documents-for-approval", {
+            params: {
+              page: this.state.currentPage,
+              size: this.state.perPage,
+              documentForApprovalNames: this.state.userDocTypesForApproval
             },
-            () => this.setFirstElementsForFilterPage()
-          );
-        });
+            paramsSerializer: params => {
+              return qs.stringify(params, { indices: false });
+            }
+          })
+          .then(response => {
+            let totalDocuments = 0;
+            if (response.data.length > 0) {
+              totalDocuments = response.data[0].totalDocuments;
+            }
+
+            this.setState({
+              pageCount: Math.ceil(totalDocuments / this.state.perPage),
+              elements: response.data,
+              pageClickInfo: "DOC"
+            });
+          })
+      );
     } else {
-      axios
-        .get(serverUrl + "api/document/documents-for-approval/" + status, {
-          params: {
-            documentForApprovalNames: this.state.userDocTypesForApproval
-          },
-          paramsSerializer: params => {
-            return qs.stringify(params, { indices: false });
-          }
-        })
-        .then(response => {
-          this.setState(
-            {
-              documents: response.data,
-              pageCount: Math.ceil(response.data.length / this.state.perPage)
-            },
-            () => this.setFirstElementsForFilterPage()
-          );
-        });
+      this.setState({ currentPage: 0, status: status }, () => {
+        this.setElementsForStatus(status);
+      });
     }
+  };
+
+  setElementsForStatus = status => {
+    axios
+      .get(serverUrl + "api/document/page/documents-for-approval/" + status, {
+        params: {
+          page: this.state.currentPage,
+          size: this.state.perPage,
+          documentForApprovalNames: this.state.userDocTypesForApproval
+        },
+        paramsSerializer: params => {
+          return qs.stringify(params, { indices: false });
+        }
+      })
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          pageClickInfo: "FILTER"
+        });
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleStatisticsClick = event => {
@@ -141,58 +184,57 @@ class UserHomePageDocumentContainer extends React.Component {
   };
 
   setElementsForSearchButton = () => {
-    this.setState({ currentPage: 0 });
-    let elements = this.state.documents.slice(0, this.state.perPage);
-    this.setState({ elements: elements, offset: 0 });
+    axios
+      .get(
+        serverUrl +
+          "api/document/page/documents-for-approval/containing/" +
+          this.state.documentTitleForSearch,
+        {
+          params: {
+            page: this.state.currentPage,
+            size: this.state.perPage,
+            documentForApprovalNames: this.state.userDocTypesForApproval
+          },
+          paramsSerializer: params => {
+            return qs.stringify(params, { indices: false });
+          }
+        }
+      )
+      .then(response => {
+        let totalDocuments = 0;
+        if (response.data.length > 0) {
+          totalDocuments = response.data[0].totalDocuments;
+        }
+        this.setState({
+          pageCount: Math.ceil(totalDocuments / this.state.perPage),
+          elements: response.data,
+          offset: 0,
+          pageClickInfo: "SEARCH"
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleSearchButton = event => {
     event.preventDefault();
     if (this.state.inputDocumentTitle.length < 1) {
-      this.getDocuments();
+      this.setState({ pageClickInfo: "SEARCH", currentPage: 0 }, () => {
+        this.getDocuments();
+      });
     } else {
-      axios
-        .get(
-          serverUrl +
-            "api/user/user-doctypes-for-approval/" +
-            this.state.username
-        )
-        .then(response => {
-          let docTypesFA = response.data;
-          this.setState({
-            userDocTypesForApproval: response.data
-          });
+      this.setState(
+        {
+          inputDocumentTitle: "",
+          documentTitleForSearch: this.state.inputDocumentTitle,
+          currentPage: 0
+        },
+        () => {
+          this.setElementsForSearchButton();
+        }
+      );
 
-          axios
-            .get(
-              serverUrl +
-                "api/document/documents-for-approval/containing/" +
-                this.state.inputDocumentTitle,
-              {
-                params: {
-                  documentForApprovalNames: docTypesFA
-                },
-                paramsSerializer: params => {
-                  return qs.stringify(params, { indices: false });
-                }
-              }
-            )
-            .then(response => {
-              this.setState(
-                {
-                  documents: response.data,
-                  inputDocumentTitle: "",
-                  pageCount: Math.ceil(
-                    response.data.length / this.state.perPage
-                  )
-                },
-                () => this.setElementsForSearchButton()
-              );
-            });
-        })
-        .catch(error => {
-          console.log(error);
-        });
       document.getElementById("userSearchDocumentInput").value = "";
     }
   };

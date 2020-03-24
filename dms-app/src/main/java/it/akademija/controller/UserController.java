@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.model.user.NewUser;
 import it.akademija.model.user.User;
 import it.akademija.model.user.UserForClient;
+import it.akademija.model.user.UserForTable;
 import it.akademija.service.UserService;
 
 @RestController
@@ -52,12 +51,26 @@ public class UserController {
 		return "not logged";
 	}
 
+	
+	@RequestMapping(path = "/page", method = RequestMethod.GET)
+	@ApiOperation(value = "Get Users", notes = "Returns list of all users")
+	public List<UserForTable> getUsersForClientPageable(@RequestParam int page, @RequestParam int size) {
+		return userService.getPageableUsersForClient(page, size);
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(value = "Get Users", notes = "Returns list of all users")
 	public List<UserForClient> getUsersForClient() {
 		return userService.getUsersForClient();
 	}
 
+	@RequestMapping(path = "page/containing/{userText}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get Users containing text", notes = "Returns list of users containing passed String")
+	public List<UserForTable> getPageableUsersForClientContaining(@PathVariable String userText, @RequestParam int page, @RequestParam int size) {
+		return userService.getPageableUsersForClientContaining(userText, page, size);
+	}
+	
 	@RequestMapping(path = "/containing/{userText}", method = RequestMethod.GET)
 	@ApiOperation(value = "Get Users containing text", notes = "Returns list of users containing passed String")
 	public List<UserForClient> getUsersForClientContaining(@PathVariable String userText) {
@@ -128,9 +141,6 @@ public class UserController {
 	}
 
 	@RequestMapping(path = "/update-password/{username}", method = RequestMethod.PUT)
-//	@PreAuthorize("hasRole('ROLE_ADMIN')") // leidžiama tik su ROLE_ADMIN
-//	@PreAuthorize("hasAuthority('OP1')") // leidžiama tik su tam tikru authority(veikia)
-//	@PreAuthorize("hasAuthority('ADMIN')") //Roles nebutina saugoti  su ROLE_ prefiksu
 	@ApiOperation(value = "Update user password", notes = "Update user password")
 	public User updatePassword(@ApiParam(required = true) @PathVariable String username,
 			@Valid @RequestBody final NewUser newUser) {
