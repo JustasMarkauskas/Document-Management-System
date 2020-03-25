@@ -7,7 +7,6 @@ import NewUserFormComponent from "../../../NewUserForm/NewUserFormComponent";
 import serverUrl from "../../../URL/ServerUrl";
 import ReactPaginate from "react-paginate";
 import { store } from "react-notifications-component";
-import UserReviewMainPage from "./UserReviewPage/UserReviewMainPage";
 
 class AdminHomePageUsersContainer extends React.Component {
   constructor(props) {
@@ -116,10 +115,7 @@ class AdminHomePageUsersContainer extends React.Component {
 
   handleActionClick = (event, username) => {
     event.preventDefault();
-
-    return <UserReviewMainPage />;
-
-    //this.props.history.push("/user-review/" + username);
+    this.props.history.push("/user-review/" + username);
   };
 
   handleSearchChange = event => {
