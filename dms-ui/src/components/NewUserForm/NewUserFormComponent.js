@@ -267,8 +267,7 @@ class NewUserFormComponent extends React.Component {
                   !isValid
                 }
                 onClick={this.submitUser}
-                variant="primary"
-                className="SubmitButton mr-2"
+                className="SubmitButton mr-2 modals-btn-color"
                 type="button"
               >
                 Submit

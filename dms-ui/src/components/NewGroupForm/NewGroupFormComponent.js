@@ -127,8 +127,7 @@ class NewGroupFormComponent extends React.Component {
               <Button
                 disabled={!values.id || !isValid}
                 onClick={this.submitGroup}
-                variant="primary"
-                className="SubmitButton mr-2"
+                className="SubmitButton mr-2 modals-btn-color"
                 type="button"
               >
                 Submit

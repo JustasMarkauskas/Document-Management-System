@@ -18,6 +18,7 @@ const schema = yup.object().shape({
     .trim()
     .min(5, "Must be 5-50 characters long")
     .max(50, "Must be 5-50 characters long")
+    .required("Please enter a description")
 });
 
 class NewDocumentFormComponent extends React.Component {
@@ -195,8 +196,7 @@ class NewDocumentFormComponent extends React.Component {
                     onClick={(event, button) => {
                       this.submitDocument(event, "submit");
                     }}
-                    variant="primary"
-                    className="SubmitButton mr-2"
+                    className="SubmitButton mr-2 modals-btn-color"
                     type="button"
                   >
                     Submit
@@ -211,8 +211,7 @@ class NewDocumentFormComponent extends React.Component {
                     onClick={(event, button) => {
                       this.submitDocument(event, "save");
                     }}
-                    variant="primary"
-                    className="SubmitButton mr-2"
+                    className="SubmitButton mr-2 modals-btn-color"
                     type="button"
                   >
                     Save for later

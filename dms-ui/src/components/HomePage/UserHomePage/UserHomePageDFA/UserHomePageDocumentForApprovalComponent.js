@@ -67,7 +67,8 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
           show={this.state.showSubmitModal}
           onHide={this.handleSubmittedModalClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Submitted document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -83,7 +84,8 @@ class UserHomePageDocumentForApprovalComponent extends React.Component {
           show={this.state.showReviewModal}
           onHide={this.handleReviewModalClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Reviewed document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>

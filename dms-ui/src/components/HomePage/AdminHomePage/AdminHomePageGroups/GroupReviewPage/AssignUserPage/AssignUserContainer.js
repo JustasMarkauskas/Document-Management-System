@@ -121,7 +121,7 @@ class AssignUserContainer extends React.Component {
             <button
               onClick={this.onSaveClick}
               type="button"
-              className="btn btn-primary mr-2"
+              className="btn modals-btn-color mr-2"
             >
               Save
             </button>

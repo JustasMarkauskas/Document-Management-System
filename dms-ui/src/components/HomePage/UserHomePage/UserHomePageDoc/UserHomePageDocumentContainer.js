@@ -434,7 +434,8 @@ class UserHomePageDocumentContainer extends React.Component {
           </table>
         </div>
         <Modal show={this.state.showModal} onHide={this.handleModalClose}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Create New Document</Modal.Title>
           </Modal.Header>
           <Modal.Body>

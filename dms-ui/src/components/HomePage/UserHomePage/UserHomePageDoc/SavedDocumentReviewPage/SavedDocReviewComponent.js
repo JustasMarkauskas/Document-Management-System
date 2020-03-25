@@ -345,7 +345,7 @@ class SavedDocReviewComponent extends React.Component {
                 disabled={!this.handleSubmitButtonValidation()}
                 onClick={this.onSubmitClick}
                 type="button"
-                className="btn btn-primary"
+                className="btn modals-btn-color"
               >
                 Submit
               </button>
@@ -355,7 +355,7 @@ class SavedDocReviewComponent extends React.Component {
                 disabled={!this.handleSaveButtonValidation()}
                 onClick={this.onSaveClick}
                 type="button"
-                className="btn btn-primary"
+                className="btn modals-btn-color"
               >
                 Save
               </button>

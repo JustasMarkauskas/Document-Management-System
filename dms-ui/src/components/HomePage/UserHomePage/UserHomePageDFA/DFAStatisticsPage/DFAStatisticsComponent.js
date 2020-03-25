@@ -119,7 +119,8 @@ class DFAStatisticsComponent extends React.Component {
           show={this.state.showStatisticsModal}
           onHide={this.handleStatisticsModalClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>{this.state.selectedDocType} statistics</Modal.Title>
           </Modal.Header>
           <Modal.Body>

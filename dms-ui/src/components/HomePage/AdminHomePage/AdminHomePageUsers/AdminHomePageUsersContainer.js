@@ -235,7 +235,8 @@ class AdminHomePageUsersContainer extends React.Component {
             </button>
           </div>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton
+		className="modals-header">
               <Modal.Title>Create New User</Modal.Title>
             </Modal.Header>
             <Modal.Body>

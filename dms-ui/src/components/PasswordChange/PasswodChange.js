@@ -111,8 +111,7 @@ class PasswordChangeComponent extends React.Component {
                     !values.password || !values.confirmPassword || !isValid
                   }
                   onClick={this.submitPasswordChange}
-                  variant="primary"
-                  className="SubmitButton mr-2 col-6"
+                  className="SubmitButton mr-2 col-6 modals-btn-color"
                   type="button"
                 >
                   Change

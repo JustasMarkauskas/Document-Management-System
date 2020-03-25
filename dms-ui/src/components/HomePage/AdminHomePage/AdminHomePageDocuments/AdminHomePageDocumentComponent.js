@@ -57,7 +57,8 @@ class AdminHomePageDocumentComponent extends React.Component {
           show={this.state.docTypeModal}
           onHide={this.handleCloseDocTypeModal}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Document type info</Modal.Title>
           </Modal.Header>
           <Modal.Body>

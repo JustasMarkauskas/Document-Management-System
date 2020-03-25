@@ -127,8 +127,7 @@ class NewDocTypeFormComponent extends React.Component {
               <Button
                 disabled={!values.id || !isValid}
                 onClick={this.submitDocType}
-                variant="primary"
-                className="SubmitButton mr-2"
+                className="SubmitButton mr-2 modals-btn-color"
                 type="button"
               >
                 Submit

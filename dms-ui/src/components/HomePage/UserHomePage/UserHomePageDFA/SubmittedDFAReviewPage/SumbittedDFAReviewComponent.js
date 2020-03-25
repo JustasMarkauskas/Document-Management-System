@@ -248,7 +248,7 @@ class SubmittedDFAReviewComponent extends React.Component {
               disabled={!this.handleApproveButton()}
               onClick={this.onApproveClick}
               type="button"
-              className="btn btn-primary mr-2"
+              className="btn modals-btn-color mr-2"
             >
               Approve
             </button>
@@ -257,7 +257,7 @@ class SubmittedDFAReviewComponent extends React.Component {
               disabled={!this.handleRejectButton()}
               onClick={this.onRejectClick}
               type="button"
-              className="btn btn-primary mr-2"
+              className="btn modals-btn-color mr-2"
             >
               Reject
             </button>

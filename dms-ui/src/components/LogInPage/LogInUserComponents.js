@@ -51,8 +51,8 @@ const LogInUserComponent = ({
                 </button>
               </div>
               {incorrectLogin ? (
-                <div className="alert mt-3 alert-color" role="alert">
-                  <h5>Login failed. Check username or password</h5>
+                <div className="alert mt-3 pt-3 pb-2 alert-color" role="alert">
+                   <h6 className="text-center">Login failed. Check username or password</h6>                   
                 </div>
               ) : (
                 <div></div>

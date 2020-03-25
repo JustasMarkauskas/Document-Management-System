@@ -106,7 +106,8 @@ class UserHomePageProfileComponent extends React.Component {
           show={this.state.changePasswordModal}
           onHide={this.handleClosePasswordModal}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Change password</Modal.Title>
           </Modal.Header>
           <Modal.Body>

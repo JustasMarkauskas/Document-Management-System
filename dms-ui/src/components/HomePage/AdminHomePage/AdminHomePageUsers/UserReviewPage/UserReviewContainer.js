@@ -264,7 +264,8 @@ class UserReviewContainer extends React.Component {
                           show={this.state.showAssignToGroupsModal}
                           onHide={this.handleCloseAssignToGroupsModalAndUpdate}
                         >
-                          <Modal.Header closeButton>
+                          <Modal.Header closeButton
+				className="modals-header">
                             <Modal.Title>Assign to groups</Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
@@ -288,7 +289,8 @@ class UserReviewContainer extends React.Component {
                           show={this.state.showPasswordChangeModal}
                           onHide={this.handleClosePasswordChangeModal}
                         >
-                          <Modal.Header closeButton>
+                          <Modal.Header closeButton
+				className="modals-header">
                             <Modal.Title>Change password</Modal.Title>
                           </Modal.Header>
                           <Modal.Body>
@@ -309,8 +311,7 @@ class UserReviewContainer extends React.Component {
                               !values.firstName || !values.lastName || !isValid
                             }
                             onClick={this.updateUser}
-                            variant="primary"
-                            className="SubmitButton mr-2 col-4"
+                            className="SubmitButton mr-2 col-4 modals-btn-color"
                             type="button"
                           >
                             Save

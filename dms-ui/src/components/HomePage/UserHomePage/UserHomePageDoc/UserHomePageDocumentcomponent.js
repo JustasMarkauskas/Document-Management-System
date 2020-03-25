@@ -68,7 +68,8 @@ class UserHomePageDocumentComponent extends React.Component {
           show={this.state.showSubmitModal}
           onHide={this.handleSubmittedModalClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Submitted document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -82,7 +83,8 @@ class UserHomePageDocumentComponent extends React.Component {
           show={this.state.showSaveModal}
           onHide={this.handleSaveModalClose}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Saved document info</Modal.Title>
           </Modal.Header>
           <Modal.Body>

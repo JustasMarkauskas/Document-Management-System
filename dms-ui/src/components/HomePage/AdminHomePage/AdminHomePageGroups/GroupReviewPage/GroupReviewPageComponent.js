@@ -105,7 +105,7 @@ class GroupReviewPageComponent extends React.Component {
                     disabled={!this.props.handleButtonValidation()}
                     onClick={this.props.onSaveClick}
                     type="button"
-                    className="btn btn-primary mr-2"
+                    className="btn modals-btn-color mr-2"
                   >
                     Save
                   </button>
@@ -203,7 +203,8 @@ class GroupReviewPageComponent extends React.Component {
           show={this.state.assignUserModal}
           onHide={this.handleCloseAssignUserModalAndUpdate}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Assign user</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -218,7 +219,8 @@ class GroupReviewPageComponent extends React.Component {
           show={this.state.assignDFAModal}
           onHide={this.handleCloseAssignDFAModalAndUpdate}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Assign document types for approval</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -235,7 +237,8 @@ class GroupReviewPageComponent extends React.Component {
           show={this.state.assignDFCModal}
           onHide={this.handleCloseAssignDFCModalAndUpdate}
         >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton
+		className="modals-header">
             <Modal.Title>Assign document types for creation</Modal.Title>
           </Modal.Header>
           <Modal.Body>

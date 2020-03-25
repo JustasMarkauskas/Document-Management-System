@@ -127,6 +127,21 @@ Button colors
   color: white;
 }
 
+.modals-btn-color{
+  background-color:  #7e2997 !important;
+  color: white !important;
+}
+
+.modals-btn-color:hover{
+  background-color:  #66227a !important;
+  color: white !important;
+}
+
+.modals-btn-color:disabled{
+  background-color:  #764b92 !important;
+  color: white !important;
+}
+
 /*
 Sticyky nav and no horizontal scroll on pages
 */
@@ -187,6 +202,47 @@ Login
 .alert-color {
   background-color: #b1223a;
   color: black;
+}
+
+/*
+Pagination
+*/
+
+.pagination > li > a,
+.pagination > li > span {
+  color: #65228b;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  margin-left: -1px;
+}
+
+.pagination>li.page-item.active>a{
+  color: #fff;
+  background-color: #65228b;
+  border-color: #65228b;
+}
+
+.pagination > li > a:hover {  
+  background-color: lightgray;
+  color: #65228b;
+}
+
+/*
+Modal style
+*/
+
+.modals-header{
+  background-color: #3f464d;
+  color: white;
+  text-align: center !important;  
+}
+
+.modals-header > .close{
+  color: white;
+}
+
+.modals-header > .close:hover{
+  color: lightgray;
 }
 
 /*

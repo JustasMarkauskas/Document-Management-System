@@ -81,7 +81,7 @@ class DocumentTypeReviewContainer extends React.Component {
               disabled={!this.handleButtonValidation()}
               onClick={this.onSaveClick}
               type="button"
-              className="btn btn-primary mr-2"
+              className="btn modals-btn-color mr-2"
             >
               Save
             </button>

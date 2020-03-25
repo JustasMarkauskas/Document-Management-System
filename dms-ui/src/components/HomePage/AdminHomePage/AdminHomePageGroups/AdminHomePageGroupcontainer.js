@@ -188,7 +188,8 @@ class AdminHomePageGroupContainer extends React.Component {
             </button>
           </div>
           <Modal show={this.state.show} onHide={this.handleCloseModal}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton
+		className="modals-header">
               <Modal.Title>Create new group</Modal.Title>
             </Modal.Header>
             <Modal.Body>
