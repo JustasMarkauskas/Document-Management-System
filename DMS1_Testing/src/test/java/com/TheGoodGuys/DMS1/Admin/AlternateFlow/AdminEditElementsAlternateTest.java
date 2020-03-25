@@ -15,7 +15,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import resources.models.*;
 import resources.page.AdminPages.AdminNavPage;
-import resources.page.AdminPages.DocTypePages.*;
 import resources.page.AdminPages.GroupPages.*;
 import resources.page.AdminPages.UserPages.*;
 import resources.page.SharedPages.*;
@@ -30,8 +29,6 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 	private AdminNavPage adminNav;
 	private AdminGroupListPage adminGroups;
 	private AdminEditGroupPage editGroup;
-	private AdminDocTypeListPage adminDocTypes;
-	private AdminEditDocTypePage editDocType;
 	private AdminUserListPage adminUsers;
 	private AdminEditUserPage editUser;
 	private HeaderPage header;
@@ -45,8 +42,6 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 		adminNav = new AdminNavPage(driver);
 		adminGroups = new AdminGroupListPage(driver);
 		editGroup = new AdminEditGroupPage(driver);
-		adminDocTypes = new AdminDocTypeListPage(driver);
-		editDocType = new AdminEditDocTypePage(driver);
 		adminUsers = new AdminUserListPage(driver);
 		editUser = new AdminEditUserPage(driver);
 
@@ -132,51 +127,6 @@ public class AdminEditElementsAlternateTest extends AbstractTest {
 	}
 
 
-	@DataProvider(name = "validDocTypes")
-	public static Object[] testDataValidDocTypes() throws IOException {
-		return FileReaderUtils.getDocumentTypesFromXml("src/test/java/resources/testData/AdminEditElementsAlternateScen/DocTypeValid_Comment.xml");
-	}
-	
-	/**
-	 * Test to check if document type edition is possible with valid data(
-	 * Comment - Length: 0-50 chars; Allowed symbols: all; Special characters: allowed).
-	 * 
-	 * Test flow: 
-	 * go to Edit Document type form for existing Document type
-	 * enter new comment in Comment field
-	 * click Save
-	 * 
-	 * 
-	 * Expected results: 
-	 * updated document type can be located by document type name in the doc type list page
-	 * comment is updated
-	 * 
-	 * @param documentType
-	 */
-	@Test(priority = 2, groups = { "docTypeEdit" }, dataProvider = "validDocTypes")
-	public void testToEditDocTypeWithValidData(DocumentType documentType) {
-
-		String docTypeName = "testDocType101";
-
-		adminNav.clickButtonDocTypes();
-		
-		wait.until(ExpectedConditions.visibilityOfAllElements(adminDocTypes.getDataRows()));
-		int rowNumber = adminDocTypes.findRowNumberByDocTypeName(docTypeName);
-		
-		adminDocTypes.clickActionButtonByRowNumber(rowNumber);
-		
-		wait.until(ExpectedConditions.visibilityOf(editDocType.getInputDocTypeName()));
-		
-		editDocType.enterInputComment(documentType.getComment());
-		editDocType.clickButtonSave();
-		
-		wait.until(ExpectedConditions.visibilityOfAllElements(adminDocTypes.getDataRows()));
-		
-		assertThat("Document type could not be found in the document type list",
-				adminDocTypes.findRowNumberByDocTypeName(docTypeName), is(greaterThan(0)));
-		assertThat("Comment does not match", adminDocTypes.getTextFromRowFieldsByDocTypeName(docTypeName)[2], is(equalTo(documentType.getComment())));
-
-	}
 
 	@DataProvider(name = "validUsers")
 	public static Object[] testDataValidUsers() throws IOException {

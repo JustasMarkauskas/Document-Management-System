@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources.models.GroupData>
-	<Group>
-		<testDataGroup>group_valid</testDataGroup>
-		<identificator>comment_blank</identificator>
-		<groupName>OneLongGroupName0146</groupName>
-		<comment></comment>
-	</Group>
+
 	<Group>
 		<testDataGroup>group_valid</testDataGroup>
 		<identificator>comment_maxLength</identificator>

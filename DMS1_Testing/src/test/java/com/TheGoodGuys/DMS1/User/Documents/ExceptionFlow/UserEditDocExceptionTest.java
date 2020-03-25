@@ -184,52 +184,7 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		
 		savedDocReview.clickButtonCancel();
 	}
-	
-	@DataProvider(name = "documentsInvalid_TitleBlank")
-	public static Object[] testDataDocumentsInvalidTitleBlank() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_TitleBlank.xml");
-	}
-	
-	/**
-	 * Test to check if Submit and Save buttons are disabled in Saved Document Edit form
-	 *  if Title is blank(
-	 *  Title - Length: 0 chars;
-	 *  )
-	 *  
-	 * Preconditions:
-	 * test user is created and assigned to group
-	 * test doc type is created and assigned to group
-	 * test document is saved
-	 * 
-	 * Test flow: 
-	 * click on button My Documents in Nav section
-	 * locate document in the list by title, type and status 'SAVED'
-	 * click on button Actions
-	 * update form with test data with blank title
-	 * check if Submit button is disabled
-	 * check if Save button is disabled
-	 * click cancel
-	 * 
-	 * Expected results: 
-	 * Submit button is disabled after the test data is entered
-	 * Save button is disabled after the test data is entered
-	 * 
-	 * @param document
-	 */
-	@Test (priority = 3, groups = { "documentEdit" } , dataProvider = "documentsInvalid_TitleBlank")
-	public void testCheckTitleBlankRestrictionsInEditDocForm(Document document) {
-		userNav.clickButtonMyDocuments();
 		
-		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
-		userDocuments.clickActionButtonByRowNumber(rowNumber);
-		
-		savedDocReview.fillFormDocumentCreation(document);
-		
-		assertThat("Save button is not disabled", savedDocReview.getButtonSave().isEnabled(), is(false));
-		assertThat("Submit button is not disabled", savedDocReview.getButtonSubmit().isEnabled(), is(false));
-		
-		savedDocReview.clickButtonCancel();
-	}
 	
 	@DataProvider(name = "documentsInvalid_DescriptionLength")
 	public static Object[] testDataDocumentsInvalidDescriptionLength() throws IOException {
@@ -263,7 +218,7 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 	 * 
 	 * @param document
 	 */
-	@Test (priority = 4, groups = { "documentEdit" } , dataProvider = "documentsInvalid_DescriptionLength")
+	@Test (priority = 3, groups = { "documentEdit" } , dataProvider = "documentsInvalid_DescriptionLength")
 	public void testCheckDescriptionLengthRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
@@ -279,56 +234,6 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 		savedDocReview.clickButtonCancel();
 	}
 	
-	@DataProvider(name = "documentsInvalid_DescriptionBlank")
-	public static Object[] testDataDocumentsInvalidDescriptionBlank() throws IOException {
-		return FileReaderUtils.getDocumentsFromXml("src/test/java/resources/testData/UserCreateEditReviewDocExceptionScen/DocumentsInvalid_DescriptionBlank.xml");
-	}
-	
-	/**
-	 * Test to check if Submit and Save buttons are disabled in Saved Document Edit form
-	 *  if Description is blank(
-	 *  Description - Length: 0 chars;
-	 *  )
-	 *  
-	 * Preconditions:
-	 * test user is created and assigned to group
-	 * test doc type is created and assigned to group
-	 * test document is saved
-	 * 
-	 * Test flow: 
-	 * click on button My Documents in Nav section
-	 * locate document in the list by title, type and status 'SAVED'
-	 * click on button Actions
-	 * update form with test data with blank description
-	 * check if Submit button is disabled
-	 * check if Save button is disabled
-	 * click cancel
-	 * 
-	 * Expected results: 
-	 * Submit button is disabled after the test data is entered
-	 * Save button is disabled after the test data is entered
-	 * 
-	 * @param document
-	 */
-	@Test (priority = 5, groups = { "documentEdit" } , dataProvider = "documentsInvalid_DescriptionBlank")
-	public void testCheckDescriptionBlankRestrictionsInEditDocForm(Document document) {
-		userNav.clickButtonMyDocuments();
-		
-		int rowNumber = userDocuments.findRowNumberByFieldValues("test document 901", "testDocType101", "SAVED");
-		userDocuments.clickActionButtonByRowNumber(rowNumber);
-		
-		savedDocReview.enterInputTitle(document.getDocumentTitle());
-		savedDocReview.selectDocTypeByText(document.getDocumentType());
-		String newDescr = "";
-		JavascriptExecutor jscript = (JavascriptExecutor)driver;
-		jscript.executeScript("arguments[0].value='"+ newDescr +"';", savedDocReview.getInputDescription());
-		
-//		assertThat("Blank restrictions msg for description does not match", savedDocReview.getTextFromMsgInvalidDescription(), is(equalTo("Must be 5-50 characters long")));
-		assertThat("Save button is not disabled", savedDocReview.getButtonSave().isEnabled(), is(false));
-		assertThat("Submit button is not disabled", savedDocReview.getButtonSubmit().isEnabled(), is(false));
-		
-		savedDocReview.clickButtonCancel();
-	}
 	
 	@DataProvider(name = "documentsInvalid_NoAttachment")
 	public static Object[] testDataDocumentsInvalidNoAttachment() throws IOException {
@@ -360,7 +265,7 @@ public class UserEditDocExceptionTest extends AbstractTest  {
 	 * 
 	 * @param document
 	 */
-	@Test (priority = 6, groups = { "documentEdit" } , dataProvider = "documentsInvalid_NoAttachment")
+	@Test (priority = 4, groups = { "documentEdit" } , dataProvider = "documentsInvalid_NoAttachment")
 	public void testCheckAttachmentRestrictionsInEditDocForm(Document document) {
 		userNav.clickButtonMyDocuments();
 		
