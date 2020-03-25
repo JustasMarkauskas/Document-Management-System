@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_surnameLength</testDataGroup>
+		<identificator>surname_blank</identificator>
+		<userName>ellen12</userName>
+		<name>Constanzo</name>
+		<surname></surname>
+		<password>gzdVUq2vxAbs</password>
+		<confirmPassword>gzdVUq2vxAbs</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+</resources.models.UserData>

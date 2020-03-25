@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>docType_InvalidLength</testDataGroup>
+		<identificator>name_tooShort</identificator>
+		<documentTypeName>Acc7</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>docType_InvalidLength</testDataGroup>
+		<identificator>name_tooLong</identificator>
+		<documentTypeName>costManagementTeam451</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+</resources.models.DocumentTypeData>

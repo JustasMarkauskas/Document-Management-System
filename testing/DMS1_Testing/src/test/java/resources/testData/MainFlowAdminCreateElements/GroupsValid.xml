@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_minLength</identificator>
+		<groupName>Shgn7</groupName>
+		<comment>autotesting</comment>
+	</Group>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_maxLength</identificator>
+		<groupName>OneLongGroupName0145</groupName>
+		<comment>autotesting autotesting autotesting autotesting au</comment>
+	</Group>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allLowercase</identificator>
+		<groupName>lowercasegroup</groupName>
+		<comment>autotesting</comment>
+	</Group>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allUppercase</identificator>
+		<groupName>UPPERCASENAME</groupName>
+		<comment>autotesting</comment>
+	</Group>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allDigits</identificator>
+		<groupName>333001567</groupName>
+		<comment>autotesting</comment>
+	</Group>
+
+	
+</resources.models.GroupData>

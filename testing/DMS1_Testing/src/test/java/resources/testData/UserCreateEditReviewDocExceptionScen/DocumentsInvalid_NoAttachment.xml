@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>docSubmit_noAttachment</testDataGroup>
+		<identificator>noAttachment</identificator>
+		<documentTitle>Holiday request Smith</documentTitle>
+		<documentType>testDocType105</documentType>
+		<description>autotesting</description>
+		<fileName></fileName>
+	</Document>
+	
+</resources.models.DocumentData>

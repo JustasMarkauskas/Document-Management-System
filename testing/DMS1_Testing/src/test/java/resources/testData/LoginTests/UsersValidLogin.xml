@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_valid</testDataGroup>
+		<identificator>simple_user</identificator>
+		<userName>SimpleUser1</userName>
+		<name>test</name>
+		<surname>test</surname>
+		<password>SimpleUser1</password>
+		<confirmPassword>SimpleUser1</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_valid</testDataGroup>
+		<identificator>admin_user</identificator>
+		<userName>DemoAdmin1</userName>
+		<name>test</name>
+		<surname>test</surname>
+		<password>DemoAdmin1</password>
+		<confirmPassword>DemoAdmin1</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+</resources.models.UserData>
+
+
+

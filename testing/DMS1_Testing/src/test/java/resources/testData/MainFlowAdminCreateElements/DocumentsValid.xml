@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_minLength</identificator>
+		<documentTypeName>Shgn7</documentTypeName>
+		<comment></comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_maxLength</identificator>
+		<documentTypeName>OneLongDocTypeName01</documentTypeName>
+		<comment>autotesting autotesting autotesting autotesting au</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allLowercase</identificator>
+		<documentTypeName>lowercasegroup</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allUppercase</identificator>
+		<documentTypeName>UPPERCASENAME</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_allDigits</identificator>
+		<documentTypeName>333001567</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_dot</identificator>
+		<documentTypeName>sales.East</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_space</identificator>
+		<documentTypeName>Expence claim</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_dash</identificator>
+		<documentTypeName>Expense-claim</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_slash</identificator>
+		<documentTypeName>Expense/claim</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_startSpace</identificator>
+		<documentTypeName> accounts1</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>name_endSpace</identificator>
+		<documentTypeName>Warehouse0 </documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+
+
+</resources.models.DocumentTypeData>

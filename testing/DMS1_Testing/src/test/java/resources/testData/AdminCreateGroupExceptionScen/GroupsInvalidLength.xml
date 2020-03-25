@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_invalidLength</testDataGroup>
+		<identificator>name_tooShort</identificator>
+		<groupName>Acc7</groupName>
+		<comment>autotesting</comment>
+	</Group>
+	<Group>
+		<testDataGroup>group_invalidLength</testDataGroup>
+		<identificator>name_tooLong</identificator>
+		<groupName>costManagementTeam451</groupName>
+		<comment>autotesting</comment>
+	</Group>
+
+</resources.models.GroupData>

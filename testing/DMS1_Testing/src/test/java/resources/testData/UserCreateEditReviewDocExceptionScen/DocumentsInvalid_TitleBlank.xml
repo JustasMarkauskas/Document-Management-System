@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>doc_invalidTitleLength</testDataGroup>
+		<identificator>title_blank</identificator>
+		<documentTitle></documentTitle>
+		<documentType>testDocType101</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	
+</resources.models.DocumentData>

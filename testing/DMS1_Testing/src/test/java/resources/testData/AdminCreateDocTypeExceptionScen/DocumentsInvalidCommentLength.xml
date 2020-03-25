@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>docType_commentLength</testDataGroup>
+		<identificator>comment_tooLong</identificator>
+		<documentTypeName>DocTypeCostAccounts</documentTypeName>
+		<comment>autotesting autotesting autotesting autotesting aut</comment>
+	</DocumentType>
+</resources.models.DocumentTypeData>

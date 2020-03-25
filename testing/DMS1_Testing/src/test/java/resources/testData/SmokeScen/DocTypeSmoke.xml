@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>smoke</identificator>
+		<documentTypeName>smokeDocType1</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+
+
+</resources.models.DocumentTypeData>

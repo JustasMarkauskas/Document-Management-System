@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_dot</identificator>
+		<userName>fox.flatware</userName>
+		<name>Rojerio</name>
+		<surname>Andrewartha</surname>
+		<password>rbxrX2pC3K</password>
+		<confirmPassword>rbxrX2pC3K</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_underscore</identificator>
+		<userName>enunciat_eok</userName>
+		<name>ROOSE</name>
+		<surname>Seyton</surname>
+		<password>Zw326CmsSq</password>
+		<confirmPassword>Zw326CmsSq</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_asterix</identificator>
+		<userName>cesium*adar</userName>
+		<name>alcott-massey</name>
+		<surname>jakobsson</surname>
+		<password>TRCDMVWrD6</password>
+		<confirmPassword>TRCDMVWrD6</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_questionMark</identificator>
+		<userName>Obertsrac?</userName>
+		<name>Massey</name>
+		<surname>BONython</surname>
+		<password>mwBSx86FW5</password>
+		<confirmPassword>mwBSx86FW5</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_startSpace</identificator>
+		<userName> thejasmine</userName>
+		<name>Heber</name>
+		<surname>Wilkinson</surname>
+		<password>DAA6RZVCBp</password>
+		<confirmPassword>DAA6RZVCBp</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameSpecChars</testDataGroup>
+		<identificator>username_endSpace</identificator>
+		<userName>oakleytrunk </userName>
+		<name>Tiebout</name>
+		<surname>KliviAN</surname>
+		<password>2DmxtVg6Rn</password>
+		<confirmPassword>2DmxtVg6Rn</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+</resources.models.UserData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>comment_maxLength</identificator>
+		<groupName>OneLongGroupName0145</groupName>
+		<comment>autotesting autotesting autotesting autotesting au</comment>
+	</Group>
+	
+
+	
+</resources.models.GroupData>

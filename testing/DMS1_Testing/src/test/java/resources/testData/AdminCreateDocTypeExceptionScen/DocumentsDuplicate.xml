@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>document_duplicate</testDataGroup>
+		<identificator>name_duplicate</identificator>
+		<documentTypeName>DuplicateDocType</documentTypeName>
+		<comment>autotesting</comment>
+	</DocumentType>
+</resources.models.DocumentTypeData>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>doc_spaces</testDataGroup>
+		<identificator>title_allSpaces</identificator>
+		<documentTitle>     </documentTitle>
+		<documentType>testDocType101</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>doc_spaces</testDataGroup>
+		<identificator>title_startSpaces</identificator>
+		<documentTitle> test</documentTitle>
+		<documentType>testDocType102</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+	<Document>
+		<testDataGroup>doc_spaces</testDataGroup>
+		<identificator>title_endSpaces</identificator>
+		<documentTitle>test </documentTitle>
+		<documentType>testDocType103</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+</resources.models.DocumentData>

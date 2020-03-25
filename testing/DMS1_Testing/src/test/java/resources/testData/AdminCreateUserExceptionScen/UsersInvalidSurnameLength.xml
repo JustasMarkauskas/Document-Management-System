@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_surnameLength</testDataGroup>
+		<identificator>surname_tooLong</identificator>
+		<userName>elinolan</userName>
+		<name>Thermon-Svend-Kadar</name>
+		<surname>Haberdasher-Winterbourne Crown-</surname>
+		<password>UcZJ3H5rsDy4</password>
+		<confirmPassword>UcZJ3H5rsDy4</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+</resources.models.UserData>

@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="serverInvalidLoginSuite">
+
+	<listeners>
+		<listener class-name="resources.utils.ListenerTest" />
+	</listeners>
+
+	<test name="InvalidLoginTest">
+		<parameter name="baseURL" value="http://akademijait.vtmc.lt:8180/dms/#/" />
+		<parameter name="apiURL" value="http://akademijait.vtmc.lt:8180/dms" />
+
+		<classes>
+			<class name="com.TheGoodGuys.DMS1.Login.ExceptionFlow.InvalidLoginTest" />
+		</classes>
+	</test>
+
+
+</suite>

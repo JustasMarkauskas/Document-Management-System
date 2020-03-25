@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentTypeData>
+	<DocumentType>
+		<testDataGroup>docType_validComment</testDataGroup>
+		<identificator>comment_maxLength</identificator>
+		<documentTypeName>testDocType101</documentTypeName>
+		<comment>autotesting autotesting autotesting autotesting au</comment>
+	</DocumentType>
+</resources.models.DocumentTypeData>

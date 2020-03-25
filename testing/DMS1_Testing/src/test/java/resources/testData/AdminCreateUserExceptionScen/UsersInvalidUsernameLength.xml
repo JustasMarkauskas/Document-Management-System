@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_usernameLength</testDataGroup>
+		<identificator>username_tooShort</identificator>
+		<userName>SCUL</userName>
+		<name>Yer</name>
+		<surname>Tae-yeon</surname>
+		<password>u9AKVxRH6B</password>
+		<confirmPassword>u9AKVxRH6B</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	<User>
+		<testDataGroup>user_usernameLength</testDataGroup>
+		<identificator>username_tooLong</identificator>
+		<userName>spurious9NEPtuniumser</userName>
+		<name>BADI</name>
+		<surname>Celorio</surname>
+		<password>0EVRgytEdk</password>
+		<confirmPassword>0EVRgytEdk</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+</resources.models.UserData>
