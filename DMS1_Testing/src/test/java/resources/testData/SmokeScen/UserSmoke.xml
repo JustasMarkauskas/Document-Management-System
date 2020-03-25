@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.UserData>
+	<User>
+		<testDataGroup>user_valid</testDataGroup>
+		<identificator>smoke</identificator>
+		<userName>smokeUser1</userName>
+		<name>testName</name>
+		<surname>testSurname</surname>
+		<password>Password1</password>
+		<confirmPassword>Password1</confirmPassword>
+		<comment>autotesting</comment>
+	</User>
+	
+	
+</resources.models.UserData>

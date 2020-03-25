@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.DocumentData>
+	<Document>
+		<testDataGroup>docSubmit_valid</testDataGroup>
+		<identificator>smoke</identificator>
+		<documentTitle>smoke document 1</documentTitle>
+		<documentType>testDocType102</documentType>
+		<description>autotesting</description>
+		<fileName>Test doc 1.pdf</fileName>
+	</Document>
+
+</resources.models.DocumentData>

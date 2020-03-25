@@ -33,7 +33,7 @@ public class ManageAutotestingData {
 		//		deleteDocumentsByComment("http://localhost:8081", "data for statistics");
 		//		createDataForStatistics("http://localhost:8081");
 		//		rejectDocument("http://localhost:8081", "testUser1", 1059, "test api Call");
-		//		System.out.println(getLastDocumentIdByUsername("http://localhost:8081", "testUser1"));
+//				System.out.println(getLastDocumentIdByUsername("http://akademijait.vtmc.lt:8180/dms", "testUser1"));
 		//		createAdmin("http://localhost:8081", "admin", "Admin name", "Admin surename", "Bandymas1", "System administration");
 //		createDataForFilterTest("http://localhost:8081");
 

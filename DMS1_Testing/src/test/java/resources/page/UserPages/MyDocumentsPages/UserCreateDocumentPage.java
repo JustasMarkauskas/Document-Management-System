@@ -97,22 +97,21 @@ public class UserCreateDocumentPage extends AbstractPage {
 
 	public void uploadSingleFileByName(String fileName) {
 		waitForClickable(buttonChooseFiles);
-		String filePath = "/home/justas/Desktop/testing_files/testdocspdf/" + fileName;
+		String filePath = System.getProperty("user.dir") + "/" + fileName;
 		buttonChooseFiles.sendKeys(filePath);
-//		Thread.sleep(500);
 		waitForFileUpload(buttonChooseFiles);
 	}
 
 	public void uploadMultipleFiles() {
 		waitForClickable(buttonChooseFiles);
-		String uploadFilePath1 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 1.pdf";
-		String uploadFilePath2 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 2.pdf";
-		String uploadFilePath3 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 3.pdf";
-		String uploadFilePath4 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 4.pdf";
-		String uploadFilePath5 = "/home/justas/Desktop/testing_files/testdocspdf/Test doc 5.pdf";
+		String path = System.getProperty("user.dir") + "/";
+		String uploadFilePath1 = path + "Test doc 1.pdf";
+		String uploadFilePath2 = path + "Test doc 2.pdf";
+		String uploadFilePath3 = path + "Test doc 3.pdf";
+		String uploadFilePath4 = path + "Test doc 4.pdf";
+		String uploadFilePath5 = path + "Test doc 5.pdf";
 		buttonChooseFiles.sendKeys(uploadFilePath1 + "\n " + uploadFilePath2 + "\n " 
 				+ uploadFilePath3 + "\n " + uploadFilePath4 + "\n " + uploadFilePath5);
-//		Thread.sleep(1000);
 		waitForFileUpload(buttonChooseFiles);
 	}
 

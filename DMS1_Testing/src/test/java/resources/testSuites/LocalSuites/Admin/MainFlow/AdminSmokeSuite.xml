@@ -1,0 +1,25 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="localAdminSmokeSuite">
+
+	<listeners>
+		<listener class-name="resources.utils.ListenerTest" />
+	</listeners>
+
+	<test name="AdminSmokeTest">
+		<parameter name="baseURL" value="http://localhost:3000/#/" />
+		<parameter name="loginUsername" value="admin" />
+		<parameter name="loginPassword" value="Bandymas1" />
+		<parameter name="apiURL" value="http://localhost:8081" />
+
+		<classes>
+			<class
+				name="com.TheGoodGuys.DMS1.Admin.MainFlow.AdminSmokeTest" />
+		</classes>
+	</test>
+
+	
+	
+
+
+</suite>

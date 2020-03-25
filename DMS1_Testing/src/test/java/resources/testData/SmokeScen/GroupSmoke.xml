@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources.models.GroupData>
+	<Group>
+		<testDataGroup>group_valid</testDataGroup>
+		<identificator>smoke</identificator>
+		<groupName>smokeGroup1</groupName>
+		<comment>autotesting</comment>
+	</Group>
+
+	
+</resources.models.GroupData>
