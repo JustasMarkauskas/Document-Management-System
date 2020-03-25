@@ -42,10 +42,12 @@ class UserHomePageDocumentContainer extends React.Component {
           }
         })
         .then(response => {
+          let totalDocuments = 0;
+          if (response.data.length > 0) {
+            totalDocuments = response.data[0].totalDocuments;
+          }
           this.setState({
-            pageCount: Math.ceil(
-              response.data[0].totalDocuments / this.state.perPage
-            ),
+            pageCount: Math.ceil(totalDocuments / this.state.perPage),
             elements: response.data,
             pageClickInfo: "DOC"
           });

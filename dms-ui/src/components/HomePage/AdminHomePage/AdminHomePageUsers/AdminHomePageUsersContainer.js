@@ -61,10 +61,12 @@ class AdminHomePageUsersContainer extends React.Component {
         }
       })
       .then(response => {
+        let totalUsers = 0;
+        if (response.data.length > 0) {
+          totalUsers = response.data[0].totalUsers;
+        }
         this.setState({
-          pageCount: Math.ceil(
-            response.data[0].totalUsers / this.state.perPage
-          ),
+          pageCount: Math.ceil(totalUsers / this.state.perPage),
           elements: response.data,
           isSearchElements: false
         });
