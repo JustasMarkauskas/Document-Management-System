@@ -1,2 +1,0 @@
-#!/bin/sh
-mvn clean install org.codehaus.cargo:cargo-maven2-plugin:1.7.7:run -DskipTests -Dcargo.maven.containerId=tomcat9x -Dcargo.servlet.port=8081 -Dcargo.maven.containerUrl=http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/9.0.29/tomcat-9.0.29.zip
