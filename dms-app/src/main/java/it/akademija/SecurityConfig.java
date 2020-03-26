@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.cors().and().authorizeRequests()
 				// UI without security
-				.antMatchers("/", "/swagger-ui.html", "/login*").permitAll()
+				.antMatchers("/", "/api/user/admin", "/api/role", "/swagger-ui.html", "/login*").permitAll()
 				// all /api/ are safe, accessed only when user is logged in
 				.antMatchers("/api/**").authenticated().and().formLogin().permitAll()
 				.successHandler(new SimpleUrlAuthenticationSuccessHandler() {
