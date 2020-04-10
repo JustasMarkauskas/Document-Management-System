@@ -385,6 +385,8 @@ public class UserCreateDocExceptionTest extends AbstractTest  {
 		
 		createDocument.uploadSingleFileByName(document.getFileName());
 		
+		assertThat("Blank description msg does not match", createDocument.getTextFromMsgInvalidDescription(), is(equalTo("Please enter a description")));
+		
 		assertThat("Save button is not disabled", createDocument.getButtonSave().isEnabled(), is(false));
 		assertThat("Submit button is not disabled", createDocument.getButtonSubmit().isEnabled(), is(false));
 		
